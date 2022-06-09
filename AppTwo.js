@@ -1,18 +1,17 @@
-import React, {useEffect, Component, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Platform,
   StyleSheet,
   ImageBackground,
   StatusBar,
-
+  LogBox,
 } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import {NavigationContainer} from '@react-navigation/native';
-
-
+import StackNavigatior from './src/navigations/navigation';
+import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 
 function AppTwo({navigation}) {
-
   const [isVisible, setIsVisible] = useState(true);
   const Hide_Splash_Screen = () => {
     setIsVisible(false);
@@ -39,8 +38,7 @@ function AppTwo({navigation}) {
   let Splash_Screen = (
     <ImageBackground
       source={require('./src/images/Splash.png')}
-      style={styles.SplashScreen_RootView}>
-    </ImageBackground>
+      style={styles.SplashScreen_RootView}></ImageBackground>
   );
   return (
     <>
@@ -48,6 +46,7 @@ function AppTwo({navigation}) {
       {isVisible === true ? (
         Splash_Screen
       ) : (
+        // <HomeScreen />
         <NavigationContainer>
           <StackNavigatior />
         </NavigationContainer>
