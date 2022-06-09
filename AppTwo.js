@@ -37,7 +37,7 @@ function AppTwo({navigation}) {
 
   let Splash_Screen = (
     <ImageBackground
-      source={require('./src/images/Splash.png')}
+      source={require('./src/images/SplashScreen.png')}
       style={styles.SplashScreen_RootView}></ImageBackground>
   );
   return (

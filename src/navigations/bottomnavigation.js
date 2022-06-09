@@ -28,14 +28,18 @@ function MybottomTabs() {
         animationEnabled: true,
         tabBarActiveBackgroundColor: 'white',
         tabBarInactiveBackgroundColor: 'white',
+        tabBarStyle: {
+          height: hp(Platform?.OS == 'ios' ? '10%' : '8%'),
+          backgroundColor: 'white',
+        },
       })}>
       <Tab.Screen
         name="settingScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="home" color={color} size={hp('3')} />
+            <Ionicons name="settings-outline" color={color} size={hp('3')} />
           ),
-          title: `Home`,
+          title: `Setting`,
           tabBarLabelStyle: {
             fontSize: 15,
             marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
@@ -50,7 +54,7 @@ function MybottomTabs() {
           tabBarIcon: ({focused, color, size}) => (
             <Ionicons name="home" color={color} size={hp('3')} />
           ),
-          title: '',
+          title: 'Home',
           tabBarLabelStyle: {
             fontSize: 15,
             marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),

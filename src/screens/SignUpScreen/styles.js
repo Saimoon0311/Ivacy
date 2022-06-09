@@ -21,7 +21,8 @@ export const styles = StyleSheet.create({
     fontSize: hp('3.5'),
     fontWeight: 'bold',
     color: color.textSecondaryColor,
-    // marginBottom: hp('1'),
+    marginLeft: wp('4'),
+    marginBottom: hp('1'),
   },
   forgotTextView: {
     alignSelf: 'flex-end',
@@ -44,8 +45,9 @@ export const styles = StyleSheet.create({
     fontSize: hp('2'),
   },
   innerView: {
-    height: hp('55'),
+    // height: hp('28'),
     justifyContent: 'flex-end',
     alignSelf: 'flex-start',
+    marginTop: hp('6'),
   },
 });
