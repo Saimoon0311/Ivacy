@@ -7,6 +7,9 @@ import {
 import {color} from '../../Reusedcomponents/color';
 
 export const styles = StyleSheet.create({
+  container:{
+    flex:1,
+  },
   title: {
     textAlign: 'center',
     fontSize: hp('3'),

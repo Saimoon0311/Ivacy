@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Ionicons from 'npm i react-native-vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
   widthPercentageToDP as wp,
