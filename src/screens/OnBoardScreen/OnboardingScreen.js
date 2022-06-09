@@ -17,6 +17,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { Colors } from 'react-native-paper';
 
 const {width, height} = Dimensions.get('window');
 
@@ -77,7 +78,7 @@ const OnboardingScreen = ({navigation}) => {
         style={{
           height: hp('7'),
           justifyContent: 'space-between',
-          paddingLeft: wp('10'),
+          paddingLeft: wp('50'),
         }}>
         {/* Indicator container */}
         <View
@@ -85,6 +86,7 @@ const OnboardingScreen = ({navigation}) => {
             flexDirection: 'row',
             justifyContent: 'center',
             marginTop: 10,
+            paddingLeft:wp('28')
 
           }}>
           {/* Render indicator */}
@@ -94,8 +96,9 @@ const OnboardingScreen = ({navigation}) => {
               style={[
                 styles.indicator,
                 currentSlideIndex == index && {
-                  backgroundColor: COLORS.white,
-                  width: 25,
+                  backgroundColor: color.textColor,
+                  height:10 ,
+                  width: 10,
 
                 },
               ]}
@@ -105,11 +108,11 @@ const OnboardingScreen = ({navigation}) => {
         
         <View style={{marginBottom: 20}}>
           {currentSlideIndex == slides.length - 1 ? (
-            <View style={{height: 50}}>
+            <View style={{height: 50,marginLeft:wp('15')}}>
               <TouchableOpacity
-                style={styles.btn}
+                style={styles.getStartedBtn}
                 onPress={() => navigation.replace('MybottomTabs')}>
-                <Text style={{fontWeight: 'bold', fontSize: 15, color: 'gray'}}>
+                <Text style={{fontWeight:'bold' ,fontSize: 15, color: color.textColor}}>
                   GET STARTED
                 </Text>
               </TouchableOpacity>
@@ -136,19 +139,21 @@ const OnboardingScreen = ({navigation}) => {
                   SKIP
                 </Text>
               </TouchableOpacity>
-              <View style={{width: 15}} />
+              <View style={{width: wp('5.5')}}/>
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={goToNextSlide}
-                style={styles.btn}>
+                style={{...styles.btn,paddingLeft:wp('3.2'),flexDirection:'row'}}>
                 <Text
                   style={{
-                    fontWeight: 'bold',
-                    fontSize: 15,
-                    color: 'gray',
+                    fontSize: wp('3.2'),
+                    color: color.textColor,
+                    width: wp('8.5'),
+                    fontWeight:'bold',
                   }}>
                   NEXT
                 </Text>
+                <Image source={require('../../images/arrow.png')}/>
               </TouchableOpacity>
             </View>
           )}
@@ -178,61 +183,7 @@ const Slide = ({item}) => {
     </ImageBackground>
   );
 };
-  const btnFunction=()=>{
-    return (
-      <View style={{marginBottom: 20}}>
-      {currentSlideIndex == slides.length - 1 ? (
-        <View style={{height: 50}}>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => navigation.replace('MybottomTabs')}>
-            <Text style={{fontWeight: 'bold', fontSize: 15, color: 'gray'}}>
-              GET STARTED
-            </Text>
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={[
-              styles.btn,
-              {
-                borderColor: COLORS.white,
-                borderWidth: 1,
-                backgroundColor: 'transparent',
-              },
-            ]}
-            onPress={skip}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 15,
-                color: COLORS.white,
-              }}>
-              SKIP
-            </Text>
-          </TouchableOpacity>
-          <View style={{width: 15}} />
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={goToNextSlide}
-            style={styles.btn}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 15,
-                color: 'gray',
-              }}>
-              NEXT
-            </Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
-    )
-  }
-  
+
  
   return (
     <>
@@ -287,15 +238,26 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   indicator: {
-    height: 2.5,
+    height:10 ,
     width: 10,
-    backgroundColor: 'grey',
-    marginHorizontal: 3,
-    borderRadius: 2,
+    backgroundColor: 'white',
+    marginHorizontal: 5,
+    borderRadius: 15,
+    marginBottom:hp('2'),
+    
+
   },
   btn: {
-    height: hp('4'),
-    width:wp('15'),
+    height: hp('5'),
+    width:wp('20'),
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  getStartedBtn: {
+    height: hp('5'),
+    width:wp('30'),
     borderRadius: 5,
     backgroundColor: '#fff',
     justifyContent: 'center',
