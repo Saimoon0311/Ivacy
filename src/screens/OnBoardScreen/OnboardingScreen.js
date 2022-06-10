@@ -9,7 +9,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Dimensions,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {color} from '../../components/color';
@@ -17,7 +17,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { Colors } from 'react-native-paper';
+import {Colors} from 'react-native-paper';
+import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 
 const {width, height} = Dimensions.get('window');
 
@@ -28,24 +29,24 @@ const slides = [
     id: '1',
     image: require('../../images/Onboard1.png'),
     title: 'Pay with Crypto.',
-    subtitle: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est',
+    subtitle:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est',
   },
   {
     id: '2',
     image: require('../../images/Onboard2.png'),
     title: 'Find new places',
-    subtitle: 
+    subtitle:
       'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est',
-    
   },
   {
     id: '3',
     image: require('../../images/Onboard3.png'),
     title: 'Communicate with friends',
-    subtitle: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est',
+    subtitle:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est',
   },
 ];
-
 
 const OnboardingScreen = ({navigation}) => {
   const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
@@ -73,21 +74,20 @@ const OnboardingScreen = ({navigation}) => {
   };
 
   const Footer = () => {
-    return (        
+    return (
       <View
         style={{
           height: hp('7'),
           justifyContent: 'space-between',
-          paddingLeft: wp('50'),
+          paddingLeft: wp('45'),
         }}>
         {/* Indicator container */}
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-            marginTop: 10,
-            paddingLeft:wp('28')
-
+            // marginTop: 10,
+            paddingLeft: wp('28'),
           }}>
           {/* Render indicator */}
           {slides.map((_, index) => (
@@ -97,28 +97,36 @@ const OnboardingScreen = ({navigation}) => {
                 styles.indicator,
                 currentSlideIndex == index && {
                   backgroundColor: color.textColor,
-                  height:10 ,
+                  height: 10,
                   width: 10,
-
                 },
               ]}
             />
           ))}
         </View>
-        
-        <View style={{marginBottom: 20}}>
+
+        <View>
           {currentSlideIndex == slides.length - 1 ? (
-            <View style={{height: 50,marginLeft:wp('15')}}>
+            <View
+              style={{height: 50, marginLeft: wp('15'), marginTop: hp('-10')}}>
               <TouchableOpacity
                 style={styles.getStartedBtn}
-                onPress={() => navigation.replace('MybottomTabs')}>
-                <Text style={{fontWeight:'bold' ,fontSize: 15, color: color.textColor}}>
+                onPress={() => navigation.replace('LoginScreen')}>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 15,
+                    color: color.textColor,
+                  }}>
                   GET STARTED
                 </Text>
               </TouchableOpacity>
             </View>
           ) : (
-            <View style={{flexDirection: 'row'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+              }}>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={[
@@ -139,97 +147,82 @@ const OnboardingScreen = ({navigation}) => {
                   SKIP
                 </Text>
               </TouchableOpacity>
-              <View style={{width: wp('5.5')}}/>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={goToNextSlide}
-                style={{...styles.btn,paddingLeft:wp('3.2'),flexDirection:'row'}}>
-                <Text
-                  style={{
-                    fontSize: wp('3.2'),
-                    color: color.textColor,
-                    width: wp('8.5'),
-                    fontWeight:'bold',
-                  }}>
-                  NEXT
-                </Text>
-                <Image source={require('../../images/arrow.png')}/>
-              </TouchableOpacity>
+              <View style={{width: wp('5.5')}} />
+              <ArrowButtonCom
+                onPress={() => goToNextSlide()}
+                mgRight={wp('10')}
+                text="Next"
+              />
             </View>
           )}
         </View>
       </View>
       // </ImageBackground>
-
     );
   };
-  
-const Slide = ({item}) => {
-  return (
-     <ImageBackground  style={styles.imageBackgroundStyle} source={item?.image}>
-    <View style={styles.container}>
-      <View >
-        <Text  style={styles.title} numberOfLines={2}>
-          {item?.title}
-        </Text>
-        <View style={{ 
-    width:wp('140'),
-         }}>
-      <Text style={styles.subtitle}>{item?.subtitle}</Text>
-        </View>
-      </View>
-      {Footer()}
-    </View>
-    </ImageBackground>
-  );
-};
 
- 
+  const Slide = ({item}) => {
+    return (
+      <ImageBackground style={styles.imageBackgroundStyle} source={item?.image}>
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.title}>{item?.title}</Text>
+            <View
+              style={{
+                width: wp('140'),
+              }}>
+              <Text style={styles.subtitle}>{item?.subtitle}</Text>
+            </View>
+          </View>
+          <View style={{position: 'absolute', bottom: hp('-20')}}>
+            {Footer()}
+          </View>
+        </View>
+      </ImageBackground>
+    );
+  };
+
   return (
     <>
-    {/* <SafeAreaView style={{ backgroundColor: "yellow"}}> */}
+      {/* <SafeAreaView style={{ backgroundColor: "yellow"}}> */}
       <StatusBar backgroundColor={color.themColorPrimary} />
       <FlatList
         ref={ref}
         onMomentumScrollEnd={updateCurrentSlideIndex}
-        contentContainerStyle={{height: hp('100'),backgroundColor:"yellow"}}
+        contentContainerStyle={{height: hp('100')}}
         showsHorizontalScrollIndicator={false}
         horizontal
         data={slides}
         pagingEnabled
         renderItem={({item}) => <Slide item={item} />}
       />
-    {/* </SafeAreaView> */}
+      {/* </SafeAreaView> */}
     </>
-
   );
 };
 
 const styles = StyleSheet.create({
- imageBackgroundStyle:{
-
-  width:wp('100') ,height:hp('100'),
-
- },
- container:{
-  paddingTop:hp('50'),
-  alignItems: 'baseline'
- },
+  imageBackgroundStyle: {
+    width: wp('100'),
+    height: hp('100'),
+  },
+  container: {
+    paddingTop: hp('50'),
+    alignItems: 'baseline',
+  },
   subtitle: {
     color: COLORS.white,
     fontSize: wp('4'),
-    marginTop: 10,
+    marginTop: hp('2'),
     maxWidth: '70%',
     lineHeight: 23,
-    paddingLeft:wp('5'),
-  
+    paddingLeft: wp('5'),
   },
   title: {
     color: COLORS.white,
     fontSize: wp('10'),
-    width:wp('50'),
-    paddingLeft:wp('5'),
-
+    width: wp('80'),
+    paddingLeft: wp('5'),
     // textAlign: 'center',
   },
   image: {
@@ -238,18 +231,16 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   indicator: {
-    height:10 ,
+    height: 10,
     width: 10,
     backgroundColor: 'white',
     marginHorizontal: 5,
     borderRadius: 15,
-    marginBottom:hp('2'),
-    
-
+    marginBottom: hp('2'),
   },
   btn: {
     height: hp('5'),
-    width:wp('20'),
+    width: wp('20'),
     borderRadius: 5,
     backgroundColor: '#fff',
     justifyContent: 'center',
@@ -257,7 +248,7 @@ const styles = StyleSheet.create({
   },
   getStartedBtn: {
     height: hp('5'),
-    width:wp('30'),
+    width: wp('30'),
     borderRadius: 5,
     backgroundColor: '#fff',
     justifyContent: 'center',

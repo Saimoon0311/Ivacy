@@ -10,8 +10,10 @@ import {
 export const ArrowButtonCom = props => {
   let width = props?.width ? props.width : wp('25');
   let height = props?.height ? props.height : hp('5');
+  let mgRight = props.mgRight ? props.mgRight : wp('0');
   return (
     <TouchableOpacity
+      onPress={() => props?.onPress()}
       style={{
         flexDirection: 'row',
         justifyContent: 'center',
@@ -19,7 +21,8 @@ export const ArrowButtonCom = props => {
         height: height,
         alignItems: 'center',
         backgroundColor: 'white',
-        borderRadius: 10,
+        borderRadius: 5,
+        marginRight: mgRight,
       }}>
       <Text
         style={{
