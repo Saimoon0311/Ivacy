@@ -29,16 +29,10 @@ export default function StackNavigatior() {
       screenOptions={{
         animation: 'slide_from_left',
         headerShown: false,
-      }}
-      initialRouteName="HomeScreen">
-      {isAppFirstLaunched && (
-            <Stack.Screen
-              name="OnboardingScreen"
-              component={OnboardingScreen}
-            />
-          )}
+      }}>
+      <Stack.Screen name="LoginScreen" component={screens.LoginScreen} />
+      <Stack.Screen name="SignUpScreen" component={screens.SignUpScreen} />
       <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
-
     </Stack.Navigator>
   )}
   </>
