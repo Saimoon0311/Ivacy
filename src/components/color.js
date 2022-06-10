@@ -11,4 +11,7 @@ export const color = {
   white: '#ffff',
   black: '#000000',
   badgeColor: '#FF2D2D',
+
+  // ivacay
+  textColor: '#8161C8',
 };
