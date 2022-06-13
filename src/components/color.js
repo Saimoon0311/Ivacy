@@ -11,6 +11,7 @@ export const color = {
   white: '#ffff',
   black: '#000000',
   badgeColor: '#FF2D2D',
+  background2: '#D8D8D8',
 
  
 };
