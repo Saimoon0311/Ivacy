@@ -8,8 +8,8 @@ import {color} from '../../components/color';
 
 export const styles = StyleSheet.create({
   container: {
-    width: wp('109'),
-    height: hp('100'),
+    flex: 1,
+    marginTop: hp('10'),
   },
   backgroundImage: {width: wp('100'), height: hp('110')},
   loginView: {
