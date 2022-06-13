@@ -17,7 +17,7 @@ export const BackHeaderCom = props => {
         <Ionicons
           name="arrow-back"
           color={color.textPrimaryColor}
-          size={hp('3')}
+          size={hp('4')}
         />
       </TouchableOpacity>
       <Text style={styles.headerText}>{props?.text}</Text>

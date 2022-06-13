@@ -12,11 +12,13 @@ import TextImageComponent from '../../components/TextImageComponent/TextImageCom
 import { BackHeaderCom } from '../../components/BackHeaderComponent/backHeaderCom';
 
 
-const userScreen = () => {  
-
+const userScreen = ({navigation}) => {  
+  const goBack =()=>{
+    navigation.goBack();
+  }
   return (
     <>
-    <BackHeaderCom/>
+    <BackHeaderCom goBack={goBack}/>
           
     <ScrollView  showsVerticalScrollIndicator={false}   contentContainerStyle={{...styles.container,}}>
       <Text style={{...globalStyles.globalTextStyles,color:color.blacktext,textAlign:'center',marginBottom:hp('1.5')}}>Profile</Text>
