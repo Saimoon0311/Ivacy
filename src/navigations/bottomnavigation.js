@@ -19,6 +19,7 @@ function MybottomTabs() {
   // }, [cartDataLength]);
   return (
     <Tab.Navigator
+      initialRouteName="HomeScreen"
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarHideOnKeyboard: true,
