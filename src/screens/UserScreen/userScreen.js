@@ -6,11 +6,13 @@ import { color} from '../../components/color';
 import { globalStyles } from '../../config/globalStyles';
 
 const userScreen = () => {  
+
   return (
     <View style={styles.container}>
       <Text style={{...globalStyles.globalTextStyles,color:color.blacktext}}>Profile</Text>
       <Image style={styles.image} resizeMode='stretch' source={require('../../images/userImage.png')} />
     </View>
+
   );
 };
 
