@@ -43,7 +43,7 @@ const LoginScreen = ({navigation}) => {
     <View style={styles.container}>
       <ImageBackground
         style={styles.backgroundImage}
-        source={require('../../images/Group679.png')}>
+        source={require('../../images/background.png')}>
         <ScrollView
           contentContainerStyle={{paddingBottom: isKeyboardVisible}}
           showsVerticalScrollIndicator={false}>

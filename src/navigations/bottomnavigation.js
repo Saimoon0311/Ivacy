@@ -23,12 +23,12 @@ function MybottomTabs() {
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarHideOnKeyboard: true,
-        // tabBarActiveTintColor: color.textPrimaryColor,
-        tabBarInactiveTintColor: '#919191',
+        tabBarActiveTintColor: color.white,
+        tabBarInactiveTintColor: color.borderThirdColor,
         swipeEnabled: true,
         animationEnabled: true,
-        tabBarActiveBackgroundColor: 'white',
-        tabBarInactiveBackgroundColor: 'white',
+        tabBarActiveBackgroundColor: color.textPrimaryColor,
+        tabBarInactiveBackgroundColor: color.textPrimaryColor,
         tabBarStyle: {
           height: hp(Platform?.OS == 'ios' ? '10%' : '8%'),
           backgroundColor: 'white',
@@ -38,11 +38,11 @@ function MybottomTabs() {
         name="settingScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="settings-outline" color={color} size={hp('3')} />
+            <Ionicons name="settings-outline" color={color} size={hp('3.5')} />
           ),
-          title: `Setting`,
+          title: ``,
           tabBarLabelStyle: {
-            fontSize: 15,
+            fontSize: 0.5,
             marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
           },
         }}
@@ -53,11 +53,11 @@ function MybottomTabs() {
         name="HomeScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="home" color={color} size={hp('3')} />
+            <Ionicons name="home" color={color} size={hp('3.5')} />
           ),
-          title: 'Home',
+          title: '',
           tabBarLabelStyle: {
-            fontSize: 15,
+            fontSize: 0.5,
             marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
           },
         }}
@@ -67,11 +67,11 @@ function MybottomTabs() {
         name="userScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="list" color={color} size={hp('3')} />
+            <Ionicons name="person" color={color} size={hp('3.5')} />
           ),
-          title: 'Category',
+          title: '',
           tabBarLabelStyle: {
-            fontSize: 15,
+            fontSize: 0.5,
             marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
           },
         }}

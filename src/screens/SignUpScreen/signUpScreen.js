@@ -39,7 +39,7 @@ export default function SignUpScreen() {
   return (
     <View>
       <ImageBackground
-        source={require('../../images/Group679.png')}
+         source={require('../../images/background.png')}
         style={styles.backgroundImage}>
         <View style={styles.innerView}>
           <Image

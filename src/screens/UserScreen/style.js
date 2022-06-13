@@ -1,9 +1,16 @@
-import React from 'react';
-import {Dimensions, Platform, StyleSheet} from 'react-native';
-
+import { StyleSheet} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export const styles = StyleSheet.create({
   container:{
-    flex:1,
+    fontSize:hp('6'),
+    
+  },
+  image:{
+    width:wp('45'),
+    height:hp('25')
   }
  });
