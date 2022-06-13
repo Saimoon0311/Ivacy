@@ -8,7 +8,7 @@ import {
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
-import {styles} from '../HomeScreen/style';
+import {styles} from './style';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -77,7 +77,11 @@ const LoginScreen = ({navigation}) => {
                   <Text style={styles.signupText}> Signup</Text>
                 </TouchableOpacity>
               </View>
-              <ArrowButtonCom text="Submit" height={hp('4')} />
+              <ArrowButtonCom
+                onPress={() => navigation.navigate('MybottomTabs')}
+                text="Submit"
+                height={hp('4')}
+              />
             </View>
           </View>
         </ScrollView>

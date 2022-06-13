@@ -9,7 +9,7 @@ import {color} from '../color';
 export const styles = StyleSheet.create({
   button:{
     flexDirection:'row',
-    backgroundColor: color.background2,
+    backgroundColor: color.textImagebackgroundColor,
      width:wp('85'),
     height:hp('6'), 
     marginBottom:hp('1.5'),

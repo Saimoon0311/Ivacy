@@ -9,6 +9,8 @@ export const styles = StyleSheet.create({
   container:{
     fontSize:hp('6'),
     alignItems:'center',
+    paddingTop:hp('2'),
+    height:hp('95'),
   },
   button:{
     flexDirection:'row',

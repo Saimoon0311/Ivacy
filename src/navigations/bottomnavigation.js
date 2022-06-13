@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -9,40 +8,41 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, Platform, Dimensions, StyleSheet} from 'react-native';
 import {screens} from '../screens/index';
 import {color} from '../components/color';
+import Svg, {Rect} from 'react-native-svg';
 
 const Tab = createBottomTabNavigator();
 function MybottomTabs() {
-  // const cartDataLength = store.getState().cartDataLength.cartDataLength;
-  // const [dummy, setDummy] = useState(1);
-  // useEffect(() => {
-  //   setDummy(1);
-  // }, [cartDataLength]);
   return (
     <Tab.Navigator
+      initialRouteName="HomeScreen"
       screenOptions={({route}) => ({
-        headerShown: false,
-        tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: color.white,
-        tabBarInactiveTintColor: color.borderThirdColor,
+        tabBarInactiveTintColor: 'transparent',
+        headerShown: false,
+        tabBarActiveBackgroundColor: color.bottomBarColor,
+        tabBarInactiveBackgroundColor: color.bottomBarColor,
+        tabBarHideOnKeyboard: true,
         swipeEnabled: true,
         animationEnabled: true,
-        tabBarActiveBackgroundColor: color.textPrimaryColor,
-        tabBarInactiveBackgroundColor: color.textPrimaryColor,
         tabBarStyle: {
-          height: hp(Platform?.OS == 'ios' ? '10%' : '8%'),
-          backgroundColor: 'white',
+          height: hp(Platform?.OS == 'ios' ? '15' : '8%'),
+          bottom: Platform.OS == 'ios' ? hp('-3.6') : hp('0'),
         },
       })}>
       <Tab.Screen
         name="settingScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="settings-outline" color={color} size={hp('3.5')} />
+            <Ionicons
+              name={color == '#ffff' ? 'settings' : 'settings-outline'}
+              color={'white'}
+              size={hp('3')}
+            />
           ),
-          title: ``,
+          title: `Setting`,
           tabBarLabelStyle: {
-            fontSize: 0.5,
-            marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
+            fontSize: 15,
+            marginBottom: hp(Platform?.OS == 'ios' ? '3' : '1'),
           },
         }}
         component={screens.settingScreen}
@@ -52,12 +52,16 @@ function MybottomTabs() {
         name="HomeScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="home" color={color} size={hp('3.5')} />
+            <Ionicons
+              name={color == '#ffff' ? 'home' : 'home-outline'}
+              color={'white'}
+              size={hp('3')}
+            />
           ),
-          title: '',
+          title: 'Home',
           tabBarLabelStyle: {
-            fontSize: 0.5,
-            marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
+            fontSize: 15,
+            marginBottom: hp(Platform?.OS == 'ios' ? '3' : '1'),
           },
         }}
         component={screens.HomeScreen}
@@ -66,12 +70,16 @@ function MybottomTabs() {
         name="userScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="person" color={color} size={hp('3.5')} />
+            <Ionicons
+              name={color == '#ffff' ? 'person' : 'person-outline'}
+              color={'white'}
+              size={hp('3')}
+            />
           ),
-          title: '',
+          title: 'Category',
           tabBarLabelStyle: {
-            fontSize: 0.5,
-            marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
+            fontSize: 15,
+            marginBottom: hp(Platform?.OS == 'ios' ? '3' : '1'),
           },
         }}
         component={screens.userScreen}

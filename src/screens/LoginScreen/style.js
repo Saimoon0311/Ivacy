@@ -4,90 +4,48 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {color} from '../../Reusedcomponents/color';
+import {color} from '../../components/color';
 
 export const styles = StyleSheet.create({
-  container:{
-    flex:1,
+  container: {
+    width: wp('109'),
+    height: hp('100'),
   },
-  title: {
-    textAlign: 'center',
-    fontSize: hp('3'),
-    // fontWeight: 'bold',
-    color: color.textPrimaryColor,
-    marginTop: hp('5'),
-    fontFamily: 'Poppins-SemiBold',
-  },
-  body: {
-    width: wp('87'),
+  backgroundImage: {width: wp('100'), height: hp('110')},
+  loginView: {
+    width: wp('90'),
     alignSelf: 'center',
-    marginTop: hp('5'),
-    justifyContent: 'space-between',
+    // backgroundColor: 'yellow',
   },
-  picker: {
-    width: wp('29.9'),
-    borderWidth: 1,
-    borderRadius: 5,
+  mainHeading: {
+    fontSize: hp('3.5'),
+    fontWeight: 'bold',
+    color: color.textSecondaryColor,
+    // marginBottom: hp('1'),
   },
-  input: {
-    borderWidth: 1,
-    width: wp('87'),
-    //     marginLeft: 'auto',
-    //     paddingLeft: wp('3'),
-    borderRadius: 5,
-    backgroundColor: 'transparent',
-    height: hp('6'),
-    justifyContent: 'center',
-    alignItems: 'center',
+  forgotTextView: {
+    alignSelf: 'flex-end',
+    marginTop: hp('2'),
   },
-  forgetText: {
-    marginLeft: 'auto',
-    marginTop: hp('1'),
-    color: '#0088FF',
-  },
-  loginButton: {
-    backgroundColor: color.textPrimaryColor,
-    textAlign: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    width: Platform.OS == 'ios' ? wp('60') : wp('50'),
-    height: hp('6'),
-    alignSelf: 'center',
-    marginTop: hp('5'),
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  inputTitle: {
-    marginBottom: hp('2'),
+  signupText: {
     fontSize: hp('2'),
-    fontFamily: 'Poppins-SemiBold',
-    color: 'gray',
+    color: color.textSecondaryColor,
+    fontWeight: 'bold',
   },
-  codeTextStyle: {
-    backgroundColor: 'transparent',
-    height: hp('4'),
-    justifyContent: 'center',
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    paddingTop: Platform.OS == 'ios' ? hp('0.8') : hp('0'),
+  bottomView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: hp('1'),
   },
-  textContainerStyle: {
-    borderRadius: 5,
-    backgroundColor: 'transparent',
-  },
-  textInputStyle: {
-    backgroundColor: 'transparent',
-    fontSize: hp('2.5'),
-    height: hp('7'),
-    color: 'black',
-  },
-  forgetPassword: {
-    color: '#0088FF',
-    fontFamily: 'Poppins-Regular',
-  },
-  loginButtonText: {
+  newUserText: {
     color: 'white',
-    fontSize: Platform.OS == 'ios' ? hp('2.5') : hp('2.3'),
-    fontFamily: 'Poppins-Regular',
+    fontWeight: 'bold',
+    fontSize: hp('2'),
+  },
+  innerView: {
+    height: hp('55'),
+    justifyContent: 'flex-end',
+    alignSelf: 'flex-start',
   },
 });
