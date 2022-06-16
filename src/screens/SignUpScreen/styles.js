@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: hp('1'),
+    marginTop: hp('1.5'),
   },
   newUserText: {
     color: 'white',

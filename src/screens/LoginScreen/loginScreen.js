@@ -19,7 +19,7 @@ import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButton
 import {ApiGet, ApiPost} from '../../config/helperFunction';
 import {LoginUrl, UserUrl} from '../../config/Urls';
 import {useDispatch} from 'react-redux';
-import types from '../../Redux/type';
+import types from '../../redux/type';
 import {showMessage} from 'react-native-flash-message';
 
 const LoginScreen = ({route, navigation}) => {
@@ -84,6 +84,18 @@ const LoginScreen = ({route, navigation}) => {
             backgroundColor: color.textThirdColor,
             style: {alignItems: 'center'},
           });
+        }
+        else {
+          showMessage({
+            type: 'danger',
+            icon: 'auto',
+            message: 'Warning',
+            description: 'Network Request Failed',
+            floating: true,
+            backgroundColor: color.textThirdColor,
+            style: {alignItems: 'center'},
+          });
+          setLoading(false);
         }
       });
     } else {
@@ -184,7 +196,7 @@ const LoginScreen = ({route, navigation}) => {
                 loading={isloading}
                 onPress={() => loginFunction()}
                 text="Submit"
-                height={hp('4')}
+                height={hp('4.5')}
               />
             </View>
           </View>

@@ -12,7 +12,7 @@ import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {FrontPackageCom} from '../../components/FrontPackageComponent/frontPackageCom';
 import {useDispatch} from 'react-redux';
-import types from '../../Redux/type';
+import types from '../../redux/type';
 
 const HomeScreen = () => {
   const disptach = useDispatch();
