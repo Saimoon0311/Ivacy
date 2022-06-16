@@ -25,8 +25,13 @@ function MybottomTabs() {
         swipeEnabled: true,
         animationEnabled: true,
         tabBarStyle: {
-          height: hp(Platform?.OS == 'ios' ? '15' : '8%'),
-          bottom: Platform.OS == 'ios' ? hp('-3.6') : hp('0'),
+          height: hp('8'),
+          paddingBottom: hp('0'),
+          bottom: Platform.OS == 'ios' ? hp('4') : hp('2'),
+          width: wp('90'),
+          alignSelf: 'center',
+          borderRadius: 20,
+          overflow: 'hidden',
         },
       })}>
       <Tab.Screen
@@ -42,7 +47,7 @@ function MybottomTabs() {
           title: `Setting`,
           tabBarLabelStyle: {
             fontSize: 15,
-            marginBottom: hp(Platform?.OS == 'ios' ? '3' : '1'),
+            marginBottom: hp('1'),
           },
         }}
         component={screens.settingScreen}
@@ -61,7 +66,7 @@ function MybottomTabs() {
           title: 'Home',
           tabBarLabelStyle: {
             fontSize: 15,
-            marginBottom: hp(Platform?.OS == 'ios' ? '3' : '1'),
+            marginBottom: hp('1'),
           },
         }}
         component={screens.HomeScreen}
@@ -79,7 +84,7 @@ function MybottomTabs() {
           title: 'Category',
           tabBarLabelStyle: {
             fontSize: 15,
-            marginBottom: hp(Platform?.OS == 'ios' ? '3' : '1'),
+            marginBottom: hp('1'),
           },
         }}
         component={screens.userScreen}

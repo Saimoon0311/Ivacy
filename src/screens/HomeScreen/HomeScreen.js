@@ -1,4 +1,11 @@
-import {Text, View, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StatusBar,
+  PlatformColor,
+  Platform,
+} from 'react-native';
 import React from 'react';
 import {styles} from './style';
 import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
@@ -11,6 +18,10 @@ const HomeScreen = () => {
   const disptach = useDispatch();
   return (
     <View style={styles.container}>
+      <StatusBar
+        hidden={false}
+        barStyle={Platform.OS == 'ios' ? 'dark-content' : 'light-content'}
+      />
       <FrontPackageCom />
       <TouchableOpacity onPress={() => disptach({type: types.LogoutType})}>
         <Text>HomeScreen</Text>

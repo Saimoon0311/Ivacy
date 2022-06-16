@@ -9,7 +9,6 @@ import {
 import FlashMessage from 'react-native-flash-message';
 import {NavigationContainer} from '@react-navigation/native';
 import StackNavigatior from './src/navigations/navigation';
-import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 
 function AppTwo({navigation}) {
   const [isVisible, setIsVisible] = useState(true);

@@ -10,58 +10,93 @@ const Stack = createNativeStackNavigator();
 
 export default function StackNavigatior() {
   const {userData} = useSelector(state => state.userData);
-  console.log(13, userData);
-  const [isAppFirstLaunched, setIsAppFirstLaunched] = useState(null);
-  useEffect(() => {
-    (async () => {
-      const appData = await AsyncStorage.getItem('isAppFirstLaunched');
-
-      if (appData == null) {
-        setIsAppFirstLaunched(true);
-        AsyncStorage.setItem('isAppFirstLaunched', 'false');
-      } else {
-        setIsAppFirstLaunched(false);
-      }
-    })();
-  }, []);
+  const {IsApplunchFirst} = useSelector(state => state.IsApplunchFirst);
+  // console.log(13, userData);
+  // const [isAppFirstLaunched, setIsAppFirstLaunched] = useState(null);
+  // useEffect(() => {
+  //   (async () => {
+  //     const appData = await AsyncStorage.getItem('isAppFirstLaunched');
+  //     if (appData == null) {
+  //       setIsAppFirstLaunched(true);
+  //       await AsyncStorage.setItem('isAppFirstLaunched', 'false');
+  //       console.log(21, isAppFirstLaunched);
+  //     } else {
+  //       setIsAppFirstLaunched(false);
+  //       console.log(22, isAppFirstLaunched);
+  //     }
+  //   })();
+  // }, []);
   return (
     <>
-      {isAppFirstLaunched != null && (
-        <Stack.Navigator
-          screenOptions={{
-            animation: 'slide_from_left',
-            headerShown: false,
-          }}>
-          {isAppFirstLaunched && (
+      <Stack.Navigator
+        screenOptions={{
+          animation: 'slide_from_left',
+          headerShown: false,
+        }}>
+        {IsApplunchFirst == true && (
+          <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+        )}
+        {userData.access_token ? (
+          <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+        ) : (
+          <>
             <Stack.Screen
-              name="OnboardingScreen"
-              component={OnboardingScreen}
+              name="TravGuiderScreen"
+              component={screens.TravGuiderScreen}
             />
-          )}
-          {userData.access_token ? (
-            <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
-          ) : (
-            <>
-              <Stack.Screen
-                name="TravGuiderScreen"
-                component={screens.TravGuiderScreen}
-              />
-              <Stack.Screen
-                name="LoginScreen"
-                component={screens.LoginScreen}
-              />
-              <Stack.Screen
-                name="SignUpScreen"
-                component={screens.SignUpScreen}
-              />
-            </>
-          )}
-          <Stack.Screen
-            name="CurrencyMethodScreen"
-            component={screens.CurrencyMethodScreen}
-          />
-        </Stack.Navigator>
-      )}
+            <Stack.Screen name="LoginScreen" component={screens.LoginScreen} />
+            <Stack.Screen
+              name="SignUpScreen"
+              component={screens.SignUpScreen}
+            />
+          </>
+        )}
+        <Stack.Screen
+          name="CurrencyMethodScreen"
+          component={screens.CurrencyMethodScreen}
+        />
+      </Stack.Navigator>
     </>
   );
 }
+
+// {isAppFirstLaunched == true ? (
+//   <Stack.Navigator
+//     screenOptions={{
+//       animation: 'slide_from_left',
+//       headerShown: false,
+//     }}>
+//     {console.log(32, isAppFirstLaunched)}
+//     <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+//   </Stack.Navigator>
+// ) : (
+//   <Stack.Navigator
+//     screenOptions={{
+//       animation: 'slide_from_left',
+//       headerShown: false,
+//     }}>
+//     {console.log(41, isAppFirstLaunched)}
+//     {userData.access_token ? (
+//       <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+//     ) : (
+//       <>
+//         <Stack.Screen
+//           name="TravGuiderScreen"
+//           component={screens.TravGuiderScreen}
+//         />
+//         <Stack.Screen
+//           name="LoginScreen"
+//           component={screens.LoginScreen}
+//         />
+//         <Stack.Screen
+//           name="SignUpScreen"
+//           component={screens.SignUpScreen}
+//         />
+//       </>
+//     )}
+//     <Stack.Screen
+//       name="CurrencyMethodScreen"
+//       component={screens.CurrencyMethodScreen}
+//     />
+//   </Stack.Navigator>
+// )}

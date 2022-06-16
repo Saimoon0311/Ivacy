@@ -19,6 +19,8 @@ import {
 } from 'react-native-responsive-screen';
 import {Colors} from 'react-native-paper';
 import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
+import {useDispatch} from 'react-redux';
+import types from '../../Redux/type';
 
 const {width, height} = Dimensions.get('window');
 
@@ -49,6 +51,7 @@ const slides = [
 ];
 
 const OnboardingScreen = ({navigation}) => {
+  const disptach = useDispatch();
   const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
   const ref = React.useRef();
   const updateCurrentSlideIndex = e => {
@@ -111,7 +114,11 @@ const OnboardingScreen = ({navigation}) => {
               style={{height: 50, marginLeft: wp('15'), marginTop: hp('-10')}}>
               <TouchableOpacity
                 style={styles.getStartedBtn}
-                onPress={() => navigation.replace('LoginScreen')}>
+                onPress={() =>
+                  disptach({
+                    type: types.LunchedCompleted,
+                  })
+                }>
                 <Text
                   style={{
                     fontWeight: 'bold',
