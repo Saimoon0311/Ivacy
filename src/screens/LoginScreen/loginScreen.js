@@ -19,7 +19,7 @@ import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButton
 import {ApiGet, ApiPost} from '../../config/helperFunction';
 import {LoginUrl, UserUrl} from '../../config/Urls';
 import {useDispatch} from 'react-redux';
-import types from '../../Redux/type';
+import types from '../../redux/type';
 import {showMessage} from 'react-native-flash-message';
 
 const LoginScreen = ({route, navigation}) => {
