@@ -18,7 +18,7 @@ const TravGuiderScreen = ({navigation}) => {
         source={require('../../images/trav_guider_image.png')}>
         <View style={styles.InnerContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('LoginScreen')}
+            onPress={() => navigation.navigate('LoginScreen', 'Traveller')}
             style={styles.boxContainer}>
             <Text style={styles.text}>Traveller</Text>
             <Image
@@ -28,7 +28,7 @@ const TravGuiderScreen = ({navigation}) => {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('LoginScreen')}
+            onPress={() => navigation.navigate('LoginScreen', 'Guider')}
             style={styles.boxContainer}>
             <Text style={styles.text}>Guider</Text>
             <Image

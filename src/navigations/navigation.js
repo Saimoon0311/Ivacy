@@ -4,10 +4,13 @@ import {screens} from '../screens';
 import MybottomTabs from './bottomnavigation';
 import OnboardingScreen from '../screens/OnBoardScreen/OnboardingScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigatior() {
+  const {userData} = useSelector(state => state.userData);
+  console.log(13, userData);
   const [isAppFirstLaunched, setIsAppFirstLaunched] = useState(null);
   useEffect(() => {
     (async () => {
@@ -35,13 +38,24 @@ export default function StackNavigatior() {
               component={OnboardingScreen}
             />
           )}
-          <Stack.Screen
-            name="TravGuiderScreen"
-            component={screens.TravGuiderScreen}
-          />
-          <Stack.Screen name="LoginScreen" component={screens.LoginScreen} />
-          <Stack.Screen name="SignUpScreen" component={screens.SignUpScreen} />
-          <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+          {userData.access_token ? (
+            <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+          ) : (
+            <>
+              <Stack.Screen
+                name="TravGuiderScreen"
+                component={screens.TravGuiderScreen}
+              />
+              <Stack.Screen
+                name="LoginScreen"
+                component={screens.LoginScreen}
+              />
+              <Stack.Screen
+                name="SignUpScreen"
+                component={screens.SignUpScreen}
+              />
+            </>
+          )}
           <Stack.Screen
             name="CurrencyMethodScreen"
             component={screens.CurrencyMethodScreen}

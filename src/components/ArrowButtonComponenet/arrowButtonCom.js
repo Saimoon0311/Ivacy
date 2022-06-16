@@ -6,12 +6,22 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {SkypeIndicator} from 'react-native-indicators';
 
 export const ArrowButtonCom = props => {
   let width = props?.width ? props.width : wp('25');
   let height = props?.height ? props.height : hp('5');
   let mgRight = props.mgRight ? props.mgRight : wp('0');
-  return (
+  return props?.loading ? (
+    <SkypeIndicator
+      color={color.white}
+      size={hp('4')}
+      style={{
+        right: wp('-13'),
+        marginTop: hp('2'),
+      }}
+    />
+  ) : (
     <TouchableOpacity
       onPress={() => props?.onPress()}
       style={{

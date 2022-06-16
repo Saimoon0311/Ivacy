@@ -6,6 +6,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {color} from '../color';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const TextInputCom = props => {
   let width = props?.width ? props.width : wp('90');
@@ -15,31 +16,60 @@ export const TextInputCom = props => {
       <Text
         style={{
           ...styles.inputtext,
-          color: props?.isFocused == true ? color.textSecondaryColor : 'white',
+          color:
+            props?.isFocused == true
+              ? color.textSecondaryColor
+              : props?.value != ''
+              ? color.white
+              : color.themeColorDark,
         }}>
         {props?.inputText}
       </Text>
-      <TextInput
+      <View
         style={{
-          ...styles.textinput,
+          ...styles.inputView,
           width: width,
-          height: height,
           borderColor:
             props?.isFocused == true
               ? color.textSecondaryColor
+              : props?.value != ''
+              ? color.white
               : color.themeColorDark,
           borderWidth: props?.isFocused == true ? 2 : 1,
-        }}
-        placeholder={props?.placeholder}
-        placeholderTextColor={color.themeColorDark}
-        keyboardType={props?.keyboardType}
-        editable={props?.editable}
-        onChangeText={props?.onChangeText}
-        value={props?.value}
-        onFocus={props?.onFocus}
-        onBlur={props?.onBlur}
-        autoCapitalize={props?.autoCapitalize}
-      />
+          height: height,
+        }}>
+        <TextInput
+          style={{
+            color: 'white',
+            fontSize: hp('2'),
+            width: wp('76'),
+          }}
+          placeholder={props?.placeholder}
+          placeholderTextColor={color.themeColorDark}
+          keyboardType={props?.keyboardType}
+          secureTextEntry={props?.secureTextEntry}
+          editable={props?.editable}
+          onChangeText={props?.onChangeText}
+          value={props?.value}
+          onFocus={props?.onFocus}
+          onBlur={props?.onBlur}
+          autoCapitalize={props?.autoCapitalize}
+        />
+        {/* {props?.eyeIcon && (
+  
+        )} */}
+        <Ionicons
+          onPress={props?.eyeIconPress}
+          name={props?.eyeIconName}
+          color={
+            props?.isFocused == true
+              ? color.textSecondaryColor
+              : color.themeColorDark
+          }
+          style={{marginLeft: 'auto', marginRight: wp('3')}}
+          size={hp('2')}
+        />
+      </View>
     </>
   );
 };
