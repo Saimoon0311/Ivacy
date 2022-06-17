@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: hp('1.5'),
+    marginTop: hp('2'),
   },
   newUserText: {
     color: 'white',
@@ -49,5 +49,18 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignSelf: 'flex-start',
     marginTop: hp('6'),
+  },
+  pickerStyle: {
+    width: Platform.OS == 'ios' ? wp('95') : wp('90'),
+    height: hp(Platform?.OS == 'ios' ? '20' : '6'),
+    color: 'white',
+    backgroundColor: 'transparent',
+    alignSelf: 'center',
+    overflow: 'hidden',
+    marginTop: Platform.OS == 'ios' ? hp('1') : hp('2'),
+    borderRadius: 5,
+    borderWidth: Platform.OS == 'ios' ? 0 : 1,
+    borderColor: 'white',
+    justifyContent: 'center',
   },
 });

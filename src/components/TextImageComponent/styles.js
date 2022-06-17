@@ -7,23 +7,21 @@ import {
 import {color} from '../color';
 
 export const styles = StyleSheet.create({
-  button:{
-    flexDirection:'row',
+  button: {
+    flexDirection: 'row',
     backgroundColor: color.textImagebackgroundColor,
-     width:wp('85'),
-    height:hp('6'), 
-    marginBottom:hp('1.5'),
-    alignItems:'center'
+    width: wp('85'),
+    height: hp('6'),
+    marginBottom: hp('1.5'),
+    alignItems: 'center',
+    borderRadius: 10,
   },
-  image:{
-
-    marginHorizontal:wp('3')
-  
+  image: {
+    marginHorizontal: wp('3'),
   },
-  text:{
-    fontSize:hp('2.6'),
-    fontWeight:'600',
-    color:color.textColor
-  }
- 
+  text: {
+    fontSize: hp('2.6'),
+    fontWeight: '600',
+    color: color.textColor,
+  },
 });

@@ -3,7 +3,7 @@ import FlashMessage from 'react-native-flash-message';
 import AppTwo from './AppTwo';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {persistor, store} from './src/redux/Reducer/index';
+import {persistor, store} from './src/Redux/Reducer/index';
 
 function App() {
   return (

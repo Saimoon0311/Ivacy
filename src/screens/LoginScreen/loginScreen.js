@@ -19,7 +19,7 @@ import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButton
 import {ApiGet, ApiPost} from '../../config/helperFunction';
 import {LoginUrl, UserUrl} from '../../config/Urls';
 import {useDispatch} from 'react-redux';
-import types from '../../redux/type';
+import types from '../../Redux/type';
 import {showMessage} from 'react-native-flash-message';
 
 const LoginScreen = ({route, navigation}) => {
@@ -27,7 +27,7 @@ const LoginScreen = ({route, navigation}) => {
   const LoginType = route.params;
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('0'));
   const [loginUser, setLoginUser] = useState({
-    email: 'martingarix7878@gmail.com',
+    email: 'saimoon@gmail.com',
     password: 'password',
   });
   const [isloading, setLoading] = useState(false);
@@ -84,8 +84,7 @@ const LoginScreen = ({route, navigation}) => {
             backgroundColor: color.textThirdColor,
             style: {alignItems: 'center'},
           });
-        }
-        else {
+        } else {
           showMessage({
             type: 'danger',
             icon: 'auto',

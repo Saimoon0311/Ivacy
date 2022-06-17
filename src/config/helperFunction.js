@@ -1,10 +1,12 @@
-let statusCode = 'ghjkl';
+import {store} from '../Redux/Reducer';
 
-export const ApiPost = async (url, body, headerType) => {
+let statusCode = 'ghjkl';
+export const ApiPost = async (url, body, headerType, BearerToken) => {
   var myHeaders = new Headers();
   headerType == true
     ? myHeaders.append('Content-Type', 'multipart/form-data')
     : myHeaders.append('Content-Type', 'application/json');
+  BearerToken && myHeaders.append('Authorization', `Bearer ${BearerToken}`);
   return fetch(url, {
     method: 'POST',
     body: body,

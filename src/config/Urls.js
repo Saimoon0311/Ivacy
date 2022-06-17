@@ -9,3 +9,5 @@ export const getApi = endpoint => API_BASED_URL + endpoint;
 export const LoginUrl = getApi('login');
 export const SignUpUrl = getApi('register');
 export const UserUrl = getApi('user');
+export const LogoutUrl = getApi('logout');
+export const CountryNameUrl = getApi('country');

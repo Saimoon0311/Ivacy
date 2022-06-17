@@ -81,7 +81,7 @@ function MybottomTabs() {
               size={hp('3')}
             />
           ),
-          title: 'Category',
+          title: 'Profile',
           tabBarLabelStyle: {
             fontSize: 15,
             marginBottom: hp('1'),

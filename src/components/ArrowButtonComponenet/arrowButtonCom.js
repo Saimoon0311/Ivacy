@@ -12,12 +12,13 @@ export const ArrowButtonCom = props => {
   let width = props?.width ? props.width : wp('25');
   let height = props?.height ? props.height : hp('5');
   let mgRight = props.mgRight ? props.mgRight : wp('0');
+  let right = props?.right ? props.right : wp('-13');
   return props?.loading ? (
     <SkypeIndicator
       color={color.white}
       size={hp('4')}
       style={{
-        right: wp('-13'),
+        right: right,
         marginTop: hp('2'),
       }}
     />
