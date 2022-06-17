@@ -4,10 +4,12 @@ import {
 } from 'react-native-responsive-screen';
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import { color } from '../components/color';
 
 export const globalStyles = StyleSheet.create({
   globalTextStyles: {
     fontWeight: 'bold',
-    fontSize: hp('2.5'),
+    color:color.textColor ,
+    marginVertical:hp('1.5')
   },
 });
