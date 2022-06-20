@@ -19,7 +19,8 @@ import {showMessage} from 'react-native-flash-message';
 import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 import {color} from '../../components/color';
 import {Picker} from '@react-native-picker/picker';
-import AwesomeAlert from 'react-native-awesome-alerts';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {globalStyles} from '../../config/globalStyles';
 
 export default function SignUpScreen() {
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('25'));
@@ -35,6 +36,7 @@ export default function SignUpScreen() {
     password: false,
     country_id: false,
   });
+  const [signUpCofirm, setSignUpConfirm] = useState(false);
   const [countryPicker, setCountryPicker] = useState([]);
   const [isloading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
@@ -77,6 +79,7 @@ export default function SignUpScreen() {
         console.log('res', res);
         if (res.status == 200) {
           setLoading(false);
+          setSignUpConfirm(true);
         } else if (res.status == 401) {
           setLoading(false);
           showMessage({
@@ -206,102 +209,127 @@ export default function SignUpScreen() {
             }}
           />
         </View>
-        <Text style={styles.mainHeading}>Signup</Text>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: isKeyboardVisible}}>
-          <View style={{width: wp('90'), alignSelf: 'center'}}>
-            <TextInputCom
-              value={username}
-              onChangeText={username => updateState({username})}
-              inputText="Username"
-              placeholder="User Name"
-              onFocus={() => handleInputFocus('username')}
-              onBlur={() => handleInputBlur('username')}
-              isFocused={isFocused.username}
-            />
-            <TextInputCom
-              value={email}
-              onChangeText={email => updateState({email})}
-              inputText="email"
-              placeholder="mail@gmail.com"
-              onFocus={() => handleInputFocus('email')}
-              onBlur={() => handleInputBlur('email')}
-              isFocused={isFocused.email}
-            />
-            {countryPicker.length > 0 && (
-              <>
-                <Text
-                  style={{
-                    marginTop: hp('2'),
-                    fontSize: hp('2'),
-                    color: color.white,
-                  }}>
-                  Country
-                </Text>
-                <View
-                  style={{
-                    ...styles.pickerStyle,
-                    borderColor:
-                      country_id != '' || country_id == null
-                        ? color.white
-                        : color.themeColorDark,
-                  }}>
-                  <Picker
-                    mode="dialog"
-                    selectedValue={country_id}
-                    dropdownIconColor={'white'}
-                    itemStyle={{color: 'white'}}
-                    dropdownIconRippleColor="red"
-                    style={{color: 'white'}}
-                    onValueChange={country_id => {
-                      updateState({country_id});
-                    }}
-                    collapsable={true}>
-                    <Picker.Item
-                      style={{color: color.themeColorDark}}
-                      key={null}
-                      value={null}
-                      label={'Select the Country Name'}
-                    />
-                    {countryPicker.map(res => {
-                      return (
+        {signUpCofirm == false ? (
+          <>
+            <Text style={styles.mainHeading}>Signup</Text>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{paddingBottom: isKeyboardVisible}}>
+              <View style={{width: wp('90'), alignSelf: 'center'}}>
+                <TextInputCom
+                  value={username}
+                  onChangeText={username => updateState({username})}
+                  inputText="Username"
+                  placeholder="User Name"
+                  onFocus={() => handleInputFocus('username')}
+                  onBlur={() => handleInputBlur('username')}
+                  isFocused={isFocused.username}
+                />
+                <TextInputCom
+                  value={email}
+                  onChangeText={email => updateState({email})}
+                  inputText="email"
+                  placeholder="mail@gmail.com"
+                  onFocus={() => handleInputFocus('email')}
+                  onBlur={() => handleInputBlur('email')}
+                  isFocused={isFocused.email}
+                />
+                {countryPicker.length > 0 && (
+                  <>
+                    <Text
+                      style={{
+                        marginTop: hp('2'),
+                        fontSize: hp('2'),
+                        color: color.white,
+                      }}>
+                      Country
+                    </Text>
+                    <View
+                      style={{
+                        ...styles.pickerStyle,
+                        borderColor:
+                          country_id != '' || country_id == null
+                            ? color.white
+                            : color.themeColorDark,
+                      }}>
+                      <Picker
+                        mode="dialog"
+                        selectedValue={country_id}
+                        dropdownIconColor={'white'}
+                        itemStyle={{color: 'white'}}
+                        dropdownIconRippleColor="red"
+                        style={{color: 'white'}}
+                        onValueChange={country_id => {
+                          updateState({country_id});
+                        }}
+                        collapsable={true}>
                         <Picker.Item
-                          key={res.id}
-                          value={res.id}
-                          label={res.name}
+                          style={{color: color.themeColorDark}}
+                          key={null}
+                          value={null}
+                          label={'Select the Country Name'}
                         />
-                      );
-                    })}
-                  </Picker>
+                        {countryPicker.map(res => {
+                          return (
+                            <Picker.Item
+                              key={res.id}
+                              value={res.id}
+                              label={res.name}
+                            />
+                          );
+                        })}
+                      </Picker>
+                    </View>
+                  </>
+                )}
+                <TextInputCom
+                  value={password}
+                  onChangeText={password => updateState({password})}
+                  inputText="Password"
+                  placeholder="*********"
+                  onFocus={() => handleInputFocus('password')}
+                  onBlur={() => handleInputBlur('password')}
+                  secureTextEntry={show ? false : true}
+                  eyeIconPress={handleClick}
+                  eyeIconName={show ? 'eye-outline' : 'eye-off-outline'}
+                  isFocused={isFocused.password}
+                  eyeIcon={true}
+                />
+                <View style={styles.bottomView}>
+                  <View />
+                  <ArrowButtonCom
+                    loading={isloading}
+                    onPress={() => signUpFunction()}
+                    text="Register"
+                    height={hp('4.5')}
+                    right={wp('-35')}
+                  />
                 </View>
-              </>
-            )}
-            <TextInputCom
-              value={password}
-              onChangeText={password => updateState({password})}
-              inputText="Password"
-              placeholder="*********"
-              onFocus={() => handleInputFocus('password')}
-              onBlur={() => handleInputBlur('password')}
-              secureTextEntry={show ? false : true}
-              eyeIconPress={handleClick}
-              eyeIconName={show ? 'eye-outline' : 'eye-off-outline'}
-              isFocused={isFocused.password}
-              eyeIcon={true}
+              </View>
+            </ScrollView>
+          </>
+        ) : (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: hp('10'),
+            }}>
+            <Ionicons
+              name="mail-unread-outline"
+              color={'white'}
+              size={hp('15')}
             />
-            <View style={styles.bottomView}>
-              <View />
-              <ArrowButtonCom
-                loading={isloading}
-                onPress={() => signUpFunction()}
-                text="Register"
-                height={hp('4.5')}
-                right={wp('-35')}
-              />
-            </View>
+            <Text
+              style={{
+                ...globalStyles.globalTextStyles,
+                textAlign: 'center',
+                color: 'white',
+              }}>
+              We have send you and email to verify your email address
+            </Text>
           </View>
-        </ScrollView>
+        )}
       </ImageBackground>
     </View>
   );
