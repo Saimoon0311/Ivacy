@@ -7,14 +7,15 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { color } from '../color';
 const SearchBarComponents = props => {
-    const [value,setValue]=useState();
   return (
     <View style={styles.container}>
         <Ionicons  
         name="search"
         size={25}
-        color={color.textColor}/>
-      <TextInput value={value} placeholderTextColor={color.themeColorDark} style={styles.text} onChange={(e)=>{setValue(e)}} placeholder="Search Your Favourite Place"/>
+        color={color.textColor}
+        onPress={props?.onSubmitEditing}
+        />
+      <TextInput onSubmitEditing={props?.onSubmitEditing} value={props?.value} placeholderTextColor={color.themeColorDark} style={styles.text} onChange={props?.onChange} placeholder={props?.placeholder}/>
     </View>
   )
 }

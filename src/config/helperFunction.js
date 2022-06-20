@@ -2,7 +2,7 @@ import {store} from '../Redux/Reducer';
 
 let statusCode = 'ghjkl';
 export const ApiPost = async (url, body, headerType, BearerToken) => {
-  var myHeaders = new Headers();
+  let myHeaders = new Headers();
   headerType == true
     ? myHeaders.append('Content-Type', 'multipart/form-data')
     : myHeaders.append('Content-Type', 'application/json');
@@ -25,8 +25,16 @@ export const ApiPost = async (url, body, headerType, BearerToken) => {
     });
 };
 
-export const ApiGet = async url => {
-  return fetch(url)
+export const ApiGet = async (url, BearerToken) => {
+  let myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'multipart/form-data');
+  BearerToken && myHeaders.append('Authorization', `Bearer ${BearerToken}`);
+  let requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow',
+  };
+  return fetch(url, requestOptions)
     .then(res => {
       statusCode = res.status;
       return res.json();

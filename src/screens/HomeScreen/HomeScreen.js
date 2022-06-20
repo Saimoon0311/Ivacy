@@ -8,11 +8,10 @@ import {
   ImageBackground,
   FlatList,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {styles} from './style';
-import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
-import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {FrontPackageCom} from '../../components/FrontPackageComponent/frontPackageCom';
 import {useDispatch, useSelector} from 'react-redux';
 import types from '../../Redux/type';
@@ -21,10 +20,17 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {ApiGet} from '../../config/helperFunction';
+import {LatestPackageUrl} from '../../config/Urls';
 import {color} from '../../components/color';
+import {showMessage} from 'react-native-flash-message';
+import {LatestPackageFlatlist} from '../../components/LatestPackageFlatlist/latestPackageFlatlist';
 import SearchBarComponents from '../../components/SearchBarComponents/SearchBarComponents';
+import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
 
 const HomeScreen = () => {
+    const [value,setValue]=useState();
+
   const [topCities, setTopCities] = useState([
     {
       id: 1,
@@ -48,146 +54,81 @@ const HomeScreen = () => {
 
   const disptach = useDispatch();
   const {userData} = useSelector(state => state.userData);
+  console.log(27, userData);
+  const [allPackage, setAllPackage] = useState({
+    latestPackage: [],
+  });
+  const [isloading, setIsloading] = useState({
+    latestPackageLoading: true,
+    load: false,
+  });
+  const updateLoadingState = data =>
+    setIsloading(() => ({...isloading, ...data}));
+  const {latestPackageLoading} = isloading;
+  const updatePackageState = data =>
+    setAllPackage(() => ({...isloading, ...data}));
+  const {latestPackage} = allPackage;
+  const getPackage = () => {
+    ApiGet(LatestPackageUrl, userData.access_token).then(res => {
+      if (res.status == 200) {
+        updatePackageState({latestPackage: res.json.data});
+        updateLoadingState({latestPackageLoading: false});
+      } else if (res.status == 404) {
+        updatePackageState({latestPackage: []});
+        updateLoadingState({latestPackageLoading: false});
+      } else {
+        showMessage({
+          type: 'danger',
+          icon: 'auto',
+          message: 'Warning',
+          description: 'Network Request Faild.',
+          floating: true,
+          backgroundColor: color.textThirdColor,
+          style: {alignItems: 'center'},
+        });
+      }
+    });
+  };
+  useEffect(() => {
+    getPackage();
+  }, []);
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar
         hidden={false}
         barStyle={Platform.OS == 'ios' ? 'dark-content' : 'light-content'}
       />
+      <ScrollView contentContainerStyle={{paddingBottom: hp('5')}}>
+        <Text
+          style={{
+            ...globalStyles.globalTextStyles,
+            fontSize: hp('3'),
+            marginLeft: wp('5'),
+          }}>
+          Enjoy your life with us!
+        </Text>
 
-      <Text
-        style={{
-          ...globalStyles.globalTextStyles,
-          fontSize: hp('3'),
-          marginLeft: wp('5'),
-        }}>
-        Enjoy your life with us!
-      </Text>
-      
-      <View>
-        <SearchBarComponents />
-      </View>
-      <Text
-        style={{
-          ...globalStyles.globalTextStyles,
-          fontSize: hp('2.8'),
-          marginLeft: wp('5'),
-        }}>
-        Top Destinations
-      </Text>
-      
-      <FrontPackageCom />
-      
-      <View>
-        <View style={{flexDirection: 'row'}}>
-          <Text
-            style={{
-              ...globalStyles.globalTextStyles,
-              fontSize: hp('2.8'),
-              marginLeft: wp('5'),
-            }}>
-            Top Cities
-          </Text>
-
-          <TouchableOpacity style={styles.hotTextTouc}>
-            <Text
-              style={{
-                color: color.white,
-                fontWeight: 'bold',
-                fontSize: hp('1.7'),
-              }}>
-              Hot
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <FlatList
-          data={topCities}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={1}
-          horizontal
-          contentContainerStyle={{marginLeft: wp('3'), paddingBottom: hp('3')}}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                // onPress={() => navigation.navigate('SubCategory', item)}
-                style={{
-                  marginLeft: wp('3'),
-                  marginRight: wp('1.5'),
-                  marginTop: hp('1.5'),
-                }}>
-                <ImageBackground
-                  borderRadius={10}
-                  resizeMode="stretch"
-                  style={styles.imageStyle}
-                  // source={{uri: IMAGE_BASED_URL + item?.image?.url}}
-                  source={{
-                    uri: 'https://cdn.britannica.com/62/153462-050-3D4F41AF/Grand-Canal-Venice.jpg',
-                  }}>
-                  <Text style={styles.textImageBackground}>hello</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-            );
-          }}
+        <SearchBarComponents value={value} onchange={(e)=>setValue(e)} placeholder={"Search your Favourite Place"} />
+        
+        <Text
+          style={{
+            ...globalStyles.globalTextStyles,
+            fontSize: hp('2.8'),
+            marginLeft: wp('5'),
+          }}>
+          Top Destinations
+        </Text>
+        <LatestPackageFlatlist
+          data={latestPackage}
+          isloading={latestPackageLoading}
         />
-      </View>
-      <View>
-        <View style={{flexDirection: 'row'}}>
-          <Text
-            style={{
-              ...globalStyles.globalTextStyles,
-              fontSize: hp('2.8'),
-              marginLeft: wp('5'),
-            }}>
-            World top Hotels
-          </Text>
-          <TouchableOpacity style={styles.hotTextTouc}>
-            <Text
-              style={{
-                color: color.white,
-                fontWeight: 'bold',
-                fontSize: hp('1.7'),
-              }}>
-              Hot
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={topCities}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={1}
-          horizontal
-          contentContainerStyle={{marginLeft: wp('3'), paddingBottom: hp('3')}}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                // onPress={() => navigation.navigate('SubCategory', item)}
-                style={{
-                  marginLeft: wp('3'),
-                  marginRight: wp('1.5'),
-                  marginTop: hp('1.5'),
-                }}>
-                <ImageBackground
-                  borderRadius={10}
-                  resizeMode="stretch"
-                  style={styles.imageStyle}
-                  // source={{uri: IMAGE_BASED_URL + item?.image?.url}}
-                  source={{
-                    uri: 'https://cdn.britannica.com/62/153462-050-3D4F41AF/Grand-Canal-Venice.jpg',
-                  }}
-                />
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
-
-      <TouchableOpacity onPress={() => disptach({type: types.LogoutType})}>
-        <Text>HomeScreen</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <CityImageComponent data={topCities} heading={'Top Cities'} />
+        <CityImageComponent data={topCities} heading={'Top Cities'} />
+        <TouchableOpacity onPress={() => disptach({type: types.LogoutType})}>
+          <Text>HomeScreen</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

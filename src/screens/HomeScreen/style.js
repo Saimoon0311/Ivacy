@@ -9,8 +9,7 @@ import {color} from '../../components/color';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: hp('3'),
-    height: hp('100'),
+    // paddingTop: Platform.OS == 'ios' ? hp('5') : hp('0'),
   },
   backgroundImage: {width: wp('100'), height: hp('110')},
   loginView: {
@@ -46,31 +45,5 @@ export const styles = StyleSheet.create({
     height: hp('55'),
     justifyContent: 'flex-end',
     alignSelf: 'flex-start',
-  },
-  hotTextTouc: {
-    backgroundColor: color.boxColor,
-    width: wp('10'),
-    height: hp('3'),
-    marginLeft: wp('2'),
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    borderRadius: 5,
-  },
-  imageStyle: {
-    width: wp('29'),
-    height: hp('12'),
-  },
-  textImageBackground: {
-    backgroundColor: color.textBackgroundColor,
-    width: wp('15'),
-    height: hp('3'),
-    textAlign: 'center',
-    color: 'white',
-    fontSize: hp('1.8'),
-    position: 'absolute',
-    bottom: 10,
-alignContent:'center'
-
   },
 });
