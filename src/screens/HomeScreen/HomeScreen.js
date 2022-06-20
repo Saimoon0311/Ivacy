@@ -121,10 +121,7 @@ const HomeScreen = () => {
           isloading={latestPackageLoading}
         />
         <CityImageComponent data={topCities} heading={'Top Cities'} />
-        <CityImageComponent data={topCities} heading={'Top Cities'} />
-        <TouchableOpacity onPress={() => disptach({type: types.LogoutType})}>
-          <Text>HomeScreen</Text>
-        </TouchableOpacity>
+        <CityImageComponent data={topCities} heading={'World Top Hotels'} />
       </ScrollView>
     </SafeAreaView>
   );

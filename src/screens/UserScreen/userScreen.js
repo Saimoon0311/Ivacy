@@ -77,7 +77,7 @@ const userScreen = ({navigation}) => {
             ...globalStyles.globalTextStyles,
             textAlign: 'center',
             color: color.blacktext,
-            marginVertical: hp('1.5'),
+            fontSize: hp('2.5'),
           }}>
           {userData.data.username}
         </Text>
