@@ -74,6 +74,39 @@ export const FrontPackageCom = props => {
   );
 };
 
+export const placeholderView = () => {
+  return (
+    <View
+      style={{
+        ...styles.mainView,
+        backgroundColor: 'transparent',
+        alignSelf: 'center',
+        borderWidth: 1,
+        borderColor: 'black',
+      }}>
+      <View style={{...styles.packageImage, backgroundColor: 'red'}} />
+      <View
+        style={{
+          ...styles.packageTitle,
+          backgroundColor: 'red',
+          width: wp('50'),
+          height: hp('3'),
+          borderRadius: 10,
+        }}
+      />
+      <View
+        style={{
+          ...styles.packageTitle,
+          backgroundColor: 'red',
+          width: wp('80'),
+          borderRadius: 10,
+          height: hp('3'),
+        }}
+      />
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   mainView: {
     width: wp('90'),
@@ -84,7 +117,7 @@ const styles = StyleSheet.create({
     height: hp('35'),
     borderWidth: 0.2,
     borderColor: 'black',
-    overflow: 'hidden',
+    // overflow: 'hidden',
     // shadowColor: '#000',
     // shadowOffset: {
     //   width: 0,

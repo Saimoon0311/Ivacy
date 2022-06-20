@@ -9,19 +9,17 @@ import {color} from '../../components/color';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: hp('10'),
+    // paddingTop: Platform.OS == 'ios' ? hp('5') : hp('0'),
   },
   backgroundImage: {width: wp('100'), height: hp('110')},
   loginView: {
     width: wp('90'),
     alignSelf: 'center',
-    // backgroundColor: 'yellow',
   },
   mainHeading: {
     fontSize: hp('3.5'),
     fontWeight: 'bold',
     color: color.textSecondaryColor,
-    // marginBottom: hp('1'),
   },
   forgotTextView: {
     alignSelf: 'flex-end',

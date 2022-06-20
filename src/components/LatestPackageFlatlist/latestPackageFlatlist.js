@@ -1,7 +1,10 @@
 import React, {useRef} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import {FrontPackageCom} from '../FrontPackageComponent/frontPackageCom';
+import {
+  FrontPackageCom,
+  placeholderView,
+} from '../FrontPackageComponent/frontPackageCom';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -10,14 +13,11 @@ import Carousel from 'react-native-snap-carousel';
 
 export const LatestPackageFlatlist = props => {
   const isCarousel = useRef(null);
-  const loaderView = () => {
-    return <View></View>;
-  };
 
   return props?.isloading ? (
-    <SkeletonPlaceholder></SkeletonPlaceholder>
+    <SkeletonPlaceholder>{placeholderView()}</SkeletonPlaceholder>
   ) : (
-    <View style={{height: hp('45')}}>
+    <View style={{height: hp('40')}}>
       <Carousel
         data={props?.data}
         layout={'tinder'}
