@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 20,
     shadowColor: '#000',
-    backgroundColor: 'white',
+    backgroundColor: 'white', 
   },
   backArrowView: {
     width: wp('25'),

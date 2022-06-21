@@ -13,7 +13,7 @@ export const BackHeaderCom = props => {
     <View style={styles.headerView}>
       <TouchableOpacity
         onPress={() => props?.goBack()}
-        style={styles.backArrowView}>
+    style={styles.backArrowView}>
         <Ionicons
           name="arrow-back"
           color={color.textPrimaryColor}

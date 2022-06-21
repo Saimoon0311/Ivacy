@@ -28,7 +28,10 @@ import {LatestPackageFlatlist} from '../../components/LatestPackageFlatlist/late
 import SearchBarComponents from '../../components/SearchBarComponents/SearchBarComponents';
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
+  const navigate =(item)=>{
+    navigation.navigate('PackageDetailScreen',item)
+  }
     const [value,setValue]=useState();
 
   const [topCities, setTopCities] = useState([
@@ -121,12 +124,10 @@ const HomeScreen = () => {
         <LatestPackageFlatlist
           data={latestPackage}
           isloading={latestPackageLoading}
+          navigate={navigate}
         />
         <CityImageComponent data={topCities} heading={'Top Cities'} />
-        <CityImageComponent data={topCities} heading={'Top Cities'} />
-        <TouchableOpacity onPress={() => disptach({type: types.LogoutType})}>
-          <Text>HomeScreen</Text>
-        </TouchableOpacity>
+        <CityImageComponent data={topCities} heading={'World Top Hotels'} />
       </ScrollView>
     </SafeAreaView>
   );

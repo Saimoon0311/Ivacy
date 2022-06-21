@@ -6,7 +6,7 @@ import userScreen from './UserScreen/userScreen';
 import OnboardingScreen from './OnBoardScreen/OnboardingScreen';
 import TravGuiderScreen from './TravGuiderScreen/TravGuiderScreen';
 import CurrencyMethodScreen from './CurrencyMethodScreen/CurrencyMethodScreen';
-
+import PackageDetailScreen from './PackageDetailScreen/PackageDetailScreen';
 export const screens = {
   OnboardingScreen,
   HomeScreen,
@@ -15,5 +15,6 @@ export const screens = {
   LoginScreen,
   SignUpScreen,
   TravGuiderScreen,
-  CurrencyMethodScreen
+  CurrencyMethodScreen,
+  PackageDetailScreen
 };

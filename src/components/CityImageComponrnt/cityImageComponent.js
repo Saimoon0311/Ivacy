@@ -16,6 +16,7 @@ import {
 import {color} from '../color';
 
 export const CityImageComponent = props => {
+  
   const placholderView = () => {
     return (
       <View

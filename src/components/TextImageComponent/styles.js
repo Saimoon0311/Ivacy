@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: wp('3'),
   },
   text: {
-    fontSize: hp('2.6'),
+    fontSize: hp('2.3'),
     fontWeight: '600',
     color: color.textColor,
   },
