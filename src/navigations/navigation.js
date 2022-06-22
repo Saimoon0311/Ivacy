@@ -42,9 +42,10 @@ export default function StackNavigatior() {
           component={screens.CurrencyMethodScreen}
         />
         <Stack.Screen
-          name="PackageDetailScreen"
-          component={screens.PackageDetailScreen}
+          name="searchBarScreen"
+          component={screens.searchBarScreen}
         />
+        <Stack.Screen name="PackageScreen" component={screens.PackageScreen} />
       </Stack.Navigator>
     </>
   );

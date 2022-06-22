@@ -10,11 +10,9 @@ export const styles = StyleSheet.create({
   headerView: {
     width: wp('100'),
     height: Platform.OS == 'ios' ? hp('10') : hp('7'),
-    borderBottomColor: 'gray',
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: Platform.OS == 'ios' ? hp('3') : hp('0'),
-    borderBottomWidth: 1,
     shadowOffset: {width: 1, height: 3},
     shadowOpacity: 0.4,
     shadowRadius: 6,

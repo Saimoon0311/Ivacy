@@ -11,3 +11,4 @@ export const UserUrl = getApi('user');
 export const LogoutUrl = getApi('logout');
 export const CountryNameUrl = getApi('country');
 export const LatestPackageUrl = getApi('package');
+export const SearchrUrl = getApi('search/');

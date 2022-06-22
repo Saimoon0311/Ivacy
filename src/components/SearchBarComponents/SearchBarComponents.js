@@ -1,4 +1,10 @@
-import {StyleSheet, TextInput, View} from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState} from 'react';
 import {
   widthPercentageToDP as wp,
@@ -8,15 +14,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {color} from '../color';
 const SearchBarComponents = props => {
   return (
-    <View style={styles.container}>
-        <Ionicons  
-        name="search"
-        size={25}
-        color={color.textColor}
-        onPress={props?.onSubmitEditing}
-        />
-      <TextInput onSubmitEditing={props?.onSubmitEditing} value={props?.value} placeholderTextColor={color.themeColorDark} style={styles.text} onChange={props?.onChange} placeholder={props?.placeholder}/>
-    </View>
+    <TouchableOpacity onPress={props?.onPress} style={styles.container}>
+      <Ionicons name="search" size={25} color={color.textColor} />
+      <Text style={styles.text}>Search Your Favourite Place</Text>
+      {/* <TextInput
+        value={value}
+        placeholderTextColor={color.themeColorDark}
+        style={styles.text}
+        onChange={e => {
+          setValue(e);
+        }}
+        placeholder="Search Your Favourite Place"
+      /> */}
+    </TouchableOpacity>
   );
 };
 
@@ -48,7 +58,7 @@ const styles = StyleSheet.create({
   text: {
     width: wp('70'),
     fontWeight: '600',
-    color: color.blacktext,
+    color: 'gray',
     fontSize: hp('2.4'),
   },
 });

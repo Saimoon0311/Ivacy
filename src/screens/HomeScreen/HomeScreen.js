@@ -1,14 +1,10 @@
 import {
   Text,
-  View,
-  TouchableOpacity,
   StatusBar,
-  PlatformColor,
   Platform,
-  ImageBackground,
-  FlatList,
   ScrollView,
   SafeAreaView,
+  RefreshControl,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
@@ -27,13 +23,13 @@ import {showMessage} from 'react-native-flash-message';
 import {LatestPackageFlatlist} from '../../components/LatestPackageFlatlist/latestPackageFlatlist';
 import SearchBarComponents from '../../components/SearchBarComponents/SearchBarComponents';
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
+import {useCallback} from 'react';
 
 const HomeScreen = ({navigation}) => {
-  const navigate =(item)=>{
-    navigation.navigate('PackageDetailScreen',item)
-  }
-    const [value,setValue]=useState();
-
+  const wait = timeout => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+  const [refreshing, setRefreshing] = useState(false);
   const [topCities, setTopCities] = useState([
     {
       id: 1,
@@ -54,10 +50,16 @@ const HomeScreen = ({navigation}) => {
       id: 6,
     },
   ]);
-
+  const onRefresh = useCallback(() => {
+    updateLoadingState({latestPackageLoading: true});
+    setRefreshing(true);
+    wait(2000).then(() => {
+      getPackage();
+      setRefreshing(false);
+    });
+  }, []);
   const disptach = useDispatch();
   const {userData} = useSelector(state => state.userData);
-  console.log(27, userData);
   const [allPackage, setAllPackage] = useState({
     latestPackage: [],
   });
@@ -101,7 +103,12 @@ const HomeScreen = ({navigation}) => {
         hidden={false}
         barStyle={Platform.OS == 'ios' ? 'dark-content' : 'light-content'}
       />
-      <ScrollView contentContainerStyle={{paddingBottom: hp('5')}}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: hp('5')}}>
         <Text
           style={{
             ...globalStyles.globalTextStyles,
@@ -111,8 +118,9 @@ const HomeScreen = ({navigation}) => {
           Enjoy your life with us!
         </Text>
 
-        <SearchBarComponents value={value} onchange={(e)=>setValue(e)} placeholder={"Search your Favourite Place"} />
-        
+        <SearchBarComponents
+          onPress={() => navigation.navigate('searchBarScreen')}
+        />
         <Text
           style={{
             ...globalStyles.globalTextStyles,
