@@ -53,6 +53,7 @@ const LoginScreen = ({route, navigation}) => {
   // XXXXXXXXXXXX
 
   const loginFunction = () => {
+    console.log(70);
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     setLoading(true);
     if (
@@ -62,11 +63,13 @@ const LoginScreen = ({route, navigation}) => {
       password != null &&
       reg.test(email) === true
     ) {
+      console.log(71);
       let body = JSON.stringify({
         email: email,
         password: password,
       });
       ApiPost(LoginUrl, body, false).then(res => {
+        console.log(70, res);
         if (res.status == 200) {
           disptach({
             type: types.LoginType,
