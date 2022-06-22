@@ -9,6 +9,7 @@ import CurrencyMethodScreen from './CurrencyMethodScreen/CurrencyMethodScreen';
 import searchBarScreen from './SearchBarScreen/SearchBarScreen';
 import PackageScreen from './PackageScreen/PackageScreen';
 
+import PackageDetailScreen from './PackageDetailScreen/PackageDetailScreen';
 export const screens = {
   OnboardingScreen,
   HomeScreen,
@@ -20,4 +21,5 @@ export const screens = {
   CurrencyMethodScreen,
   searchBarScreen,
   PackageScreen,
+  PackageDetailScreen,
 };

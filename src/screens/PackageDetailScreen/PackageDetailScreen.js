@@ -10,6 +10,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { CityImageComponent } from '../../components/CityImageComponrnt/cityImageComponent';
+import { IMAGE_BASED_URL } from '../../config/Urls';
 const PackageDetailScreen = ({route,navigation}) => {
   const [topCities, setTopCities] = useState([
     {
@@ -32,11 +33,12 @@ const PackageDetailScreen = ({route,navigation}) => {
     },
   ]);
   const items=route.params;
-  // console.log(15,items.get_Images.title);
   const [images,setImage] =useState([
-    require('../../images/sale2.png'),
-  require('../../images/sale2.png'),
-  require('../../images/sale2.png'),
+    IMAGE_BASED_URL+items?.get_images[0]?.title,
+    IMAGE_BASED_URL+items?.get_images[0]?.title,
+    // require('../../images/sale2.png'),
+  // require('../../images/sale2.png'),
+  // require('../../images/sale2.png'),
  ])
   // const goback = () => {
   //   navigation.goBack();
@@ -66,19 +68,20 @@ const PackageDetailScreen = ({route,navigation}) => {
         />
         <View style={{marginLeft:hp('2') }}>
 
-        <Text style={{...globalStyles.globalTextStyles,fontSize:hp('3.5')}} >Bali</Text>
-        <Text style={{...globalStyles.globalTextStyles,fontSize:hp('2'),}} >Bali is an Indonesian island known for its forested  volcanic mountains, iconic rice paddies.</Text>
+        <Text style={{...globalStyles.globalTextStyles,fontSize:hp('3.5')}} >{items.title}</Text>
+        <Text style={{...globalStyles.globalTextStyles,fontSize:hp('2'),}} >
+          {items.description}</Text>
         <View style={styles.priceMainContainer}>
 
         <View >
         <Text style={styles.pricetxt} >Price</Text>
-         <Text style={styles.packtxt}>$500/package</Text> 
+         <Text style={styles.packtxt}>${items.price}/package</Text> 
         </View>
          <TouchableOpacity style={styles.boxNowContainer}>
           <Text style={styles.bookNowTxt} >Book Now</Text>
           </TouchableOpacity>   
         </View>
-        <CityImageComponent data={topCities} heading={'Top Cities'} />
+        <CityImageComponent data={topCities} heading={'Top Countries'} />
 
         </View>
     {/* <Text style={{...globalStyles.globalTextStyles2,position:'absolute' ,top:40}} >Place Details</Text> */}

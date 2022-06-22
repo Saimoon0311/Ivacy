@@ -16,7 +16,7 @@ import {
 import {color} from '../color';
 
 export const CityImageComponent = props => {
-  
+  let ml = props.ml ? props.ml : wp('1');
   const placholderView = () => {
     return (
       <View
@@ -38,7 +38,7 @@ export const CityImageComponent = props => {
           style={{
             ...globalStyles.globalTextStyles,
             fontSize: hp('2.8'),
-            marginLeft: wp('5'),
+            marginLeft: ml,
           }}>
           {props?.heading}
         </Text>
@@ -75,15 +75,14 @@ export const CityImageComponent = props => {
             numColumns={1}
             horizontal
             contentContainerStyle={{
-              marginLeft: wp('4'),
+              marginLeft:ml,
               paddingBottom: hp('3'),
               paddingRight: wp('2'),
             }}
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => {
               return (
-                <TouchableOpacity
-                  style={styles.mainContainer}>
+                <TouchableOpacity style={{...styles.mainContainer }}>
                   <ImageBackground
                     borderRadius={10}
                     resizeMode="stretch"
@@ -105,8 +104,7 @@ export const CityImageComponent = props => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    // marginLeft: wp('3'),
-    marginRight: wp('4'),
+    marginRight: wp('3'),
     marginTop: hp('1.5'),
     borderRadius: 10,
   },

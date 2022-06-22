@@ -46,6 +46,10 @@ export default function StackNavigatior() {
           component={screens.searchBarScreen}
         />
         <Stack.Screen name="PackageScreen" component={screens.PackageScreen} />
+        <Stack.Screen
+          name="PackageDetailScreen"
+          component={screens.PackageDetailScreen}
+        />
       </Stack.Navigator>
     </>
   );

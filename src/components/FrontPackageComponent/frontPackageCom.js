@@ -20,7 +20,7 @@ import {color} from '../color';
 export const FrontPackageCom = props => {
   let item = props.data;
   return (
-    <Pressable onPress={props?.onPress} style={styles.mainView}>
+    <Pressable onPress={()=>props?.navigate(item)} style={styles.mainView}>
       <Image
         // source={{
         //   uri: 'https://images.pexels.com/photos/12405196/pexels-photo-12405196.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: hp('35'),
     borderWidth: 0.2,
-    borderColor: 'black',
+    // borderColor: 'black',
     // overflow: 'hidden',
     // shadowColor: '#000',
     // shadowOffset: {

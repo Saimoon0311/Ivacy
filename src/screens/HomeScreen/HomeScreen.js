@@ -30,6 +30,11 @@ const HomeScreen = ({navigation}) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
   const [refreshing, setRefreshing] = useState(false);
+  const navigate = item => {
+    navigation.navigate('PackageDetailScreen', item);
+  };
+  const [value, setValue] = useState();
+
   const [topCities, setTopCities] = useState([
     {
       id: 1,

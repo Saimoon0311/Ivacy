@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
   },
   bookNowTxt: {
     fontSize: hp('2.5'),
-    color: color.textSecondaryColor,
+    color: color.white,
     fontWeight: 'bold',
     
   },
