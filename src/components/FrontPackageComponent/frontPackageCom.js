@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: hp('35'),
     borderWidth: 0.2,
-    borderColor: 'black',
+    // borderColor: 'black',
     // overflow: 'hidden',
     // shadowColor: '#000',
     // shadowOffset: {
