@@ -28,6 +28,7 @@ import {SkypeIndicator} from 'react-native-indicators';
 export default function searchBarScreen({navigation}) {
   const {userData} = useSelector(state => state.userData);
   const [countryPicker, setCountryPicker] = useState([]);
+  const [countryName, seCountryName] = useState('');
   const [searchData, setSearchData] = useState({
     country_id: null,
     startPrice: '0',
@@ -68,11 +69,14 @@ export default function searchBarScreen({navigation}) {
         start_price: startPrice,
         end_price: EndPrice,
       });
-      console.log(60, url);
       ApiPost(url, body, false, userData.access_token).then(res => {
         if (res.status == 200 || res.status == 404) {
           setIsloading(false);
-          navigation.navigate('PackageScreen', res.json.data);
+          // console.log(75, countryName);
+          navigation.navigate('PackageScreen', {
+            data: res.json.data,
+            countryName: countryName,
+          });
         } else {
           setIsloading(false);
           showMessage({
@@ -140,7 +144,8 @@ export default function searchBarScreen({navigation}) {
                 itemStyle={{color: 'black'}}
                 dropdownIconRippleColor="red"
                 style={{color: 'black'}}
-                onValueChange={country_id => {
+                onValueChange={(country_id, index) => {
+                  seCountryName(countryPicker[index - 1].name);
                   updateState({country_id});
                 }}
                 collapsable={true}>
@@ -190,15 +195,19 @@ export default function searchBarScreen({navigation}) {
             placeholder="price"
           />
         </View>
-        <TouchableOpacity
-          onPress={() => applyFilterFun()}
-          style={styles.buttonView}>
-          {isloading ? (
-            <SkypeIndicator color={color.white} size={hp('4')} />
-          ) : (
+        {isloading ? (
+          <SkypeIndicator
+            color={color.bottomBarColor}
+            size={hp('6')}
+            style={{marginTop: hp('3')}}
+          />
+        ) : (
+          <TouchableOpacity
+            onPress={() => applyFilterFun()}
+            style={styles.buttonView}>
             <Text style={styles.buttonText}>Apply Filter</Text>
-          )}
-        </TouchableOpacity>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </View>
   );

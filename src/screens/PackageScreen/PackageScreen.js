@@ -10,6 +10,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {NoDataView} from '../../components/NoDataView/noDataView';
 
 export default function packageScreen({route, navigation}) {
   const goBack = () => {
@@ -17,6 +18,7 @@ export default function packageScreen({route, navigation}) {
   };
   const [isloading, setIsloading] = useState(true);
   let items = route.params;
+  console.log(21, items);
   setTimeout(() => {
     setIsloading(false);
   }, 1000);
@@ -25,7 +27,7 @@ export default function packageScreen({route, navigation}) {
   };
   return (
     <View>
-      <BackHeaderCom goBack={goBack} text="Filter Screen" />
+      <BackHeaderCom goBack={goBack} text={items?.countryName} />
       {isloading ? (
         <SkeletonPlaceholder>
           {loaderView()}
@@ -35,9 +37,11 @@ export default function packageScreen({route, navigation}) {
           {loaderView()}
           {loaderView()}
         </SkeletonPlaceholder>
-      ) : items.length == 0 ? null : (
+      ) : items.data.length == 0 ? (
+        <NoDataView text="No Package Found" />
+      ) : (
         <FlatList
-          data={items}
+          data={items.data}
           keyExtractor={(item, index) => index.toString()}
           numColumns={1}
           contentContainerStyle={{
