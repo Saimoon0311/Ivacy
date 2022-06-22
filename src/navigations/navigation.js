@@ -55,6 +55,11 @@ export default function StackNavigatior() {
           name="CurrencyMethodScreen"
           component={screens.CurrencyMethodScreen}
         />
+        <Stack.Screen
+          name="searchBarScreen"
+          component={screens.searchBarScreen}
+        />
+        <Stack.Screen name="PackageScreen" component={screens.PackageScreen} />
       </Stack.Navigator>
     </>
   );

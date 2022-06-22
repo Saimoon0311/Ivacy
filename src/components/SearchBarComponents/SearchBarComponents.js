@@ -1,4 +1,10 @@
-import {StyleSheet, TextInput, View} from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState} from 'react';
 import {
   widthPercentageToDP as wp,
@@ -9,9 +15,10 @@ import {color} from '../color';
 const SearchBarComponents = props => {
   const [value, setValue] = useState();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={props?.onPress} style={styles.container}>
       <Ionicons name="search" size={25} color={color.textColor} />
-      <TextInput
+      <Text style={styles.text}>Search Your Favourite Place</Text>
+      {/* <TextInput
         value={value}
         placeholderTextColor={color.themeColorDark}
         style={styles.text}
@@ -19,8 +26,8 @@ const SearchBarComponents = props => {
           setValue(e);
         }}
         placeholder="Search Your Favourite Place"
-      />
-    </View>
+      /> */}
+    </TouchableOpacity>
   );
 };
 
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
   text: {
     width: wp('70'),
     fontWeight: '600',
-    color: color.blacktext,
+    color: 'gray',
     fontSize: hp('2.4'),
   },
 });
