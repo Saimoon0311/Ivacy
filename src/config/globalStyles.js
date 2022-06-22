@@ -9,7 +9,12 @@ import { color } from '../components/color';
 export const globalStyles = StyleSheet.create({
   globalTextStyles: {
     fontWeight: 'bold',
-    color:color.textColor ,
-    marginVertical:hp('1.5')
+    color:color.black ,
+    marginVertical:hp('1.2'),
+  },
+  globalTextStyles2: {
+    fontWeight: 'bold',
+    color:color.white ,
+    fontSize:hp('3'),
   },
 });

@@ -11,21 +11,7 @@ const Stack = createNativeStackNavigator();
 export default function StackNavigatior() {
   const {userData} = useSelector(state => state.userData);
   const {IsApplunchFirst} = useSelector(state => state.IsApplunchFirst);
-  // console.log(13, userData);
-  // const [isAppFirstLaunched, setIsAppFirstLaunched] = useState(null);
-  // useEffect(() => {
-  //   (async () => {
-  //     const appData = await AsyncStorage.getItem('isAppFirstLaunched');
-  //     if (appData == null) {
-  //       setIsAppFirstLaunched(true);
-  //       await AsyncStorage.setItem('isAppFirstLaunched', 'false');
-  //       console.log(21, isAppFirstLaunched);
-  //     } else {
-  //       setIsAppFirstLaunched(false);
-  //       console.log(22, isAppFirstLaunched);
-  //     }
-  //   })();
-  // }, []);
+
   return (
     <>
       <Stack.Navigator
@@ -60,6 +46,10 @@ export default function StackNavigatior() {
           component={screens.searchBarScreen}
         />
         <Stack.Screen name="PackageScreen" component={screens.PackageScreen} />
+        <Stack.Screen
+          name="PackageDetailScreen"
+          component={screens.PackageDetailScreen}
+        />
       </Stack.Navigator>
     </>
   );

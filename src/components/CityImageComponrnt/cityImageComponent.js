@@ -16,6 +16,7 @@ import {
 import {color} from '../color';
 
 export const CityImageComponent = props => {
+  
   const placholderView = () => {
     return (
       <View
@@ -82,13 +83,11 @@ export const CityImageComponent = props => {
             renderItem={({item}) => {
               return (
                 <TouchableOpacity
-                  // onPress={() => navigation.navigate('SubCategory', item)}
                   style={styles.mainContainer}>
                   <ImageBackground
                     borderRadius={10}
                     resizeMode="stretch"
                     style={styles.imageStyle}
-                    // source={{uri: IMAGE_BASED_URL + item?.image?.url}}
                     source={{
                       uri: 'https://cdn.britannica.com/62/153462-050-3D4F41AF/Grand-Canal-Venice.jpg',
                     }}>

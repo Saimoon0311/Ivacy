@@ -30,6 +30,11 @@ const HomeScreen = ({navigation}) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
   const [refreshing, setRefreshing] = useState(false);
+  const navigate = item => {
+    navigation.navigate('PackageDetailScreen', item);
+  };
+  const [value, setValue] = useState();
+
   const [topCities, setTopCities] = useState([
     {
       id: 1,
@@ -132,6 +137,7 @@ const HomeScreen = ({navigation}) => {
         <LatestPackageFlatlist
           data={latestPackage}
           isloading={latestPackageLoading}
+          navigate={navigate}
         />
         <CityImageComponent data={topCities} heading={'Top Cities'} />
         <CityImageComponent data={topCities} heading={'World Top Hotels'} />

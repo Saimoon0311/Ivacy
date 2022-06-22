@@ -13,7 +13,6 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {color} from '../color';
 const SearchBarComponents = props => {
-  const [value, setValue] = useState();
   return (
     <TouchableOpacity onPress={props?.onPress} style={styles.container}>
       <Ionicons name="search" size={25} color={color.textColor} />

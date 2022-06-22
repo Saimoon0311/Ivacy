@@ -38,7 +38,7 @@ export const LatestPackageFlatlist = props => {
         renderItem={({item}) => {
           return (
             <View style={{alignSelf: 'center'}}>
-              <FrontPackageCom data={item} />
+              <FrontPackageCom navigate={props.navigate} data={item} />
             </View>
           );
         }}
