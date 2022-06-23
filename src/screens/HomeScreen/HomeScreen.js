@@ -17,7 +17,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {ApiGet} from '../../config/helperFunction';
-import {LatestPackageUrl} from '../../config/Urls';
+import {CountryNameUrl, LatestPackageUrl} from '../../config/Urls';
 import {color} from '../../components/color';
 import {showMessage} from 'react-native-flash-message';
 import {LatestPackageFlatlist} from '../../components/LatestPackageFlatlist/latestPackageFlatlist';
@@ -55,6 +55,9 @@ const HomeScreen = ({navigation}) => {
       id: 6,
     },
   ]);
+
+
+
   const onRefresh = useCallback(() => {
     updateLoadingState({latestPackageLoading: true});
     setRefreshing(true);
@@ -67,17 +70,19 @@ const HomeScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
   const [allPackage, setAllPackage] = useState({
     latestPackage: [],
+    getCountryData:[],
   });
   const [isloading, setIsloading] = useState({
     latestPackageLoading: true,
-    load: false,
+    countryLoader: true,
+    
   });
   const updateLoadingState = data =>
     setIsloading(() => ({...isloading, ...data}));
-  const {latestPackageLoading} = isloading;
+  const {latestPackageLoading,countryLoader} = isloading;
   const updatePackageState = data =>
-    setAllPackage(() => ({...isloading, ...data}));
-  const {latestPackage} = allPackage;
+    setAllPackage(() => ({...allPackage, ...data}));
+  const {latestPackage,getCountryData} = allPackage;
   const getPackage = () => {
     ApiGet(LatestPackageUrl, userData.access_token).then(res => {
       if (res.status == 200) {
@@ -99,8 +104,39 @@ const HomeScreen = ({navigation}) => {
       }
     });
   };
+
+  const getCountryName =()=>{
+    ApiGet(CountryNameUrl).then(res =>{
+      if(res.status ==200){
+        updatePackageState({getCountryData:res.json.data});
+        updateLoadingState({countryLoader:false})
+      }
+      else if(res.status ==404)
+      {
+        updatePackageState({getCountryData:[]});
+        updateLoadingState({countryLoader:false})
+
+      }
+      else {
+        showMessage({
+          type: 'danger',
+          icon: 'auto',
+          message: 'Warning',
+          description: 'Network Request Faild.',
+          floating: true,
+          backgroundColor: color.textThirdColor,
+          style: {alignItems: 'center'},
+        });
+      }
+    })
+  }
+
   useEffect(() => {
     getPackage();
+    getCountryName();
+    setTimeout(() => {
+      
+    }, 1000);
   }, []);
   return (
     <SafeAreaView style={styles.container}>
@@ -139,7 +175,7 @@ const HomeScreen = ({navigation}) => {
           isloading={latestPackageLoading}
           navigate={navigate}
         />
-        <CityImageComponent data={topCities} heading={'Top Cities'} />
+        <CityImageComponent ml={wp('4')} data={getCountryData} isloading={countryLoader} heading={'Top Country'} />
         <CityImageComponent data={topCities} heading={'World Top Hotels'} />
       </ScrollView>
     </SafeAreaView>

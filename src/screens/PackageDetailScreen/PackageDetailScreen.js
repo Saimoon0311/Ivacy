@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View,TouchableOpacity} from 'react-native';
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import { styles } from './styles';
 import {SliderBox, FastImage} from 'react-native-image-slider-box';
@@ -10,28 +10,15 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { CityImageComponent } from '../../components/CityImageComponrnt/cityImageComponent';
-import { IMAGE_BASED_URL } from '../../config/Urls';
+import { CountryNameUrl, IMAGE_BASED_URL } from '../../config/Urls';
+import {ApiGet} from '../../config/helperFunction';
+import { showMessage } from 'react-native-flash-message';
+
 const PackageDetailScreen = ({route,navigation}) => {
-  const [topCities, setTopCities] = useState([
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-    {
-      id: 4,
-    },
-    {
-      id: 5,
-    },
-    {
-      id: 6,
-    },
-  ]);
+  const[countryPicker,setCountryPicker]=useState([]);
+  
+  const [isloading,setIsloading]=useState(true);
+ 
   const items=route.params;
   const [images,setImage] =useState([
     IMAGE_BASED_URL+items?.get_images[0]?.title,
@@ -43,6 +30,39 @@ const PackageDetailScreen = ({route,navigation}) => {
   // const goback = () => {
   //   navigation.goBack();
   // };
+  const getAllCountryName =()=>{
+
+    ApiGet(CountryNameUrl).then(res=>{
+      console.log(res.json,56666666666);
+      if(res.status==200)
+      {
+        setIsloading(false);
+        setCountryPicker(res.json.data)
+      }
+      else 
+      {
+        setIsloading(false);
+        showMessage({
+          type: 'danger',
+          icon: 'auto',
+          message: 'Warning',
+          description:
+            'Please Check Your Internet connection to get Countries Name.',
+          floating: true,
+          backgroundColor: color.textThirdColor,
+          style: {alignItems: 'center'},
+          autoHide: false,
+        });
+      }
+    })
+  }
+
+
+  useEffect(() => {
+  
+      getAllCountryName();
+  }, [])
+  
   return (
     <>
       {/* <BackHeaderCom goBack={goback} /> */}
@@ -66,7 +86,7 @@ const PackageDetailScreen = ({route,navigation}) => {
             padding: 0,
           }}
         />
-        <View style={{marginLeft:hp('2') }}>
+        <View style={{marginLeft:wp('2') }}>
 
         <Text style={{...globalStyles.globalTextStyles,fontSize:hp('3.5')}} >{items.title}</Text>
         <Text style={{...globalStyles.globalTextStyles,fontSize:hp('2'),}} >
@@ -78,13 +98,12 @@ const PackageDetailScreen = ({route,navigation}) => {
          <Text style={styles.packtxt}>${items.price}/package</Text> 
         </View>
          <TouchableOpacity style={styles.boxNowContainer}>
-          <Text style={styles.bookNowTxt} >Book Now</Text>
+          <Text style={styles.bookNowTxt}>Book Now</Text>
           </TouchableOpacity>   
         </View>
-        <CityImageComponent data={topCities} heading={'Top Countries'} />
+        <CityImageComponent ml={wp('0.1')} data={countryPicker} isloading={isloading} heading={'Top Countries'} />
 
         </View>
-    {/* <Text style={{...globalStyles.globalTextStyles2,position:'absolute' ,top:40}} >Place Details</Text> */}
     </View>
 
     </>

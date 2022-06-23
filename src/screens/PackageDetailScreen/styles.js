@@ -35,8 +35,8 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   priceMainContainer: {
-    marginHorizontal: wp('2'),
     marginTop: hp('2'),
+    marginRight:wp('2'),
     flexDirection: 'row',
     justifyContent: 'space-between',
 

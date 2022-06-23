@@ -40,6 +40,7 @@ export default function searchBarScreen({navigation}) {
     navigation.goBack();
   };
   const updateState = data => setSearchData(() => ({...searchData, ...data}));
+  
   const getAllCountryName = () => {
     ApiGet(CountryNameUrl).then(res => {
       if (res.status == 200) {

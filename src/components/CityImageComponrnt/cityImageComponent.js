@@ -16,14 +16,14 @@ import {
 import {color} from '../color';
 
 export const CityImageComponent = props => {
-  let ml = props.ml ? props.ml : wp('1');
+  let ml = props?.ml ? props.ml : wp('4');
   const placholderView = () => {
     return (
       <View
         style={{
           ...styles.imageStyle,
           backgroundColor: 'red',
-          marginLeft: wp('3'),
+          marginLeft: wp('2'),
           marginRight: wp('1.5'),
           marginTop: hp('1.5'),
           borderRadius: 10,
@@ -32,13 +32,12 @@ export const CityImageComponent = props => {
     );
   };
   return (
-    <View>
+    <View style={{ marginLeft:ml }}>
       <View style={{flexDirection: 'row'}}>
         <Text
           style={{
             ...globalStyles.globalTextStyles,
             fontSize: hp('2.8'),
-            marginLeft: ml,
           }}>
           {props?.heading}
         </Text>
@@ -75,7 +74,6 @@ export const CityImageComponent = props => {
             numColumns={1}
             horizontal
             contentContainerStyle={{
-              marginLeft:ml,
               paddingBottom: hp('3'),
               paddingRight: wp('2'),
             }}
@@ -90,7 +88,7 @@ export const CityImageComponent = props => {
                     source={{
                       uri: 'https://cdn.britannica.com/62/153462-050-3D4F41AF/Grand-Canal-Venice.jpg',
                     }}>
-                    <Text style={styles.textImageBackground}>hello</Text>
+                    <Text numberOfLines={2} style={styles.textImageBackground}>{item.name}</Text>
                   </ImageBackground>
                 </TouchableOpacity>
               );
@@ -125,7 +123,7 @@ const styles = StyleSheet.create({
 
   textImageBackground: {
     backgroundColor: color.textBackgroundColor,
-    width: wp('15'),
+    width: wp('20'),
     height: hp('3'),
     textAlign: 'center',
     color: 'white',
