@@ -16,14 +16,14 @@ import {
 import {color} from '../color';
 
 export const CityImageComponent = props => {
-  
+  let ml = props?.ml ? props.ml : wp('4');
   const placholderView = () => {
     return (
       <View
         style={{
           ...styles.imageStyle,
           backgroundColor: 'red',
-          marginLeft: wp('3'),
+          marginLeft: wp('2'),
           marginRight: wp('1.5'),
           marginTop: hp('1.5'),
           borderRadius: 10,
@@ -33,12 +33,11 @@ export const CityImageComponent = props => {
   };
   return (
     <View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', paddingLeft: ml}}>
         <Text
           style={{
             ...globalStyles.globalTextStyles,
             fontSize: hp('2.8'),
-            marginLeft: wp('5'),
           }}>
           {props?.heading}
         </Text>
@@ -75,23 +74,28 @@ export const CityImageComponent = props => {
             numColumns={1}
             horizontal
             contentContainerStyle={{
-              marginLeft: wp('4'),
               paddingBottom: hp('3'),
               paddingRight: wp('2'),
+              paddingLeft: ml,
             }}
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => {
               return (
                 <TouchableOpacity
-                  style={styles.mainContainer}>
+                  onPress={() => {
+                    props?.navigate(item);
+                  }}
+                  style={{...styles.mainContainer}}>
                   <ImageBackground
                     borderRadius={10}
                     resizeMode="stretch"
                     style={styles.imageStyle}
                     source={{
-                      uri: 'https://cdn.britannica.com/62/153462-050-3D4F41AF/Grand-Canal-Venice.jpg',
+                      uri: 'https://images.pexels.com/photos/11577405/pexels-photo-11577405.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load',
                     }}>
-                    <Text style={styles.textImageBackground}>hello</Text>
+                    <Text numberOfLines={2} style={styles.textImageBackground}>
+                      {item.name}
+                    </Text>
                   </ImageBackground>
                 </TouchableOpacity>
               );
@@ -105,8 +109,7 @@ export const CityImageComponent = props => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    // marginLeft: wp('3'),
-    marginRight: wp('4'),
+    marginRight: wp('3'),
     marginTop: hp('1.5'),
     borderRadius: 10,
   },
@@ -127,7 +130,7 @@ const styles = StyleSheet.create({
 
   textImageBackground: {
     backgroundColor: color.textBackgroundColor,
-    width: wp('15'),
+    width: wp('22'),
     height: hp('3'),
     textAlign: 'center',
     color: 'white',
@@ -135,5 +138,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     alignContent: 'center',
+    borderRadius: 6,
+    justifyContent: 'center',
   },
 });

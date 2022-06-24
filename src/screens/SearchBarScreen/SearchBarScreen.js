@@ -24,8 +24,9 @@ import {Picker} from '@react-native-picker/picker';
 import {useState} from 'react';
 import {useSelector} from 'react-redux';
 import {SkypeIndicator} from 'react-native-indicators';
+import {errorMessage} from '../../components/NotificationMessage';
 
-export default function searchBarScreen({navigation}) {
+export default function SearchBarScreen({navigation}) {
   const {userData} = useSelector(state => state.userData);
   const [countryPicker, setCountryPicker] = useState([]);
   const [countryName, seCountryName] = useState('');
@@ -41,24 +42,24 @@ export default function searchBarScreen({navigation}) {
     navigation.goBack();
   };
   const updateState = data => setSearchData(() => ({...searchData, ...data}));
+
   const getAllCountryName = () => {
     ApiGet(CountryNameUrl).then(res => {
       if (res.status == 200) {
         setCountryPicker(res.json.data);
       } else {
-        showMessage({
-          type: 'danger',
-          icon: 'auto',
-          message: 'Warning',
-          description:
-            'Please Check Your Internet connection to get Countries Name.',
-          floating: true,
-          backgroundColor: color.textThirdColor,
-          style: {alignItems: 'center'},
-          autoHide: false,
-        });
+        errorMessage(
+          'Please Check Your Internet connection to get Countries Name.',
+        );
       }
     });
+  };
+  let allstate = {
+    is_price: EndPrice == '2600000000000' ? '0' : '1',
+    startPrice: startPrice,
+    EndPrice: EndPrice,
+    id: country_id,
+    name: countryName,
   };
   const applyFilterFun = () => {
     setIsloading(true);
@@ -71,36 +72,19 @@ export default function searchBarScreen({navigation}) {
       });
       ApiPost(url, body, false, userData.access_token).then(res => {
         if (res.status == 200 || res.status == 404) {
-          setIsloading(false);
-          // console.log(75, countryName);
           navigation.navigate('PackageScreen', {
             data: res.json.data,
             countryName: countryName,
           });
+          setIsloading(false);
         } else {
           setIsloading(false);
-          showMessage({
-            type: 'danger',
-            icon: 'auto',
-            message: 'Warning',
-            description: 'Network Request Failed',
-            floating: true,
-            backgroundColor: color.textThirdColor,
-            style: {alignItems: 'center'},
-          });
+          errorMessage('Network Request Failed.');
         }
       });
     } else {
       setIsloading(false);
-      showMessage({
-        type: 'danger',
-        icon: 'auto',
-        message: 'Warning',
-        description: 'Please Select Country.',
-        floating: true,
-        backgroundColor: color.textThirdColor,
-        style: {alignItems: 'center'},
-      });
+      errorMessage('Please Select Country.');
     }
   };
   useEffect(() => {
@@ -203,7 +187,13 @@ export default function searchBarScreen({navigation}) {
           />
         ) : (
           <TouchableOpacity
-            onPress={() => applyFilterFun()}
+            // onPress={() => applyFilterFun()}
+            onPress={() =>
+              navigation.navigate('PackageScreen', {
+                data: allstate,
+                type: 'search',
+              })
+            }
             style={styles.buttonView}>
             <Text style={styles.buttonText}>Apply Filter</Text>
           </TouchableOpacity>

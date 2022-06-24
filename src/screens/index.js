@@ -6,7 +6,7 @@ import userScreen from './UserScreen/userScreen';
 import OnboardingScreen from './OnBoardScreen/OnboardingScreen';
 import TravGuiderScreen from './TravGuiderScreen/TravGuiderScreen';
 import CurrencyMethodScreen from './CurrencyMethodScreen/CurrencyMethodScreen';
-import searchBarScreen from './SearchBarScreen/SearchBarScreen';
+import SearchBarScreen from './SearchBarScreen/SearchBarScreen';
 import PackageScreen from './PackageScreen/PackageScreen';
 
 import PackageDetailScreen from './PackageDetailScreen/PackageDetailScreen';
@@ -19,7 +19,7 @@ export const screens = {
   SignUpScreen,
   TravGuiderScreen,
   CurrencyMethodScreen,
-  searchBarScreen,
+  SearchBarScreen,
   PackageScreen,
   PackageDetailScreen,
 };

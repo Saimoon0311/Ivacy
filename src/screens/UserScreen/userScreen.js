@@ -23,6 +23,7 @@ import {ApiPost} from '../../config/helperFunction';
 import {LogoutUrl} from '../../config/Urls';
 import types from '../../Redux/type';
 import {showMessage} from 'react-native-flash-message';
+import {errorMessage} from '../../components/NotificationMessage';
 
 const userScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
@@ -38,26 +39,10 @@ const userScreen = ({navigation}) => {
           type: types.LogoutType,
         });
       } else if (res.status == 401) {
-        showMessage({
-          type: 'danger',
-          icon: 'auto',
-          message: 'Warning',
-          description: 'The app can not authorization form surver.',
-          floating: true,
-          backgroundColor: color.textThirdColor,
-          style: {alignItems: 'center'},
-        });
+        errorMessage('The app can not authorization form surver.');
         setIsloading(false);
       } else {
-        showMessage({
-          type: 'danger',
-          icon: 'auto',
-          message: 'Warning',
-          description: 'Network Request Failed',
-          floating: true,
-          backgroundColor: color.textThirdColor,
-          style: {alignItems: 'center'},
-        });
+        errorMessage('Network Request Failed.');
         setIsloading(false);
       }
     });

@@ -20,7 +20,7 @@ import {color} from '../color';
 export const FrontPackageCom = props => {
   let item = props.data;
   return (
-    <Pressable onPress={props?.navigate} style={styles.mainView}>
+    <Pressable onPress={() => props?.navigate(item)} style={styles.mainView}>
       <Image
         // source={{
         //   uri: 'https://images.pexels.com/photos/12405196/pexels-photo-12405196.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',

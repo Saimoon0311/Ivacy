@@ -20,7 +20,7 @@ const TravGuiderScreen = ({navigation}) => {
           <TouchableOpacity
             onPress={() => navigation.navigate('LoginScreen', 'Traveller')}
             style={styles.boxContainer}>
-            <Text style={styles.text}>Traveller</Text>
+            <Text style={styles.text}>Guest</Text>
             <Image
               resizeMode="contain"
               style={styles.image}
@@ -30,7 +30,7 @@ const TravGuiderScreen = ({navigation}) => {
           <TouchableOpacity
             onPress={() => navigation.navigate('LoginScreen', 'Guider')}
             style={styles.boxContainer}>
-            <Text style={styles.text}>Guider</Text>
+            <Text style={styles.text}>Host</Text>
             <Image
               resizeMode="contain"
               style={styles.image}
