@@ -15,11 +15,13 @@ import {ApiGet} from '../../config/helperFunction';
 import { showMessage } from 'react-native-flash-message';
 
 const PackageDetailScreen = ({route,navigation}) => {
+  
   const[countryPicker,setCountryPicker]=useState([]);
   
   const [isloading,setIsloading]=useState(true);
  
   const items=route.params;
+  console.log(items,244444);
   const [images,setImage] =useState([
     IMAGE_BASED_URL+items?.get_images[0]?.title,
     IMAGE_BASED_URL+items?.get_images[0]?.title,
@@ -27,13 +29,11 @@ const PackageDetailScreen = ({route,navigation}) => {
   // require('../../images/sale2.png'),
   // require('../../images/sale2.png'),
  ])
-  // const goback = () => {
-  //   navigation.goBack();
-  // };
+   
   const getAllCountryName =()=>{
 
     ApiGet(CountryNameUrl).then(res=>{
-      console.log(res.json,56666666666);
+      // console.log(res.json,56666666666);
       if(res.status==200)
       {
         setIsloading(false);
@@ -88,20 +88,20 @@ const PackageDetailScreen = ({route,navigation}) => {
         />
         <View style={{marginLeft:wp('2') }}>
 
-        <Text style={{...globalStyles.globalTextStyles,fontSize:hp('3.5')}} >{items.title}</Text>
+        <Text style={{...globalStyles.globalTextStyles,fontSize:hp('3.5')}} >{items?.title}</Text>
         <Text style={{...globalStyles.globalTextStyles,fontSize:hp('2'),}} >
-          {items.description}</Text>
+          {items?.description}</Text>
         <View style={styles.priceMainContainer}>
 
         <View >
         <Text style={styles.pricetxt} >Price</Text>
-         <Text style={styles.packtxt}>${items.price}/package</Text> 
+         <Text style={styles.packtxt}>${items?.price}/package</Text> 
         </View>
          <TouchableOpacity style={styles.boxNowContainer}>
           <Text style={styles.bookNowTxt}>Book Now</Text>
           </TouchableOpacity>   
         </View>
-        <CityImageComponent ml={wp('0.1')} data={countryPicker} isloading={isloading} heading={'Top Countries'} />
+        <CityImageComponent  ml={wp('0.1')} data={countryPicker} isloading={isloading} heading={'Top Countries'} />
 
         </View>
     </View>

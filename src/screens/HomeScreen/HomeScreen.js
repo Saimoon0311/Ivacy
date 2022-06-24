@@ -56,8 +56,6 @@ const HomeScreen = ({navigation}) => {
     },
   ]);
 
-
-
   const onRefresh = useCallback(() => {
     updateLoadingState({latestPackageLoading: true});
     setRefreshing(true);
@@ -70,19 +68,17 @@ const HomeScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
   const [allPackage, setAllPackage] = useState({
     latestPackage: [],
-    getCountryData:[],
+    getCountryData: [],
   });
   const [isloading, setIsloading] = useState({
     latestPackageLoading: true,
     countryLoader: true,
-    
   });
-  const updateLoadingState = data =>
-    setIsloading(() => ({...isloading, ...data}));
-  const {latestPackageLoading,countryLoader} = isloading;
+  const updateLoadingState = data => setIsloading(prev => ({...prev, ...data}));
+  const {latestPackageLoading, countryLoader} = isloading;
   const updatePackageState = data =>
-    setAllPackage(() => ({...allPackage, ...data}));
-  const {latestPackage,getCountryData} = allPackage;
+    setAllPackage(prev => ({...prev, ...data}));
+  const {latestPackage, getCountryData} = allPackage;
   const getPackage = () => {
     ApiGet(LatestPackageUrl, userData.access_token).then(res => {
       if (res.status == 200) {
@@ -105,19 +101,15 @@ const HomeScreen = ({navigation}) => {
     });
   };
 
-  const getCountryName =()=>{
-    ApiGet(CountryNameUrl).then(res =>{
-      if(res.status ==200){
-        updatePackageState({getCountryData:res.json.data});
-        updateLoadingState({countryLoader:false})
-      }
-      else if(res.status ==404)
-      {
-        updatePackageState({getCountryData:[]});
-        updateLoadingState({countryLoader:false})
-
-      }
-      else {
+  const getCountryName = () => {
+    ApiGet(CountryNameUrl).then(res => {
+      if (res.status == 200) {
+        updatePackageState({getCountryData: res.json.data});
+        updateLoadingState({countryLoader: false});
+      } else if (res.status == 404) {
+        updatePackageState({getCountryData: []});
+        updateLoadingState({countryLoader: false});
+      } else {
         showMessage({
           type: 'danger',
           icon: 'auto',
@@ -128,16 +120,20 @@ const HomeScreen = ({navigation}) => {
           style: {alignItems: 'center'},
         });
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    getPackage();
-    getCountryName();
     setTimeout(() => {
-      
+      getCountryName();
+      getPackage();
     }, 1000);
   }, []);
+
+  const navigatecountry = item => {
+    navigation.navigate('test', item);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -175,7 +171,13 @@ const HomeScreen = ({navigation}) => {
           isloading={latestPackageLoading}
           navigate={navigate}
         />
-        <CityImageComponent ml={wp('4')} data={getCountryData} isloading={countryLoader} heading={'Top Country'} />
+        <CityImageComponent
+          ml={wp('4')}
+          navigatecountry={navigatecountry}
+          data={getCountryData}
+          isloading={countryLoader}
+          heading={'Top Country'}
+        />
         <CityImageComponent data={topCities} heading={'World Top Hotels'} />
       </ScrollView>
     </SafeAreaView>

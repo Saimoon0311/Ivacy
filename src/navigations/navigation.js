@@ -50,6 +50,7 @@ export default function StackNavigatior() {
           name="PackageDetailScreen"
           component={screens.PackageDetailScreen}
         />
+
       </Stack.Navigator>
     </>
   );

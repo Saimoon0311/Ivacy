@@ -80,7 +80,7 @@ export const CityImageComponent = props => {
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => {
               return (
-                <TouchableOpacity style={{...styles.mainContainer }}>
+                <TouchableOpacity  onPress={()=>{props?.navigatecountry(item)}} style={{...styles.mainContainer }}>
                   <ImageBackground
                     borderRadius={10}
                     resizeMode="stretch"
@@ -88,7 +88,7 @@ export const CityImageComponent = props => {
                     source={{
                       uri: 'https://cdn.britannica.com/62/153462-050-3D4F41AF/Grand-Canal-Venice.jpg',
                     }}>
-                    <Text numberOfLines={2} style={styles.textImageBackground}>{item.name}</Text>
+                    <Text  style={styles.textImageBackground}>{item.name}</Text>
                   </ImageBackground>
                 </TouchableOpacity>
               );
