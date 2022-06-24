@@ -162,10 +162,10 @@ const HomeScreen = ({navigation}) => {
           ml={wp('4')}
           data={getCountryData}
           isloading={countryLoader}
-          heading={'Top Country'}
+          heading={'Top Places'}
           navigate={navigateToPackage}
         />
-        <CityImageComponent data={topCities} heading={'World Top Hotels'} />
+        <CityImageComponent data={topCities} heading={'Top Activities'} />
       </ScrollView>
     </SafeAreaView>
   );

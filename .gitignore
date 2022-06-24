@@ -62,4 +62,4 @@ buck-out/
 
 
 #for iqnore setting Folder
-settings.json
+/settings.json
