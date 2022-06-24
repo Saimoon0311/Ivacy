@@ -21,6 +21,7 @@ import {color} from '../../components/color';
 import {Picker} from '@react-native-picker/picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {globalStyles} from '../../config/globalStyles';
+import {errorMessage} from '../../components/NotificationMessage';
 
 export default function SignUpScreen() {
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('25'));
@@ -82,38 +83,14 @@ export default function SignUpScreen() {
           setSignUpConfirm(true);
         } else if (res.status == 401) {
           setLoading(false);
-          showMessage({
-            type: 'danger',
-            icon: 'auto',
-            message: 'Warning',
-            description: res.json.message,
-            floating: true,
-            backgroundColor: color.textThirdColor,
-            style: {alignItems: 'center'},
-          });
+          errorMessage(res.json.message);
         } else {
-          showMessage({
-            type: 'danger',
-            icon: 'auto',
-            message: 'Warning',
-            description: 'Network Request Failed',
-            floating: true,
-            backgroundColor: color.textThirdColor,
-            style: {alignItems: 'center'},
-          });
+          errorMessage('Network request failed.');
           setLoading(false);
         }
       });
     } else {
-      showMessage({
-        type: 'danger',
-        icon: 'auto',
-        message: 'Warning',
-        description: 'Plesae type correct information.',
-        floating: true,
-        backgroundColor: color.textThirdColor,
-        style: {alignItems: 'center'},
-      });
+      errorMessage('Plesae type correct information.');
       setLoading(false);
     }
   };
@@ -122,17 +99,9 @@ export default function SignUpScreen() {
       if (res.status == 200) {
         setCountryPicker(res.json.data);
       } else {
-        showMessage({
-          type: 'danger',
-          icon: 'auto',
-          message: 'Warning',
-          description:
-            'Please Check Your Internet connection to get Countries Name.',
-          floating: true,
-          backgroundColor: color.textThirdColor,
-          style: {alignItems: 'center'},
-          autoHide: false,
-        });
+        errorMessage(
+          'Please Check Your Internet connection to get Countries Name.',
+        );
       }
     });
   };

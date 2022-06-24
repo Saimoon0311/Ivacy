@@ -24,10 +24,12 @@ import {Picker} from '@react-native-picker/picker';
 import {useState} from 'react';
 import {useSelector} from 'react-redux';
 import {SkypeIndicator} from 'react-native-indicators';
+import {errorMessage} from '../../components/NotificationMessage';
 
-export default function searchBarScreen({navigation}) {
+export default function SearchBarScreen({navigation}) {
   const {userData} = useSelector(state => state.userData);
   const [countryPicker, setCountryPicker] = useState([]);
+  const [countryName, seCountryName] = useState('');
   const [searchData, setSearchData] = useState({
     country_id: null,
     startPrice: '0',
@@ -40,25 +42,24 @@ export default function searchBarScreen({navigation}) {
     navigation.goBack();
   };
   const updateState = data => setSearchData(() => ({...searchData, ...data}));
-  
+
   const getAllCountryName = () => {
     ApiGet(CountryNameUrl).then(res => {
       if (res.status == 200) {
         setCountryPicker(res.json.data);
       } else {
-        showMessage({
-          type: 'danger',
-          icon: 'auto',
-          message: 'Warning',
-          description:
-            'Please Check Your Internet connection to get Countries Name.',
-          floating: true,
-          backgroundColor: color.textThirdColor,
-          style: {alignItems: 'center'},
-          autoHide: false,
-        });
+        errorMessage(
+          'Please Check Your Internet connection to get Countries Name.',
+        );
       }
     });
+  };
+  let allstate = {
+    is_price: EndPrice == '2600000000000' ? '0' : '1',
+    startPrice: startPrice,
+    EndPrice: EndPrice,
+    id: country_id,
+    name: countryName,
   };
   const applyFilterFun = () => {
     setIsloading(true);
@@ -69,35 +70,21 @@ export default function searchBarScreen({navigation}) {
         start_price: startPrice,
         end_price: EndPrice,
       });
-      console.log(60, url);
       ApiPost(url, body, false, userData.access_token).then(res => {
         if (res.status == 200 || res.status == 404) {
+          navigation.navigate('PackageScreen', {
+            data: res.json.data,
+            countryName: countryName,
+          });
           setIsloading(false);
-          navigation.navigate('PackageScreen', res.json.data);
         } else {
           setIsloading(false);
-          showMessage({
-            type: 'danger',
-            icon: 'auto',
-            message: 'Warning',
-            description: 'Network Request Failed',
-            floating: true,
-            backgroundColor: color.textThirdColor,
-            style: {alignItems: 'center'},
-          });
+          errorMessage('Network Request Failed.');
         }
       });
     } else {
       setIsloading(false);
-      showMessage({
-        type: 'danger',
-        icon: 'auto',
-        message: 'Warning',
-        description: 'Please Select Country.',
-        floating: true,
-        backgroundColor: color.textThirdColor,
-        style: {alignItems: 'center'},
-      });
+      errorMessage('Please Select Country.');
     }
   };
   useEffect(() => {
@@ -141,7 +128,8 @@ export default function searchBarScreen({navigation}) {
                 itemStyle={{color: 'black'}}
                 dropdownIconRippleColor="red"
                 style={{color: 'black'}}
-                onValueChange={country_id => {
+                onValueChange={(country_id, index) => {
+                  seCountryName(countryPicker[index - 1].name);
                   updateState({country_id});
                 }}
                 collapsable={true}>
@@ -191,15 +179,25 @@ export default function searchBarScreen({navigation}) {
             placeholder="price"
           />
         </View>
-        <TouchableOpacity
-          onPress={() => applyFilterFun()}
-          style={styles.buttonView}>
-          {isloading ? (
-            <SkypeIndicator color={color.white} size={hp('4')} />
-          ) : (
+        {isloading ? (
+          <SkypeIndicator
+            color={color.bottomBarColor}
+            size={hp('6')}
+            style={{marginTop: hp('3')}}
+          />
+        ) : (
+          <TouchableOpacity
+            // onPress={() => applyFilterFun()}
+            onPress={() =>
+              navigation.navigate('PackageScreen', {
+                data: allstate,
+                type: 'search',
+              })
+            }
+            style={styles.buttonView}>
             <Text style={styles.buttonText}>Apply Filter</Text>
-          )}
-        </TouchableOpacity>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </View>
   );

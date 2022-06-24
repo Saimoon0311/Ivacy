@@ -5,6 +5,7 @@ import {
   ScrollView,
   SafeAreaView,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
@@ -24,8 +25,11 @@ import {LatestPackageFlatlist} from '../../components/LatestPackageFlatlist/late
 import SearchBarComponents from '../../components/SearchBarComponents/SearchBarComponents';
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
 import {useCallback} from 'react';
+import {errorMessage} from '../../components/NotificationMessage';
+import ThankYouScreen from '../ThankYouScreen/ThankYouScreen';
 
 const HomeScreen = ({navigation}) => {
+  const disptach = useDispatch();
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
@@ -33,8 +37,6 @@ const HomeScreen = ({navigation}) => {
   const navigate = item => {
     navigation.navigate('PackageDetailScreen', item);
   };
-  const [value, setValue] = useState();
-
   const [topCities, setTopCities] = useState([
     {
       id: 1,
@@ -58,26 +60,37 @@ const HomeScreen = ({navigation}) => {
 
   const onRefresh = useCallback(() => {
     updateLoadingState({latestPackageLoading: true});
+    updateLoadingState({countryLoader: true});
     setRefreshing(true);
     wait(2000).then(() => {
       getPackage();
+      getCountryName();
       setRefreshing(false);
     });
   }, []);
-  const disptach = useDispatch();
   const {userData} = useSelector(state => state.userData);
   const [allPackage, setAllPackage] = useState({
     latestPackage: [],
     getCountryData: [],
+    packageByCountry: [],
   });
   const [isloading, setIsloading] = useState({
     latestPackageLoading: true,
     countryLoader: true,
   });
-  const updateLoadingState = data => setIsloading(prev => ({...prev, ...data}));
+  const updateLoadingState = data => {
+    setIsloading(prev => ({...prev, ...data}));
+  };
+  const navigateToPackage = item => {
+    navigation.navigate('PackageScreen', {
+      data: item,
+      type: 'getPackage',
+    });
+  };
   const {latestPackageLoading, countryLoader} = isloading;
-  const updatePackageState = data =>
+  const updatePackageState = data => {
     setAllPackage(prev => ({...prev, ...data}));
+  };
   const {latestPackage, getCountryData} = allPackage;
   const getPackage = () => {
     ApiGet(LatestPackageUrl, userData.access_token).then(res => {
@@ -88,19 +101,10 @@ const HomeScreen = ({navigation}) => {
         updatePackageState({latestPackage: []});
         updateLoadingState({latestPackageLoading: false});
       } else {
-        showMessage({
-          type: 'danger',
-          icon: 'auto',
-          message: 'Warning',
-          description: 'Network Request Faild.',
-          floating: true,
-          backgroundColor: color.textThirdColor,
-          style: {alignItems: 'center'},
-        });
+        errorMessage('Network Request Faild.');
       }
     });
   };
-
   const getCountryName = () => {
     ApiGet(CountryNameUrl).then(res => {
       if (res.status == 200) {
@@ -110,29 +114,19 @@ const HomeScreen = ({navigation}) => {
         updatePackageState({getCountryData: []});
         updateLoadingState({countryLoader: false});
       } else {
-        showMessage({
-          type: 'danger',
-          icon: 'auto',
-          message: 'Warning',
-          description: 'Network Request Faild.',
-          floating: true,
-          backgroundColor: color.textThirdColor,
-          style: {alignItems: 'center'},
-        });
+        errorMessage('Network Request Faild.');
       }
     });
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      getCountryName();
-      getPackage();
-    }, 1000);
+    getPackage();
+    getCountryName();
   }, []);
 
-  const navigatecountry = item => {
-    navigation.navigate('test', item);
-  };
+  // const ThankYOuScreen = () => {
+  //   navigation.navigate('ThankYOuScreen');
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -173,11 +167,14 @@ const HomeScreen = ({navigation}) => {
         />
         <CityImageComponent
           ml={wp('4')}
-          navigatecountry={navigatecountry}
           data={getCountryData}
           isloading={countryLoader}
           heading={'Top Country'}
+          navigate={navigateToPackage}
         />
+        {/* <TouchableOpacity  onPress={()=>{navigation.navigate('ThankYouScreen')}}>
+            <Text>   ThankYouScreen For Temperory</Text>
+        </TouchableOpacity> */}
         <CityImageComponent data={topCities} heading={'World Top Hotels'} />
       </ScrollView>
     </SafeAreaView>

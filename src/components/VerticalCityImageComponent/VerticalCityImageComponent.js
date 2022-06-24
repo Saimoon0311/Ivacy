@@ -15,7 +15,7 @@ import {
 } from 'react-native-responsive-screen';
 import {color} from '../color';
 
-export const CityImageComponent = props => {
+export const VerticalCityImageComponent = props => {
   let ml = props?.ml ? props.ml : wp('4');
   const placholderView = () => {
     return (
@@ -38,19 +38,10 @@ export const CityImageComponent = props => {
           style={{
             ...globalStyles.globalTextStyles,
             fontSize: hp('2.8'),
+            marginLeft:wp('3.5')
           }}>
           {props?.heading}
         </Text>
-        <TouchableOpacity style={styles.hotTextTouc}>
-          <Text
-            style={{
-              color: color.white,
-              fontWeight: 'bold',
-              fontSize: hp('1.7'),
-            }}>
-            Hot
-          </Text>
-        </TouchableOpacity>
       </View>
       {props?.isloading ? (
         <SkeletonPlaceholder>
@@ -71,20 +62,20 @@ export const CityImageComponent = props => {
           <FlatList
             data={props?.data}
             keyExtractor={(item, index) => index.toString()}
-            numColumns={1}
-            horizontal
+            numColumns={2}
             contentContainerStyle={{
               paddingBottom: hp('3'),
               paddingRight: wp('2'),
               paddingLeft: ml,
+              justifyContent:'center',
+              alignSelf:'center',
             }}
-            showsHorizontalScrollIndicator={false}
             renderItem={({item}) => {
               return (
                 <TouchableOpacity
-                  onPress={() => {
-                    props?.navigate(item);
-                  }}
+                //   onPress={() => {
+                //     props?.navigate();
+                //   }}
                   style={{...styles.mainContainer}}>
                   <ImageBackground
                     borderRadius={10}
@@ -114,8 +105,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   imageStyle: {
-    width: wp('29'),
-    height: hp('12'),
+    width: wp('40'),
+    height: hp('20'),
   },
   hotTextTouc: {
     backgroundColor: color.boxColor,

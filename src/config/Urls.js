@@ -1,7 +1,5 @@
 export const API_BASED_URL = 'https://test-urls.com/ivacay/api/';
 export const IMAGE_BASED_URL = 'https://test-urls.com/ivacay/packages/';
-export const POST_IMAGE_URL =
-  'https://api.cloudinary.com/v1_1/dd6tdswt5/upload';
 
 export const getApi = endpoint => API_BASED_URL + endpoint;
 

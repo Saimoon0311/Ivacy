@@ -13,6 +13,9 @@ export const color = {
   borderThirdColor: '#999999',
   white: '#ffff',
   black: '#000000',
-  textImagebackgroundColor:'#D8D8D8',
+  textImagebackgroundColor: '#D8D8D8',
   badgeColor: '#FF2D2D',
+  lightView: '#DACBFA',
+  ThankYouColor: '#8161C8',
+
 };

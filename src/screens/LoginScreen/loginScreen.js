@@ -21,6 +21,7 @@ import {LoginUrl, UserUrl} from '../../config/Urls';
 import {useDispatch} from 'react-redux';
 import types from '../../Redux/type';
 import {showMessage} from 'react-native-flash-message';
+import {errorMessage} from '../../components/NotificationMessage';
 
 const LoginScreen = ({route, navigation}) => {
   const disptach = useDispatch();
@@ -78,38 +79,14 @@ const LoginScreen = ({route, navigation}) => {
           setLoading(false);
         } else if (res.status == 401) {
           setLoading(false);
-          showMessage({
-            type: 'danger',
-            icon: 'auto',
-            message: 'Warning',
-            description: res.json.message,
-            floating: true,
-            backgroundColor: color.textThirdColor,
-            style: {alignItems: 'center'},
-          });
+          errorMessage(res.json.message);
         } else {
-          showMessage({
-            type: 'danger',
-            icon: 'auto',
-            message: 'Warning',
-            description: 'Network Request Failed',
-            floating: true,
-            backgroundColor: color.textThirdColor,
-            style: {alignItems: 'center'},
-          });
+          errorMessage('Network Request Failed.');
           setLoading(false);
         }
       });
     } else {
-      showMessage({
-        type: 'danger',
-        icon: 'auto',
-        message: 'Warning',
-        description: 'Plesae type correct information.',
-        floating: true,
-        backgroundColor: color.textThirdColor,
-        style: {alignItems: 'center'},
-      });
+      errorMessage('Plesae type correct information.');
       setLoading(false);
     }
   };
