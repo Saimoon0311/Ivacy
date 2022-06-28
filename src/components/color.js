@@ -18,4 +18,5 @@ export const color = {
   lightView: '#DACBFA',
   ThankYouColor: '#8161C8',
 
+
 };

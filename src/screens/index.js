@@ -10,6 +10,9 @@ import SearchBarScreen from './SearchBarScreen/SearchBarScreen';
 import PackageScreen from './PackageScreen/PackageScreen';
 import PackageDetailScreen from './PackageDetailScreen/PackageDetailScreen';
 import ThankYouScreen from './ThankYouScreen/ThankYouScreen';
+import ReviewScreen from './ReviewScreen/ReviewScreen';
+import WriteReviewScreen from './WriteReviewScreen/WriteReviewScreen';
+
 export const screens = {
   OnboardingScreen,
   HomeScreen,
@@ -23,4 +26,6 @@ export const screens = {
   PackageScreen,
   PackageDetailScreen,
   ThankYouScreen,
+  ReviewScreen,
+  WriteReviewScreen
 };

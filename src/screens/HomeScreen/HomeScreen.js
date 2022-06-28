@@ -169,13 +169,16 @@ const HomeScreen = ({navigation}) => {
           ml={wp('4')}
           data={getCountryData}
           isloading={countryLoader}
-          heading={'Top Country'}
+          heading={'Top Places'}
           navigate={navigateToPackage}
         />
-        {/* <TouchableOpacity  onPress={()=>{navigation.navigate('ThankYouScreen')}}>
-            <Text>   ThankYouScreen For Temperory</Text>
-        </TouchableOpacity> */}
-        <CityImageComponent data={topCities} heading={'World Top Hotels'} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('ReviewScreen');
+          }}>
+          <Text> ReviewScreen For Temperory</Text>
+        </TouchableOpacity>
+        <CityImageComponent data={topCities} heading={'Top Activities'} />
       </ScrollView>
     </SafeAreaView>
   );
