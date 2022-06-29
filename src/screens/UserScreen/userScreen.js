@@ -79,7 +79,11 @@ const userScreen = ({navigation}) => {
           iconName={'alert-circle-outline'}
           text={'About the app'}
         />
-        <TextImageComponent iconName={'md-star-outline'} text={'Rate us'} />
+        <TextImageComponent
+          onPress={() => navigation.navigate('ReviewScreen')}
+          iconName={'md-star-outline'}
+          text={'Rate us'}
+        />
         <TextImageComponent
           onPress={logoutFun}
           iconName={'log-in-outline'}

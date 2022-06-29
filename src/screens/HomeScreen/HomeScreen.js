@@ -172,12 +172,12 @@ const HomeScreen = ({navigation}) => {
           heading={'Top Places'}
           navigate={navigateToPackage}
         />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ReviewScreen');
+            navigation.navigate('WriteReviewScreen');
           }}>
           <Text> ReviewScreen For Temperory</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <CityImageComponent data={topCities} heading={'Top Activities'} />
       </ScrollView>
     </SafeAreaView>

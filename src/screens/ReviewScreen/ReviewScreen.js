@@ -64,7 +64,7 @@ const ReviewScreen = ({navigation}) => {
           numColumns={1}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            paddingBottom: hp('20'),
+            paddingBottom: hp('7'),
             paddingRight: wp('2'),
             // paddingLeft: ml,
             justifyContent: 'center',
