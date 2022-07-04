@@ -28,13 +28,12 @@ export const FrontPackageCom = props => {
         source={{uri: IMAGE_BASED_URL + item?.get_images[0]?.title}}
         style={styles.packageImage}
       />
-      <View
-        style={{
-          justifyContent: 'space-between',
-        }}>
+      <View>
         <View
           style={{
             flexDirection: 'row',
+            marginBottom: hp('-0.4'),
+            marginTop: hp('0.5'),
           }}>
           <Text style={{...styles.packageTitle}}>Title</Text>
           <Text
@@ -47,8 +46,7 @@ export const FrontPackageCom = props => {
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.packageTitle}>Price</Text>
           <Text style={{...styles.packageTitle, fontWeight: 'normal'}}>
-            {' '}
-            {item?.price}
+            ${item?.price}
           </Text>
           <View
             style={{
@@ -68,6 +66,28 @@ export const FrontPackageCom = props => {
               size={hp('4')}
             />
           </View>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={{...styles.packageTitle, marginTop: hp('-1')}}>
+            Date
+          </Text>
+          <Text
+            style={{
+              ...styles.packageTitle,
+              fontWeight: 'normal',
+              marginTop: hp('-1'),
+            }}>
+            {item?.from_date}
+          </Text>
+          <Text style={{...styles.packageTitle, marginTop: hp('-1')}}>To</Text>
+          <Text
+            style={{
+              ...styles.packageTitle,
+              fontWeight: 'normal',
+              marginTop: hp('-1'),
+            }}>
+            {item?.end_date}
+          </Text>
         </View>
       </View>
     </Pressable>
@@ -132,7 +152,7 @@ const styles = StyleSheet.create({
     fontSize: hp('2'),
     color: 'black',
     fontWeight: 'bold',
-    marginTop: hp('1'),
+    marginTop: hp('0.5'),
     marginLeft: wp('2'),
   },
 });

@@ -11,3 +11,4 @@ export const CountryNameUrl = getApi('country');
 export const LatestPackageUrl = getApi('package');
 export const SearchrUrl = getApi('search/');
 export const ReviewUrl = getApi('reviews');
+export const SubReviewUrl = getApi('submit-review');

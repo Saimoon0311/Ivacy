@@ -27,6 +27,7 @@ import {errorMessage} from '../../components/NotificationMessage';
 
 const userScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
+  console.log(9, userData);
   const dispatch = useDispatch();
   const [isloading, setIsloading] = useState(false);
   const [isReviewloading, setIsReviewloading] = useState(false);
@@ -34,6 +35,7 @@ const userScreen = ({navigation}) => {
     let body = {};
     setIsloading(true);
     ApiPost(LogoutUrl, body, false, userData.access_token).then(res => {
+      console.log(100, res);
       if (res.status == 200) {
         setIsloading(false);
         dispatch({

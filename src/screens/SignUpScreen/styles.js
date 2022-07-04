@@ -45,7 +45,6 @@ export const styles = StyleSheet.create({
     fontSize: hp('2'),
   },
   innerView: {
-    // height: hp('28'),
     justifyContent: 'flex-end',
     alignSelf: 'flex-start',
     marginTop: hp('6'),
@@ -62,5 +61,11 @@ export const styles = StyleSheet.create({
     borderWidth: Platform.OS == 'ios' ? 0 : 1,
     borderColor: 'white',
     justifyContent: 'center',
+  },
+  userImage: {
+    width: wp('40'),
+    height: hp('20'),
+    borderRadius: 100,
+    backgroundColor: 'gray',
   },
 });

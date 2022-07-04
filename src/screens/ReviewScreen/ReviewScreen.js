@@ -13,6 +13,9 @@ import StarRating from 'react-native-star-rating';
 import {ApiGet} from '../../config/helperFunction';
 import {ReviewUrl} from '../../config/Urls';
 import {errorMessage} from '../../components/NotificationMessage';
+// const ReviewScreen = ({navigation}) => {
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import moment from 'moment';
 const ReviewScreen = ({navigation}) => {
   const [starCount, setstarCount] = useState(0);
   const {userData} = useSelector(state => state.userData);
@@ -25,6 +28,9 @@ const ReviewScreen = ({navigation}) => {
   const navigate = () => {
     navigation.goBack();
   };
+  setTimeout(() => {
+    setIsloading(false);
+  }, 2000);
   const [data, setData] = useState([
     {
       id: 1,
@@ -41,7 +47,7 @@ const ReviewScreen = ({navigation}) => {
   ]);
   const reviewsFunc = () => {
     ApiGet(ReviewUrl, userData.access_token).then(res => {
-      console.log(res, 44);
+      console.log(res.json, 44);
       if (res.status == 200) {
         setReviewState(res.json);
         setIsloading(false);
@@ -59,6 +65,47 @@ const ReviewScreen = ({navigation}) => {
     reviewsFunc();
   }, []);
 
+  const loadingView = () => {
+    return (
+      <View
+        style={{
+          ...styles.CommentContainer,
+          backgroundColor: 'transparent',
+          borderWidth: 1,
+        }}>
+        <View
+          style={{
+            ...styles.titleTxt,
+            backgroundColor: 'red',
+            height: hp('3'),
+            borderRadius: 5,
+            marginTop: hp('1'),
+            marginLeft: wp('2'),
+          }}
+        />
+        <View
+          style={{
+            ...styles.titleTxt,
+            backgroundColor: 'red',
+            height: hp('3'),
+            borderRadius: 5,
+            marginLeft: wp('2'),
+            marginTop: hp('1'),
+            width: wp('30'),
+          }}
+        />
+        <View
+          style={{
+            ...styles.desc,
+            height: hp('20'),
+            marginTop: hp('1'),
+            borderRadius: 10,
+            marginBottom: hp('1'),
+          }}
+        />
+      </View>
+    );
+  };
   return (
     <View style={styles.container}>
       <BackHeaderCom text={'Reviews'} goBack={navigate} />
@@ -83,46 +130,55 @@ const ReviewScreen = ({navigation}) => {
         </View>
       </View>
       <View>
-        <FlatList
-          data={reviewState.data}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={1}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingBottom: hp('7'),
-            paddingRight: wp('2'),
-            // paddingLeft: ml,
-            justifyContent: 'center',
-            alignSelf: 'center',
-          }}
-          renderItem={({item}) => {
-            return (
-              <View style={styles.CommentContainer}>
-                <View style={styles.topCommentTxt}>
-                  <Text style={styles.titleTxt}>
-                    {item.get_review_user.username}
-                  </Text>
-                  <Text>June 2016</Text>
+        {isloading ? (
+          <SkeletonPlaceholder>
+            {loadingView()}
+            {loadingView()}
+            {loadingView()}
+            {loadingView()}
+            {loadingView()}
+            {loadingView()}
+            {loadingView()}
+            {loadingView()}
+          </SkeletonPlaceholder>
+        ) : (
+          <FlatList
+            data={reviewState.data}
+            keyExtractor={(item, index) => index.toString()}
+            numColumns={1}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingBottom: hp('40'),
+            }}
+            renderItem={({item}) => {
+              return (
+                <View style={styles.CommentContainer}>
+                  <View style={styles.topCommentTxt}>
+                    <Text style={styles.titleTxt}>
+                      {item.get_review_user.username}
+                    </Text>
+                    <Text>{moment(item.created_at, 'YYYYMMDD').fromNow()}</Text>
+                  </View>
+                  <View style={{marginLeft: wp('3')}}>
+                    <StarRating
+                      containerStyle={{width: wp('10')}}
+                      starSize={20}
+                      fullStarColor={color.textSecondaryColor}
+                      starStyle={{
+                        marginBottom: hp('1'),
+                        marginTop: hp('1'),
+                      }}
+                      disabled={true}
+                      maxStars={5}
+                      rating={item.star}
+                    />
+                  </View>
+                  <Text style={styles.desc}>{item.message}</Text>
                 </View>
-                <View style={{marginLeft: wp('2')}}>
-                  <StarRating
-                    containerStyle={{width: wp('10')}}
-                    starSize={20}
-                    fullStarColor={color.textSecondaryColor}
-                    starStyle={{
-                      marginBottom: hp('0.5'),
-                      marginTop: hp('0.5'),
-                    }}
-                    maxStars={4}
-                    rating={starCount}
-                    selectedStar={rating => onStarRatingPress(rating)}
-                  />
-                </View>
-                <Text style={styles.desc}>{item.message}</Text>
-              </View>
-            );
-          }}
-        />
+              );
+            }}
+          />
+        )}
       </View>
     </View>
   );

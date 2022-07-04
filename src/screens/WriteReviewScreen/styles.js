@@ -13,19 +13,18 @@ export const styles = StyleSheet.create({
     background: color.white,
   },
   mainContainer: {
-    paddingHorizontal: wp('3'),
-    paddingTop: hp('2'),
+    paddingTop: hp('3'),
   },
   writTxt: {
     fontWeight: '700',
     color: color.black,
     fontSize: hp('3.5'),
-    width: wp('45'),
+    textAlign: 'center',
   },
   btnContainer: {
     backgroundColor: color.boxColor,
-    width: wp('90'),
-    height: hp('7'),
+    width: wp('80'),
+    height: hp('6'),
     alignSelf: 'center',
     borderRadius: 5,
     shadowColor: '#000',
@@ -36,14 +35,13 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
     marginTop: hp('2'),
   },
   btn: {
     textAlign: 'center',
     color: color.white,
-    fontSize: hp('2.7'),
+    fontSize: hp('2.5'),
     fontWeight: '500',
   },
   txtInputContainer: {
@@ -56,17 +54,18 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: wp('3'),
     borderColor: color.textImagebackgroundColor,
+    fontSize: hp('2'),
   },
   destxtInputContainer: {
     width: wp('90'),
     height: hp('18'),
     alignSelf: 'center',
     borderRadius: 5,
-
     backgroundColor: color.txtInputbackColor,
     marginTop: hp('4'),
     borderWidth: 1,
     paddingLeft: wp('3'),
+    fontSize: hp('2'),
     borderColor: color.textImagebackgroundColor,
   },
 });

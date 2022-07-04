@@ -94,7 +94,7 @@ export default function SearchBarScreen({navigation}) {
     <View>
       <BackHeaderCom goBack={goBack} text="Filter Screen" />
       <ScrollView>
-        {countryPicker.length > 0 && (
+        {countryPicker.length > 0 ? (
           <>
             <Text
               style={{
@@ -147,6 +147,15 @@ export default function SearchBarScreen({navigation}) {
               </Picker>
             </View>
           </>
+        ) : (
+          <SkypeIndicator
+            color={color.textThirdColor}
+            size={hp('6')}
+            style={{
+              alignSelf: 'center',
+              marginTop: hp('2'),
+            }}
+          />
         )}
         <Text
           style={{
@@ -163,6 +172,7 @@ export default function SearchBarScreen({navigation}) {
             keyboardType="numeric"
             onChangeText={startPrice => updateState({startPrice})}
             placeholder="price"
+            placeholderTextColor={'gray'}
           />
           <Text
             style={{
@@ -176,6 +186,7 @@ export default function SearchBarScreen({navigation}) {
             style={styles.inputField}
             keyboardType="numeric"
             onChangeText={EndPrice => updateState({EndPrice})}
+            placeholderTextColor={'gray'}
             placeholder="price"
           />
         </View>

@@ -1,5 +1,5 @@
 import {View, Text, TextInput, FlatList, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
@@ -10,17 +10,50 @@ import {styles} from '../WriteReviewScreen/styles';
 import StarRating from 'react-native-star-rating';
 import {color} from '../../components/color';
 import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
+import {ApiPost} from '../../config/helperFunction';
+import {errorMessage} from '../../components/NotificationMessage';
+import {SubReviewUrl} from '../../config/Urls';
+import {useSelector} from 'react-redux';
 
 const WriteReviewScreen = ({navigation}) => {
   const [starCount, setstarCount] = useState(0);
-  const [title, setTitle] = useState('');
+  // const [title, setTitle] = useState('');
   const [des, setDes] = useState('');
-  console.log(title);
-  const onStarRatingPress = rating => {
-    setstarCount(rating);
-  };
+  const [loading, setLoading] = useState(false);
+  const {userData} = useSelector(state => state.userData);
+  // const onStarRatingPress = rating => {
+  //   setstarCount(rating);
+  // };
   const navigate = () => {
     navigation.goBack();
+  };
+  const WriteReviewFunc = () => {
+    setLoading(true);
+
+    if (des != '' && des != null && starCount != '' && starCount != null) {
+      let body = JSON.stringify({
+        rating: starCount,
+        message: des,
+      });
+      ApiPost(SubReviewUrl, body, false, userData.access_token).then(res => {
+        console.log(res);
+        if (res.status == 200) {
+          errorMessage(res.message);
+          setstarCount('');
+          setDes('');
+          setLoading(false);
+        } else if (res.status == 422) {
+          errorMessage(res.message);
+          setLoading(false);
+        } else {
+          errorMessage('Network Failed!!!');
+          setLoading(false);
+        }
+      });
+    } else {
+      errorMessage('Plesae type correct information.');
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,11 +76,11 @@ const WriteReviewScreen = ({navigation}) => {
             }}
             maxStars={5}
             rating={starCount}
-            selectedStar={rating => onStarRatingPress(rating)}
+            selectedStar={rating => setstarCount(rating)}
           />
           <Text style={{textAlign: 'center'}}>Tap a star to rate</Text>
         </View>
-        <View>
+        {/* <View>
           <TextInput
             style={styles.txtInputContainer}
             onChangeText={e => setTitle(e)}
@@ -55,9 +88,10 @@ const WriteReviewScreen = ({navigation}) => {
             placeholder="Title"
             asd
             keyboardType="default"
+            placeholderTextColor="gray"
             maxLength={25}
           />
-        </View>
+        </View> */}
         <View>
           <TextInput
             style={styles.destxtInputContainer}
@@ -68,9 +102,12 @@ const WriteReviewScreen = ({navigation}) => {
             multiline={true}
             textAlignVertical="top"
             maxLength={250}
+            placeholderTextColor="gray"
           />
         </View>
-        <TouchableOpacity style={styles.btnContainer}>
+        <TouchableOpacity
+          onPress={() => WriteReviewFunc()}
+          style={styles.btnContainer}>
           <Text style={styles.btn}>Submit</Text>
         </TouchableOpacity>
       </View>

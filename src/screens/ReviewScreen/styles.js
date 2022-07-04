@@ -39,9 +39,8 @@ export const styles = StyleSheet.create({
   },
   ratingtxtContainer: {
     alignSelf: 'center',
-
     justifyContent: 'center',
-    width: wp('24'),
+    // width: wp('24'),
   },
   ratingtxt: {
     alignSelf: 'center',
@@ -55,7 +54,7 @@ export const styles = StyleSheet.create({
   },
   CommentContainer: {
     width: wp('90'),
-    height: hp('25'),
+    // height: hp('25'),
     alignSelf: 'center',
     backgroundColor: color.white,
     borderRadius: 10,
@@ -81,13 +80,13 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     color: color.black,
     fontSize: hp('2'),
-    width: wp('30'),
+    width: wp('50'),
   },
   desc: {
-    marginTop: hp('2'),
     color: color.textColor,
     width: wp('85'),
     alignSelf: 'center',
     fontSize: hp('2'),
+    marginBottom: hp('1'),
   },
 });
