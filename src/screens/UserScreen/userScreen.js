@@ -29,6 +29,7 @@ const userScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
   const dispatch = useDispatch();
   const [isloading, setIsloading] = useState(false);
+  const [isReviewloading, setIsReviewloading] = useState(false);
   const logoutFun = () => {
     let body = {};
     setIsloading(true);
@@ -47,6 +48,7 @@ const userScreen = ({navigation}) => {
       }
     });
   };
+
   return (
     <>
       <ScrollView

@@ -1,5 +1,6 @@
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {color} from '../../components/color';
 import {styles} from './styles';
@@ -9,9 +10,14 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import StarRating from 'react-native-star-rating';
-
+import {ApiGet} from '../../config/helperFunction';
+import {ReviewUrl} from '../../config/Urls';
+import {errorMessage} from '../../components/NotificationMessage';
 const ReviewScreen = ({navigation}) => {
   const [starCount, setstarCount] = useState(0);
+  const {userData} = useSelector(state => state.userData);
+  const [isloading, setIsloading] = useState(true);
+  const [reviewState, setReviewState] = useState([]);
 
   const onStarRatingPress = rating => {
     setstarCount(rating);
@@ -33,7 +39,26 @@ const ReviewScreen = ({navigation}) => {
       id: 4,
     },
   ]);
+  const reviewsFunc = () => {
+    ApiGet(ReviewUrl, userData.access_token).then(res => {
+      console.log(res, 44);
+      if (res.status == 200) {
+        setReviewState(res.json);
+        setIsloading(false);
+      } else if (res.status == 404) {
+        errorMessage(res.json.message);
+        setIsloading(false);
+      } else {
+        errorMessage('Network Request Failed.');
+        setIsloading(false);
+      }
+    });
+  };
   const ratingCompleted = rating => console.log('Rating is: ', rating);
+  useEffect(() => {
+    reviewsFunc();
+  }, []);
+
   return (
     <View style={styles.container}>
       <BackHeaderCom text={'Reviews'} goBack={navigate} />
@@ -53,13 +78,13 @@ const ReviewScreen = ({navigation}) => {
           </View>
         </View>
         <View style={styles.ratingtxtContainer}>
-          <Text style={styles.ratingtxt}>4.3</Text>
+          <Text style={styles.ratingtxt}>{reviewState.review_avg}</Text>
           <Text style={styles.outOfTxt}>out of 5</Text>
         </View>
       </View>
       <View>
         <FlatList
-          data={data}
+          data={reviewState.data}
           keyExtractor={(item, index) => index.toString()}
           numColumns={1}
           showsVerticalScrollIndicator={false}
@@ -74,7 +99,9 @@ const ReviewScreen = ({navigation}) => {
             return (
               <View style={styles.CommentContainer}>
                 <View style={styles.topCommentTxt}>
-                  <Text style={styles.titleTxt}>Istakiah Remon</Text>
+                  <Text style={styles.titleTxt}>
+                    {item.get_review_user.username}
+                  </Text>
                   <Text>June 2016</Text>
                 </View>
                 <View style={{marginLeft: wp('2')}}>
@@ -91,12 +118,7 @@ const ReviewScreen = ({navigation}) => {
                     selectedStar={rating => onStarRatingPress(rating)}
                   />
                 </View>
-                <Text style={styles.desc}>
-                  A wonderful serenity has taken possession of my entire soul,
-                  like these sweet mornings of spring which I enjoy with my
-                  whole heart. I am alone, and feel the charm of existence in
-                  this spot, which was created for the bliss of souls like mine.
-                </Text>
+                <Text style={styles.desc}>{item.message}</Text>
               </View>
             );
           }}

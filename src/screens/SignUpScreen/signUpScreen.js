@@ -15,13 +15,13 @@ import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
 import {ApiGet, ApiPost} from '../../config/helperFunction';
 import {CountryNameUrl, SignUpUrl} from '../../config/Urls';
 import {styles} from './styles';
-import {showMessage} from 'react-native-flash-message';
 import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 import {color} from '../../components/color';
 import {Picker} from '@react-native-picker/picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {globalStyles} from '../../config/globalStyles';
 import {errorMessage} from '../../components/NotificationMessage';
+import * as Animatable from 'react-native-animatable';
 
 export default function SignUpScreen() {
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('25'));
@@ -169,7 +169,11 @@ export default function SignUpScreen() {
       <ImageBackground
         source={require('../../images/background.png')}
         style={styles.backgroundImage}>
-        <View style={styles.innerView}>
+        <Animatable.View
+          animation="fadeInUpBig"
+          direction={'normal'}
+          delay={100}
+          style={styles.innerView}>
           <Image
             source={require('../../images/Group680.png')}
             style={{
@@ -177,34 +181,71 @@ export default function SignUpScreen() {
               marginLeft: wp('-10'),
             }}
           />
-        </View>
+        </Animatable.View>
         {signUpCofirm == false ? (
           <>
-            <Text style={styles.mainHeading}>Signup</Text>
+            <Animatable.Text
+              animation="fadeInUpBig"
+              direction={'normal'}
+              delay={200}
+              style={styles.mainHeading}>
+              Signup
+            </Animatable.Text>
             <ScrollView
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{paddingBottom: isKeyboardVisible}}>
               <View style={{width: wp('90'), alignSelf: 'center'}}>
-                <TextInputCom
-                  value={username}
-                  onChangeText={username => updateState({username})}
-                  inputText="Username"
-                  placeholder="User Name"
-                  onFocus={() => handleInputFocus('username')}
-                  onBlur={() => handleInputBlur('username')}
-                  isFocused={isFocused.username}
-                />
-                <TextInputCom
-                  value={email}
-                  onChangeText={email => updateState({email})}
-                  inputText="email"
-                  placeholder="mail@gmail.com"
-                  onFocus={() => handleInputFocus('email')}
-                  onBlur={() => handleInputBlur('email')}
-                  isFocused={isFocused.email}
-                />
+                <Animatable.View
+                  animation="fadeInUpBig"
+                  direction={'normal'}
+                  delay={300}>
+                  <TextInputCom
+                    value={username}
+                    onChangeText={username => updateState({username})}
+                    inputText="Username"
+                    placeholder="User Name"
+                    onFocus={() => handleInputFocus('username')}
+                    onBlur={() => handleInputBlur('username')}
+                    isFocused={isFocused.username}
+                  />
+                </Animatable.View>
+                <Animatable.View
+                  animation="fadeInUpBig"
+                  direction={'normal'}
+                  delay={400}>
+                  <TextInputCom
+                    value={email}
+                    onChangeText={email => updateState({email})}
+                    inputText="email"
+                    placeholder="mail@gmail.com"
+                    onFocus={() => handleInputFocus('email')}
+                    onBlur={() => handleInputBlur('email')}
+                    isFocused={isFocused.email}
+                  />
+                </Animatable.View>
+                <Animatable.View
+                  animation="fadeInUpBig"
+                  direction={'normal'}
+                  delay={500}>
+                  <TextInputCom
+                    value={password}
+                    onChangeText={password => updateState({password})}
+                    inputText="Password"
+                    placeholder="*********"
+                    onFocus={() => handleInputFocus('password')}
+                    onBlur={() => handleInputBlur('password')}
+                    secureTextEntry={show ? false : true}
+                    eyeIconPress={handleClick}
+                    eyeIconName={show ? 'eye-outline' : 'eye-off-outline'}
+                    isFocused={isFocused.password}
+                    eyeIcon={true}
+                  />
+                </Animatable.View>
                 {countryPicker.length > 0 && (
-                  <>
+                  <Animatable.View
+                    animation="fadeInUpBig"
+                    direction={'normal'}
+                    delay={600}>
                     <Text
                       style={{
                         marginTop: hp('2'),
@@ -249,22 +290,14 @@ export default function SignUpScreen() {
                         })}
                       </Picker>
                     </View>
-                  </>
+                  </Animatable.View>
                 )}
-                <TextInputCom
-                  value={password}
-                  onChangeText={password => updateState({password})}
-                  inputText="Password"
-                  placeholder="*********"
-                  onFocus={() => handleInputFocus('password')}
-                  onBlur={() => handleInputBlur('password')}
-                  secureTextEntry={show ? false : true}
-                  eyeIconPress={handleClick}
-                  eyeIconName={show ? 'eye-outline' : 'eye-off-outline'}
-                  isFocused={isFocused.password}
-                  eyeIcon={true}
-                />
-                <View style={styles.bottomView}>
+
+                <Animatable.View
+                  animation="fadeInUpBig"
+                  direction={'normal'}
+                  delay={700}
+                  style={styles.bottomView}>
                   <View />
                   <ArrowButtonCom
                     loading={isloading}
@@ -273,12 +306,15 @@ export default function SignUpScreen() {
                     height={hp('4.5')}
                     right={wp('-35')}
                   />
-                </View>
+                </Animatable.View>
               </View>
             </ScrollView>
           </>
         ) : (
-          <View
+          <Animatable.View
+            animation="fadeInUpBig"
+            direction={'normal'}
+            delay={100}
             style={{
               justifyContent: 'center',
               alignItems: 'center',
@@ -297,7 +333,7 @@ export default function SignUpScreen() {
               }}>
               We have send you and email to verify your email address
             </Text>
-          </View>
+          </Animatable.View>
         )}
       </ImageBackground>
     </View>
