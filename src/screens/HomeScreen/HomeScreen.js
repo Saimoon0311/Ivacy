@@ -5,6 +5,7 @@ import {
   ScrollView,
   SafeAreaView,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
@@ -25,6 +26,7 @@ import SearchBarComponents from '../../components/SearchBarComponents/SearchBarC
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
 import {useCallback} from 'react';
 import {errorMessage} from '../../components/NotificationMessage';
+import ThankYouScreen from '../ThankYouScreen/ThankYouScreen';
 
 const HomeScreen = ({navigation}) => {
   const disptach = useDispatch();
@@ -121,6 +123,11 @@ const HomeScreen = ({navigation}) => {
     getPackage();
     getCountryName();
   }, []);
+
+  // const ThankYOuScreen = () => {
+  //   navigation.navigate('ThankYOuScreen');
+  // };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -165,6 +172,12 @@ const HomeScreen = ({navigation}) => {
           heading={'Top Places'}
           navigate={navigateToPackage}
         />
+        {/* <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('WriteReviewScreen');
+          }}>
+          <Text> ReviewScreen For Temperory</Text>
+        </TouchableOpacity> */}
         <CityImageComponent data={topCities} heading={'Top Activities'} />
       </ScrollView>
     </SafeAreaView>

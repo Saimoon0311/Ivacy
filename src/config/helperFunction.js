@@ -3,7 +3,6 @@ import {store} from '../Redux/Reducer';
 let statusCode = 'ghjkl';
 export const ApiPost = async (url, body, headerType, BearerToken) => {
   let myHeaders = new Headers();
-  console.log(6, BearerToken, body);
   headerType == true
     ? myHeaders.append('Content-Type', 'multipart/form-data')
     : myHeaders.append('Content-Type', 'application/json');
@@ -12,6 +11,28 @@ export const ApiPost = async (url, body, headerType, BearerToken) => {
     method: 'POST',
     body: body,
     headers: myHeaders,
+    redirect: 'follow',
+  })
+    .then(res => {
+      statusCode = res.status;
+      return res.json();
+    })
+    .then(json => {
+      return {json: json, status: statusCode};
+    })
+    .catch(err => {
+      return {status: statusCode, json: err};
+    });
+};
+
+export const ApiPostFormData = async (url, body, BearerToken) => {
+  let formDate = new FormData();
+  body.map(res => {
+    formDate.append(res.key, res.value);
+  });
+  return fetch(url, {
+    method: 'POST',
+    body: formDate,
     redirect: 'follow',
   })
     .then(res => {

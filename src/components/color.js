@@ -14,6 +14,8 @@ export const color = {
   white: '#ffff',
   black: '#000000',
   textImagebackgroundColor: '#D8D8D8',
+  txtInputbackColor: '#F5F5F5',
   badgeColor: '#FF2D2D',
   lightView: '#DACBFA',
+  ThankYouColor: '#8161C8',
 };

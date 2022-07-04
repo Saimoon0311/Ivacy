@@ -50,6 +50,19 @@ export default function StackNavigatior() {
           name="PackageDetailScreen"
           component={screens.PackageDetailScreen}
         />
+        <Stack.Screen
+          name="ThankYouScreen"
+          component={screens.ThankYouScreen}
+        />
+        <Stack.Screen
+          name="ReviewScreen"
+          component={screens.ReviewScreen}
+        />
+        <Stack.Screen
+          name="WriteReviewScreen"
+          component={screens.WriteReviewScreen}
+        />
+
       </Stack.Navigator>
     </>
   );

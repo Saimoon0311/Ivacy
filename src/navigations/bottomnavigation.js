@@ -7,8 +7,8 @@ import {
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, Platform, Dimensions, StyleSheet} from 'react-native';
 import {screens} from '../screens/index';
+import * as Animatable from 'react-native-animatable';
 import {color} from '../components/color';
-import Svg, {Rect} from 'react-native-svg';
 
 const Tab = createBottomTabNavigator();
 function MybottomTabs() {
@@ -38,11 +38,16 @@ function MybottomTabs() {
         name="settingScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons
-              name={color == '#ffff' ? 'settings' : 'settings-outline'}
-              color={'white'}
-              size={hp('3')}
-            />
+            <Animatable.View
+              animation="fadeInLeftBig"
+              direction={'normal'}
+              delay={100}>
+              <Ionicons
+                name={color == '#ffff' ? 'settings' : 'settings-outline'}
+                color={'white'}
+                size={hp('3')}
+              />
+            </Animatable.View>
           ),
           title: `Setting`,
           tabBarLabelStyle: {
@@ -52,16 +57,20 @@ function MybottomTabs() {
         }}
         component={screens.settingScreen}
       />
-
       <Tab.Screen
         name="HomeScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons
-              name={color == '#ffff' ? 'home' : 'home-outline'}
-              color={'white'}
-              size={hp('3')}
-            />
+            <Animatable.View
+              animation="fadeInUpBig"
+              direction={'normal'}
+              delay={200}>
+              <Ionicons
+                name={color == '#ffff' ? 'home' : 'home-outline'}
+                color={'white'}
+                size={hp('3')}
+              />
+            </Animatable.View>
           ),
           title: 'Home',
           tabBarLabelStyle: {
@@ -75,11 +84,16 @@ function MybottomTabs() {
         name="userScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons
-              name={color == '#ffff' ? 'person' : 'person-outline'}
-              color={'white'}
-              size={hp('3')}
-            />
+            <Animatable.View
+              animation="fadeInRightBig"
+              direction={'normal'}
+              delay={300}>
+              <Ionicons
+                name={color == '#ffff' ? 'person' : 'person-outline'}
+                color={'white'}
+                size={hp('3')}
+              />
+            </Animatable.View>
           ),
           title: 'Profile',
           tabBarLabelStyle: {
