@@ -45,14 +45,14 @@ const ThankYouScreen = () => {
     });
   };
 
-  useEffect(() => {
-    getAllCountryName();
-    BackgroundGeolocation.ready(config).then(state => {
-      // YES -- .ready() has now resolved.
-      BackgroundGeolocation.getCurrentPosition(options);
-      BackgroundGeolocation.start();
-    });
-  }, []);
+  // useEffect(() => {
+  //   getAllCountryName();
+  //   BackgroundGeolocation.ready(config).then(state => {
+  //     // YES -- .ready() has now resolved.
+  //     BackgroundGeolocation.getCurrentPosition(options);
+  //     BackgroundGeolocation.start();
+  //   });
+  // }, []);
 
   return (
     <View style={styles.container}>
@@ -62,7 +62,7 @@ const ThankYouScreen = () => {
           style={styles.image}
           source={require('../../images/Logo.png')}
         />
-        <MapView
+        {/* <MapView
           style={{
             width: Dimensions.get('window').width,
             height: Dimensions.get('window').height,
@@ -74,7 +74,7 @@ const ThankYouScreen = () => {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-        />
+        /> */}
         {/* <GooglePlacesAutocomplete
       placeholder='Search'
       onPress={(data, details = null) => {
