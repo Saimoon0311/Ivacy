@@ -11,13 +11,19 @@ import StarRating from 'react-native-star-rating';
 import {color} from '../../components/color';
 import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
 import {ApiPost} from '../../config/helperFunction';
-import {errorMessage} from '../../components/NotificationMessage';
+import {
+  errorMessage,
+  successMessage,
+} from '../../components/NotificationMessage';
 import {SubReviewUrl} from '../../config/Urls';
 import {useSelector} from 'react-redux';
+import {SkypeIndicator} from 'react-native-indicators';
 
 const WriteReviewScreen = ({navigation}) => {
   const [starCount, setstarCount] = useState(0);
   const [des, setDes] = useState('');
+  const [loading, setLoading] = useState(false);
+  const {userData} = useSelector(state => state.userData);
 
   const navigate = () => {
     navigation.goBack();
@@ -33,7 +39,7 @@ const WriteReviewScreen = ({navigation}) => {
       ApiPost(SubReviewUrl, body, false, userData.access_token).then(res => {
         console.log(res);
         if (res.status == 200) {
-          errorMessage(res.message);
+          successMessage('Your Review Has Been Submitted');
           setstarCount('');
           setDes('');
           setLoading(false);
@@ -75,18 +81,7 @@ const WriteReviewScreen = ({navigation}) => {
           />
           <Text style={{textAlign: 'center'}}>Tap a star to rate</Text>
         </View>
-        {/* <View>
-          <TextInput
-            style={styles.txtInputContainer}
-            onChangeText={e => setTitle(e)}
-            value={title}
-            placeholder="Title"
-            asd
-            keyboardType="default"
-            placeholderTextColor="gray"
-            maxLength={25}
-          />
-        </View> */}
+
         <View>
           <TextInput
             style={styles.destxtInputContainer}
@@ -103,7 +98,17 @@ const WriteReviewScreen = ({navigation}) => {
         <TouchableOpacity
           onPress={() => WriteReviewFunc()}
           style={styles.btnContainer}>
-          <Text style={styles.btn}>Submit</Text>
+          {loading ? (
+            <SkypeIndicator
+              color={color.white}
+              size={hp('4')}
+              style={{
+                alignSelf: 'center',
+              }}
+            />
+          ) : (
+            <Text style={styles.btn}>Submit</Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>

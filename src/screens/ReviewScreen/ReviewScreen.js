@@ -15,7 +15,9 @@ import {ReviewUrl} from '../../config/Urls';
 import {errorMessage} from '../../components/NotificationMessage';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import moment from 'moment';
+import {useIsFocused} from '@react-navigation/native';
 const ReviewScreen = ({navigation}) => {
+  const isFocused = useIsFocused();
   const [starCount, setstarCount] = useState(0);
   const {userData} = useSelector(state => state.userData);
   const [isloading, setIsloading] = useState(true);
@@ -27,20 +29,7 @@ const ReviewScreen = ({navigation}) => {
   const navigate = () => {
     navigation.goBack();
   };
-  const [data, setData] = useState([
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-    {
-      id: 4,
-    },
-  ]);
+
   const reviewsFunc = () => {
     ApiGet(ReviewUrl, userData.access_token).then(res => {
       console.log(res.json, 44);
@@ -59,7 +48,10 @@ const ReviewScreen = ({navigation}) => {
   const ratingCompleted = rating => console.log('Rating is: ', rating);
   useEffect(() => {
     reviewsFunc();
-  }, []);
+    if (isFocused) {
+      reviewsFunc();
+    }
+  }, [isFocused]);
 
   const loadingView = () => {
     return (
