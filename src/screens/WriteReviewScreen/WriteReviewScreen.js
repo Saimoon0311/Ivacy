@@ -15,7 +15,6 @@ const WriteReviewScreen = ({navigation}) => {
   const [starCount, setstarCount] = useState(0);
   const [title, setTitle] = useState('');
   const [des, setDes] = useState('');
-  console.log(title);
   const onStarRatingPress = rating => {
     setstarCount(rating);
   };

@@ -26,13 +26,9 @@ export const ApiPost = async (url, body, headerType, BearerToken) => {
 };
 
 export const ApiPostFormData = async (url, body, BearerToken) => {
-  let formDate = new FormData();
-  body.map(res => {
-    formDate.append(res.key, res.value);
-  });
   return fetch(url, {
     method: 'POST',
-    body: formDate,
+    body: body,
     redirect: 'follow',
   })
     .then(res => {

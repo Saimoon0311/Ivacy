@@ -16,9 +16,6 @@ const ReviewScreen = ({navigation}) => {
     navigation.goBack();
   };
   const [isloading, setIsloading] = useState(true);
-  setTimeout(() => {
-    setIsloading(false);
-  }, 2000);
   const [data, setData] = useState([
     {
       id: 1,

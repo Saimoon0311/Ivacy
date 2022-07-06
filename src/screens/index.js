@@ -12,6 +12,7 @@ import PackageDetailScreen from './PackageDetailScreen/PackageDetailScreen';
 import ThankYouScreen from './ThankYouScreen/ThankYouScreen';
 import ReviewScreen from './ReviewScreen/ReviewScreen';
 import WriteReviewScreen from './WriteReviewScreen/WriteReviewScreen';
+import StripeScreen from './StripeScreen/StripeScreen';
 
 export const screens = {
   OnboardingScreen,
@@ -27,5 +28,6 @@ export const screens = {
   PackageDetailScreen,
   ThankYouScreen,
   ReviewScreen,
-  WriteReviewScreen
+  WriteReviewScreen,
+  StripeScreen,
 };
