@@ -6,44 +6,53 @@ import {
   ScrollView,
   Image,
   Keyboard,
+  TouchableOpacity,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
-import {ApiGet, ApiPost} from '../../config/helperFunction';
+import {ApiGet, ApiPost, ApiPostFormData} from '../../config/helperFunction';
 import {CountryNameUrl, SignUpUrl} from '../../config/Urls';
 import {styles} from './styles';
 import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 import {color} from '../../components/color';
 import {Picker} from '@react-native-picker/picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyles} from '../../config/globalStyles';
 import {errorMessage} from '../../components/NotificationMessage';
 import * as Animatable from 'react-native-animatable';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {SkypeIndicator} from 'react-native-indicators';
 
 export default function SignUpScreen() {
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('25'));
   const [signUpUser, setSignUpUser] = useState({
-    username: '',
+    userName: '',
     email: '',
     password: '',
-    country_id: '',
+    countryId: '',
+    userImage: [],
+    phone: '',
+    userRole: 1,
   });
   const [isFocused, setIsFocused] = useState({
-    username: false,
+    userName: false,
     email: false,
     password: false,
-    country_id: false,
+    phone: false,
+    countryId: false,
   });
   const [signUpCofirm, setSignUpConfirm] = useState(false);
   const [countryPicker, setCountryPicker] = useState([]);
   const [isloading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const {username, email, password, country_id} = signUpUser;
-  const updateState = data => setSignUpUser(() => ({...signUpUser, ...data}));
+  const {userName, email, password, countryId, userImage, phone, userRole} =
+    signUpUser;
+  const updateState = data => setSignUpUser(prev => ({...prev, ...data}));
 
   const handleInputFocus = textinput => {
     setIsFocused({
@@ -59,24 +68,25 @@ export default function SignUpScreen() {
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     setLoading(true);
     if (
-      username != '' &&
-      username != null &&
+      userName != '' &&
+      userName != null &&
       email != '' &&
       email != null &&
       password != '' &&
       password != null &&
-      country_id != '' &&
-      country_id != null &&
+      countryId != '' &&
+      countryId != null &&
       reg.test(email) === true
     ) {
-      let body = JSON.stringify({
-        username: username,
-        email: email,
-        password: password,
-        country_id: country_id,
-      });
-      console.log('body', body);
-      ApiPost(SignUpUrl, body, false).then(res => {
+      var formdata = new FormData();
+      formdata.append('userName', userName);
+      formdata.append('email', email);
+      formdata.append('password', password);
+      formdata.append('countryId', countryId);
+      formdata.append('phone', Number(phone));
+      formdata.append('userRole', userRole);
+      formdata.append('userImage', userImage);
+      ApiPostFormData(SignUpUrl, formdata).then(res => {
         console.log('res', res);
         if (res.status == 200) {
           setLoading(false);
@@ -125,6 +135,42 @@ export default function SignUpScreen() {
       keyboardDidShowListener.remove();
     };
   }, []);
+  const pickImagesFromGalary = () => {
+    launchImageLibrary(
+      {
+        selectionLimit: 1,
+        mediaType: 'photo',
+        quality: 0.5,
+        maxWidth: 300,
+        maxHeight: 300,
+      },
+      res => {
+        if (!res?.didCancel) {
+          updateState({userImage: res?.assets});
+          setTimeout(() => {
+            console.log(142, userImage);
+          }, 2000);
+        }
+      },
+    );
+  };
+  const pickImagefromCamera = () => {
+    launchCamera(
+      {
+        selectionLimit: 1,
+        mediaType: 'photo',
+        quality: 0.5,
+      },
+      res => {
+        if (!res?.didCancel) {
+          updateState({userImage: res?.assets});
+          setTimeout(() => {
+            console.log(142, userImage);
+          }, 2000);
+        }
+      },
+    );
+  };
   // const awesomeAlert = ()=>{
   //   return (
   //     <AwesomeAlert
@@ -195,18 +241,60 @@ export default function SignUpScreen() {
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{paddingBottom: isKeyboardVisible}}>
               <View style={{width: wp('90'), alignSelf: 'center'}}>
+                <View
+                  style={{
+                    width: wp('90'),
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                  }}>
+                  {userImage.length != 0 ? (
+                    <TouchableOpacity onPress={() => pickImagesFromGalary()}>
+                      <Image
+                        source={{uri: userImage[0]?.uri}}
+                        style={styles.userImage}
+                        resizeMode="contain"
+                        transition={false}
+                      />
+                    </TouchableOpacity>
+                  ) : (
+                    <>
+                      <Animatable.View
+                        animation="fadeInUpBig"
+                        direction={'normal'}
+                        delay={300}>
+                        <Ionicons
+                          name="camera-outline"
+                          size={hp('10')}
+                          color={'white'}
+                          onPress={() => pickImagefromCamera()}
+                        />
+                      </Animatable.View>
+                      <Animatable.View
+                        animation="fadeInUpBig"
+                        direction={'normal'}
+                        delay={400}>
+                        <MaterialCommunityIcons
+                          name="file-image-plus-outline"
+                          size={hp('10')}
+                          color={'white'}
+                          onPress={() => pickImagesFromGalary()}
+                        />
+                      </Animatable.View>
+                    </>
+                  )}
+                </View>
                 <Animatable.View
                   animation="fadeInUpBig"
                   direction={'normal'}
                   delay={300}>
                   <TextInputCom
-                    value={username}
-                    onChangeText={username => updateState({username})}
+                    value={userName}
+                    onChangeText={userName => updateState({userName})}
                     inputText="Username"
                     placeholder="User Name"
-                    onFocus={() => handleInputFocus('username')}
-                    onBlur={() => handleInputBlur('username')}
-                    isFocused={isFocused.username}
+                    onFocus={() => handleInputFocus('userName')}
+                    onBlur={() => handleInputBlur('userName')}
+                    isFocused={isFocused.userName}
                   />
                 </Animatable.View>
                 <Animatable.View
@@ -221,6 +309,21 @@ export default function SignUpScreen() {
                     onFocus={() => handleInputFocus('email')}
                     onBlur={() => handleInputBlur('email')}
                     isFocused={isFocused.email}
+                  />
+                </Animatable.View>
+                <Animatable.View
+                  animation="fadeInUpBig"
+                  direction={'normal'}
+                  delay={400}>
+                  <TextInputCom
+                    value={phone}
+                    onChangeText={phone => updateState({phone})}
+                    inputText="Phone Number"
+                    placeholder="+1 254536"
+                    onFocus={() => handleInputFocus('phone')}
+                    onBlur={() => handleInputBlur('phone')}
+                    isFocused={isFocused.phone}
+                    keyboardType="number-pad"
                   />
                 </Animatable.View>
                 <Animatable.View
@@ -241,7 +344,7 @@ export default function SignUpScreen() {
                     eyeIcon={true}
                   />
                 </Animatable.View>
-                {countryPicker.length > 0 && (
+                {countryPicker.length > 0 ? (
                   <Animatable.View
                     animation="fadeInUpBig"
                     direction={'normal'}
@@ -258,19 +361,19 @@ export default function SignUpScreen() {
                       style={{
                         ...styles.pickerStyle,
                         borderColor:
-                          country_id != '' || country_id == null
+                          countryId != '' || countryId == null
                             ? color.white
                             : color.themeColorDark,
                       }}>
                       <Picker
                         mode="dialog"
-                        selectedValue={country_id}
+                        selectedValue={countryId}
                         dropdownIconColor={'white'}
                         itemStyle={{color: 'white'}}
                         dropdownIconRippleColor="red"
                         style={{color: 'white'}}
-                        onValueChange={country_id => {
-                          updateState({country_id});
+                        onValueChange={countryId => {
+                          updateState({countryId});
                         }}
                         collapsable={true}>
                         <Picker.Item
@@ -291,6 +394,15 @@ export default function SignUpScreen() {
                       </Picker>
                     </View>
                   </Animatable.View>
+                ) : (
+                  <SkypeIndicator
+                    color={color.white}
+                    size={hp('6')}
+                    style={{
+                      alignSelf: 'center',
+                      marginTop: hp('2'),
+                    }}
+                  />
                 )}
 
                 <Animatable.View
@@ -330,6 +442,7 @@ export default function SignUpScreen() {
                 ...globalStyles.globalTextStyles,
                 textAlign: 'center',
                 color: 'white',
+                fontSize: hp('3'),
               }}>
               We have send you and email to verify your email address
             </Text>

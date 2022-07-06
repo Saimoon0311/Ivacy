@@ -13,7 +13,6 @@ import StarRating from 'react-native-star-rating';
 import {ApiGet} from '../../config/helperFunction';
 import {ReviewUrl} from '../../config/Urls';
 import {errorMessage} from '../../components/NotificationMessage';
-// const ReviewScreen = ({navigation}) => {
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import moment from 'moment';
 const ReviewScreen = ({navigation}) => {
@@ -28,9 +27,6 @@ const ReviewScreen = ({navigation}) => {
   const navigate = () => {
     navigation.goBack();
   };
-  setTimeout(() => {
-    setIsloading(false);
-  }, 2000);
   const [data, setData] = useState([
     {
       id: 1,

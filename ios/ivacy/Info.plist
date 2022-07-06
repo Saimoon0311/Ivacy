@@ -38,9 +38,13 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Access camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Background tracking required</string>
+	<key>NSMotionUsageDescription</key>
+	<string> Motion permission helps detect when device in in-motion</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Library</string>
+	<key>Privacy - Location When in Use Usage Description</key>
+	<string>Location required when app is in use</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -59,6 +63,12 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>fetch</string>
+		<string>location</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

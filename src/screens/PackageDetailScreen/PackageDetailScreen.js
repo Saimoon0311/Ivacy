@@ -46,7 +46,6 @@ const PackageDetailScreen = ({route, navigation}) => {
   };
   const getAllCountryName = () => {
     ApiGet(CountryNameUrl).then(res => {
-      console.log(res.json, 56666666666);
       if (res.status == 200) {
         setIsloading(false);
         setCountryPicker(res.json.data);
@@ -65,7 +64,7 @@ const PackageDetailScreen = ({route, navigation}) => {
 
   return (
     <SafeAreaView>
-      <ScrollView contentContainerStyle={{paddingBottom: hp('20')}}>
+      <ScrollView contentContainerStyle={{paddingBottom: hp('30')}}>
         {/* <BackHeaderCom goBack={goback} /> */}
         <View style={styles.container}>
           <SliderBox
@@ -108,7 +107,11 @@ const PackageDetailScreen = ({route, navigation}) => {
                 <Text style={styles.pricetxt}>Price</Text>
                 <Text style={styles.packtxt}>${items.price}/package</Text>
               </View>
-              <TouchableOpacity style={styles.boxNowContainer}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('CurrencyMethodScreen', items)
+                }
+                style={styles.boxNowContainer}>
                 <Text style={styles.bookNowTxt}>Book Now</Text>
               </TouchableOpacity>
             </View>

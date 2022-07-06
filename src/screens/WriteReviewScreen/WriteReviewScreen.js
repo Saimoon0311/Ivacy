@@ -17,13 +17,8 @@ import {useSelector} from 'react-redux';
 
 const WriteReviewScreen = ({navigation}) => {
   const [starCount, setstarCount] = useState(0);
-  // const [title, setTitle] = useState('');
   const [des, setDes] = useState('');
-  const [loading, setLoading] = useState(false);
-  const {userData} = useSelector(state => state.userData);
-  // const onStarRatingPress = rating => {
-  //   setstarCount(rating);
-  // };
+
   const navigate = () => {
     navigation.goBack();
   };
