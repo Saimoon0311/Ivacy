@@ -1,4 +1,4 @@
-import {Platform, StyleSheet} from 'react-native';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     fontSize: hp('6'),
     alignItems: 'center',
     paddingTop: Platform.OS == 'ios' ? hp('5') : hp('2'),
-    height: hp('95'),
+    paddingBottom: hp('10'),
   },
   button: {
     flexDirection: 'row',
@@ -22,10 +22,25 @@ export const styles = StyleSheet.create({
   },
   image: {
     marginHorizontal: wp('3'),
+    borderRadius: Math.round(
+      Dimensions.get('window').width + Dimensions.get('window').height,
+    ),
+    alignSelf: 'center',
+    width: Dimensions.get('screen').width * 0.4,
+    height: Dimensions.get('screen').width * 0.4,
   },
   text: {
     fontSize: hp('2.6'),
     fontWeight: '600',
     color: color.textThirdColor,
+  },
+  imageLoader: {
+    backgroundColor: color.textImagebackgroundColor,
+    borderRadius: Math.round(
+      Dimensions.get('window').width + Dimensions.get('window').height,
+    ),
+    alignSelf: 'center',
+    width: Dimensions.get('screen').width * 0.4,
+    height: Dimensions.get('screen').width * 0.4,
   },
 });

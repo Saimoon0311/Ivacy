@@ -70,7 +70,6 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       errorMessage('Unable to fatch data.');
       setIsloading(false);
     } else {
-      setIsloading(false);
       handlePayment(data);
     }
   };
@@ -101,7 +100,6 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       packageId: item.id,
       invoiceNumber: invoiceNumber,
     });
-    setIsloading(false);
     ApiPost(AfterStripeUrl, body, false, userData.access_token).then(res => {
       if (res.status == 200) {
         setIsloading(false);
@@ -135,7 +133,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         </View>
         <View style={styles.InnerContainer}>
           <TouchableOpacity
-            onPress={() => setIsloading(true)}
+            onPress={() => navigation.navigate('ThankYouScreen')}
             style={styles.boxContainer}>
             <Text style={styles.text}>Crypto</Text>
             <Image

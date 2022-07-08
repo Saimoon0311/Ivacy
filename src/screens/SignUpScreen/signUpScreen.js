@@ -36,7 +36,7 @@ export default function SignUpScreen() {
     countryId: '',
     userImage: [],
     phone: '',
-    userRole: 1,
+    userRole: 0,
   });
   const [isFocused, setIsFocused] = useState({
     userName: false,
@@ -76,6 +76,9 @@ export default function SignUpScreen() {
       password != null &&
       countryId != '' &&
       countryId != null &&
+      userImage != [] &&
+      phone != null &&
+      phone != '' &&
       reg.test(email) === true
     ) {
       var formdata = new FormData();
@@ -85,7 +88,11 @@ export default function SignUpScreen() {
       formdata.append('countryId', countryId);
       formdata.append('phone', Number(phone));
       formdata.append('userRole', userRole);
-      formdata.append('userImage', userImage);
+      formdata.append('userImage', {
+        name: userImage[0].fileName,
+        uri: userImage[0].uri,
+        type: userImage[0].type,
+      });
       ApiPostFormData(SignUpUrl, formdata).then(res => {
         console.log('res', res);
         if (res.status == 200) {
@@ -141,13 +148,15 @@ export default function SignUpScreen() {
         selectionLimit: 1,
         mediaType: 'photo',
         quality: 0.5,
+        maxWidth: 300,
+        maxHeight: 300,
       },
       res => {
         if (!res?.didCancel) {
           updateState({userImage: res?.assets});
           setTimeout(() => {
             console.log(142, userImage);
-          }, 1000);
+          }, 2000);
         }
       },
     );
@@ -158,13 +167,15 @@ export default function SignUpScreen() {
         selectionLimit: 1,
         mediaType: 'photo',
         quality: 0.5,
+        maxWidth: 300,
+        maxHeight: 300,
       },
       res => {
         if (!res?.didCancel) {
           updateState({userImage: res?.assets});
           setTimeout(() => {
             console.log(142, userImage);
-          }, 1000);
+          }, 2000);
         }
       },
     );
@@ -307,6 +318,7 @@ export default function SignUpScreen() {
                     onFocus={() => handleInputFocus('email')}
                     onBlur={() => handleInputBlur('email')}
                     isFocused={isFocused.email}
+                    keyboardType={'email-address'}
                   />
                 </Animatable.View>
                 <Animatable.View

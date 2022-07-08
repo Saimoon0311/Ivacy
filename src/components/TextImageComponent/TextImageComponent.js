@@ -12,13 +12,7 @@ import {
 const TextImageComponent = props => {
   const colors = props?.textcolor ? props?.textcolor : color.textColor;
   return props?.isloading ? (
-    <SkypeIndicator
-      color={color.textThirdColor}
-      size={hp('4')}
-      style={{
-        marginTop: hp('-10'),
-      }}
-    />
+    <SkypeIndicator color={color.textThirdColor} size={hp('4')} />
   ) : (
     <TouchableOpacity onPress={props?.onPress} style={styles.button}>
       <Ionicons

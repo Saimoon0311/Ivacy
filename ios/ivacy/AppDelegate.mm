@@ -3,8 +3,9 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-
+#import <GoogleMaps/GoogleMaps.h>
 #import <React/RCTAppSetupUtils.h>
+#import <GooglePlaces/GooglePlaces.h>
 
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
@@ -30,7 +31,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   RCTAppSetupPrepareApp(application);
-
+  [GMSServices provideAPIKey:@"AIzaSyCu5v9OrHrhf55iPRd8JIgB_QGAlZpmlj0"]; // add this line using the api key obtained from Google Console
+  [GMSPlacesClient provideAPIKey:@"AIzaSyCu5v9OrHrhf55iPRd8JIgB_QGAlZpmlj0"];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 
 #if RCT_NEW_ARCH_ENABLED

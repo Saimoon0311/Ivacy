@@ -1,5 +1,5 @@
 import {View, Text, TextInput, FlatList, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
@@ -10,16 +10,51 @@ import {styles} from '../WriteReviewScreen/styles';
 import StarRating from 'react-native-star-rating';
 import {color} from '../../components/color';
 import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
+import {ApiPost} from '../../config/helperFunction';
+import {
+  errorMessage,
+  successMessage,
+} from '../../components/NotificationMessage';
+import {SubReviewUrl} from '../../config/Urls';
+import {useSelector} from 'react-redux';
+import {SkypeIndicator} from 'react-native-indicators';
 
 const WriteReviewScreen = ({navigation}) => {
   const [starCount, setstarCount] = useState(0);
-  const [title, setTitle] = useState('');
   const [des, setDes] = useState('');
-  const onStarRatingPress = rating => {
-    setstarCount(rating);
-  };
+  const [loading, setLoading] = useState(false);
+  const {userData} = useSelector(state => state.userData);
+
   const navigate = () => {
     navigation.goBack();
+  };
+  const WriteReviewFunc = () => {
+    setLoading(true);
+
+    if (des != '' && des != null && starCount != '' && starCount != null) {
+      let body = JSON.stringify({
+        rating: starCount,
+        message: des,
+      });
+      ApiPost(SubReviewUrl, body, false, userData.access_token).then(res => {
+        console.log(res);
+        if (res.status == 200) {
+          successMessage('Your Review Has Been Submitted');
+          setstarCount('');
+          setDes('');
+          setLoading(false);
+        } else if (res.status == 422) {
+          errorMessage(res.message);
+          setLoading(false);
+        } else {
+          errorMessage('Network Failed!!!');
+          setLoading(false);
+        }
+      });
+    } else {
+      errorMessage('Plesae type correct information.');
+      setLoading(false);
+    }
   };
 
   return (
@@ -42,22 +77,11 @@ const WriteReviewScreen = ({navigation}) => {
             }}
             maxStars={5}
             rating={starCount}
-            selectedStar={rating => onStarRatingPress(rating)}
+            selectedStar={rating => setstarCount(rating)}
           />
           <Text style={{textAlign: 'center'}}>Tap a star to rate</Text>
         </View>
-        <View>
-          <TextInput
-            style={styles.txtInputContainer}
-            onChangeText={e => setTitle(e)}
-            value={title}
-            placeholder="Title"
-            asd
-            keyboardType="default"
-            placeholderTextColor="gray"
-            maxLength={25}
-          />
-        </View>
+
         <View>
           <TextInput
             style={styles.destxtInputContainer}
@@ -71,8 +95,20 @@ const WriteReviewScreen = ({navigation}) => {
             placeholderTextColor="gray"
           />
         </View>
-        <TouchableOpacity style={styles.btnContainer}>
-          <Text style={styles.btn}>Submit</Text>
+        <TouchableOpacity
+          onPress={() => WriteReviewFunc()}
+          style={styles.btnContainer}>
+          {loading ? (
+            <SkypeIndicator
+              color={color.white}
+              size={hp('4')}
+              style={{
+                alignSelf: 'center',
+              }}
+            />
+          ) : (
+            <Text style={styles.btn}>Submit</Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>

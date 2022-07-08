@@ -12,3 +12,15 @@ export const errorMessage = description => {
     style: {alignItems: 'center'},
   });
 };
+
+export const successMessage = description => {
+  showMessage({
+    type: 'success',
+    icon: 'auto',
+    message: 'Success',
+    description: description,
+    floating: true,
+    backgroundColor: color.textThirdColor,
+    style: {alignItems: 'center'},
+  });
+};

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Keyboard,
+  SafeAreaView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
@@ -20,16 +21,18 @@ import TextImageComponent from '../../components/TextImageComponent/TextImageCom
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {useDispatch, useSelector} from 'react-redux';
 import {ApiPost} from '../../config/helperFunction';
-import {LogoutUrl} from '../../config/Urls';
+import {LogoutUrl, User_Image_Url} from '../../config/Urls';
 import types from '../../Redux/type';
 import {showMessage} from 'react-native-flash-message';
 import {errorMessage} from '../../components/NotificationMessage';
+import {SkypeIndicator} from 'react-native-indicators';
 
 const userScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
   console.log(9, userData);
   const dispatch = useDispatch();
   const [isloading, setIsloading] = useState(false);
+  const [isReviewloading, setIsReviewloading] = useState(false);
   const logoutFun = () => {
     let body = {};
     setIsloading(true);
@@ -50,15 +53,21 @@ const userScreen = ({navigation}) => {
     });
   };
   return (
-    <>
+    <SafeAreaView>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{...styles.container}}>
-        <Image
-          style={styles.image}
-          resizeMode="contain"
-          source={require('../../images/userImage.png')}
-        />
+        {!userData.data.avatar ? (
+          <View style={styles.imageLoader}>
+            <SkypeIndicator color={color.ThankYouColor} size={hp('6')} />
+          </View>
+        ) : (
+          <Image
+            style={styles.image}
+            resizeMode="contain"
+            source={{uri: User_Image_Url + userData.data.avatar}}
+          />
+        )}
         <Text
           style={{
             ...globalStyles.globalTextStyles,
@@ -94,7 +103,7 @@ const userScreen = ({navigation}) => {
           isloading={isloading}
         />
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 
