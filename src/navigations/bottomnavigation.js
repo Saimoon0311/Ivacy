@@ -34,7 +34,7 @@ function MybottomTabs() {
           overflow: 'hidden',
         },
       })}>
-      <Tab.Screen
+      {/* <Tab.Screen
         name="settingScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
@@ -56,7 +56,7 @@ function MybottomTabs() {
           },
         }}
         component={screens.settingScreen}
-      />
+      /> */}
       <Tab.Screen
         name="HomeScreen"
         options={{

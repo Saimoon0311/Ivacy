@@ -72,13 +72,13 @@ const userScreen = ({navigation}) => {
         </Text>
 
         <TextImageComponent iconName={'person'} text={'Personal Information'} />
-        <TextImageComponent
+        {/* <TextImageComponent
           iconName={'language'}
           text={'Language & Communication'}
-        />
+        /> */}
         <TextImageComponent iconName={'bookmark-outline'} text={'My orders'} />
-        <TextImageComponent iconName={'settings-outline'} text={'Settings'} />
-        <TextImageComponent iconName={'chatbox'} text={'Support'} />
+        {/* <TextImageComponent iconName={'settings-outline'} text={'Settings'} /> */}
+        {/* <TextImageComponent iconName={'chatbox'} text={'Support'} /> */}
         <TextImageComponent
           iconName={'alert-circle-outline'}
           text={'About the app'}
