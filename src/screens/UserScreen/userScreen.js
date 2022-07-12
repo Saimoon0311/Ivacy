@@ -7,6 +7,7 @@ import {
   ScrollView,
   Keyboard,
   SafeAreaView,
+  Linking,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
@@ -21,7 +22,7 @@ import TextImageComponent from '../../components/TextImageComponent/TextImageCom
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {useDispatch, useSelector} from 'react-redux';
 import {ApiPost} from '../../config/helperFunction';
-import {LogoutUrl, User_Image_Url} from '../../config/Urls';
+import {AboutTheApp, LogoutUrl, User_Image_Url} from '../../config/Urls';
 import types from '../../Redux/type';
 import {showMessage} from 'react-native-flash-message';
 import {errorMessage} from '../../components/NotificationMessage';
@@ -87,6 +88,7 @@ const userScreen = ({navigation}) => {
         {/* <TextImageComponent iconName={'settings-outline'} text={'Settings'} /> */}
         {/* <TextImageComponent iconName={'chatbox'} text={'Support'} /> */}
         <TextImageComponent
+          onPress={() => Linking.openURL(AboutTheApp)}
           iconName={'alert-circle-outline'}
           text={'About the app'}
         />

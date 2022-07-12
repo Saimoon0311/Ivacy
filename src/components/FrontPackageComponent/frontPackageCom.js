@@ -38,13 +38,16 @@ export const FrontPackageCom = props => {
           <Text style={{...styles.packageTitle}}>Title</Text>
           <Text
             numberOfLines={2}
-            style={{...styles.packageTitle, fontWeight: 'normal'}}>
-            {' '}
+            style={{
+              ...styles.packageTitle,
+              width: wp('80'),
+              fontWeight: 'normal',
+            }}>
             {item?.title}
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.packageTitle}>Price</Text>
+          <Text style={{...styles.packageTitle}}>Price</Text>
           <Text style={{...styles.packageTitle, fontWeight: 'normal'}}>
             ${item?.price}
           </Text>
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
     marginLeft: wp('1'),
     marginRight: wp('1'),
     backgroundColor: 'white',
-    height: hp('35'),
+    height: hp('38'),
     borderWidth: 0.2,
     // borderColor: 'black',
     // overflow: 'hidden',
