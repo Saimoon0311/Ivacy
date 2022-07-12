@@ -38,13 +38,19 @@
 
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+rn_maps_path = '../node_modules/react-native-maps'
 
 platform :ios, '15.2'
 # platform :ios, '14.4.2'
 
 target 'ivacy' do
   config = use_native_modules!
-
+  pod 'GoogleMaps'
+  pod 'Stripe'
+  pod 'GooglePlaces'
+  pod 'react-native-maps' ,:path => '../node_modules/react-native-maps' # Uncomment this line if you want to support GoogleMaps on iOS
+  pod 'GoogleMaps'  # Uncomment this line if you want to support GoogleMaps on iOS
+  pod 'Google-Maps-iOS-Utils' # Uncomment this line if you want to support GoogleMaps on iOS
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods

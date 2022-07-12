@@ -14,7 +14,12 @@ import {
   useStripe,
   useConfirmPayment,
 } from '@stripe/stripe-react-native';
-import {StripePayIntent, StripePublishKey} from '../../config/Urls';
+import {
+  AfterStripeUrl,
+  StripePayIntent,
+  StripePayIntentUrl,
+  StripePublishKey,
+} from '../../config/Urls';
 import {useSelector} from 'react-redux';
 import {
   widthPercentageToDP as wp,
@@ -25,7 +30,7 @@ import {ApiPost} from '../../config/helperFunction';
 
 const CurrencyMethodScreen = ({route, navigation}) => {
   const {userData} = useSelector(state => state.userData);
-  let item = route.params;
+  const item = route.params;
   const {initPaymentSheet, presentPaymentSheet, retrievePaymentIntent} =
     useStripe();
   const [stripeData, setStripeData] = useState({
@@ -36,22 +41,22 @@ const CurrencyMethodScreen = ({route, navigation}) => {
   const {stripeValue, clientSecret} = stripeData;
   const updateState = data => setStripeData(prev => ({...prev, ...data}));
   const fetchClientSecret = async () => {
-    let amountToSend = item.price * 100;
-
     let body = JSON.stringify({
-      amount: amountToSend,
+      userId: userData.data.id,
+      packageId: item.id,
     });
-    ApiPost(StripePayIntent, body, false, userData.access_token).then(res => {
-      console.log(45, res.json.client_secret);
-      if (res.status == 200) {
-        updateState({clientSecret: res.json.client_secret});
-        updateState({stripeValue: res.json});
-        initPaymentScreenStripe(res?.json.client_secret);
-      } else {
-        setIsloading(false);
-        errorMessage('Unable to fatch data.');
-      }
-    });
+    ApiPost(StripePayIntentUrl, body, false, userData.access_token).then(
+      res => {
+        if (res.status == 200) {
+          updateState({clientSecret: res.json.pi.client_secret});
+          updateState({stripeValue: res.json});
+          initPaymentScreenStripe(res?.json.pi.client_secret);
+        } else {
+          setIsloading(false);
+          errorMessage('Unable to fatch data.');
+        }
+      },
+    );
   };
   const initPaymentScreenStripe = async data => {
     const {error} = await initPaymentSheet({
@@ -64,10 +69,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     if (error) {
       errorMessage('Unable to fatch data.');
       setIsloading(false);
-      console.log(119, error);
-      // setIsloading(false);
     } else {
-      // setIsloading(false);
       handlePayment(data);
     }
   };
@@ -83,16 +85,33 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     if (error) {
       errorMessage('Unable to fatch data.');
       setIsloading(false);
-      console.log(89, error);
-      // setIsloading(false);
     } else {
       const {paymentIntent, error} = await retrievePaymentIntent(data);
       if (paymentIntent) {
-        setIsloading(false);
-        navigation.navigate('ThankYouScreen');
-        // hitOrderPlaceApi(paymentIntent);
+        confirmYourOrder(paymentIntent);
       }
     }
+  };
+  const confirmYourOrder = paymentIntent => {
+    let invoiceNumber = Date.now() + Math.random(5).toFixed(0);
+    let body = JSON.stringify({
+      stripeId: paymentIntent.id,
+      userId: userData.data.id,
+      packageId: item.id,
+      invoiceNumber: invoiceNumber,
+    });
+    ApiPost(AfterStripeUrl, body, false, userData.access_token).then(res => {
+      if (res.status == 200) {
+        setIsloading(false);
+        navigation.navigate('ThankYouScreen', res.json.journey);
+      } else {
+        setIsloading(false);
+        errorMessage('Unable to fatch data.');
+        alert(
+          `Soem error acoures Your StripeId is ${paymentIntent.id} Plaese contact to Admin.`,
+        );
+      }
+    });
   };
   return (
     <StripeProvider publishableKey={StripePublishKey}>
@@ -114,7 +133,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         </View>
         <View style={styles.InnerContainer}>
           <TouchableOpacity
-            onPress={() => setIsloading(true)}
+            onPress={() => navigation.navigate('ThankYouScreen')}
             style={styles.boxContainer}>
             <Text style={styles.text}>Crypto</Text>
             <Image
@@ -125,9 +144,6 @@ const CurrencyMethodScreen = ({route, navigation}) => {
           <TouchableOpacity
             onPress={() => {
               setIsloading(true);
-              setTimeout(() => {
-                console.log(123, isloading);
-              }, 2000);
               startPaymentProcess();
             }}
             style={styles.boxContainer}>

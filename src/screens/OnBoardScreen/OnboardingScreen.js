@@ -111,7 +111,10 @@ const OnboardingScreen = ({navigation}) => {
         <View>
           {currentSlideIndex == slides.length - 1 ? (
             <View
-              style={{height: 50, marginLeft: wp('15'), marginTop: hp('-10')}}>
+              style={{
+                marginLeft: wp('15'),
+                marginTop: hp('-10'),
+              }}>
               <TouchableOpacity
                 style={styles.getStartedBtn}
                 onPress={() =>
@@ -181,7 +184,11 @@ const OnboardingScreen = ({navigation}) => {
               <Text style={styles.subtitle}>{item?.subtitle}</Text>
             </View>
           </View>
-          <View style={{position: 'absolute', bottom: hp('-20')}}>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: hp('-8'),
+            }}>
             {Footer()}
           </View>
         </View>
@@ -255,11 +262,12 @@ const styles = StyleSheet.create({
   },
   getStartedBtn: {
     height: hp('5'),
-    width: wp('30'),
+    // width: wp('30'),
     borderRadius: 5,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 5,
   },
 });
 export default OnboardingScreen;

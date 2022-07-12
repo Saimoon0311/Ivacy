@@ -28,13 +28,6 @@ const PackageDetailScreen = ({route, navigation}) => {
   const [isloading, setIsloading] = useState(true);
 
   const items = route.params;
-  const [images, setImage] = useState([
-    IMAGE_BASED_URL + items?.get_images[0]?.title,
-    IMAGE_BASED_URL + items?.get_images[0]?.title,
-    // require('../../images/sale2.png'),
-    // require('../../images/sale2.png'),
-    // require('../../images/sale2.png'),
-  ]);
   const imagesLegth = items?.get_images.map(res => {
     return IMAGE_BASED_URL + res.title;
   });
