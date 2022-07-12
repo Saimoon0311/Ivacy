@@ -55,9 +55,6 @@ export const TextInputCom = props => {
           onBlur={props?.onBlur}
           autoCapitalize={props?.autoCapitalize}
         />
-        {/* {props?.eyeIcon && (
-  
-        )} */}
         <Ionicons
           onPress={props?.eyeIconPress}
           name={props?.eyeIconName}
