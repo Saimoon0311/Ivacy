@@ -20,6 +20,8 @@ export const AfterStripeUrl = getApi('stripe-form/aftersubmit');
 export const ReviewUrl = getApi('reviews');
 export const SubReviewUrl = getApi('submit-review');
 export const StripePayIntent = getApi('payment-intend');
+export const FavoredSceneriesUrl = getApi('favored-sceneries');
+export const CryptoPayUrl = getApi('pay-with/');
 export const StripePublishKey =
   'pk_test_51LI9HwEE1bl5YY9CXbeFOKtVHFcnF3Vr6cNpK50WFsAHQFU9pcenE3iSddJ2pzdx7IIPwzXG6plCCxXwet33HpIG00nyziJs1r';
 export const AboutTheApp = API_About_Us_URL + 'about-us';

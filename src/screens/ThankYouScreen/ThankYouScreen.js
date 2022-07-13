@@ -156,9 +156,10 @@ const ThankYouScreen = () => {
             }}
             mode="DRIVING"
             optimizeWaypoints={true}
-            strokeColor={['red']}
+            // strokeColor={['red']}
             strokeWidth={5}
             apikey={'AIzaSyCu5v9OrHrhf55iPRd8JIgB_QGAlZpmlj0'}
+            strokeColors={['red']}
           />
           <Marker coordinate={location.coords} />
           <Marker

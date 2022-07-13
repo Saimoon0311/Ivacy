@@ -5,6 +5,8 @@ import {
   ImageBackground,
   Image,
   ActivityIndicator,
+  Modal,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './style';
@@ -16,6 +18,7 @@ import {
 } from '@stripe/stripe-react-native';
 import {
   AfterStripeUrl,
+  CryptoPayUrl,
   StripePayIntent,
   StripePayIntentUrl,
   StripePublishKey,
@@ -27,6 +30,7 @@ import {
 } from 'react-native-responsive-screen';
 import {errorMessage} from '../../components/NotificationMessage';
 import {ApiPost} from '../../config/helperFunction';
+// import {WebView} from 'react-native-webview';
 
 const CurrencyMethodScreen = ({route, navigation}) => {
   const {userData} = useSelector(state => state.userData);
@@ -37,6 +41,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     clientSecret: '',
     stripeValue: '',
   });
+  const [webView, setWebView] = useState(false);
   const [isloading, setIsloading] = useState(false);
   const {stripeValue, clientSecret} = stripeData;
   const updateState = data => setStripeData(prev => ({...prev, ...data}));
@@ -47,6 +52,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     });
     ApiPost(StripePayIntentUrl, body, false, userData.access_token).then(
       res => {
+        console.log(56, res);
         if (res.status == 200) {
           updateState({clientSecret: res.json.pi.client_secret});
           updateState({stripeValue: res.json});
@@ -67,6 +73,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       style: [{height: hp('100')}],
     });
     if (error) {
+      console.log(566, error);
       errorMessage('Unable to fatch data.');
       setIsloading(false);
     } else {
@@ -101,6 +108,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       invoiceNumber: invoiceNumber,
     });
     ApiPost(AfterStripeUrl, body, false, userData.access_token).then(res => {
+      console.log(109, res, body, userData.access_token);
       if (res.status == 200) {
         setIsloading(false);
         navigation.navigate('ThankYouScreen', res.json.journey);
@@ -133,7 +141,11 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         </View>
         <View style={styles.InnerContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ThankYouScreen')}
+            onPress={() => {
+              // errorMessage('Currently this feature is in working ');
+              // setWebView(true);
+              navigation.navigate('ThankYouScreen');
+            }}
             style={styles.boxContainer}>
             <Text style={styles.text}>Crypto</Text>
             <Image
@@ -156,6 +168,26 @@ const CurrencyMethodScreen = ({route, navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
+      {/* <Modal
+        animationType="slide"
+        onRequestClose={() => {
+          setWebView(false);
+        }}
+        visible={webView}>
+        <WebView
+          style={{
+            height: hp('50'),
+            width: wp('100'),
+            marginTop: Platform.OS == 'ios' ? hp('5') : hp('2'),
+          }}
+          source={{uri: 'http://ivacay.co/pay-with/' + item.id}}
+          // onNavigationStateChange={_onNavigationStateChange}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          startInLoadingState={false}
+          // style={{marginTop: 20}}
+        />
+      </Modal> */}
     </StripeProvider>
   );
 };

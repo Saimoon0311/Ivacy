@@ -18,7 +18,11 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {ApiGet} from '../../config/helperFunction';
-import {CountryNameUrl, LatestPackageUrl} from '../../config/Urls';
+import {
+  CountryNameUrl,
+  FavoredSceneriesUrl,
+  LatestPackageUrl,
+} from '../../config/Urls';
 import {color} from '../../components/color';
 import {showMessage} from 'react-native-flash-message';
 import {LatestPackageFlatlist} from '../../components/LatestPackageFlatlist/latestPackageFlatlist';
@@ -37,34 +41,16 @@ const HomeScreen = ({navigation}) => {
   const navigate = item => {
     navigation.navigate('PackageDetailScreen', item);
   };
-  const [topCities, setTopCities] = useState([
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-    {
-      id: 4,
-    },
-    {
-      id: 5,
-    },
-    {
-      id: 6,
-    },
-  ]);
 
   const onRefresh = useCallback(() => {
     updateLoadingState({latestPackageLoading: true});
     updateLoadingState({countryLoader: true});
+    updateLoadingState({favoredLoader: true});
     setRefreshing(true);
     wait(2000).then(() => {
       getPackage();
       getCountryName();
+      favoredSceneries();
       setRefreshing(false);
     });
   }, []);
@@ -73,10 +59,12 @@ const HomeScreen = ({navigation}) => {
     latestPackage: [],
     getCountryData: [],
     packageByCountry: [],
+    favoredScenerie: [],
   });
   const [isloading, setIsloading] = useState({
     latestPackageLoading: true,
     countryLoader: true,
+    favoredLoader: true,
   });
   const updateLoadingState = data => {
     setIsloading(prev => ({...prev, ...data}));
@@ -87,19 +75,34 @@ const HomeScreen = ({navigation}) => {
       type: 'getPackage',
     });
   };
-  const {latestPackageLoading, countryLoader} = isloading;
+  const {latestPackageLoading, countryLoader, favoredLoader} = isloading;
   const updatePackageState = data => {
     setAllPackage(prev => ({...prev, ...data}));
   };
-  const {latestPackage, getCountryData} = allPackage;
+  const {latestPackage, getCountryData, favoredScenerie} = allPackage;
   const getPackage = () => {
     ApiGet(LatestPackageUrl, userData.access_token).then(res => {
+      console.log(97, res);
       if (res.status == 200) {
         updatePackageState({latestPackage: res.json.data});
         updateLoadingState({latestPackageLoading: false});
       } else if (res.status == 404) {
         updatePackageState({latestPackage: []});
         updateLoadingState({latestPackageLoading: false});
+      } else {
+        errorMessage('Network Request Faild.');
+      }
+    });
+  };
+  const favoredSceneries = () => {
+    ApiGet(FavoredSceneriesUrl, userData.access_token).then(res => {
+      console.log(97, res);
+      if (res.status == 200) {
+        updatePackageState({favoredScenerie: res.json.data});
+        updateLoadingState({favoredLoader: false});
+      } else if (res.status == 404) {
+        updatePackageState({favoredScenerie: []});
+        updateLoadingState({favoredLoader: false});
       } else {
         errorMessage('Network Request Faild.');
       }
@@ -122,6 +125,7 @@ const HomeScreen = ({navigation}) => {
   useEffect(() => {
     getPackage();
     getCountryName();
+    favoredSceneries();
   }, []);
 
   // const ThankYOuScreen = () => {
@@ -172,13 +176,19 @@ const HomeScreen = ({navigation}) => {
           heading={'Top Places'}
           navigate={navigateToPackage}
         />
+        <CityImageComponent
+          ml={wp('4')}
+          data={favoredScenerie}
+          isloading={favoredLoader}
+          heading={'Favorate Sceneries'}
+          navigate={navigateToPackage}
+        />
         {/* <TouchableOpacity
           onPress={() => {
             navigation.navigate('WriteReviewScreen');
           }}>
           <Text> ReviewScreen For Temperory</Text>
         </TouchableOpacity> */}
-        <CityImageComponent data={topCities} heading={'Top Activities'} />
       </ScrollView>
     </SafeAreaView>
   );
