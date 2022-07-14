@@ -60,6 +60,10 @@ export default function StackNavigatior() {
           component={screens.WriteReviewScreen}
         />
         <Stack.Screen name="StripeScreen" component={screens.StripeScreen} />
+        <Stack.Screen
+          name="OrderDetailsScreen"
+          component={screens.OrderDetailsScreen}
+        />
       </Stack.Navigator>
     </>
   );

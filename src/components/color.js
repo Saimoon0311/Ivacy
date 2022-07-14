@@ -18,4 +18,5 @@ export const color = {
   badgeColor: '#FF2D2D',
   lightView: '#DACBFA',
   ThankYouColor: '#8161C8',
+  orderBoxColor: '#8561D3',
 };
