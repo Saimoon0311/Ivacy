@@ -16,6 +16,7 @@ import {errorMessage} from '../../components/NotificationMessage';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import moment from 'moment';
 import {useIsFocused} from '@react-navigation/native';
+import {SkypeIndicator} from 'react-native-indicators';
 const ReviewScreen = ({navigation}) => {
   const isFocused = useIsFocused();
   const [starCount, setstarCount] = useState(0);
@@ -38,10 +39,10 @@ const ReviewScreen = ({navigation}) => {
         setIsloading(false);
       } else if (res.status == 404) {
         errorMessage(res.json.message);
-        setIsloading(false);
+        setIsloading(true);
       } else {
         errorMessage('Network Request Failed.');
-        setIsloading(false);
+        setIsloading(true);
       }
     });
   };
@@ -112,10 +113,21 @@ const ReviewScreen = ({navigation}) => {
             />
           </View>
         </View>
-        <View style={styles.ratingtxtContainer}>
-          <Text style={styles.ratingtxt}>{reviewState.review_avg}</Text>
-          <Text style={styles.outOfTxt}>out of 5</Text>
-        </View>
+        {isloading ? (
+          <SkypeIndicator
+            color={color.boxColor}
+            size={hp('4')}
+            style={{
+              alignSelf: 'center',
+              marginTop: hp('6'),
+            }}
+          />
+        ) : (
+          <View style={styles.ratingtxtContainer}>
+            <Text style={styles.ratingtxt}>{reviewState.review_avg}</Text>
+            <Text style={styles.outOfTxt}>out of 5</Text>
+          </View>
+        )}
       </View>
       <View>
         {isloading ? (

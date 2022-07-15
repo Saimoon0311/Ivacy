@@ -84,7 +84,11 @@ const userScreen = ({navigation}) => {
           iconName={'language'}
           text={'Language & Communication'}
         /> */}
-        <TextImageComponent iconName={'bookmark-outline'} text={'My orders'} />
+        <TextImageComponent
+          onPress={() => navigation.navigate('OrderDetailsScreen')}
+          iconName={'bookmark-outline'}
+          text={'My orders'}
+        />
         {/* <TextImageComponent iconName={'settings-outline'} text={'Settings'} /> */}
         {/* <TextImageComponent iconName={'chatbox'} text={'Support'} /> */}
         <TextImageComponent
