@@ -15,10 +15,12 @@ import WriteReviewScreen from './WriteReviewScreen/WriteReviewScreen';
 import StripeScreen from './StripeScreen/StripeScreen';
 import OrderDetailsScreen from './OrderDetailsScreen/OrderDetailsScreen';
 import MapViewScreen from './MapViewScreen/MapViewScreen';
+import GuiderHomeScreen from './Guider/GuiderHomeScreen/GuiderHomeScreen';
 
 export const screens = {
   OnboardingScreen,
   HomeScreen,
+  GuiderHomeScreen,
   settingScreen,
   userScreen,
   LoginScreen,

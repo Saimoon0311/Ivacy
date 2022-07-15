@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginLeft: wp('1'),
     marginRight: wp('1'),
+    marginBottom: hp('1.5'),
     backgroundColor: 'white',
     height: hp('35'),
     borderWidth: Platform.OS == 'ios' ? 0.2 : 0,

@@ -5,13 +5,14 @@ import MybottomTabs from './bottomnavigation';
 import OnboardingScreen from '../screens/OnBoardScreen/OnboardingScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useSelector} from 'react-redux';
+import GuiderBottomNavigation from './GuiderBottomNavigation';
 
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigatior() {
   const {userData} = useSelector(state => state.userData);
   const {IsApplunchFirst} = useSelector(state => state.IsApplunchFirst);
-
+  console.log(userData, 15);
   return (
     <>
       <Stack.Navigator
@@ -22,8 +23,14 @@ export default function StackNavigatior() {
         {IsApplunchFirst == true && (
           <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
         )}
-        {userData.access_token ? (
+
+        {userData?.data?.user_role == 0 ? (
           <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+        ) : userData?.data?.user_role == 1 ? (
+          <Stack.Screen
+            name="GuiderBottomNavigation"
+            component={GuiderBottomNavigation}
+          />
         ) : (
           <>
             <Stack.Screen

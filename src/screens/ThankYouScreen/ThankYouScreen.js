@@ -21,27 +21,25 @@ import {
 } from '../../config/Urls';
 import {errorMessage} from '../../components/NotificationMessage';
 import {ApiGet} from '../../config/helperFunction';
-import MapView, {
-  LocalTile,
-  MAP_TYPES,
-  Marker,
-  PROVIDER_GOOGLE,
-  Polyline,
-} from 'react-native-maps';
-import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import Geolocation from 'react-native-geolocation-service';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import moment from 'moment';
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-const ThankYouScreen = () => {
+const ThankYouScreen = ({route, navigation}) => {
+  const item = route.params;
   const [countryPicker, setCountryPicker] = useState([]);
   const [isloading, setIsloading] = useState(true);
   const getAllCountryName = () => {
     ApiGet(CountryNameUrl).then(res => {
       if (res.status == 200) {
+        console.log(res, 3999999);
+
         setIsloading(false);
         setCountryPicker(res.json.data);
       } else {
@@ -55,9 +53,63 @@ const ThankYouScreen = () => {
   useEffect(() => {
     getAllCountryName();
   }, []);
-
+  // const renderHeader = item => {
+  //   return (
+  //     <View style={{...styles.parentCardStyle}}>
+  //       <View style={styles.parentCardTopTag}>
+  //         <Text style={styles.parentCardTopTagText}>Order Details</Text>
+  //       </View>
+  //       <View style={styles.parentCardIconHolder}>
+  //         <AntDesign
+  //           name="shoppingcart"
+  //           color={color.white}
+  //           size={hp('3')}
+  //           style={styles.iconStyle}
+  //         />
+  //         <View style={styles.parentCardRow}>
+  //           <Text style={styles.parentCarddTextStyle}>Order ID:</Text>
+  //           <Text style={styles.parentCarddTextStyle}>
+  //             {item?.invoice_number}
+  //           </Text>
+  //         </View>
+  //       </View>
+  //       <View style={styles.parentCardIconHolder}>
+  //         <AntDesign name="calendar" color={color.white} size={hp('3')} />
+  //         <View style={{...styles.parentCardRow, marginTop: hp('0.7')}}>
+  //           <Text style={styles.parentCarddTextStyle}>Date:</Text>
+  //           <Text style={styles.parentCarddTextStyle}>
+  //             {moment(item?.created_at)?.format('Do-MMM-YYYY')}
+  //           </Text>
+  //         </View>
+  //       </View>
+  //       <View style={styles.parentCardIconHolder}>
+  //         <AntDesign name="codesquareo" color={color.white} size={hp('3')} />
+  //         <View style={{...styles.parentCardRow, marginTop: hp('0.7')}}>
+  //           <Text style={styles.parentCarddTextStyle}>Payment Type:</Text>
+  //           <Text style={styles.parentCarddTextStyle}>
+  //             {item?.payment_type}
+  //           </Text>
+  //         </View>
+  //       </View>
+  //       <View style={styles.parentCardIconHolder}>
+  //         <Ionicons
+  //           name="cash-outline"
+  //           color={color.white}
+  //           size={hp('3')}
+  //           style={styles.iconStyle}
+  //         />
+  //         <View style={styles.parentCardRow}>
+  //           <Text style={styles.parentCarddTextStyle}>Total:</Text>
+  //           <Text style={styles.parentCarddTextStyle}>
+  //             ${item?.total_price}
+  //           </Text>
+  //         </View>
+  //       </View>
+  //     </View>
+  //   );
+  // };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           resizeMode="contain"
@@ -71,7 +123,7 @@ const ThankYouScreen = () => {
         <Ionicons
           name="md-checkmark-circle-outline"
           color={'white'}
-          size={100}
+          size={80}
         />
       </View>
 
@@ -84,12 +136,67 @@ const ThankYouScreen = () => {
           size={20}
         />
       </View>
-      <VerticalCityImageComponent
+      <View style={{...styles.parentCardStyle}}>
+        <View style={styles.parentCardTopTag}>
+          <Text style={styles.parentCardTopTagText}>Order Details</Text>
+        </View>
+        <View style={styles.parentCardIconHolder}>
+          <AntDesign
+            name="shoppingcart"
+            color={color.white}
+            size={hp('3')}
+            style={styles.iconStyle}
+          />
+          <View style={styles.parentCardRow}>
+            <Text style={styles.parentCarddTextStyle}>Order ID:</Text>
+            <Text style={styles.parentCarddTextStyle}>
+              {item?.invoice_number}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.parentCardIconHolder}>
+          <AntDesign name="calendar" color={color.white} size={hp('3')} />
+          <View style={{...styles.parentCardRow, marginTop: hp('0.7')}}>
+            <Text style={styles.parentCarddTextStyle}>Date:</Text>
+            <Text style={styles.parentCarddTextStyle}>
+              {moment(item?.created_at)?.format('Do-MMM-YYYY')}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.parentCardIconHolder}>
+          <AntDesign name="codesquareo" color={color.white} size={hp('3')} />
+          <View style={{...styles.parentCardRow, marginTop: hp('0.7')}}>
+            <Text style={styles.parentCarddTextStyle}>Payment Type:</Text>
+            <Text style={styles.parentCarddTextStyle}>
+              {item?.payment_type}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.parentCardIconHolder}>
+          <Ionicons
+            name="cash-outline"
+            color={color.white}
+            size={hp('3')}
+            style={styles.iconStyle}
+          />
+          <View style={styles.parentCardRow}>
+            <Text style={styles.parentCarddTextStyle}>Total:</Text>
+            <Text style={styles.parentCarddTextStyle}>
+              ${item?.total_price}
+            </Text>
+          </View>
+        </View>
+      </View>
+      {/* <View style={styles.thankuConatainer}>
+        <Text style={styles.thankyouTxt}>Thank You!</Text>
+        <Text style={styles.choseusTxt}>for Choosing us</Text>
+      </View> */}
+      {/* <VerticalCityImageComponent
         name={'alkjsflj'}
         data={countryPicker}
         heading={'Similar Places'}
-      />
-    </View>
+      /> */}
+    </ScrollView>
   );
 };
 
