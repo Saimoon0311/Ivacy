@@ -6,27 +6,29 @@ import {
   SafeAreaView,
   RefreshControl,
   TouchableOpacity,
+  FlatList,
+  View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
-import {FrontPackageCom} from '../../components/FrontPackageComponent/frontPackageCom';
+import {FrontPackageCom} from '../../../components/FrontPackageComponent/frontPackageCom';
 import {useDispatch, useSelector} from 'react-redux';
-import types from '../../Redux/type';
-import {globalStyles} from '../../config/globalStyles';
+import types from '../../../Redux/type';
+import {globalStyles} from '../../../config/globalStyles';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ApiGet} from '../../config/helperFunction';
-import {CountryNameUrl, LatestPackageUrl} from '../../config/Urls';
-import {color} from '../../components/color';
+import {ApiGet} from '../../../config/helperFunction';
+import {CountryNameUrl, LatestPackageUrl} from '../../../config/Urls';
+import {color} from '../../../components/color';
 import {showMessage} from 'react-native-flash-message';
-import {LatestPackageFlatlist} from '../../components/LatestPackageFlatlist/latestPackageFlatlist';
-import SearchBarComponents from '../../components/SearchBarComponents/SearchBarComponents';
-import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
+import {LatestPackageFlatlist} from '../../../components/LatestPackageFlatlist/latestPackageFlatlist';
+import SearchBarComponents from '../../../components/SearchBarComponents/SearchBarComponents';
+import {CityImageComponent} from '../../../components/CityImageComponrnt/cityImageComponent';
 import {useCallback} from 'react';
-import {errorMessage} from '../../components/NotificationMessage';
-import ThankYouScreen from '../ThankYouScreen/ThankYouScreen';
+import {errorMessage} from '../../../components/NotificationMessage';
+import ThankYouScreen from '../../ThankYouScreen/ThankYouScreen';
 
 const HomeScreen = ({navigation}) => {
   const disptach = useDispatch();
@@ -58,6 +60,26 @@ const HomeScreen = ({navigation}) => {
     },
   ]);
 
+  // const logoutFun = () => {
+  //   let body = {};
+  //   setIsloading(true);
+  //   ApiPost(LogoutUrl, body, false, userData.access_token).then(res => {
+  //     console.log(100, res);
+  //     if (res.status == 200) {
+  //       setIsloading(false);
+  //       dispatch({
+  //         type: types.LogoutType,
+  //       });
+  //     } else if (res.status == 401) {
+  //       errorMessage('The app can not authorization form surver.');
+  //       setIsloading(false);
+  //     } else {
+  //       errorMessage('Network Request Failed.');
+  //       setIsloading(false);
+  //     }
+  //   });
+  // };
+
   const onRefresh = useCallback(() => {
     updateLoadingState({latestPackageLoading: true});
     updateLoadingState({countryLoader: true});
@@ -82,7 +104,7 @@ const HomeScreen = ({navigation}) => {
     setIsloading(prev => ({...prev, ...data}));
   };
   const navigateToPackage = item => {
-    navigation.navigate('ThankYouScreen', {
+    navigation.navigate('PackageScreen', {
       data: item,
       type: 'getPackage',
     });
@@ -160,14 +182,28 @@ const HomeScreen = ({navigation}) => {
             fontSize: hp('2.8'),
             marginLeft: wp('5'),
           }}>
-          Top Destinations
+          Top Packages
         </Text>
-        <LatestPackageFlatlist
+        {/* <LatestPackageFlatlist
           data={latestPackage}
           isloading={latestPackageLoading}
           navigate={navigate}
+        /> */}
+
+        <FlatList
+          data={latestPackage}
+          keyExtractor={(item, index) => index.toString()}
+          contentContainerStyle={{
+            flexWrap: 'wrap',
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}
+          renderItem={({item}) => {
+            return <FrontPackageCom navigate={navigate} data={item} />;
+          }}
         />
-        <CityImageComponent
+
+        {/* <CityImageComponent
           ml={wp('4')}
           data={getCountryData}
           isloading={countryLoader}
@@ -180,7 +216,8 @@ const HomeScreen = ({navigation}) => {
           }}>
           <Text> ReviewScreen For Temperory</Text>
         </TouchableOpacity> */}
-        <CityImageComponent data={topCities} heading={'Top Activities'} />
+        {/* <CityImageComponent data={topCities} heading={'Top Activities'} />  */}
+        {/* <TouchableOpacity onPress={() => logoutFun()}>Helloo</TouchableOpacity> */}
       </ScrollView>
     </SafeAreaView>
   );
