@@ -70,10 +70,14 @@ const HomeScreen = ({navigation}) => {
     setIsloading(prev => ({...prev, ...data}));
   };
   const navigateToPackage = item => {
-    navigation.navigate('PackageScreen', {
+    navigation.navigate('ThankYouScreen', {
       data: item,
       type: 'getPackage',
     });
+    // navigation.navigate('PackageScreen', {
+    //   data: item,
+    //   type: 'getPackage',
+    // });
   };
   const {latestPackageLoading, countryLoader, favoredLoader} = isloading;
   const updatePackageState = data => {

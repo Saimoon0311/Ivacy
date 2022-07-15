@@ -30,7 +30,7 @@ function MybottomTabs() {
           bottom: Platform.OS == 'ios' ? hp('4') : hp('2'),
           width: wp('90'),
           alignSelf: 'center',
-          borderRadius: 20,
+          borderRadius: Platform.OS == 'android' ? 10 : 20,
           overflow: 'hidden',
         },
       })}>

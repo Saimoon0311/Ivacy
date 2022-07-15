@@ -6,7 +6,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <React/RCTAppSetupUtils.h>
 #import <GooglePlaces/GooglePlaces.h>
-
+// #import <Firebase.h>
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
 #import <React/RCTCxxBridgeDelegate.h>
@@ -30,9 +30,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // [FIRApp configure];
   RCTAppSetupPrepareApp(application);
-  [GMSServices provideAPIKey:@"AIzaSyCu5v9OrHrhf55iPRd8JIgB_QGAlZpmlj0"]; // add this line using the api key obtained from Google Console
-  [GMSPlacesClient provideAPIKey:@"AIzaSyCu5v9OrHrhf55iPRd8JIgB_QGAlZpmlj0"];
+  // [GMSServices provideAPIKey:@"AIzaSyCeq2tHI-iHJtMHCn-JNMZchvmYFmTTFHw"]; // add this line using the api key obtained from Google Console
+  // [GMSPlacesClient provideAPIKey:@"AIzaSyCeq2tHI-iHJtMHCn-JNMZchvmYFmTTFHw"];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 
 #if RCT_NEW_ARCH_ENABLED

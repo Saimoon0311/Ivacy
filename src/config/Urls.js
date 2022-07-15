@@ -7,7 +7,7 @@ export const IMAGE_BASED_URL = 'https://ivacay.co/packages/';
 export const User_Image_Url = 'https://ivacay.co/users/';
 
 export const getApi = endpoint => API_BASED_URL + endpoint;
-
+export const Google_Map_Key = 'AIzaSyCu5v9OrHrhf55iPRd8JIgB_QGAlZpmlj0';
 export const LoginUrl = getApi('login');
 export const SignUpUrl = getApi('register');
 export const UserUrl = getApi('user');
