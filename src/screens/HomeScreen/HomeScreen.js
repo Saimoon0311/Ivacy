@@ -70,7 +70,7 @@ const HomeScreen = ({navigation}) => {
     setIsloading(prev => ({...prev, ...data}));
   };
   const navigateToPackage = item => {
-    navigation.navigate('ThankYouScreen', {
+    navigation.navigate('MapViewScreen', {
       data: item,
       type: 'getPackage',
     });

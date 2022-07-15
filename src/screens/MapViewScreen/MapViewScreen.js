@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {View, Text, Dimensions} from 'react-native';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, {
@@ -18,10 +18,10 @@ const MapViewScreen = ({route, navigation}) => {
   const [dummy, setDummy] = useState(1);
   const [location, setLocation] = useState({
     coords: {
-      // latitude: 37.4218708,
-      // longitude: -122.0841223,
-      latitude: 55.9389439451934,
-      longitude: -3.2289656424473465,
+      latitude: 37.4218708,
+      longitude: -122.0841223,
+      // latitude: 55.9389439451934,
+      // longitude: -3.2289656424473465,
       // 55.9389439451934, -3.2289656424473465
     },
     // 24.84647610589769, 67.05584044694514
@@ -83,10 +83,10 @@ const MapViewScreen = ({route, navigation}) => {
         height: Dimensions.get('window').height,
       }}
       region={{
-        // latitude: location.coords.latitude,
-        // longitude: location.coords.longitude,
-        latitude: 55.9389439451934,
-        longitude: -3.2289656424473465,
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        // latitude: 55.9389439451934,
+        // longitude: -3.2289656424473465,
         latitudeDelta: latitudeDelta,
         longitudeDelta: laongituteDalta,
       }}
@@ -108,21 +108,25 @@ const MapViewScreen = ({route, navigation}) => {
     >
       <MapViewDirections
         origin={{
-          latitude: 55.9389439451934,
-          longitude: -3.2289656424473465,
-          // latitude: location.coords.latitude,
-          // longitude: location.coords.latitude,
+          // latitude: 55.9389439451934,
+          // longitude: -3.2289656424473465,
+          latitude: location.coords.latitude,
+          longitude: location.coords.latitude,
           latitudeDelta: latitudeDelta,
           longitudeDelta: laongituteDalta,
         }}
         destination={{
-          latitude: 55.935225401794355,
-          longitude: -3.209938529963149,
+          latitude: 24.846203501300632,
+          longitude: 67.05603356184639,
+          // latitude: 55.935225401794355,
+          // longitude: -3.209938529963149,
+          // 24.846203501300632, 67.05603356184639
           // 55.935225401794355, -3.209938529963149
           latitudeDelta: latitudeDelta,
           longitudeDelta: laongituteDalta,
           // 24.924493890239585, 67.02910107445285
         }}
+        region={'sindh'}
         mode="WALKING"
         optimizeWaypoints={true}
         strokeColor={'red'}
@@ -148,3 +152,5 @@ const MapViewScreen = ({route, navigation}) => {
     </MapView>
   );
 };
+
+export default MapViewScreen;

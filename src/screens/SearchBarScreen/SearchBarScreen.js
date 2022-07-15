@@ -101,6 +101,7 @@ export default function SearchBarScreen({navigation}) {
                 ...globalStyles.globalTextStyles,
                 fontSize: hp('2.5'),
                 marginLeft: wp('5'),
+                marginTop: hp('4'),
               }}>
               Search Your Place!
             </Text>

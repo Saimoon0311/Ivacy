@@ -35,6 +35,7 @@ const WriteReviewScreen = ({navigation}) => {
       let body = JSON.stringify({
         rating: starCount,
         message: des,
+        userId: userData.data.id,
       });
       ApiPost(SubReviewUrl, body, false, userData.access_token).then(res => {
         console.log(res);

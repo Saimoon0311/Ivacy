@@ -31,8 +31,9 @@ export const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 10,
     borderWidth: 1,
-    height: hp('5'),
+    height: Platform.OS == 'ios' ? hp('5') : hp('6'),
     paddingLeft: wp('2'),
+    textAlignVertical: 'center',
   },
   buttonView: {
     backgroundColor: color.bottomBarColor,

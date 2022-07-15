@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Linking,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
@@ -117,7 +118,7 @@ const OrderDetailsScreen = ({navigation}) => {
             style={styles.iconStyle}
           />
           <View style={styles.parentCardRow}>
-            <Text style={styles.parentCarddTextStyle}>User Image</Text>
+            <Text style={styles.parentCarddTextStyle}>Guider Image</Text>
             <Image
               resizeMode="contain"
               style={{height: hp('4'), borderRadius: 5, width: wp('10')}}
@@ -165,7 +166,7 @@ const OrderDetailsScreen = ({navigation}) => {
           <View style={styles.parentCardRow}>
             <Text style={styles.parentCarddTextStyle}>Address</Text>
             <Text style={styles.parentCarddTextStyle}>
-              {item?.get_journey_guider_profile?.adrress}
+              {item?.get_journey_guider_profile?.address}
             </Text>
           </View>
         </View>
@@ -178,9 +179,15 @@ const OrderDetailsScreen = ({navigation}) => {
           />
           <View style={styles.parentCardRow}>
             <Text style={styles.parentCarddTextStyle}>Phone</Text>
-            <Text style={styles.parentCarddTextStyle}>
-              {item?.get_journey_guider_profile?.phone}
-            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                let number = item?.get_journey_guider_profile?.phone;
+                Linking.openURL(`tel:${number}`);
+              }}>
+              <Text style={styles.parentCarddTextStyle}>
+                {item?.get_journey_guider_profile?.phone}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.parentCardIconHolder}>
