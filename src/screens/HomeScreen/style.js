@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     // paddingTop: Platform.OS == 'ios' ? hp('5') : hp('0'),
-
   },
   backgroundImage: {width: wp('100'), height: hp('110')},
   loginView: {

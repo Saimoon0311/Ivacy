@@ -11,6 +11,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: Platform.OS == 'ios' ? hp('5') : hp('2'),
     paddingBottom: hp('10'),
+    height: hp('100'),
+    justifyContent: 'center',
   },
   button: {
     flexDirection: 'row',

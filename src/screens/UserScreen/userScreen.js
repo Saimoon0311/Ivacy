@@ -79,7 +79,7 @@ const userScreen = ({navigation}) => {
           {userData.data.username}
         </Text>
 
-        <TextImageComponent iconName={'person'} text={'Personal Information'} />
+        {/* <TextImageComponent iconName={'person'} text={'Personal Information'} /> */}
         {/* <TextImageComponent
           iconName={'language'}
           text={'Language & Communication'}

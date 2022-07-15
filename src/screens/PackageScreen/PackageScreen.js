@@ -95,6 +95,7 @@ export default function PackageScreen({route, navigation}) {
           onRefresh={onRefresh}
           refreshing={refreshing}
           data={allPackage}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => index.toString()}
           numColumns={1}
           contentContainerStyle={{

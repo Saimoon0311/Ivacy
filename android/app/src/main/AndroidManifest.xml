@@ -11,8 +11,8 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
-<meta-data android:name="com.transistorsoft.locationmanager.license" android:value="AIzaSyBBvZAjUO0Cp2iPuTb1jhY3DmHqVIe_kG0" />
-<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBBvZAjUO0Cp2iPuTb1jhY3DmHqVIe_kG0" />
+<meta-data android:name="com.transistorsoft.locationmanager.license" android:value="AIzaSyCeq2tHI-iHJtMHCn-JNMZchvmYFmTTFHw" />
+<meta-data android:name="com.google.android.geo.API_KEY" android:value='AIzaSyCeq2tHI-iHJtMHCn-JNMZchvmYFmTTFHw' />
            <service android:name="com.transistorsoft.locationmanager.service.TrackingService" android:foregroundServiceType="location" />
        <service android:name="com.transistorsoft.locationmanager.service.LocationRequestService" android:foregroundServiceType="location" />
       <activity

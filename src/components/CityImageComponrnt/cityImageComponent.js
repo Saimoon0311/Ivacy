@@ -130,15 +130,17 @@ const styles = StyleSheet.create({
 
   textImageBackground: {
     backgroundColor: color.textBackgroundColor,
-    width: wp('22'),
-    height: hp('3'),
+    width: wp('23'),
+    // height: hp('3'),
     textAlign: 'center',
     color: 'white',
     fontSize: hp('1.8'),
     position: 'absolute',
     bottom: 10,
     alignContent: 'center',
-    borderRadius: 6,
     justifyContent: 'center',
+    padding: 5,
+    borderTopRightRadius: 6,
+    borderBottomRightRadius: 6,
   },
 });

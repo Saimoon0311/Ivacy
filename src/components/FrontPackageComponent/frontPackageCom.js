@@ -37,10 +37,10 @@ export const FrontPackageCom = props => {
           }}>
           <Text style={{...styles.packageTitle}}>Title</Text>
           <Text
-            numberOfLines={2}
+            numberOfLines={1}
             style={{
               ...styles.packageTitle,
-              width: wp('80'),
+              width: wp('75'),
               fontWeight: 'normal',
             }}>
             {item?.title}
@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
     marginRight: wp('1'),
     marginBottom: hp('1.5'),
     backgroundColor: 'white',
-    height: hp('38'),
-    borderWidth: 0.2,
+    height: hp('35'),
+    borderWidth: Platform.OS == 'ios' ? 0.2 : 0,
     // borderColor: 'black',
     // overflow: 'hidden',
     // shadowColor: '#000',

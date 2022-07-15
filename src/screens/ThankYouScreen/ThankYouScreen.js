@@ -5,6 +5,8 @@ import {
   ScrollView,
   Dimensions,
   Platform,
+  PermissionsAndroid,
+  Permission,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
@@ -12,58 +14,32 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {color} from '../../components/color';
 import {VerticalCityImageComponent} from '../../components/VerticalCityImageComponent/VerticalCityImageComponent';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
-import {CountryNameUrl} from '../../config/Urls';
+import {
+  CountryNameUrl,
+  Google_Map_Key,
+  IMAGE_BASED_URL,
+} from '../../config/Urls';
 import {errorMessage} from '../../components/NotificationMessage';
 import {ApiGet} from '../../config/helperFunction';
-import MapView, {
-  LocalTile,
-  MAP_TYPES,
-  Marker,
-  PROVIDER_GOOGLE,
-  Polyline,
-} from 'react-native-maps';
-import BackgroundGeolocation, {
-  State,
-  Config,
-  Location,
-  LocationError,
-  Geofence,
-  GeofenceEvent,
-  GeofencesChangeEvent,
-  HeartbeatEvent,
-  HttpEvent,
-  MotionActivityEvent,
-  MotionChangeEvent,
-  ProviderChangeEvent,
-  ConnectivityChangeEvent,
-} from 'react-native-background-geolocation';
-import Geolocation from 'react-native-geolocation-service';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import moment from 'moment';
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {useRef} from 'react';
-import MapViewDirections from 'react-native-maps-directions';
 
-const ThankYouScreen = () => {
+const ThankYouScreen = ({route, navigation}) => {
+  const item = route.params;
   const [countryPicker, setCountryPicker] = useState([]);
-  const [dummy, setDummy] = useState(1);
-  const [location, setLocation] = useState({
-    coords: {
-      // latitude: 37.4218708,
-      // longitude: -122.0841223,
-      latitude: 24.84647610589769,
-      longitude: 67.05584044694514,
-    },
-    // 24.84647610589769, 67.05584044694514
-  });
-  const mapRef = useRef();
   const [isloading, setIsloading] = useState(true);
   const getAllCountryName = () => {
     ApiGet(CountryNameUrl).then(res => {
-      console.log(res.json, 56666666666);
       if (res.status == 200) {
+        console.log(res, 3999999);
+
         setIsloading(false);
         setCountryPicker(res.json.data);
       } else {
@@ -74,122 +50,72 @@ const ThankYouScreen = () => {
       }
     });
   };
-
   useEffect(() => {
-    Geolocation.getCurrentPosition(
-      position => {
-        setLocation(position);
-        setDummy(dummy + 1);
-        console.log(58, position);
-        setTimeout(() => {
-          console.log(67, location);
-        }, 2000);
-      },
-      error => {
-        // See error code charts below.
-        console.log(error.code, error.message);
-      },
-      {enableHighAccuracy: true},
-    );
-    // getAllCountryName();
-    // BackgroundGeolocation.ready(config).then(state => {
-    //   // YES -- .ready() has now resolved.
-    //   BackgroundGeolocation.getCurrentPosition(options);
-    //   BackgroundGeolocation.start();
-    // });
+    getAllCountryName();
   }, []);
-  const {width, height} = Dimensions.get('window');
-  const ACPT_RATIO = width / height;
-  const latitudeDelta = 0.02;
-  const laongituteDalta = latitudeDelta * ACPT_RATIO;
-
-  const onChanegRegin = async position => {
-    const camera = await mapRef.current.getCamera();
-    if (camera) {
-      camera.center = position;
-      mapRef.current.animateCamera(camera, {duration: 1000});
-    }
-  };
+  // const renderHeader = item => {
+  //   return (
+  //     <View style={{...styles.parentCardStyle}}>
+  //       <View style={styles.parentCardTopTag}>
+  //         <Text style={styles.parentCardTopTagText}>Order Details</Text>
+  //       </View>
+  //       <View style={styles.parentCardIconHolder}>
+  //         <AntDesign
+  //           name="shoppingcart"
+  //           color={color.white}
+  //           size={hp('3')}
+  //           style={styles.iconStyle}
+  //         />
+  //         <View style={styles.parentCardRow}>
+  //           <Text style={styles.parentCarddTextStyle}>Order ID:</Text>
+  //           <Text style={styles.parentCarddTextStyle}>
+  //             {item?.invoice_number}
+  //           </Text>
+  //         </View>
+  //       </View>
+  //       <View style={styles.parentCardIconHolder}>
+  //         <AntDesign name="calendar" color={color.white} size={hp('3')} />
+  //         <View style={{...styles.parentCardRow, marginTop: hp('0.7')}}>
+  //           <Text style={styles.parentCarddTextStyle}>Date:</Text>
+  //           <Text style={styles.parentCarddTextStyle}>
+  //             {moment(item?.created_at)?.format('Do-MMM-YYYY')}
+  //           </Text>
+  //         </View>
+  //       </View>
+  //       <View style={styles.parentCardIconHolder}>
+  //         <AntDesign name="codesquareo" color={color.white} size={hp('3')} />
+  //         <View style={{...styles.parentCardRow, marginTop: hp('0.7')}}>
+  //           <Text style={styles.parentCarddTextStyle}>Payment Type:</Text>
+  //           <Text style={styles.parentCarddTextStyle}>
+  //             {item?.payment_type}
+  //           </Text>
+  //         </View>
+  //       </View>
+  //       <View style={styles.parentCardIconHolder}>
+  //         <Ionicons
+  //           name="cash-outline"
+  //           color={color.white}
+  //           size={hp('3')}
+  //           style={styles.iconStyle}
+  //         />
+  //         <View style={styles.parentCardRow}>
+  //           <Text style={styles.parentCarddTextStyle}>Total:</Text>
+  //           <Text style={styles.parentCarddTextStyle}>
+  //             ${item?.total_price}
+  //           </Text>
+  //         </View>
+  //       </View>
+  //     </View>
+  //   );
+  // };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           resizeMode="contain"
           style={styles.image}
           source={require('../../images/Logo.png')}
         />
-        <MapView
-          mapType={'standard'}
-          // mapType={Platform.OS == 'android' ? 'none' : 'standard'}
-          style={{
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height,
-          }}
-          region={{
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            // latitude: location.coords.latitude,
-            // longitude: location.coords.longitude,
-            latitudeDelta: latitudeDelta,
-            longitudeDelta: laongituteDalta,
-          }}
-          showsUserLocation={true}
-          followUserLocation={true}
-          zoomEnabled={true}
-          showsMyLocationButton={false}
-          // initialRegion={{
-          //   latitude: location.coords.latitude,
-          //   longitude: location.coords.longitude,
-          //   latitudeDelta: latitudeDelta,
-          //   longitudeDelta: laongituteDalta,
-          // }}
-          // provider={PROVIDER_GOOGLE}
-        >
-          <MapViewDirections
-            origin={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.latitude,
-            }}
-            destination={{
-              latitude: 24.846388483291882,
-              longitude: 67.05588336093875,
-            }}
-            mode="DRIVING"
-            optimizeWaypoints={true}
-            strokeColor={['red']}
-            strokeWidth={5}
-            apikey={'AIzaSyCu5v9OrHrhf55iPRd8JIgB_QGAlZpmlj0'}
-          />
-          <Marker coordinate={location.coords} />
-          <Marker
-            coordinate={{
-              latitude: 24.846388483291882,
-              longitude: 67.05588336093875,
-            }}
-          />
-        </MapView>
-        {/* <OverlayComponent style={{position: 'absolute', bottom: 50}} /> */}
-        <View
-          style={{
-            width: wp('90'),
-            height: hp('7'),
-            position: 'absolute',
-            top: hp('10'),
-            alignSelf: 'center',
-            backgroundColor: 'red',
-          }}>
-          {/* <GooglePlacesAutocomplete
-            placeholder="Search"
-            onPress={(data, details = null) => {
-              // 'details' is provided when fetchDetails = true
-              console.log(data, details);
-            }}
-            query={{
-              key: 'AIzaSyCu5v9OrHrhf55iPRd8JIgB_QGAlZpmlj0',
-              language: 'en',
-            }}
-          /> */}
-        </View>
       </View>
       <View style={styles.thankuConatainer}>
         <Text style={styles.thankyouTxt}>Thank You!</Text>
@@ -197,7 +123,7 @@ const ThankYouScreen = () => {
         <Ionicons
           name="md-checkmark-circle-outline"
           color={'white'}
-          size={100}
+          size={80}
         />
       </View>
 
@@ -210,12 +136,67 @@ const ThankYouScreen = () => {
           size={20}
         />
       </View>
-      <VerticalCityImageComponent
+      <View style={{...styles.parentCardStyle}}>
+        <View style={styles.parentCardTopTag}>
+          <Text style={styles.parentCardTopTagText}>Order Details</Text>
+        </View>
+        <View style={styles.parentCardIconHolder}>
+          <AntDesign
+            name="shoppingcart"
+            color={color.white}
+            size={hp('3')}
+            style={styles.iconStyle}
+          />
+          <View style={styles.parentCardRow}>
+            <Text style={styles.parentCarddTextStyle}>Order ID:</Text>
+            <Text style={styles.parentCarddTextStyle}>
+              {item?.invoice_number}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.parentCardIconHolder}>
+          <AntDesign name="calendar" color={color.white} size={hp('3')} />
+          <View style={{...styles.parentCardRow, marginTop: hp('0.7')}}>
+            <Text style={styles.parentCarddTextStyle}>Date:</Text>
+            <Text style={styles.parentCarddTextStyle}>
+              {moment(item?.created_at)?.format('Do-MMM-YYYY')}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.parentCardIconHolder}>
+          <AntDesign name="codesquareo" color={color.white} size={hp('3')} />
+          <View style={{...styles.parentCardRow, marginTop: hp('0.7')}}>
+            <Text style={styles.parentCarddTextStyle}>Payment Type:</Text>
+            <Text style={styles.parentCarddTextStyle}>
+              {item?.payment_type}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.parentCardIconHolder}>
+          <Ionicons
+            name="cash-outline"
+            color={color.white}
+            size={hp('3')}
+            style={styles.iconStyle}
+          />
+          <View style={styles.parentCardRow}>
+            <Text style={styles.parentCarddTextStyle}>Total:</Text>
+            <Text style={styles.parentCarddTextStyle}>
+              ${item?.total_price}
+            </Text>
+          </View>
+        </View>
+      </View>
+      {/* <View style={styles.thankuConatainer}>
+        <Text style={styles.thankyouTxt}>Thank You!</Text>
+        <Text style={styles.choseusTxt}>for Choosing us</Text>
+      </View> */}
+      {/* <VerticalCityImageComponent
         name={'alkjsflj'}
         data={countryPicker}
         heading={'Similar Places'}
-      />
-    </View>
+      /> */}
+    </ScrollView>
   );
 };
 
