@@ -49,8 +49,9 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
   },
   outOfTxt: {
-    paddingLeft: wp('7'),
+    // paddingLeft: wp('7'),
     color: color.textColor,
+    textAlign: 'center',
   },
   CommentContainer: {
     width: wp('90'),

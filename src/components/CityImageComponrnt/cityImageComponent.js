@@ -94,7 +94,7 @@ export const CityImageComponent = props => {
                       uri: 'https://images.pexels.com/photos/11577405/pexels-photo-11577405.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load',
                     }}>
                     <Text numberOfLines={2} style={styles.textImageBackground}>
-                      {item.name}
+                      {item?.name}
                     </Text>
                   </ImageBackground>
                 </TouchableOpacity>
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
 
   textImageBackground: {
     backgroundColor: color.textBackgroundColor,
-    width: wp('23'),
+    width: wp('24'),
     // height: hp('3'),
     textAlign: 'center',
     color: 'white',
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     padding: 5,
-    borderTopRightRadius: 6,
+    borderTopRightRadius: 20,
     borderBottomRightRadius: 6,
   },
 });

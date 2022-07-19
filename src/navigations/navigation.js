@@ -71,6 +71,7 @@ export default function StackNavigatior() {
           name="OrderDetailsScreen"
           component={screens.OrderDetailsScreen}
         />
+        <Stack.Screen name="MapViewScreen" component={screens.MapViewScreen} />
       </Stack.Navigator>
     </>
   );

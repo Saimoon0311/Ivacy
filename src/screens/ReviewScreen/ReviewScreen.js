@@ -24,16 +24,12 @@ const ReviewScreen = ({navigation}) => {
   const [isloading, setIsloading] = useState(true);
   const [reviewState, setReviewState] = useState([]);
 
-  const onStarRatingPress = rating => {
-    setstarCount(rating);
-  };
   const navigate = () => {
     navigation.goBack();
   };
 
   const reviewsFunc = () => {
     ApiGet(ReviewUrl, userData.access_token).then(res => {
-      console.log(res.json, 44);
       if (res.status == 200) {
         setReviewState(res.json);
         setIsloading(false);
@@ -46,7 +42,6 @@ const ReviewScreen = ({navigation}) => {
       }
     });
   };
-  const ratingCompleted = rating => console.log('Rating is: ', rating);
   useEffect(() => {
     reviewsFunc();
     if (isFocused) {

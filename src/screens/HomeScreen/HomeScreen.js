@@ -70,7 +70,12 @@ const HomeScreen = ({navigation}) => {
     setIsloading(prev => ({...prev, ...data}));
   };
   const navigateToPackage = item => {
-    // navigation.navigate('ThankYouScreen', {
+    // navigation.navigate('MapViewScreen', {
+    //   data: item,
+    //   type: 'getPackage',
+    // }
+    // );
+    // navigation.navigate('PackageScreen', {
     //   data: item,
     //   type: 'getPackage',
     // });
@@ -187,12 +192,6 @@ const HomeScreen = ({navigation}) => {
           heading={'Favorate Sceneries'}
           navigate={navigateToPackage}
         />
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('ThankYouScreen');
-          }}>
-          <Text> ReviewScreen For Temperory</Text>
-        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );

@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     position: 'absolute',
-    top: 220,
+    top: hp('20'),
   },
   text2: {
     fontSize: hp('3.0'),

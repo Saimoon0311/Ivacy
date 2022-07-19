@@ -52,7 +52,6 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     });
     ApiPost(StripePayIntentUrl, body, false, userData.access_token).then(
       res => {
-        console.log(56, res);
         if (res.status == 200) {
           updateState({clientSecret: res.json.pi.client_secret});
           updateState({stripeValue: res.json});
@@ -73,7 +72,6 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       style: [{height: hp('100')}],
     });
     if (error) {
-      console.log(566, error);
       errorMessage('Unable to fatch data.');
       setIsloading(false);
     } else {
@@ -108,7 +106,6 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       invoiceNumber: invoiceNumber,
     });
     ApiPost(AfterStripeUrl, body, false, userData.access_token).then(res => {
-      console.log(109, res, body, userData.access_token);
       if (res.status == 200) {
         setIsloading(false);
         navigation.navigate('ThankYouScreen', res.json.journey);

@@ -114,7 +114,7 @@ export const styles = StyleSheet.create({
   },
   parentCardTopTag: {
     width: wp('30%'),
-    height: hp('4.5'),
+    // height: hp('4.5'),
     borderRadius: hp('0.8'),
     backgroundColor: color.white,
     alignItems: 'center',

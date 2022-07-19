@@ -14,8 +14,8 @@ import ReviewScreen from './ReviewScreen/ReviewScreen';
 import WriteReviewScreen from './WriteReviewScreen/WriteReviewScreen';
 import StripeScreen from './StripeScreen/StripeScreen';
 import OrderDetailsScreen from './OrderDetailsScreen/OrderDetailsScreen';
+import MapViewScreen from './MapViewScreen/MapViewScreen';
 import GuiderHomeScreen from './Guider/GuiderHomeScreen/GuiderHomeScreen';
-
 export const screens = {
   OnboardingScreen,
   HomeScreen,
@@ -33,5 +33,6 @@ export const screens = {
   ReviewScreen,
   WriteReviewScreen,
   StripeScreen,
+  MapViewScreen,
   OrderDetailsScreen,
 };
