@@ -8,10 +8,14 @@ import {
   TouchableOpacity,
   FlatList,
   View,
+  Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
-import {FrontPackageCom} from '../../../components/FrontPackageComponent/frontPackageCom';
+import {
+  FrontPackageCom,
+  placeholderView,
+} from '../../../components/FrontPackageComponent/frontPackageCom';
 import {useDispatch, useSelector} from 'react-redux';
 import types from '../../../Redux/type';
 import {globalStyles} from '../../../config/globalStyles';
@@ -19,16 +23,24 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ApiGet} from '../../../config/helperFunction';
-import {CountryNameUrl, LatestPackageUrl} from '../../../config/Urls';
+import {ApiGet, ApiPost} from '../../../config/helperFunction';
+import {
+  CountryNameUrl,
+  GuiderBookPackageUrl,
+  LatestPackageUrl,
+} from '../../../config/Urls';
 import {color} from '../../../components/color';
 import {showMessage} from 'react-native-flash-message';
 import {LatestPackageFlatlist} from '../../../components/LatestPackageFlatlist/latestPackageFlatlist';
 import SearchBarComponents from '../../../components/SearchBarComponents/SearchBarComponents';
 import {CityImageComponent} from '../../../components/CityImageComponrnt/cityImageComponent';
 import {useCallback} from 'react';
-import {errorMessage} from '../../../components/NotificationMessage';
+import {
+  errorMessage,
+  successMessage,
+} from '../../../components/NotificationMessage';
 import ThankYouScreen from '../../ThankYouScreen/ThankYouScreen';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const HomeScreen = ({navigation}) => {
   const disptach = useDispatch();
@@ -37,7 +49,7 @@ const HomeScreen = ({navigation}) => {
   };
   const [refreshing, setRefreshing] = useState(false);
   const navigate = item => {
-    navigation.navigate('PackageDetailScreen', item);
+    navigation.navigate('GuiderPackageDetailScreen', item);
   };
   const [topCities, setTopCities] = useState([
     {
@@ -82,11 +94,9 @@ const HomeScreen = ({navigation}) => {
 
   const onRefresh = useCallback(() => {
     updateLoadingState({latestPackageLoading: true});
-    updateLoadingState({countryLoader: true});
     setRefreshing(true);
     wait(2000).then(() => {
-      getPackage();
-      getCountryName();
+      GuiderBookPackages();
       setRefreshing(false);
     });
   }, []);
@@ -114,38 +124,28 @@ const HomeScreen = ({navigation}) => {
     setAllPackage(prev => ({...prev, ...data}));
   };
   const {latestPackage, getCountryData} = allPackage;
-  const getPackage = () => {
-    ApiGet(LatestPackageUrl, userData.access_token).then(res => {
-      console.log(userData.access_token, 97);
+
+  const GuiderBookPackages = () => {
+    let body = JSON.stringify({
+      guideId: userData.data.id,
+    });
+    ApiPost(GuiderBookPackageUrl, body, false).then(res => {
+      console.log(100, res.data, userData.data.id);
       if (res.status == 200) {
         updatePackageState({latestPackage: res.json.data});
         updateLoadingState({latestPackageLoading: false});
-      } else if (res.status == 404) {
-        updatePackageState({latestPackage: []});
-        updateLoadingState({latestPackageLoading: false});
+      } else if (res.status == 422) {
+        successMessage('The Guider Id Is Required');
+        updateLoadingState({latestPackageLoading: true});
       } else {
-        errorMessage('Network Request Faild.');
-      }
-    });
-  };
-  const getCountryName = () => {
-    ApiGet(CountryNameUrl).then(res => {
-      console.log(res, 'CountryName1111');
-      if (res.status == 200) {
-        updatePackageState({getCountryData: res.json.data});
-        updateLoadingState({countryLoader: false});
-      } else if (res.status == 404) {
-        updatePackageState({getCountryData: []});
-        updateLoadingState({countryLoader: false});
-      } else {
-        errorMessage('Network Request Faild.');
+        errorMessage('Network Request Failed.');
+        setIsloading(false);
       }
     });
   };
 
   useEffect(() => {
-    getPackage();
-    getCountryName();
+    GuiderBookPackages();
   }, []);
 
   // const ThankYOuScreen = () => {
@@ -164,45 +164,52 @@ const HomeScreen = ({navigation}) => {
         }
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('5')}}>
-        <Text
-          style={{
-            ...globalStyles.globalTextStyles,
-            fontSize: hp('3'),
-            marginLeft: wp('5'),
-          }}>
-          Enjoy your life with us!
-        </Text>
+        <View style={styles.headerContainer}>
+          <Image
+            style={styles.headerStyle}
+            resizeMode={'cover'}
+            source={require('../../../images/logo2.png')}
+          />
+        </View>
 
-        <SearchBarComponents
-          onPress={() => navigation.navigate('searchBarScreen')}
-        />
-        <Text
-          style={{
-            ...globalStyles.globalTextStyles,
-            fontSize: hp('2.8'),
-            marginLeft: wp('5'),
-          }}>
-          Top Packages
-        </Text>
-        {/* <LatestPackageFlatlist
-          data={latestPackage}
-          isloading={latestPackageLoading}
-          navigate={navigate}
-        /> */}
-
-        <FlatList
-          data={latestPackage}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={{
-            flexWrap: 'wrap',
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}
-          renderItem={({item}) => {
-            return <FrontPackageCom navigate={navigate} data={item} />;
-          }}
-        />
-
+        {latestPackageLoading == true ? (
+          <SkeletonPlaceholder>
+            <View style={{justifyContent: 'center', marginTop: hp('3')}}>
+              {placeholderView()}
+              {placeholderView()}
+              {placeholderView()}
+              {placeholderView()}
+              {placeholderView()}
+              {placeholderView()}
+              {placeholderView()}
+              {placeholderView()}
+              {placeholderView()}
+            </View>
+          </SkeletonPlaceholder>
+        ) : (
+          <View>
+            <Text
+              style={{
+                ...globalStyles.globalTextStyles,
+                fontSize: hp('2.8'),
+                marginLeft: wp('5'),
+              }}>
+              Booked Packages
+            </Text>
+            <FlatList
+              data={latestPackage}
+              keyExtractor={(item, index) => index.toString()}
+              contentContainerStyle={{
+                flexWrap: 'wrap',
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}
+              renderItem={({item}) => {
+                return <FrontPackageCom navigate={navigate} data={item} />;
+              }}
+            />
+          </View>
+        )}
         {/* <CityImageComponent
           ml={wp('4')}
           data={getCountryData}

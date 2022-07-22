@@ -26,3 +26,4 @@ export const StripePublishKey =
   'pk_test_51LI9HwEE1bl5YY9CXbeFOKtVHFcnF3Vr6cNpK50WFsAHQFU9pcenE3iSddJ2pzdx7IIPwzXG6plCCxXwet33HpIG00nyziJs1r';
 export const AboutTheApp = API_About_Us_URL + 'about-us';
 export const OrderDetailUrl = getApi('journey-order-details/');
+export const GuiderBookPackageUrl = getApi('guider-booked-packages');

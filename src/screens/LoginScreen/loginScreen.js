@@ -7,6 +7,7 @@ import {
   Image,
   Keyboard,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import {styles} from './style';
 import {
@@ -175,7 +176,12 @@ const LoginScreen = ({route, navigation}) => {
               animation="fadeInUpBig"
               direction={'normal'}
               delay={500}>
-              <TouchableOpacity style={styles.forgotTextView}>
+              <TouchableOpacity
+                onPress={() => {
+                  let forgetPass = 'https://ivacay.co/forgot-password';
+                  Linking.openURL(forgetPass);
+                }}
+                style={styles.forgotTextView}>
                 <Text
                   style={{
                     color: color.themeColorDark,

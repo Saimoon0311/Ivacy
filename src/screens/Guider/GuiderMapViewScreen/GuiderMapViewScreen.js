@@ -10,9 +10,9 @@ import MapView, {
 } from 'react-native-maps';
 import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 // import Geolocation from 'react-native-geolocation-service';
-import {Google_Map_Key} from '../../config/Urls';
+import {Google_Map_Key} from '../../../config/Urls';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {color} from '../../components/color';
+import {color} from '../../../components/color';
 import {styles} from './styles';
 import {
   heightPercentageToDP,
@@ -20,10 +20,9 @@ import {
 } from 'react-native-responsive-screen';
 import GetLocation from 'react-native-get-location';
 import Geolocation from 'react-native-geolocation-service';
-import {Picker} from '@react-native-picker/picker';
+
 const MapViewScreen = ({route, navigation}) => {
   const [dummy, setDummy] = useState(1);
-  const [selectedValue, setSelectedValue] = useState('java');
   const [location, setLocation] = useState({
     coords: {
       latitude: 37.4218708,
@@ -94,6 +93,8 @@ const MapViewScreen = ({route, navigation}) => {
   const ACPT_RATIO = width / height;
   const latitudeDelta = 0.02;
   const laongituteDalta = latitudeDelta * ACPT_RATIO;
+  console.log('GuestMapViewScreen');
+
   return (
     <View>
       <MapView
@@ -180,19 +181,21 @@ const MapViewScreen = ({route, navigation}) => {
             Notification for Guider
           </Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.pickercontainer}>
-        <Picker
-          selectedValue={selectedValue}
-          style={{
-            height: heightPercentageToDP('1'),
-            width: widthPercentageToDP('41.5'),
-          }}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
-          <Picker.Item label="DRIVING" value="driving" />
-          <Picker.Item label="TRANSIT" value="transit" />
-          <Picker.Item label="WALKING" value="walking" />
-        </Picker>
+        <View style={styles.pickercontainer}>
+          <Picker
+            selectedValue={selectedValue}
+            style={{
+              height: heightPercentageToDP('1'),
+              width: widthPercentageToDP('41.5'),
+            }}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }>
+            <Picker.Item label="DRIVING" value="driving" />
+            <Picker.Item label="TRANSIT" value="transit" />
+            <Picker.Item label="WALKING" value="walking" />
+          </Picker>
+        </View>
       </View>
     </View>
   );

@@ -11,6 +11,24 @@ export const styles = StyleSheet.create({
     flex: 1,
     // paddingTop: Platform.OS == 'ios' ? hp('5') : hp('0'),
   },
+  headerContainer: {
+    height: hp('8'),
+    width: wp('100'),
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  headerStyle: {
+    height: hp('9'),
+    width: wp('30'),
+    alignSelf: 'center',
+  },
   backgroundImage: {width: wp('100'), height: hp('110')},
   loginView: {
     width: wp('90'),
