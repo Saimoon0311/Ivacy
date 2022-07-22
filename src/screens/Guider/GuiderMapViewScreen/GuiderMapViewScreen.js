@@ -20,8 +20,11 @@ import {
 } from 'react-native-responsive-screen';
 import GetLocation from 'react-native-get-location';
 import Geolocation from 'react-native-geolocation-service';
+import {Picker} from '@react-native-picker/picker';
 
 const MapViewScreen = ({route, navigation}) => {
+  const [selectedValue, setSelectedValue] = useState('java');
+
   const [dummy, setDummy] = useState(1);
   const [location, setLocation] = useState({
     coords: {
@@ -181,21 +184,19 @@ const MapViewScreen = ({route, navigation}) => {
             Notification for Guider
           </Text>
         </TouchableOpacity>
-        <View style={styles.pickercontainer}>
-          <Picker
-            selectedValue={selectedValue}
-            style={{
-              height: heightPercentageToDP('1'),
-              width: widthPercentageToDP('41.5'),
-            }}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedValue(itemValue)
-            }>
-            <Picker.Item label="DRIVING" value="driving" />
-            <Picker.Item label="TRANSIT" value="transit" />
-            <Picker.Item label="WALKING" value="walking" />
-          </Picker>
-        </View>
+      </View>
+      <View style={styles.pickercontainer}>
+        <Picker
+          selectedValue={selectedValue}
+          style={{
+            height: heightPercentageToDP('1'),
+            width: widthPercentageToDP('41.5'),
+          }}
+          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
+          <Picker.Item label="DRIVING" value="driving" />
+          <Picker.Item label="TRANSIT" value="transit" />
+          <Picker.Item label="WALKING" value="walking" />
+        </Picker>
       </View>
     </View>
   );
