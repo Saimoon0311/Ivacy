@@ -1,3 +1,4 @@
+#import <Firebase.h>
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
@@ -6,6 +7,8 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <React/RCTAppSetupUtils.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import <UserNotifications/UserNotifications.h>
+//#import <RNCPushNotificationIOS.h>
 // #import <Firebase.h>
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
@@ -14,6 +17,7 @@
 #import <React/RCTSurfacePresenter.h>
 #import <React/RCTSurfacePresenterBridgeAdapter.h>
 #import <ReactCommon/RCTTurboModuleManager.h>
+#import "RNFBMessagingModule.h"
 
 #import <react/config/ReactNativeConfig.h>
 
@@ -30,6 +34,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // Add me --- \/
+  [FIRApp configure];
+  // Add me --- /\
   // [FIRApp configure];
   RCTAppSetupPrepareApp(application);
   // [GMSServices provideAPIKey:@"AIzaSyCeq2tHI-iHJtMHCn-JNMZchvmYFmTTFHw"]; // add this line using the api key obtained from Google Console

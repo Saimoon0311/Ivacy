@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "470465860060",
-    "project_id": "ivacay-355419",
-    "storage_bucket": "ivacay-355419.appspot.com"
+    "project_number": "516511758401",
+    "project_id": "ivacay-test",
+    "storage_bucket": "ivacay-test.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:470465860060:android:3c19e3528ea66df1437f19",
+        "mobilesdk_app_id": "1:516511758401:android:88e93da512f361f570eec0",
         "android_client_info": {
           "package_name": "com.ivacy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "470465860060-q2dg0nsim5917njce8fgodv0tr36ek5n.apps.googleusercontent.com",
+          "client_id": "516511758401-96qrpio5kq7to63kr5fhq47b44soo5le.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCeq2tHI-iHJtMHCn-JNMZchvmYFmTTFHw"
+          "current_key": "AIzaSyCiXvJCLFoHprBl69XzApkKgVG_de6Bbf4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "470465860060-q2dg0nsim5917njce8fgodv0tr36ek5n.apps.googleusercontent.com",
+              "client_id": "516511758401-96qrpio5kq7to63kr5fhq47b44soo5le.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

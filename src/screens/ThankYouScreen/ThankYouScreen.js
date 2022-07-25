@@ -35,24 +35,22 @@ const ThankYouScreen = ({route, navigation}) => {
   const item = route.params;
   const [countryPicker, setCountryPicker] = useState([]);
   const [isloading, setIsloading] = useState(true);
-  const getAllCountryName = () => {
-    ApiGet(CountryNameUrl).then(res => {
-      if (res.status == 200) {
-        console.log(res, 3999999);
-
-        setIsloading(false);
-        setCountryPicker(res.json.data);
-      } else {
-        setIsloading(false);
-        errorMessage(
-          'Please Check Your Internet connection to get Countries Name.',
-        );
-      }
-    });
-  };
-  useEffect(() => {
-    getAllCountryName();
-  }, []);
+  // const getAllCountryName = () => {
+  //   ApiGet(CountryNameUrl).then(res => {
+  //     if (res.status == 200) {
+  //       setIsloading(false);
+  //       setCountryPicker(res.json.data);
+  //     } else {
+  //       setIsloading(false);
+  //       errorMessage(
+  //         'Please Check Your Internet connection to get Countries Name.',
+  //       );
+  //     }
+  //   });
+  // };
+  // useEffect(() => {
+  //   getAllCountryName();
+  // }, []);
   // const renderHeader = item => {
   //   return (
   //     <View style={{...styles.parentCardStyle}}>
@@ -127,7 +125,7 @@ const ThankYouScreen = ({route, navigation}) => {
         />
       </View>
 
-      <View style={styles.orderDetContainer}>
+      {/* <View style={styles.orderDetContainer}>
         <Text style={styles.orderDetxt}>Order Details</Text>
         <Ionicons
           name="chevron-down-sharp"
@@ -135,7 +133,7 @@ const ThankYouScreen = ({route, navigation}) => {
           color={color.ThankYouColor}
           size={20}
         />
-      </View>
+      </View> */}
       <View style={{...styles.parentCardStyle}}>
         <View style={styles.parentCardTopTag}>
           <Text style={styles.parentCardTopTagText}>Order Details</Text>

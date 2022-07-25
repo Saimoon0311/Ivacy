@@ -48,6 +48,8 @@
 	<string> Motion permission helps detect when device in in-motion</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Library</string>
+		<key>FirebaseAppDelegateProxyEnabled</key>
+	<string>0</string>
 	<key>Privacy - Location When in Use Usage Description</key>
 	<string>Location required when app is in use</string>
 	<key>UIAppFonts</key>

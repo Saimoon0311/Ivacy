@@ -30,7 +30,7 @@ import {
 } from 'react-native-responsive-screen';
 import {errorMessage} from '../../components/NotificationMessage';
 import {ApiPost} from '../../config/helperFunction';
-// import {WebView} from 'react-native-webview';
+import {WebView} from 'react-native-webview';
 
 const CurrencyMethodScreen = ({route, navigation}) => {
   const {userData} = useSelector(state => state.userData);
@@ -97,6 +97,9 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       }
     }
   };
+  const _onNavigationStateChange = webViewState => {
+    console.log(101, webViewState);
+  };
   const confirmYourOrder = paymentIntent => {
     let invoiceNumber = Date.now() + Math.random(5).toFixed(0);
     let body = JSON.stringify({
@@ -140,8 +143,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
           <TouchableOpacity
             onPress={() => {
               // errorMessage('Currently this feature is in working ');
-              // setWebView(true);
-              navigation.navigate('ThankYouScreen');
+              setWebView(true);
+              // navigation.navigate('ThankYouScreen');
             }}
             style={styles.boxContainer}>
             <Text style={styles.text}>Crypto</Text>
@@ -165,7 +168,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <Modal
+      <Modal
         animationType="slide"
         onRequestClose={() => {
           setWebView(false);
@@ -173,18 +176,27 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         visible={webView}>
         <WebView
           style={{
-            height: hp('50'),
+            height: hp('100'),
             width: wp('100'),
-            marginTop: Platform.OS == 'ios' ? hp('5') : hp('2'),
+            marginTop: Platform.OS == 'ios' ? hp('5') : hp('0'),
           }}
-          source={{uri: 'http://ivacay.co/pay-with/' + item.id}}
-          // onNavigationStateChange={_onNavigationStateChange}
+          source={{
+            uri: 'https://ivacay.co/api/meta-mask/1/3',
+          }}
+          // source={{
+          //   uri:
+          //     'https://ivacay.co/api/meta-mask/' +
+          //     item.id +
+          //     '/' +
+          //     userData.data.id,
+          // }}
+          onNavigationStateChange={_onNavigationStateChange}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           startInLoadingState={false}
           // style={{marginTop: 20}}
         />
-      </Modal> */}
+      </Modal>
     </StripeProvider>
   );
 };

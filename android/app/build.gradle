@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -84,8 +85,8 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
-Project background_geolocation = project(':react-native-background-geolocation')
-apply from: "${background_geolocation.projectDir}/app.gradle"
+// Project background_geolocation = project(':react-native-background-geolocation')
+// apply from: "${background_geolocation.projectDir}/app.gradle"
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -247,7 +248,7 @@ keyPassword MYAPP_RELEASE_KEY_PASSWORD
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-        proguardFiles "${background_geolocation.projectDir}/proguard-rules.pro"
+        // proguardFiles "${background_geolocation.projectDir}/proguard-rules.pro"
         }
     }
 
@@ -278,6 +279,10 @@ dependencies {
 implementation project(':react-native-vector-icons')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 implementation 'com.android.volley:volley:1.2.1'
+ implementation 'com.google.firebase:firebase-analytics'
+  implementation platform('com.google.firebase:firebase-bom:30.3.0')
+  implementation 'com.google.firebase:firebase-messaging:23.0.6'
+  implementation 'com.google.firebase:firebase-inappmessaging:	20.1.2'
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }

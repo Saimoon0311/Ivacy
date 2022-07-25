@@ -70,10 +70,11 @@ const HomeScreen = ({navigation}) => {
     setIsloading(prev => ({...prev, ...data}));
   };
   const navigateToPackage = item => {
-    navigation.navigate('MapViewScreen', {
-      data: item,
-      type: 'getPackage',
-    });
+    // navigation.navigate('MapViewScreen', {
+    //   data: item,
+    //   type: 'getPackage',
+    // }
+    // );
     // navigation.navigate('PackageScreen', {
     //   data: item,
     //   type: 'getPackage',
@@ -103,7 +104,6 @@ const HomeScreen = ({navigation}) => {
   };
   const favoredSceneries = () => {
     ApiGet(FavoredSceneriesUrl, userData.access_token).then(res => {
-      console.log(97, res);
       if (res.status == 200) {
         updatePackageState({favoredScenerie: res.json.data});
         updateLoadingState({favoredLoader: false});
@@ -117,7 +117,6 @@ const HomeScreen = ({navigation}) => {
   };
   const getCountryName = () => {
     ApiGet(CountryNameUrl).then(res => {
-      console.log(res, 'CountryName1111');
       if (res.status == 200) {
         updatePackageState({getCountryData: res.json.data});
         updateLoadingState({countryLoader: false});
@@ -191,12 +190,6 @@ const HomeScreen = ({navigation}) => {
           heading={'Favorate Sceneries'}
           navigate={navigateToPackage}
         />
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('ThankYouScreen');
-          }}>
-          <Text> ReviewScreen For Temperory</Text>
-        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );

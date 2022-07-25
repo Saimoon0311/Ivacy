@@ -44,7 +44,6 @@ const OrderDetailsScreen = ({navigation}) => {
   const [isloading, setIsloading] = useState(true);
 
   const {userData} = useSelector(state => state.userData);
-  console.log(userData.access_token);
 
   const _updateSections = e => {
     setActiveSession(e);
@@ -204,6 +203,16 @@ const OrderDetailsScreen = ({navigation}) => {
             </Text>
           </View>
         </View>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate('MapViewScreen', item)}
+          style={{
+            ...styles.parentCardTopTag,
+            alignSelf: 'flex-end',
+            marginRight: wp('3'),
+          }}>
+          <Text style={styles.parentCardTopTagText}>Go to Map</Text>
+        </TouchableOpacity>
       </View>
     );
   };
