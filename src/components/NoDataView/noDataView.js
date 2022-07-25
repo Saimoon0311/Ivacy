@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     color: color.bottomBarColor,
     fontSize: hp('2'),
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   innerView: {
     alignSelf: 'center',

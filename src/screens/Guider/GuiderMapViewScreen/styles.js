@@ -1,10 +1,10 @@
 import React from 'react';
-import {Platform, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {color} from '../../components/color';
+import {color} from '../../../components/color';
 
 export const styles = StyleSheet.create({
   container: {
@@ -13,9 +13,9 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'red',
     backgroundColor: 'rgba(255, 255, 255  ,0.5)',
     justifyContent: 'center',
+
     position: 'absolute',
     top: 0,
-    paddingTop: Platform.OS == 'ios' ? hp('2') : 0,
   },
   pickercontainer: {
     alignSelf: 'flex-end',

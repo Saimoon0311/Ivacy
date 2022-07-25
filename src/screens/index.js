@@ -16,6 +16,8 @@ import StripeScreen from './StripeScreen/StripeScreen';
 import OrderDetailsScreen from './OrderDetailsScreen/OrderDetailsScreen';
 import MapViewScreen from './MapViewScreen/MapViewScreen';
 import GuiderHomeScreen from './Guider/GuiderHomeScreen/GuiderHomeScreen';
+import GuiderPackageDetailScreen from './Guider/GuiderPackageDetailScreen/GuiderPackageDetailScreen';
+import GuiderMapViewScreen from './Guider/GuiderMapViewScreen/GuiderMapViewScreen';
 
 export const screens = {
   OnboardingScreen,
@@ -36,4 +38,6 @@ export const screens = {
   StripeScreen,
   MapViewScreen,
   OrderDetailsScreen,
+  GuiderPackageDetailScreen,
+  GuiderMapViewScreen,
 };

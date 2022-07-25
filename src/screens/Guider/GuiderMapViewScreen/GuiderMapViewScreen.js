@@ -10,9 +10,9 @@ import MapView, {
 } from 'react-native-maps';
 import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 // import Geolocation from 'react-native-geolocation-service';
-import {Google_Map_Key} from '../../config/Urls';
+import {Google_Map_Key} from '../../../config/Urls';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {color} from '../../components/color';
+import {color} from '../../../components/color';
 import {styles} from './styles';
 import {
   heightPercentageToDP,
@@ -20,50 +20,30 @@ import {
 } from 'react-native-responsive-screen';
 import GetLocation from 'react-native-get-location';
 import Geolocation from 'react-native-geolocation-service';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import io from 'socket.io-client';
-import {useSelector} from 'react-redux';
-
 import {Picker} from '@react-native-picker/picker';
+import io from 'socket.io-client';
+
 const MapViewScreen = ({route, navigation}) => {
-  const {userData} = useSelector(state => state.userData);
-  const item = route.params;
-  console.log(33, item);
   const socket = io('http://192.168.0.111:3000');
-  const [dummy, setDummy] = useState(1);
+
   const [selectedValue, setSelectedValue] = useState('java');
+
+  const [dummy, setDummy] = useState(1);
   const [location, setLocation] = useState({
     coords: {
-      // latitude: 0,
-      // longitude: 0,
-      latitude: 55.9389439451934,
-      longitude: -3.2289656424473465,
-      latitudeDelta: latitudeDelta,
-      longitudeDelta: laongituteDalta,
-      // 7.746298626568101, 80.84174788410928
+      latitude: 24.929259462116065,
+      longitude: 67.08810050245599,
+      // 24.929259462116065, 67.08810050245599
+      // 24.925704078615606, 67.09097186814968
+      // latitude: 55.9389439451934,
+      // longitude: -3.2289656424473465,
       // 55.9389439451934, -3.2289656424473465
     },
     // 24.84647610589769, 67.05584044694514
   });
-  const {coords} = location;
   const mapRef = useRef();
+  const {coords} = location;
   let origin = coords;
-  // latitudeDelta: latitudeDelta,
-  // longitudeDelta: laongituteDalta,
-  let destination = {
-    latitude: 55.93897388841747,
-    longitude: -3.2297824846997947,
-    latitudeDelta: latitudeDelta,
-    longitudeDelta: laongituteDalta,
-    // 24.85794762294858, 67.0234087916611
-    // 55.93897388841747, -3.2297824846997947
-    // 7.713989375998428, 80.83296631064901
-  };
-  // const [points,setPoints] = useState({
-  // })
   let hasLocationPermission = false;
   const getCurrentLocation = () => {
     // GetLocation.getCurrentPosition({
@@ -80,8 +60,6 @@ const MapViewScreen = ({route, navigation}) => {
 
     Geolocation.getCurrentPosition(
       position => {
-        socket.emit(userData.data.id, position);
-        console.log(82, position);
         // setLocation(position);
       },
       error => {
@@ -108,23 +86,36 @@ const MapViewScreen = ({route, navigation}) => {
     });
     setTimeout(() => {
       if (hasLocationPermission == true) {
-        getCurrentLocation();
+        // getCurrentLocation();
       } else {
         alert('please enable your location');
       }
     }, 2000);
   };
-  useEffect(() => {
-    socket;
-    locationPermessionCheck();
-    socket.on(userData.data.id, position => {
-      console.log(117, position);
-    });
-  }, [hasLocationPermission]);
   const {width, height} = Dimensions.get('window');
   const ACPT_RATIO = width / height;
   const latitudeDelta = 0.02;
   const laongituteDalta = latitudeDelta * ACPT_RATIO;
+  const [destination, setDestination] = useState({
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: latitudeDelta,
+    longitudeDelta: laongituteDalta,
+  });
+  useEffect(() => {
+    socket;
+    socket.on(44, position => {
+      console.log(11445678978, position);
+      setDestination({
+        latitude: position.latitude,
+        longitude: position.longitude,
+        latitudeDelta: latitudeDelta,
+        longitudeDelta: laongituteDalta,
+      });
+    });
+    locationPermessionCheck();
+  }, [hasLocationPermission]);
+
   return (
     <View>
       <MapView
@@ -134,7 +125,6 @@ const MapViewScreen = ({route, navigation}) => {
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
         }}
-        ref={mapRef}
         region={{
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
@@ -169,11 +159,11 @@ const MapViewScreen = ({route, navigation}) => {
           //   longitudeDelta: laongituteDalta,
           // }}
           origin={origin}
-          onReady={res => {
-            mapRef.current.fitToCoordinates(res.coordinates, {
-              animated: true,
-            });
-          }}
+          // onReady={res => {
+          //   mapRef.current.fitToCoordinates(res.coordinates, {
+          //     animated: true,
+          //   });
+          // }}
           // timePrecision={true}
           precision="high"
           // onStart={params => {
