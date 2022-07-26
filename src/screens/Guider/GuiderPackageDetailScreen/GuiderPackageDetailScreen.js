@@ -44,7 +44,6 @@ const PackageDetailScreen = ({route, navigation}) => {
     return IMAGE_BASED_URL + res.title;
   });
   const {userData} = useSelector(state => state.userData);
-  console.log(userData, 4555555555);
   // const navigateToPackage = item => {
   //   navigation.navigate('PackageScreen', {
   //     data: item,
@@ -209,13 +208,13 @@ const PackageDetailScreen = ({route, navigation}) => {
             <Text style={styles.parentCarddTextStyle}>Country</Text>
             <Text style={styles.parentCarddTextStyle}>
               {userData?.data?.get_user_profile?.country}
-              {console.log(userData?.data?.get_user_profile)}
             </Text>
           </View>
         </View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('GuiderMapViewScreen', item)}
+          onPress={() => errorMessage('This Feature is still on development.')}
+          // onPress={() => navigation.navigate('GuiderMapViewScreen', item)}
           style={{
             ...styles.parentCardTopTag,
             alignSelf: 'flex-end',

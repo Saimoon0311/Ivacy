@@ -94,7 +94,6 @@ export default function SignUpScreen() {
         type: userImage[0].type,
       });
       ApiPostFormData(SignUpUrl, formdata).then(res => {
-        console.log('res', res);
         if (res.status == 200) {
           setLoading(false);
           setSignUpConfirm(true);
@@ -154,9 +153,6 @@ export default function SignUpScreen() {
       res => {
         if (!res?.didCancel) {
           updateState({userImage: res?.assets});
-          setTimeout(() => {
-            console.log(142, userImage);
-          }, 2000);
         }
       },
     );
@@ -173,9 +169,6 @@ export default function SignUpScreen() {
       res => {
         if (!res?.didCancel) {
           updateState({userImage: res?.assets});
-          setTimeout(() => {
-            console.log(142, userImage);
-          }, 2000);
         }
       },
     );

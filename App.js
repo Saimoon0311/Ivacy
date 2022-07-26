@@ -7,6 +7,9 @@ import {persistor, store} from './src/Redux/Reducer/index';
 import messaging from '@react-native-firebase/messaging';
 import firebase from '@react-native-firebase/app';
 import {useEffect} from 'react';
+import {MoralisProvider} from 'react-moralis';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Moralis} from 'moralis';
 
 function App() {
   const getToken = () => {
@@ -50,6 +53,7 @@ function App() {
       announcement: true,
       provisional: true,
     });
+    Moralis.setAsyncStorage(AsyncStorage);
     // if (openSettingsForNotifications) {
     //   navigate('showNotificationScreen');
     // }
@@ -69,14 +73,16 @@ function App() {
     //   });
   }, []);
   return (
-    <>
+    <MoralisProvider
+      appId="qztkryZsOSEruTtDyIaahhDovw9yMzX6DOh5ZlBw"
+      serverUrl="https://mkenw9w6anse.usemoralis.com:2053/server">
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
           <AppTwo />
           <FlashMessage position="top" />
         </PersistGate>
       </Provider>
-    </>
+    </MoralisProvider>
   );
 }
 
