@@ -35,7 +35,8 @@
 #     __apply_Xcode_12_5_M1_post_install_workaround(installer)
 #   end
 # end
-$FirebaseSDKVersion = '9.2.0'
+$FirebaseSDKVersion = '9.3.0'
+$RNFirebaseAsStaticFramework = true
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 rn_maps_path = '../node_modules/react-native-maps'
@@ -51,7 +52,9 @@ target 'ivacy' do
     pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
-  # pod 'Firebase/Core'
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
   # pod 'Firebase/Messaging'
   # pod 'FirebaseCore', '9.2.0', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :branch => 'master' # eg 6.31.0
   pod 'react-native-maps' ,:path => '../node_modules/react-native-maps' # Uncomment this line if you want to support GoogleMaps on iOS

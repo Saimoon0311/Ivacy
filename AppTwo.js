@@ -26,7 +26,10 @@ function AppTwo({navigation}) {
 
   useEffect(async () => {
     (async () => {
-      LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+      LogBox.ignoreLogs([
+        'VirtualizedLists should never be nested',
+        'ViewPropTypes will be removed from React Native',
+      ]);
       LogBox.ignoreAllLogs(true);
     })();
     setTimeout(function () {

@@ -21,15 +21,20 @@ import {
 import GetLocation from 'react-native-get-location';
 import Geolocation from 'react-native-geolocation-service';
 import {Picker} from '@react-native-picker/picker';
+import io from 'socket.io-client';
 
 const MapViewScreen = ({route, navigation}) => {
+  const socket = io('http://192.168.0.111:3000');
+
   const [selectedValue, setSelectedValue] = useState('java');
 
   const [dummy, setDummy] = useState(1);
   const [location, setLocation] = useState({
     coords: {
-      latitude: 37.4218708,
-      longitude: -122.0841223,
+      latitude: 24.929259462116065,
+      longitude: 67.08810050245599,
+      // 24.929259462116065, 67.08810050245599
+      // 24.925704078615606, 67.09097186814968
       // latitude: 55.9389439451934,
       // longitude: -3.2289656424473465,
       // 55.9389439451934, -3.2289656424473465
@@ -37,7 +42,8 @@ const MapViewScreen = ({route, navigation}) => {
     // 24.84647610589769, 67.05584044694514
   });
   const mapRef = useRef();
-
+  const {coords} = location;
+  let origin = coords;
   let hasLocationPermission = false;
   const getCurrentLocation = () => {
     // GetLocation.getCurrentPosition({
@@ -54,8 +60,7 @@ const MapViewScreen = ({route, navigation}) => {
 
     Geolocation.getCurrentPosition(
       position => {
-        setLocation(position);
-        setDummy(dummy + 1);
+        // setLocation(position);
       },
       error => {
         // See error code charts below.
@@ -66,7 +71,6 @@ const MapViewScreen = ({route, navigation}) => {
   };
   const locationPermessionCheck = () => {
     check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE).then(result => {
-      console.log(81, result);
       if (result == 'granted') {
         hasLocationPermission = true;
       } else {
@@ -74,7 +78,6 @@ const MapViewScreen = ({route, navigation}) => {
       }
     });
     check(PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION).then(result => {
-      console.log(89, result);
       if (result == 'granted') {
         hasLocationPermission = true;
       } else {
@@ -83,20 +86,35 @@ const MapViewScreen = ({route, navigation}) => {
     });
     setTimeout(() => {
       if (hasLocationPermission == true) {
-        getCurrentLocation();
+        // getCurrentLocation();
       } else {
         alert('please enable your location');
       }
     }, 2000);
   };
-  useEffect(() => {
-    locationPermessionCheck();
-  }, [hasLocationPermission]);
   const {width, height} = Dimensions.get('window');
   const ACPT_RATIO = width / height;
   const latitudeDelta = 0.02;
   const laongituteDalta = latitudeDelta * ACPT_RATIO;
-  console.log('GuestMapViewScreen');
+  const [destination, setDestination] = useState({
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: latitudeDelta,
+    longitudeDelta: laongituteDalta,
+  });
+  useEffect(() => {
+    socket;
+    socket.on(44, position => {
+      console.log(11445678978, position);
+      setDestination({
+        latitude: position.latitude,
+        longitude: position.longitude,
+        latitudeDelta: latitudeDelta,
+        longitudeDelta: laongituteDalta,
+      });
+    });
+    locationPermessionCheck();
+  }, [hasLocationPermission]);
 
   return (
     <View>
@@ -131,48 +149,77 @@ const MapViewScreen = ({route, navigation}) => {
         // }}
         // provider={PROVIDER_GOOGLE}
       >
-        {/* <MapViewDirections
-          origin={{
-            // latitude: 55.9389439451934,
-            // longitude: -3.2289656424473465,
-            latitude: location.coords.latitude,
-            longitude: location.coords.latitude,
-            latitudeDelta: latitudeDelta,
-            longitudeDelta: laongituteDalta,
-          }}
-          destination={{
-            latitude: 24.846203501300632,
-            longitude: 67.05603356184639,
-            // latitude: 55.935225401794355,
-            // longitude: -3.209938529963149,
-            // 24.846203501300632, 67.05603356184639
-            // 55.935225401794355, -3.209938529963149
-            latitudeDelta: latitudeDelta,
-            longitudeDelta: laongituteDalta,
-            // 24.924493890239585, 67.02910107445285
-          }}
-          region={'sindh'}
+        <MapViewDirections
+          // origin={{
+          //   latitude: 55.9389439451934,
+          //   longitude: -3.2289656424473465,
+          //   // latitude: location.coords.latitude,
+          //   // longitude: location.coords.latitude,
+          //   latitudeDelta: latitudeDelta,
+          //   longitudeDelta: laongituteDalta,
+          // }}
+          origin={origin}
+          // onReady={res => {
+          //   mapRef.current.fitToCoordinates(res.coordinates, {
+          //     animated: true,
+          //   });
+          // }}
+          // timePrecision={true}
+          precision="high"
+          // onStart={params => {
+          //   console.log(
+          //     `Started routing between "${params.origin}" and "${params.destination}"`,
+          //   );
+          // }}
+          // destination={{
+          //   // latitude: 24.846203501300632,
+          //   // longitude: 67.05603356184639,
+          //   // latitude: 24.928188234567344,
+          //   // longitude: 67.08859882835416,
+          //   // 24.928188234567344, 67.08859882835416
+          //   latitude: 55.938712751001766,
+          //   longitude: -3.2303499682549397,
+          //   // 55.938712751001766, -3.2303499682549397
+          //   // 24.846203501300632, 67.05603356184639
+          //   // 55.935225401794355, -3.209938529963149
+          //   latitudeDelta: latitudeDelta,
+          //   longitudeDelta: laongituteDalta,
+          //   // 24.924493890239585, 67.02910107445285
+          // }}
+          destination={destination}
           mode="WALKING"
           optimizeWaypoints={true}
           strokeColor={'red'}
           strokeWidth={2}
           apikey={Google_Map_Key}
           strokeColors={['red']}
-        /> */}
+        />
         <Marker
           // image={User_Image_Url + }
           style={{backgroundColor: 'yellow'}}
-          coordinate={{
-            latitude: 55.9389439451934,
-            longitude: -3.2289656424473465,
-          }}
-          //  coordinate={location.coords}
+          // coordinate={{
+          //   // latitude: 55.9389439451934,
+          //   // longitude: -3.2289656424473465,
+          //   latitude: location.coords.latitude,
+          //   longitude: location.coords.longitude,
+          //   // latitude: 55.9389439451934,
+          //   // longitude: -3.2289656424473465,
+          //   latitudeDelta: latitudeDelta,
+          //   longitudeDelta: laongituteDalta,
+          // }}
+          coordinate={origin}
         />
         <Marker
-          coordinate={{
-            latitude: 55.935225401794355,
-            longitude: -3.209938529963149,
-          }}
+          coordinate={
+            destination
+            //   {
+            //   // latitude: 24.928188234567344,
+            //   // longitude: 67.08859882835416,
+            //   latitude: 55.938712751001766,
+            //   longitude: -3.2303499682549397,
+            //   // 24.84644206199745, 67.05588335771664
+            // }
+          }
         />
       </MapView>
       <View style={styles.container}>

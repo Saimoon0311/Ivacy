@@ -104,7 +104,6 @@ const HomeScreen = ({navigation}) => {
   };
   const favoredSceneries = () => {
     ApiGet(FavoredSceneriesUrl, userData.access_token).then(res => {
-      console.log(97, res);
       if (res.status == 200) {
         updatePackageState({favoredScenerie: res.json.data});
         updateLoadingState({favoredLoader: false});
@@ -118,7 +117,6 @@ const HomeScreen = ({navigation}) => {
   };
   const getCountryName = () => {
     ApiGet(CountryNameUrl).then(res => {
-      console.log(res, 'CountryName1111');
       if (res.status == 200) {
         updatePackageState({getCountryData: res.json.data});
         updateLoadingState({countryLoader: false});

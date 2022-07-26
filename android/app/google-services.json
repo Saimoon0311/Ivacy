@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:470465860060:android:3c19e3528ea66df1437f19",
+        "mobilesdk_app_id": "1:470465860060:android:cf78d3a9a15a0966437f19",
         "android_client_info": {
           "package_name": "com.ivacy"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "470465860060-va42dr6od8ooi1hltuasj1jngnqjj00t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ivacy",
+            "certificate_hash": "aa461c956f2cf37b1019599e6fa14f5a5b8e3faf"
+          }
+        },
         {
           "client_id": "470465860060-q2dg0nsim5917njce8fgodv0tr36ek5n.apps.googleusercontent.com",
           "client_type": 3
@@ -20,7 +28,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCeq2tHI-iHJtMHCn-JNMZchvmYFmTTFHw"
+          "current_key": "AIzaSyDfIVZQQ8K37RIExidGghlTLK0CoejHOfo"
         }
       ],
       "services": {
@@ -29,6 +37,13 @@
             {
               "client_id": "470465860060-q2dg0nsim5917njce8fgodv0tr36ek5n.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "470465860060-09914a6k0co2f9gvm0nv9heh2k9g5hnj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.ivacay"
+              }
             }
           ]
         }

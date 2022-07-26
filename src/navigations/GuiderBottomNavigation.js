@@ -27,9 +27,9 @@ function GuiderBottomNavigation() {
           height: hp('8'),
           paddingBottom: hp('0'),
           bottom: Platform.OS == 'ios' ? hp('4') : hp('2'),
-          width: wp('90'),
+          width: wp('30'),
           alignSelf: 'center',
-          borderRadius: 20,
+          borderRadius: Platform.OS == 'android' ? 10 : 20,
           overflow: 'hidden',
         },
       })}>
@@ -56,7 +56,7 @@ function GuiderBottomNavigation() {
         }}
         component={screens.GuiderHomeScreen}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="userScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
@@ -78,7 +78,7 @@ function GuiderBottomNavigation() {
           },
         }}
         component={screens.userScreen}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -13,13 +13,13 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'red',
     backgroundColor: 'rgba(255, 255, 255  ,0.5)',
     justifyContent: 'center',
-
     position: 'absolute',
     top: 0,
+    paddingTop: Platform.OS == 'ios' ? hp('2') : 0,
   },
   pickercontainer: {
     alignSelf: 'flex-end',
-    backgroundColor: 'rgba(255, 255, 255  ,0.5)',
+    backgroundColor: 'rgba(255, 255, 255  ,0.8)',
     position: 'absolute',
     bottom: hp('5'),
   },
