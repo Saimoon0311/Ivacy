@@ -59,6 +59,7 @@ const HomeScreen = ({navigation}) => {
     });
   }, []);
   const {userData} = useSelector(state => state.userData);
+  const [issloading, setIssloading] = useState(false);
   const [allPackage, setAllPackage] = useState({
     latestPackage: [],
   });
@@ -171,21 +172,6 @@ const HomeScreen = ({navigation}) => {
             />
           </View>
         )}
-        {/* <CityImageComponent
-          ml={wp('4')}
-          data={getCountryData}
-          isloading={countryLoader}
-          heading={'Top Places'}
-          navigate={navigateToPackage}
-        />
-        {/* <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('WriteReviewScreen');
-          }}>
-          <Text> ReviewScreen For Temperory</Text>
-        </TouchableOpacity> */}
-        {/* <CityImageComponent data={topCities} heading={'Top Activities'} />  */}
-        {/* <TouchableOpacity onPress={() => logoutFun()}>Helloo</TouchableOpacity> */}
       </ScrollView>
       {/* </SafeAreaView> */}
     </View>

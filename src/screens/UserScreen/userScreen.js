@@ -17,7 +17,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import TextImageComponent from '../../components/TextImageComponent/TextImageComponent';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {useDispatch, useSelector} from 'react-redux';
