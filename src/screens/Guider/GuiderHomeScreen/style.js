@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
   headerContainer: {
     height: hp('8'),
     width: wp('100'),
+    flexDirection: 'row',
     backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
@@ -23,6 +24,12 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    justifyContent: 'space-between',
+    backgroundColor: 'red',
+  },
+  iconsContainer: {
+    alignSelf: 'center',
+    color: color.ThankYouColor,
   },
   headerStyle: {
     height: hp('9'),

@@ -17,7 +17,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import TextImageComponent from '../../components/TextImageComponent/TextImageComponent';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {useDispatch, useSelector} from 'react-redux';
@@ -30,7 +29,6 @@ import {SkypeIndicator} from 'react-native-indicators';
 
 const userScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
-  console.log(9, userData);
   const dispatch = useDispatch();
   const [isloading, setIsloading] = useState(false);
   const [isReviewloading, setIsReviewloading] = useState(false);

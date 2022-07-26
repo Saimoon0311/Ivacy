@@ -28,12 +28,10 @@ import {
   CountryNameUrl,
   GuiderBookPackageUrl,
   LatestPackageUrl,
+  LogoutUrl,
 } from '../../../config/Urls';
-import {color} from '../../../components/color';
-import {showMessage} from 'react-native-flash-message';
-import {LatestPackageFlatlist} from '../../../components/LatestPackageFlatlist/latestPackageFlatlist';
-import SearchBarComponents from '../../../components/SearchBarComponents/SearchBarComponents';
-import {CityImageComponent} from '../../../components/CityImageComponrnt/cityImageComponent';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import {useCallback} from 'react';
 import {
   errorMessage,
@@ -41,6 +39,8 @@ import {
 } from '../../../components/NotificationMessage';
 import ThankYouScreen from '../../ThankYouScreen/ThankYouScreen';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import TextImageComponent from '../../../components/TextImageComponent/TextImageComponent';
+import {color} from '../../../components/color';
 
 const HomeScreen = ({navigation}) => {
   const disptach = useDispatch();
@@ -51,27 +51,6 @@ const HomeScreen = ({navigation}) => {
   const navigate = item => {
     navigation.navigate('GuiderPackageDetailScreen', item);
   };
-  const [topCities, setTopCities] = useState([
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-    {
-      id: 4,
-    },
-    {
-      id: 5,
-    },
-    {
-      id: 6,
-    },
-  ]);
-
   // const logoutFun = () => {
   //   let body = {};
   //   setIsloading(true);
@@ -101,6 +80,7 @@ const HomeScreen = ({navigation}) => {
     });
   }, []);
   const {userData} = useSelector(state => state.userData);
+  const [issloading, setIssloading] = useState(false);
   const [allPackage, setAllPackage] = useState({
     latestPackage: [],
     getCountryData: [],
@@ -144,6 +124,25 @@ const HomeScreen = ({navigation}) => {
     });
   };
 
+  const logoutFun = () => {
+    let body = {};
+    setIssloading(true);
+    ApiPost(LogoutUrl, body, false, userData.access_token).then(res => {
+      console.log(100, res);
+      if (res.status == 200) {
+        setIssloading(false);
+        disptach({
+          type: types.LogoutType,
+        });
+      } else if (res.status == 401) {
+        errorMessage('The app can not authorization form surver.');
+        setIssloading(false);
+      } else {
+        errorMessage('Network Request Failed.');
+        setIssloading(false);
+      }
+    });
+  };
   useEffect(() => {
     GuiderBookPackages();
   }, []);
@@ -165,11 +164,25 @@ const HomeScreen = ({navigation}) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('5')}}>
         <View style={styles.headerContainer}>
+          <View></View>
           <Image
             style={styles.headerStyle}
             resizeMode={'cover'}
             source={require('../../../images/logo2.png')}
           />
+          <Ionicons
+            style={styles.iconsContainer}
+            size={hp('5')}
+            name="log-in-outline"
+            onPress={() => logoutFun}
+          />
+          {/* <TextImageComponent
+            onPress={logoutFun}
+            iconName={'log-in-outline'}
+            textcolor={color.textThirdColor}
+            text={'Log-Out'}
+            isloading={issloading}
+          /> */}
         </View>
 
         {latestPackageLoading == true ? (

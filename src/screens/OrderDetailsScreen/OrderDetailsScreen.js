@@ -30,6 +30,7 @@ import {
 import {globalStyles} from '../../config/globalStyles';
 import moment from 'moment';
 import {SkypeIndicator} from 'react-native-indicators';
+import {NoDataView} from '../../components/NoDataView/noDataView';
 
 // import StarRating from 'react-native-star-rating';
 // import {ApiGet} from '../../config/helperFunction';
@@ -224,6 +225,7 @@ const OrderDetailsScreen = ({navigation}) => {
 
   const GetOrderDetailFunc = () => {
     ApiGet(url, userData.access_token).then(res => {
+      console.log(url, 2288);
       if (res.status == 200) {
         setOrderDetailsState(res.json.data);
         setIsloading(false);

@@ -34,6 +34,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import moment from 'moment';
 import {useSelector} from 'react-redux';
+import {Picker} from '@react-native-picker/picker';
 
 const PackageDetailScreen = ({route, navigation}) => {
   const [activeSession, setActiveSession] = useState([]);
