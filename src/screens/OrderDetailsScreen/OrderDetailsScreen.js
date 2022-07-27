@@ -206,7 +206,8 @@ const OrderDetailsScreen = ({navigation}) => {
         </View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('MapViewScreen', item)}
+          onPress={() => errorMessage('This Feature is still on development.')}
+          // onPress={() => navigation.navigate('MapViewScreen', item)}
           style={{
             ...styles.parentCardTopTag,
             alignSelf: 'flex-end',

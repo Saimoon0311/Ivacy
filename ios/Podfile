@@ -55,6 +55,8 @@ target 'ivacy' do
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
+  # pod 'moralis'
+  # pod 'react-moralis'
   # pod 'Firebase/Messaging'
   # pod 'FirebaseCore', '9.2.0', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :branch => 'master' # eg 6.31.0
   pod 'react-native-maps' ,:path => '../node_modules/react-native-maps' # Uncomment this line if you want to support GoogleMaps on iOS

@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   flatListMainContainer: {
     width: wp('100'),
     height: hp('40'),
-    marginBottom: hp('4'),
+    marginBottom: hp('2'),
     overflow: 'hidden',
     alignItems: 'center',
     alignSelf: 'center',

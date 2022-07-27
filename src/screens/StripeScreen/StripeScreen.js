@@ -19,7 +19,6 @@ import {
 const StripeScreen = ({route, navigation}) => {
   const {userData} = useSelector(state => state.userData);
   let item = route.params;
-  console.log(17, item);
   const {
     confirmPayment,
     initPaymentSheet,
@@ -80,7 +79,6 @@ const StripeScreen = ({route, navigation}) => {
     });
 
     if (error) {
-      console.log(156, error);
       setIsLoading(false);
     } else {
       const {paymentIntent, error} = await retrievePaymentIntent(data);

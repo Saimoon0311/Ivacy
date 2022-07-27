@@ -12,7 +12,6 @@ const Stack = createNativeStackNavigator();
 export default function StackNavigatior() {
   const {userData} = useSelector(state => state.userData);
   const {IsApplunchFirst} = useSelector(state => state.IsApplunchFirst);
-  console.log(userData, 15);
   return (
     <>
       <Stack.Navigator

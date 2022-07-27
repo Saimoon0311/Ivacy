@@ -29,8 +29,10 @@ const LoginScreen = ({route, navigation}) => {
   const LoginType = route.params;
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('0'));
   const [loginUser, setLoginUser] = useState({
-    email: 'saimoon@gmail.com',
-    password: 'password',
+    email: '',
+    password: '',
+    // email: 'saimoon@gmail.com',
+    // password: 'password',
   });
   const [isloading, setLoading] = useState(false);
   const [isFocused, setIsFocused] = useState({
@@ -55,7 +57,6 @@ const LoginScreen = ({route, navigation}) => {
   // XXXXXXXXXXXX
 
   const loginFunction = () => {
-    console.log(70);
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     setLoading(true);
     if (
@@ -65,13 +66,11 @@ const LoginScreen = ({route, navigation}) => {
       password != null &&
       reg.test(email) === true
     ) {
-      console.log(71);
       let body = JSON.stringify({
         email: email,
         password: password,
       });
       ApiPost(LoginUrl, body, false).then(res => {
-        console.log(70, res);
         if (res.status == 200) {
           disptach({
             type: types.LoginType,

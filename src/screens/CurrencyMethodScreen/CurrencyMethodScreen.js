@@ -31,8 +31,12 @@ import {
 import {errorMessage} from '../../components/NotificationMessage';
 import {ApiPost} from '../../config/helperFunction';
 import {WebView} from 'react-native-webview';
+import {useMoralis} from 'react-moralis';
+import {useEffect} from 'react';
 
 const CurrencyMethodScreen = ({route, navigation}) => {
+  const {authenticate, isAuthenticated, user, isAuthenticating, authError} =
+    useMoralis();
   const {userData} = useSelector(state => state.userData);
   const item = route.params;
   const {initPaymentSheet, presentPaymentSheet, retrievePaymentIntent} =
@@ -121,6 +125,13 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       }
     });
   };
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     console.log('dfghj', authError, user);
+  //   } else {
+  //     console.log(131, user.getUsername());
+  //   }
+  // }, [isAuthenticating]);
   return (
     <StripeProvider publishableKey={StripePublishKey}>
       {isloading && (
@@ -142,8 +153,10 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         <View style={styles.InnerContainer}>
           <TouchableOpacity
             onPress={() => {
+              errorMessage('This Feature is still on development.');
+              // authenticate();
               // errorMessage('Currently this feature is in working ');
-              setWebView(true);
+              // setWebView(true);
               // navigation.navigate('ThankYouScreen');
             }}
             style={styles.boxContainer}>
@@ -167,7 +180,9 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             />
           </TouchableOpacity>
         </View>
+        {isAuthenticated && <Text>Welcome {user.get('username')}</Text>}
       </View>
+
       <Modal
         animationType="slide"
         onRequestClose={() => {

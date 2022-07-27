@@ -38,7 +38,6 @@ const WriteReviewScreen = ({navigation}) => {
         userId: userData.data.id,
       });
       ApiPost(SubReviewUrl, body, false, userData.access_token).then(res => {
-        console.log(res);
         if (res.status == 200) {
           successMessage('Your Review Has Been Submitted');
           setstarCount('');
