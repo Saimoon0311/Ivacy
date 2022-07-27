@@ -36,7 +36,6 @@ const userScreen = ({navigation}) => {
     let body = {};
     setIsloading(true);
     ApiPost(LogoutUrl, body, false, userData.access_token).then(res => {
-      console.log(100, res);
       if (res.status == 200) {
         setIsloading(false);
         dispatch({
@@ -76,19 +75,11 @@ const userScreen = ({navigation}) => {
           }}>
           {userData.data.username}
         </Text>
-
-        {/* <TextImageComponent iconName={'person'} text={'Personal Information'} /> */}
-        {/* <TextImageComponent
-          iconName={'language'}
-          text={'Language & Communication'}
-        /> */}
         <TextImageComponent
           onPress={() => navigation.navigate('OrderDetailsScreen')}
           iconName={'bookmark-outline'}
           text={'My orders'}
         />
-        {/* <TextImageComponent iconName={'settings-outline'} text={'Settings'} /> */}
-        {/* <TextImageComponent iconName={'chatbox'} text={'Support'} /> */}
         <TextImageComponent
           onPress={() => Linking.openURL(AboutTheApp)}
           iconName={'alert-circle-outline'}
