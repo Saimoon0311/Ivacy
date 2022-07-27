@@ -81,7 +81,7 @@ const PackageDetailScreen = ({route, navigation}) => {
           <View style={{marginLeft: wp('2')}}>
             <Text
               style={{...globalStyles.globalTextStyles, fontSize: hp('3.5')}}>
-              {items.title}
+              {items?.title}
             </Text>
             <Text
               style={{
@@ -90,15 +90,24 @@ const PackageDetailScreen = ({route, navigation}) => {
                 textAlign: 'justify',
                 width: wp('95'),
               }}>
-              {items.description}
+              {items?.description}
             </Text>
             <Text style={styles.dateStyle}>{items?.from_date}</Text>
             <Text style={styles.toStyle}>To</Text>
             <Text style={styles.dateStyle}>{items?.end_date}</Text>
+            <Text
+              style={{
+                ...globalStyles.globalTextStyles,
+                fontSize: hp('2'),
+                textAlign: 'justify',
+                width: wp('95'),
+              }}>
+              {items?.get_country?.name}
+            </Text>
             <View style={styles.priceMainContainer}>
               <View>
                 <Text style={styles.pricetxt}>Price</Text>
-                <Text style={styles.packtxt}>${items.price}/package</Text>
+                <Text style={styles.packtxt}>${items?.price}/package</Text>
               </View>
               <TouchableOpacity
                 onPress={() =>

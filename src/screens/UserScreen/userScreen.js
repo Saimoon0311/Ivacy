@@ -18,20 +18,17 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import TextImageComponent from '../../components/TextImageComponent/TextImageComponent';
-import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {useDispatch, useSelector} from 'react-redux';
 import {ApiPost} from '../../config/helperFunction';
 import {AboutTheApp, LogoutUrl, User_Image_Url} from '../../config/Urls';
 import types from '../../Redux/type';
-import {showMessage} from 'react-native-flash-message';
 import {errorMessage} from '../../components/NotificationMessage';
-import {SkypeIndicator} from 'react-native-indicators';
 
 const userScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
   const dispatch = useDispatch();
   const [isloading, setIsloading] = useState(false);
-  const [isReviewloading, setIsReviewloading] = useState(false);
+  const [userImage, setUserImage] = useState('');
   const logoutFun = () => {
     let body = {};
     setIsloading(true);
@@ -50,22 +47,38 @@ const userScreen = ({navigation}) => {
       }
     });
   };
+  function checkImage() {
+    var request = new XMLHttpRequest();
+    request.open('GET', User_Image_Url + userData.data.avatar, true);
+    request.send();
+    request.onload = function () {
+      if (request.status == 200) {
+        //if(statusText == OK)
+        setUserImage(User_Image_Url + userData.data.avatar);
+      } else {
+        setUserImage(
+          'https://storiavoce.com/wp-content/plugins/lightbox/images/No-image-found.jpg',
+        );
+      }
+    };
+  }
+  checkImage();
   return (
     <SafeAreaView>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{...styles.container}}>
-        {!userData.data.avatar ? (
+        {/* {User_Image_Url + userData.data.avatar == 'Not Found' ? (
           <View style={styles.imageLoader}>
             <SkypeIndicator color={color.ThankYouColor} size={hp('6')} />
           </View>
         ) : (
-          <Image
-            style={styles.image}
-            resizeMode="contain"
-            source={{uri: User_Image_Url + userData.data.avatar}}
-          />
-        )}
+          )} */}
+        <Image
+          style={styles.image}
+          resizeMode="contain"
+          source={{uri: userImage}}
+        />
         <Text
           style={{
             ...globalStyles.globalTextStyles,
