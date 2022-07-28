@@ -63,7 +63,7 @@ export const FrontPackageCom = props => {
               style={{paddingRight: wp('2')}}
               name="world"
               color={color.textPrimaryColor}
-              size={hp('5')}
+              size={hp('4')}
             />
           </View>
         </View>
