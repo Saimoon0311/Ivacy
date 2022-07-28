@@ -12,77 +12,61 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Moralis} from 'moralis';
 
 function App() {
-  const getToken = () => {
-    messaging()
-      .getToken(firebase.app().options.messagingSenderId)
-      .then(token => {
-        // store.dispatch({
-        //   type: types.getToken,
-        //   payload: token,
-        // });
-        console.log('token23456789', token);
-      })
-      .catch(e => {
-        console.log(22, e);
-      });
-    // const unsubscribe = messaging().onMessage(async remoteMsg => {
-    //   const channelId = Math.random().toString(36).substring(7);
-    //   // createChannel(channelId);
-    //   showNotification(channelId, {
-    //     bigImage: remoteMsg.notification.imageUrl,
-    //     title: remoteMsg.notification.title,
-    //     message: remoteMsg.notification.body,
-    //     subText: remoteMsg.data.subTitle,
-    //     customData: remoteMsg.data.customData,
-    //   });
-    //   console.log('remoteMs', remoteMsg);
-    // });
-    // messaging().setBackgroundMessageHandler(async remoteMsg => {
-    //   console.log('remoteMs background', remoteMsg);
-    // });
-    // return unsubscribe;
-  };
-  useEffect(async () => {
-    await messaging().registerDeviceForRemoteMessages();
-    // getToken();
-    const token = await firebase.messaging().getToken();
-    console.log(45, token);
-    await messaging().requestPermission({
-      providesAppNotificationSettings: true,
-      sound: true,
-      announcement: true,
-      provisional: true,
-    });
-    Moralis.setAsyncStorage(AsyncStorage);
-    // if (openSettingsForNotifications) {
-    //   navigate('showNotificationScreen');
-    // }
-    // messaging().onNotificationOpenedApp(remoteMessage => {
-    //   console.log(
-    //     'Notification caused app to open from background state:',
-    //     remoteMessage.notification,
-    //   );
-    //   navigation.navigate('showNotificationScreen');
-    // });
-    // messaging()
-    //   .getDidOpenSettingsForNotification()
-    //   .then(async didOpenSettingsForNotification => {
-    //     if (didOpenSettingsForNotification) {
-    //       console.log(8909890);
-    //     }
-    //   });
-  }, []);
+  // const getToken = () => {
+  //   messaging()
+  //     .getToken(firebase.app().options.messagingSenderId)
+  //     .then(token => {
+  //       // store.dispatch({
+  //       //   type: types.getToken,
+  //       //   payload: token,
+  //       // });
+  //       console.log('token23456789', token);
+  //     })
+  //     .catch(e => {
+  //       console.log(22, e);
+  //     });
+  // };
+  // useEffect(async () => {
+  //   await messaging().registerDeviceForRemoteMessages();
+  //   // getToken();
+  //   const token = await firebase.messaging().getToken();
+  //   console.log(45, token);
+  //   await messaging().requestPermission({
+  //     providesAppNotificationSettings: true,
+  //     sound: true,
+  //     announcement: true,
+  //     provisional: true,
+  //   });
+  // Moralis.setAsyncStorage(AsyncStorage);
+  // if (openSettingsForNotifications) {
+  //   navigate('showNotificationScreen');
+  // }
+  // messaging().onNotificationOpenedApp(remoteMessage => {
+  //   console.log(
+  //     'Notification caused app to open from background state:',
+  //     remoteMessage.notification,
+  //   );
+  //   navigation.navigate('showNotificationScreen');
+  // });
+  // messaging()
+  //   .getDidOpenSettingsForNotification()
+  //   .then(async didOpenSettingsForNotification => {
+  //     if (didOpenSettingsForNotification) {
+  //       console.log(8909890);
+  //     }
+  //   });
+  // }, []);
   return (
-    <MoralisProvider
-      appId="qztkryZsOSEruTtDyIaahhDovw9yMzX6DOh5ZlBw"
-      serverUrl="https://mkenw9w6anse.usemoralis.com:2053/server">
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <AppTwo />
-          <FlashMessage position="top" />
-        </PersistGate>
-      </Provider>
-    </MoralisProvider>
+    // <MoralisProvider
+    //   appId="qztkryZsOSEruTtDyIaahhDovw9yMzX6DOh5ZlBw"
+    //   serverUrl="https://mkenw9w6anse.usemoralis.com:2053/server">
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <AppTwo />
+        <FlashMessage position="top" />
+      </PersistGate>
+    </Provider>
+    // </MoralisProvider>
   );
 }
 

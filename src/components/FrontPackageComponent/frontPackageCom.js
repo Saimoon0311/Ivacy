@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -49,7 +51,7 @@ export const FrontPackageCom = props => {
         <View style={{flexDirection: 'row'}}>
           <Text style={{...styles.packageTitle}}>Price</Text>
           <Text style={{...styles.packageTitle, fontWeight: 'normal'}}>
-            ${item?.price}
+            $ {item?.price}
           </Text>
           <View
             style={{
@@ -57,37 +59,42 @@ export const FrontPackageCom = props => {
               marginLeft: 'auto',
               marginRight: wp('2'),
             }}>
-            <FontAwesome
-              style={{alignSelf: 'flex-end'}}
-              name="location-arrow"
+            <Fontisto
+              style={{paddingRight: wp('2')}}
+              name="world"
               color={color.textPrimaryColor}
-              size={hp('4')}
-            />
-            <MaterialCommunityIcons
-              name="security"
-              color={color.textPrimaryColor}
-              size={hp('4')}
+              size={hp('5')}
             />
           </View>
         </View>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={{...styles.packageTitle, marginTop: hp('-1')}}>
+        <View style={{flexDirection: 'row', marginTop: hp('-2')}}>
+          <Text
+            style={{
+              ...styles.packageTitle,
+              //  marginTop: hp('-1')
+            }}>
             Date
           </Text>
           <Text
             style={{
               ...styles.packageTitle,
               fontWeight: 'normal',
-              marginTop: hp('-1'),
+              // marginTop: hp('-1'),
             }}>
             {item?.from_date}
           </Text>
-          <Text style={{...styles.packageTitle, marginTop: hp('-1')}}>To</Text>
+          <Text
+            style={{
+              ...styles.packageTitle,
+              // , marginTop: hp('-1')
+            }}>
+            To
+          </Text>
           <Text
             style={{
               ...styles.packageTitle,
               fontWeight: 'normal',
-              marginTop: hp('-1'),
+              // marginTop: hp('-1'),
             }}>
             {item?.end_date}
           </Text>

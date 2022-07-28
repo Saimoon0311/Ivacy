@@ -35,8 +35,8 @@ import {useMoralis} from 'react-moralis';
 import {useEffect} from 'react';
 
 const CurrencyMethodScreen = ({route, navigation}) => {
-  const {authenticate, isAuthenticated, user, isAuthenticating, authError} =
-    useMoralis();
+  // const {authenticate, isAuthenticated, user, isAuthenticating, authError} =
+  //   useMoralis();
   const {userData} = useSelector(state => state.userData);
   const item = route.params;
   const {initPaymentSheet, presentPaymentSheet, retrievePaymentIntent} =
@@ -180,7 +180,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             />
           </TouchableOpacity>
         </View>
-        {isAuthenticated && <Text>Welcome {user.get('username')}</Text>}
+        {/* {isAuthenticated && <Text>Welcome {user.get('username')}</Text>} */}
       </View>
 
       <Modal

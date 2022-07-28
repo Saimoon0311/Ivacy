@@ -75,7 +75,7 @@ const PackageDetailScreen = ({route, navigation}) => {
               height: 10,
               borderRadius: 5,
               marginHorizontal: 0,
-              padding: 0,
+              marginTop: hp('6'),
             }}
           />
           <View style={{marginLeft: wp('2')}}>

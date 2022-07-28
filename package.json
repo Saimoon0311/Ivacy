@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint .",
     "both": "react-native run-ios && react-native run-android",
-    "androidBuild": "cd android && ./gradlew assembleRelease",
+    "androidBuild": "cd android && gradlew assembleRelease",
     "androidAdb": "cd android && ./gradlew bundleRelease",
     "iosInstall": "cd ios && pod install"
   },

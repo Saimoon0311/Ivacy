@@ -93,19 +93,20 @@ const OnboardingScreen = ({navigation}) => {
             paddingLeft: wp('28'),
           }}>
           {/* Render indicator */}
-          {slides.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.indicator,
-                currentSlideIndex == index && {
-                  backgroundColor: color.textColor,
-                  height: 10,
-                  width: 10,
-                },
-              ]}
-            />
-          ))}
+          {currentSlideIndex != 2 &&
+            slides.map((_, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.indicator,
+                  currentSlideIndex == index && {
+                    backgroundColor: color.textColor,
+                    height: 10,
+                    width: 10,
+                  },
+                ]}
+              />
+            ))}
         </View>
 
         <View>
