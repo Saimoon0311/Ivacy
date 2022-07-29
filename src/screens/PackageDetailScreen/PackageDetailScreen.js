@@ -58,9 +58,10 @@ const PackageDetailScreen = ({route, navigation}) => {
   }, []);
 
   return (
-    <SafeAreaView>
-      <ScrollView contentContainerStyle={{paddingBottom: hp('30')}}>
-        {/* <BackHeaderCom goBack={goback} /> */}
+    <SafeAreaView style={{marginTop: hp('-1.6')}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: hp('35')}}>
         <View style={styles.container}>
           <SliderBox
             imageLoadingColor={color.textBackgroundColor}
