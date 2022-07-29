@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   Linking,
+  Pressable,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {BackHeaderCom} from '../../../components/BackHeaderComponent/backHeaderCom';
@@ -38,6 +39,8 @@ import {Picker} from '@react-native-picker/picker';
 
 const PackageDetailScreen = ({route, navigation}) => {
   const [activeSession, setActiveSession] = useState([]);
+  const [imageState, setImageState] = useState(false);
+  const [imageNameState, setImageNameState] = useState('');
   const items = route.params;
   // setorderDetailsState(items.get_package_journeys);
 
@@ -51,7 +54,23 @@ const PackageDetailScreen = ({route, navigation}) => {
   //     type: 'getPackage',
   //   });
   // };
-
+  const openImage = url => {
+    setImageNameState(url);
+    setImageState(true);
+  };
+  const CustomImageView = () => {
+    return (
+      <Pressable
+        onPress={() => setImageState(false)}
+        style={styles.CustomImageConatainer}>
+        <Image
+          resizeMode="contain"
+          style={{height: hp('50'), width: wp('60')}}
+          source={{uri: imageNameState}}
+        />
+      </Pressable>
+    );
+  };
   const renderHeader = item => {
     return (
       <View style={{...styles.parentCardStyle}}>
@@ -122,13 +141,18 @@ const PackageDetailScreen = ({route, navigation}) => {
           />
           <View style={styles.parentCardRow}>
             <Text style={styles.parentCarddTextStyle}>Image</Text>
-            <Image
-              resizeMode="contain"
-              style={{height: hp('4'), borderRadius: 5, width: wp('10')}}
-              source={{
-                uri: User_Image_Url + userData?.data?.avatar,
-              }}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                openImage(User_Image_Url + userData?.data?.avatar);
+              }}>
+              <Image
+                resizeMode="contain"
+                style={{height: hp('4'), borderRadius: 5, width: wp('10')}}
+                source={{
+                  uri: User_Image_Url + userData?.data?.avatar,
+                }}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.parentCardIconHolder}>
@@ -308,7 +332,9 @@ const PackageDetailScreen = ({route, navigation}) => {
           </View>
         </View>
         {RenderAccordian()}
+        {/* {CustomImageView()} */}
       </ScrollView>
+      {imageState && CustomImageView()}
     </SafeAreaView>
   );
 };

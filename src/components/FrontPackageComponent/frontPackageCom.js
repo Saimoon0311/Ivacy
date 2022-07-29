@@ -63,11 +63,11 @@ export const FrontPackageCom = props => {
               style={{paddingRight: wp('2')}}
               name="world"
               color={color.textPrimaryColor}
-              size={hp('5')}
+              size={hp('4')}
             />
           </View>
         </View>
-        <View style={{flexDirection: 'row', marginTop: hp('-2')}}>
+        <View style={{flexDirection: 'row', marginTop: hp('-1')}}>
           <Text
             style={{
               ...styles.packageTitle,

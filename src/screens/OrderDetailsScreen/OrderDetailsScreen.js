@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Linking,
+  Pressable,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
@@ -45,6 +46,24 @@ const OrderDetailsScreen = ({navigation}) => {
   const [isloading, setIsloading] = useState(true);
 
   const {userData} = useSelector(state => state.userData);
+
+  const [imageState, setImageState] = useState(false);
+  const [imageNameState, setImageNameState] = useState('');
+
+  const CustomImageView = () => {
+    console.log(54, imageNameState, imageState);
+    return (
+      <Pressable
+        style={styles.CustomImageConatainer}
+        onPress={() => setImageState(false)}>
+        <Image
+          source={{uri: imageNameState}}
+          resizeMode="contain"
+          style={{height: hp('50'), width: wp('60')}}
+        />
+      </Pressable>
+    );
+  };
 
   const _updateSections = e => {
     setActiveSession(e);
@@ -119,13 +138,21 @@ const OrderDetailsScreen = ({navigation}) => {
           />
           <View style={styles.parentCardRow}>
             <Text style={styles.parentCarddTextStyle}>Guider Image</Text>
-            <Image
-              resizeMode="contain"
-              style={{height: hp('4'), borderRadius: 5, width: wp('10')}}
-              source={{
-                uri: User_Image_Url + item?.get_journey_guider?.avatar,
-              }}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                setImageNameState(
+                  User_Image_Url + item?.get_journey_guider?.avatar,
+                ),
+                  setImageState(true);
+              }}>
+              <Image
+                resizeMode="contain"
+                style={{height: hp('4'), borderRadius: 5, width: wp('10')}}
+                source={{
+                  uri: User_Image_Url + item?.get_journey_guider?.avatar,
+                }}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.parentCardIconHolder}>
@@ -274,6 +301,7 @@ const OrderDetailsScreen = ({navigation}) => {
           {RenderAccordian()}
         </ScrollView>
       )}
+      {imageState && CustomImageView()}
     </View>
   );
 };

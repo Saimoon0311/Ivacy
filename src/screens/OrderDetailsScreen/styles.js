@@ -175,4 +175,13 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: hp('1.5'),
   },
+  CustomImageConatainer: {
+    zIndex: 1,
+    position: 'absolute',
+    height: hp('100'),
+    width: wp('100'),
+    backgroundColor: color.mapColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
