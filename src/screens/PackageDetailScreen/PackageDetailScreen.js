@@ -56,75 +56,79 @@ const PackageDetailScreen = ({route, navigation}) => {
   }, []);
 
   return (
-    // <SafeAreaView>
-    <ScrollView contentContainerStyle={{paddingBottom: hp('10')}}>
-      {/* <BackHeaderCom goBack={goback} /> */}
-      <View style={styles.container}>
-        <SliderBox
-          imageLoadingColor={color.textBackgroundColor}
-          ImageComponent={FastImage}
-          images={imagesLegth}
-          style={styles.flatListMainContainer}
-          dotColor={color.textPrimaryColor}
-          inactiveDotColor="#90A4AE"
-          resizeMode={'cover'}
-          autoplay
-          circleLoop
-          dotStyle={{
-            width: 10,
-            height: 10,
-            borderRadius: 5,
-            marginHorizontal: 0,
-            marginTop: hp('6'),
-          }}
-        />
-        <View style={{marginLeft: wp('2')}}>
-          <Text style={{...globalStyles.globalTextStyles, fontSize: hp('3.5')}}>
-            {items?.title}
-          </Text>
-          <Text
-            style={{
-              ...globalStyles.globalTextStyles,
-              fontSize: hp('2'),
-              textAlign: 'justify',
-              width: wp('95'),
-            }}>
-            {items?.description}
-          </Text>
-          <Text style={styles.dateStyle}>{items?.from_date}</Text>
-          <Text style={styles.toStyle}>To</Text>
-          <Text style={styles.dateStyle}>{items?.end_date}</Text>
-          <Text
-            style={{
-              ...globalStyles.globalTextStyles,
-              fontSize: hp('2'),
-              textAlign: 'justify',
-              width: wp('95'),
-            }}>
-            {items?.get_country?.name}
-          </Text>
-          <View style={styles.priceMainContainer}>
-            <View>
-              <Text style={styles.pricetxt}>Price</Text>
-              <Text style={styles.packtxt}>${items?.price}/package</Text>
-            </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('CurrencyMethodScreen', items)}
-              style={styles.boxNowContainer}>
-              <Text style={styles.bookNowTxt}>Book Now</Text>
-            </TouchableOpacity>
-          </View>
-          <CityImageComponent
-            navigate={navigateToPackage}
-            ml={wp('0.1')}
-            data={countryPicker}
-            isloading={isloading}
-            heading={'Top Countries'}
+    <SafeAreaView style={{marginTop: hp('-1.6')}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: hp('35')}}>
+        <View style={styles.container}>
+          <SliderBox
+            imageLoadingColor={color.textBackgroundColor}
+            ImageComponent={FastImage}
+            images={imagesLegth}
+            style={styles.flatListMainContainer}
+            dotColor={color.textPrimaryColor}
+            inactiveDotColor="#90A4AE"
+            resizeMode={'cover'}
+            autoplay
+            circleLoop
+            dotStyle={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              marginHorizontal: 0,
+              marginTop: hp('6'),
+            }}
           />
+          <View style={{marginLeft: wp('2')}}>
+            <Text
+              style={{...globalStyles.globalTextStyles, fontSize: hp('3.5')}}>
+              {items?.title}
+            </Text>
+            <Text
+              style={{
+                ...globalStyles.globalTextStyles,
+                fontSize: hp('2'),
+                textAlign: 'justify',
+                width: wp('95'),
+              }}>
+              {items?.description}
+            </Text>
+            <Text style={styles.dateStyle}>{items?.from_date}</Text>
+            <Text style={styles.toStyle}>To</Text>
+            <Text style={styles.dateStyle}>{items?.end_date}</Text>
+            <Text
+              style={{
+                ...globalStyles.globalTextStyles,
+                fontSize: hp('2'),
+                textAlign: 'justify',
+                width: wp('95'),
+              }}>
+              {items?.get_country?.name}
+            </Text>
+            <View style={styles.priceMainContainer}>
+              <View>
+                <Text style={styles.pricetxt}>Price</Text>
+                <Text style={styles.packtxt}>${items?.price}/package</Text>
+              </View>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('CurrencyMethodScreen', items)
+                }
+                style={styles.boxNowContainer}>
+                <Text style={styles.bookNowTxt}>Book Now</Text>
+              </TouchableOpacity>
+            </View>
+            <CityImageComponent
+              navigate={navigateToPackage}
+              ml={wp('0.1')}
+              data={countryPicker}
+              isloading={isloading}
+              heading={'Top Countries'}
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
-    // </SafeAreaView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

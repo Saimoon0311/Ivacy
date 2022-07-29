@@ -1,21 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {
-  View,
-  Platform,
-  StyleSheet,
-  Image,
-  Text,
-  TouchableOpacity,
-  Pressable,
-} from 'react-native';
+import {View, Platform, StyleSheet, Image, Text, Pressable} from 'react-native';
 import {IMAGE_BASED_URL} from '../../config/Urls';
 import {color} from '../color';
 
@@ -67,11 +56,10 @@ export const FrontPackageCom = props => {
             />
           </View>
         </View>
-        <View style={{flexDirection: 'row', marginTop: hp('-2')}}>
+        <View style={{flexDirection: 'row', marginTop: hp('-1.5')}}>
           <Text
             style={{
               ...styles.packageTitle,
-              //  marginTop: hp('-1')
             }}>
             Date
           </Text>
@@ -79,14 +67,12 @@ export const FrontPackageCom = props => {
             style={{
               ...styles.packageTitle,
               fontWeight: 'normal',
-              // marginTop: hp('-1'),
             }}>
             {item?.from_date}
           </Text>
           <Text
             style={{
               ...styles.packageTitle,
-              // , marginTop: hp('-1')
             }}>
             To
           </Text>
@@ -94,7 +80,6 @@ export const FrontPackageCom = props => {
             style={{
               ...styles.packageTitle,
               fontWeight: 'normal',
-              // marginTop: hp('-1'),
             }}>
             {item?.end_date}
           </Text>

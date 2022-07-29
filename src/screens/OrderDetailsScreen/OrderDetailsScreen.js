@@ -121,7 +121,7 @@ const OrderDetailsScreen = ({navigation}) => {
             <Text style={styles.parentCarddTextStyle}>Guider Image</Text>
             <Image
               resizeMode="contain"
-              style={{height: hp('4'), borderRadius: 5, width: wp('10')}}
+              style={{height: hp('4'), borderRadius: 7, width: wp('10')}}
               source={{
                 uri: User_Image_Url + item?.get_journey_guider?.avatar,
               }}

@@ -91,7 +91,7 @@ export const CityImageComponent = props => {
                     resizeMode="stretch"
                     style={styles.imageStyle}
                     source={{
-                      uri: 'https://images.pexels.com/photos/11577405/pexels-photo-11577405.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load',
+                      uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Lp_vpjcJFZDWE_C0lyv5SjGWuZR3J_AtP7_ydmA2mqnRRlXdmwzVsdaCjp8LbIM-6Qk&usqp=CAU',
                     }}>
                     <Text numberOfLines={2} style={styles.textImageBackground}>
                       {item?.name}

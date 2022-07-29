@@ -23,11 +23,13 @@ import {ApiPost} from '../../config/helperFunction';
 import {AboutTheApp, LogoutUrl, User_Image_Url} from '../../config/Urls';
 import types from '../../Redux/type';
 import {errorMessage} from '../../components/NotificationMessage';
+import {SkypeIndicator} from 'react-native-indicators';
 
 const userScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
   const dispatch = useDispatch();
   const [isloading, setIsloading] = useState(false);
+  const [userImageLoader, setUserImageLoader] = useState(true);
   const [userImage, setUserImage] = useState('');
   const logoutFun = () => {
     let body = {};
@@ -55,10 +57,12 @@ const userScreen = ({navigation}) => {
       if (request.status == 200) {
         //if(statusText == OK)
         setUserImage(User_Image_Url + userData.data.avatar);
+        setUserImageLoader(false);
       } else {
         setUserImage(
           'https://storiavoce.com/wp-content/plugins/lightbox/images/No-image-found.jpg',
         );
+        setUserImageLoader(false);
       }
     };
   }
@@ -68,17 +72,17 @@ const userScreen = ({navigation}) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{...styles.container}}>
-        {/* {User_Image_Url + userData.data.avatar == 'Not Found' ? (
+        {userImageLoader ? (
           <View style={styles.imageLoader}>
             <SkypeIndicator color={color.ThankYouColor} size={hp('6')} />
           </View>
         ) : (
-          )} */}
-        <Image
-          style={styles.image}
-          resizeMode="contain"
-          source={{uri: userImage}}
-        />
+          <Image
+            style={styles.image}
+            resizeMode="contain"
+            source={{uri: userImage}}
+          />
+        )}
         <Text
           style={{
             ...globalStyles.globalTextStyles,
