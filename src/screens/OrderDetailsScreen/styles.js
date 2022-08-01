@@ -11,6 +11,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: 'red',
   },
+  fadingContainer: {
+    height: wp('100'),
+    width: wp('100'),
+    zIndex: 1,
+    position: 'absolute',
+    top: 0,
+    backgroundColor: color.mapColor,
+  },
   renderHeaderStyles: {
     width: wp('93'),
     height: hp('20'),
@@ -176,8 +184,8 @@ export const styles = StyleSheet.create({
     fontSize: hp('1.5'),
   },
   CustomImageConatainer: {
-    zIndex: 1,
-    position: 'absolute',
+    // zIndex: -1,
+    // position: 'absolute',
     height: hp('100'),
     width: wp('100'),
     backgroundColor: color.mapColor,
