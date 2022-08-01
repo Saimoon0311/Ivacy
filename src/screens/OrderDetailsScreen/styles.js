@@ -176,12 +176,18 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: hp('1.5'),
   },
-  CustomImageConatainer: {
-    position: 'absolute',
-    height: hp('100'),
-    width: wp('100'),
-    backgroundColor: color.mapColor,
+  CustomImageContainer: {
+    // position: 'absolute',
+    // zIndex: 1,
+    alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: color.mapColor,
+    height: hp('100'),
+    width: wp('100'),
+  },
+  CustomImageContainerBottom: {
+    position: 'absolute',
+    // backgroundColor: 'red',
   },
 });

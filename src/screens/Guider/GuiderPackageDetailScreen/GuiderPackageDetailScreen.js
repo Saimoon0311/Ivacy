@@ -8,8 +8,9 @@ import {
   Image,
   Linking,
   Pressable,
+  Animated,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {BackHeaderCom} from '../../../components/BackHeaderComponent/backHeaderCom';
 import {styles} from './styles';
 import {SliderBox, FastImage} from 'react-native-image-slider-box';
@@ -42,33 +43,50 @@ const PackageDetailScreen = ({route, navigation}) => {
   const [imageState, setImageState] = useState(false);
   const [imageNameState, setImageNameState] = useState('');
   const items = route.params;
-  // setorderDetailsState(items.get_package_journeys);
-
+  const [zIndex, setzIndex] = useState(-1);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const imagesLegth = items?.get_images.map(res => {
     return IMAGE_BASED_URL + res.title;
   });
+  const fadeIn = () => {
+    setzIndex(1);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  };
+  const fadeOut = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+    setTimeout(() => {
+      setzIndex(-1);
+    }, 3000);
+  };
   const {userData} = useSelector(state => state.userData);
-  // const navigateToPackage = item => {
-  //   navigation.navigate('PackageScreen', {
-  //     data: item,
-  //     type: 'getPackage',
-  //   });
-  // };
   const openImage = url => {
     setImageNameState(url);
     setImageState(true);
   };
   const CustomImageView = () => {
     return (
-      <Pressable
-        onPress={() => setImageState(false)}
-        style={styles.CustomImageConatainer}>
-        <Image
-          resizeMode="contain"
-          style={{height: hp('50'), width: wp('60')}}
-          source={{uri: imageNameState}}
-        />
-      </Pressable>
+      <Animated.View style={{opacity: fadeAnim}}>
+        <Pressable
+          onPress={() => {
+            setImageState(false);
+            fadeOut();
+          }}
+          style={styles.CustomImageContainer}>
+          <Image
+            resizeMode="contain"
+            style={{height: hp('50'), width: wp('60')}}
+            source={{uri: imageNameState}}
+          />
+        </Pressable>
+      </Animated.View>
     );
   };
   const renderHeader = item => {
@@ -144,6 +162,7 @@ const PackageDetailScreen = ({route, navigation}) => {
             <TouchableOpacity
               onPress={() => {
                 openImage(User_Image_Url + userData?.data?.avatar);
+                fadeIn();
               }}>
               <Image
                 resizeMode="contain"
@@ -334,7 +353,12 @@ const PackageDetailScreen = ({route, navigation}) => {
         {RenderAccordian()}
         {/* {CustomImageView()} */}
       </ScrollView>
-      {imageState && CustomImageView()}
+      {fadeAnim != 0 && (
+        <View style={{...styles.CustomImageContainerBottom, zIndex: zIndex}}>
+          {CustomImageView()}
+        </View>
+      )}
+      {/* {imageState && CustomImageView()} */}
     </SafeAreaView>
   );
 };

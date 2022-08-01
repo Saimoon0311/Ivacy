@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  FlatList,
   ScrollView,
   TouchableOpacity,
   Image,
@@ -29,18 +28,10 @@ import {
   errorMessage,
   successMessage,
 } from '../../components/NotificationMessage';
-import {globalStyles} from '../../config/globalStyles';
 import moment from 'moment';
 import {SkypeIndicator} from 'react-native-indicators';
 import {NoDataView} from '../../components/NoDataView/noDataView';
 
-// import StarRating from 'react-native-star-rating';
-// import {ApiGet} from '../../config/helperFunction';
-// import {ReviewUrl} from '../../config/Urls';
-// import {errorMessage} from '../../components/NotificationMessage';
-// import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-// import moment from 'moment';
-// import {useIsFocused} from '@react-navigation/native';
 const OrderDetailsScreen = ({navigation}) => {
   const [activeSession, setActiveSession] = useState([]);
   const [orderDetailsState, setOrderDetailsState] = useState([]);
@@ -50,82 +41,49 @@ const OrderDetailsScreen = ({navigation}) => {
 
   const [imageState, setImageState] = useState(false);
   const [imageNameState, setImageNameState] = useState('');
-  const [zIndex, setZIndex] = useState(-1);
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  // const [fadeAnim, setFadeAnim] = useState(new Animated.Value(0));
-  console.log('start', fadeAnim);
+  const [zIndex, setzIndex] = useState(-1);
 
+  const openImage = url => {
+    setImageNameState(url);
+    setImageState(true);
+  };
   const fadeIn = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
-    setZIndex(1);
+    setzIndex(1);
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 2000,
-      useNativeDriver: true, // Add This line
+      useNativeDriver: true,
     }).start();
   };
-
   const fadeOut = () => {
-    // Will change fadeAnim value to 0 in 3 seconds
     Animated.timing(fadeAnim, {
       toValue: 0,
       duration: 2000,
-      useNativeDriver: true, // Add This line
+      useNativeDriver: true,
     }).start();
     setTimeout(() => {
-      setZIndex(-1);
+      setzIndex(-1);
     }, 2000);
   };
-  // const CustomImageView = () => {
-  //   // Will change fadeAnim value to 1 in 5 seconds
-
-  //   return (
-  //     <Pressable
-  //       style={{position: 'absolute', backgroundColor: 'red'}}
-  //       onPress={() => fadeOut()}>
-  //       <Animated.View
-  //         style={{
-  //           ...styles.CustomImageConatainer,
-  //           opacity: fadeAnim,
-  //           // position: 'absolute',
-  //         }}
-  //         // style={[
-  //         //   styles.fadingContainer,
-  //         //   {
-  //         //     // Bind opacity to animated value
-  //         //     opacity: fadeAnim,
-  //         //   },
-  //         // ]}
-  //         // style={{
-  //         //   // Bind opacity to animated value
-  //         //   opacity: fadeAnim,
-  //         // }}
-  //       >
-  //         {/* <Pressable
-  //         // style={styles.CustomImageConatainer}
-  //         // onLongPress={() => {
-  //         //   setImageState(false);
-  //         //   console.log(6265646, imageState);
-  //         //   // setTimeout(() => {
-  //         //   // }, 2000);
-  //         // }}
-  //         onPress={() => {
-  //           setImageState(false);
-  //           // setTimeout(() => {
-  //           //   console.log(62, imageState);
-  //           // }, 3000);
-  //           fadeOut();
-  //         }}> */}
-  //         <Image
-  //           source={{uri: imageNameState}}
-  //           resizeMode="contain"
-  //           style={{height: hp('50'), width: wp('60')}}
-  //         />
-  //         {/* </Pressable> */}
-  //       </Animated.View>
-  //     </Pressable>
-  //   );
-  // };
+  const CustomImageView = () => {
+    return (
+      <Animated.View style={{opacity: fadeAnim}}>
+        <Pressable
+          onPress={() => {
+            setImageState(false);
+            fadeOut();
+          }}
+          style={styles.CustomImageContainer}>
+          <Image
+            resizeMode="contain"
+            style={{height: hp('50'), width: wp('60'), borderRadius: 20}}
+            source={{uri: imageNameState}}
+          />
+        </Pressable>
+      </Animated.View>
+    );
+  };
 
   const _updateSections = e => {
     setActiveSession(e);
@@ -202,11 +160,8 @@ const OrderDetailsScreen = ({navigation}) => {
             <Text style={styles.parentCarddTextStyle}>Guider Image</Text>
             <TouchableOpacity
               onPress={() => {
-                setImageNameState(
-                  User_Image_Url + item?.get_journey_guider?.avatar,
-                ),
-                  setImageState(true),
-                  fadeIn();
+                openImage(User_Image_Url + item?.get_journey_guider?.avatar);
+                fadeIn();
               }}>
               <Image
                 resizeMode="contain"
@@ -316,7 +271,6 @@ const OrderDetailsScreen = ({navigation}) => {
 
   const GetOrderDetailFunc = () => {
     ApiGet(url, userData.access_token).then(res => {
-      console.log(url, 2288);
       if (res.status == 200) {
         setOrderDetailsState(res.json.data);
         setIsloading(false);
@@ -364,26 +318,12 @@ const OrderDetailsScreen = ({navigation}) => {
           {RenderAccordian()}
         </ScrollView>
       )}
-      <Pressable
-        style={{...styles.CustomImageConatainer, zIndex: zIndex}}
-        onPress={() => fadeOut()}>
-        <Animated.View
-          // style={{ ...styles.CustomImageConatainer, opacity: fadeAnim }}
-          // style={[
-          //   styles.fadingContainer,
-          //   {
-          //     // Bind opacity to animated value
-          //     opacity: fadeAnim,
-          //   },
-          // ]}
-          style={{opacity: fadeAnim}}>
-          <Image
-            source={{uri: imageNameState}}
-            resizeMode="contain"
-            style={{height: hp('50'), width: wp('60')}}
-          />
-        </Animated.View>
-      </Pressable>
+      {/* {imageState && CustomImageView()} */}
+      {fadeAnim != 0 && (
+        <View style={{...styles.CustomImageContainerBottom, zIndex: zIndex}}>
+          {CustomImageView()}
+        </View>
+      )}
     </View>
   );
 };
