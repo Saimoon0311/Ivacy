@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  Pressable,
+  Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';

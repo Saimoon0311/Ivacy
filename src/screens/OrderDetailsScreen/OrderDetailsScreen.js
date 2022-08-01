@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   Image,
   Linking,
+  Pressable,
+  Animated,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useSelector} from 'react-redux';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {color} from '../../components/color';
@@ -45,6 +47,79 @@ const OrderDetailsScreen = ({navigation}) => {
   const [isloading, setIsloading] = useState(true);
 
   const {userData} = useSelector(state => state.userData);
+
+  const [imageState, setImageState] = useState(false);
+  const [imageNameState, setImageNameState] = useState('');
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  console.log('start', fadeAnim);
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 5000,
+      useNativeDriver: true, // Add This line
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+      useNativeDriver: true, // Add This line
+    }).start();
+  };
+  const CustomImageView = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+
+    return (
+      <Pressable
+        style={{position: 'absolute', backgroundColor: 'red'}}
+        onPress={() => fadeOut()}>
+        <Animated.View
+          style={{
+            ...styles.CustomImageConatainer,
+            opacity: fadeAnim,
+            // position: 'absolute',
+          }}
+          // style={[
+          //   styles.fadingContainer,
+          //   {
+          //     // Bind opacity to animated value
+          //     opacity: fadeAnim,
+          //   },
+          // ]}
+          // style={{
+          //   // Bind opacity to animated value
+          //   opacity: fadeAnim,
+          // }}
+        >
+          {/* <Pressable
+          // style={styles.CustomImageConatainer}
+          // onLongPress={() => {
+          //   setImageState(false);
+          //   console.log(6265646, imageState);
+          //   // setTimeout(() => {
+          //   // }, 2000);
+          // }}
+          onPress={() => {
+            setImageState(false);
+            // setTimeout(() => {
+            //   console.log(62, imageState);
+            // }, 3000);
+            fadeOut();
+          }}> */}
+          <Image
+            source={{uri: imageNameState}}
+            resizeMode="contain"
+            style={{height: hp('50'), width: wp('60')}}
+          />
+          {/* </Pressable> */}
+        </Animated.View>
+      </Pressable>
+    );
+  };
 
   const _updateSections = e => {
     setActiveSession(e);
@@ -119,13 +194,22 @@ const OrderDetailsScreen = ({navigation}) => {
           />
           <View style={styles.parentCardRow}>
             <Text style={styles.parentCarddTextStyle}>Guider Image</Text>
-            <Image
-              resizeMode="contain"
-              style={{height: hp('4'), borderRadius: 7, width: wp('10')}}
-              source={{
-                uri: User_Image_Url + item?.get_journey_guider?.avatar,
-              }}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                setImageNameState(
+                  User_Image_Url + item?.get_journey_guider?.avatar,
+                ),
+                  setImageState(true),
+                  fadeIn();
+              }}>
+              <Image
+                resizeMode="contain"
+                style={{height: hp('4'), borderRadius: 5, width: wp('10')}}
+                source={{
+                  uri: User_Image_Url + item?.get_journey_guider?.avatar,
+                }}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.parentCardIconHolder}>
@@ -273,8 +357,53 @@ const OrderDetailsScreen = ({navigation}) => {
           {RenderAccordian()}
         </ScrollView>
       )}
+      {/* {imageState && CustomImageView()} */}
+      {console.log(fadeAnim, 360)}
+      {fadeAnim != 0 ? CustomImageView() : null}
     </View>
   );
 };
 
 export default OrderDetailsScreen;
+{
+  /* <Pressable onPress={() => fadeOut()}>
+<Animated.View
+  // style={{ ...styles.CustomImageConatainer, opacity: fadeAnim }}
+  style={[
+    styles.fadingContainer,
+    {
+      // Bind opacity to animated value
+      opacity: fadeAnim,
+    },
+  ]}
+  // style={{
+  //   // Bind opacity to animated value
+  //   opacity: fadeAnim,
+  // }}
+>
+  {/* <Pressable
+// style={styles.CustomImageConatainer}
+// onLongPress={() => {
+//   setImageState(false);
+//   console.log(6265646, imageState);
+//   // setTimeout(() => {
+//   // }, 2000);
+// }}
+onPress={() => {
+setImageState(false);
+// setTimeout(() => {
+//   console.log(62, imageState);
+// }, 3000);
+fadeOut();
+}}> */
+}
+// <Image
+//   source={{uri: imageNameState}}
+//   resizeMode="contain"
+//   style={{height: hp('50'), width: wp('60')}}
+// />
+{
+  /* </Pressable> */
+}
+// </Animated.View>
+// </Pressable> */}

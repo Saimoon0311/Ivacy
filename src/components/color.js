@@ -18,5 +18,6 @@ export const color = {
   badgeColor: '#FF2D2D',
   lightView: '#DACBFA',
   ThankYouColor: '#8161C8',
+  mapColor: 'rgba(255, 255, 255  ,0.6)',
   orderBoxColor: '#8561D3',
 };
