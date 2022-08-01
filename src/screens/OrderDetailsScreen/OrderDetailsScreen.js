@@ -50,14 +50,17 @@ const OrderDetailsScreen = ({navigation}) => {
 
   const [imageState, setImageState] = useState(false);
   const [imageNameState, setImageNameState] = useState('');
+  const [zIndex, setZIndex] = useState(-1);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  // const [fadeAnim, setFadeAnim] = useState(new Animated.Value(0));
   console.log('start', fadeAnim);
 
   const fadeIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
+    setZIndex(1);
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 5000,
+      duration: 2000,
       useNativeDriver: true, // Add This line
     }).start();
   };
@@ -66,60 +69,63 @@ const OrderDetailsScreen = ({navigation}) => {
     // Will change fadeAnim value to 0 in 3 seconds
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: 3000,
+      duration: 2000,
       useNativeDriver: true, // Add This line
     }).start();
+    setTimeout(() => {
+      setZIndex(-1);
+    }, 2000);
   };
-  const CustomImageView = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
+  // const CustomImageView = () => {
+  //   // Will change fadeAnim value to 1 in 5 seconds
 
-    return (
-      <Pressable
-        style={{position: 'absolute', backgroundColor: 'red'}}
-        onPress={() => fadeOut()}>
-        <Animated.View
-          style={{
-            ...styles.CustomImageConatainer,
-            opacity: fadeAnim,
-            // position: 'absolute',
-          }}
-          // style={[
-          //   styles.fadingContainer,
-          //   {
-          //     // Bind opacity to animated value
-          //     opacity: fadeAnim,
-          //   },
-          // ]}
-          // style={{
-          //   // Bind opacity to animated value
-          //   opacity: fadeAnim,
-          // }}
-        >
-          {/* <Pressable
-          // style={styles.CustomImageConatainer}
-          // onLongPress={() => {
-          //   setImageState(false);
-          //   console.log(6265646, imageState);
-          //   // setTimeout(() => {
-          //   // }, 2000);
-          // }}
-          onPress={() => {
-            setImageState(false);
-            // setTimeout(() => {
-            //   console.log(62, imageState);
-            // }, 3000);
-            fadeOut();
-          }}> */}
-          <Image
-            source={{uri: imageNameState}}
-            resizeMode="contain"
-            style={{height: hp('50'), width: wp('60')}}
-          />
-          {/* </Pressable> */}
-        </Animated.View>
-      </Pressable>
-    );
-  };
+  //   return (
+  //     <Pressable
+  //       style={{position: 'absolute', backgroundColor: 'red'}}
+  //       onPress={() => fadeOut()}>
+  //       <Animated.View
+  //         style={{
+  //           ...styles.CustomImageConatainer,
+  //           opacity: fadeAnim,
+  //           // position: 'absolute',
+  //         }}
+  //         // style={[
+  //         //   styles.fadingContainer,
+  //         //   {
+  //         //     // Bind opacity to animated value
+  //         //     opacity: fadeAnim,
+  //         //   },
+  //         // ]}
+  //         // style={{
+  //         //   // Bind opacity to animated value
+  //         //   opacity: fadeAnim,
+  //         // }}
+  //       >
+  //         {/* <Pressable
+  //         // style={styles.CustomImageConatainer}
+  //         // onLongPress={() => {
+  //         //   setImageState(false);
+  //         //   console.log(6265646, imageState);
+  //         //   // setTimeout(() => {
+  //         //   // }, 2000);
+  //         // }}
+  //         onPress={() => {
+  //           setImageState(false);
+  //           // setTimeout(() => {
+  //           //   console.log(62, imageState);
+  //           // }, 3000);
+  //           fadeOut();
+  //         }}> */}
+  //         <Image
+  //           source={{uri: imageNameState}}
+  //           resizeMode="contain"
+  //           style={{height: hp('50'), width: wp('60')}}
+  //         />
+  //         {/* </Pressable> */}
+  //       </Animated.View>
+  //     </Pressable>
+  //   );
+  // };
 
   const _updateSections = e => {
     setActiveSession(e);
@@ -358,53 +364,28 @@ const OrderDetailsScreen = ({navigation}) => {
           {RenderAccordian()}
         </ScrollView>
       )}
-      {/* {imageState && CustomImageView()} */}
-      {console.log(fadeAnim, 360)}
-      {fadeAnim != 0 ? CustomImageView() : null}
+      <Pressable
+        style={{...styles.CustomImageConatainer, zIndex: zIndex}}
+        onPress={() => fadeOut()}>
+        <Animated.View
+          // style={{ ...styles.CustomImageConatainer, opacity: fadeAnim }}
+          // style={[
+          //   styles.fadingContainer,
+          //   {
+          //     // Bind opacity to animated value
+          //     opacity: fadeAnim,
+          //   },
+          // ]}
+          style={{opacity: fadeAnim}}>
+          <Image
+            source={{uri: imageNameState}}
+            resizeMode="contain"
+            style={{height: hp('50'), width: wp('60')}}
+          />
+        </Animated.View>
+      </Pressable>
     </View>
   );
 };
 
 export default OrderDetailsScreen;
-{
-  /* <Pressable onPress={() => fadeOut()}>
-<Animated.View
-  // style={{ ...styles.CustomImageConatainer, opacity: fadeAnim }}
-  style={[
-    styles.fadingContainer,
-    {
-      // Bind opacity to animated value
-      opacity: fadeAnim,
-    },
-  ]}
-  // style={{
-  //   // Bind opacity to animated value
-  //   opacity: fadeAnim,
-  // }}
->
-  {/* <Pressable
-// style={styles.CustomImageConatainer}
-// onLongPress={() => {
-//   setImageState(false);
-//   console.log(6265646, imageState);
-//   // setTimeout(() => {
-//   // }, 2000);
-// }}
-onPress={() => {
-setImageState(false);
-// setTimeout(() => {
-//   console.log(62, imageState);
-// }, 3000);
-fadeOut();
-}}> */
-}
-// <Image
-//   source={{uri: imageNameState}}
-//   resizeMode="contain"
-//   style={{height: hp('50'), width: wp('60')}}
-// />
-{
-  /* </Pressable> */
-}
-// </Animated.View>
-// </Pressable> */}
