@@ -226,7 +226,6 @@ const OrderDetailsScreen = ({navigation}) => {
 
   const GetOrderDetailFunc = () => {
     ApiGet(url, userData.access_token).then(res => {
-      console.log(url, 2288);
       if (res.status == 200) {
         setOrderDetailsState(res.json.data);
         setIsloading(false);
