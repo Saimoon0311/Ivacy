@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  FlatList,
   ScrollView,
   TouchableOpacity,
   Image,
@@ -29,18 +28,10 @@ import {
   errorMessage,
   successMessage,
 } from '../../components/NotificationMessage';
-import {globalStyles} from '../../config/globalStyles';
 import moment from 'moment';
 import {SkypeIndicator} from 'react-native-indicators';
 import {NoDataView} from '../../components/NoDataView/noDataView';
 
-// import StarRating from 'react-native-star-rating';
-// import {ApiGet} from '../../config/helperFunction';
-// import {ReviewUrl} from '../../config/Urls';
-// import {errorMessage} from '../../components/NotificationMessage';
-// import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-// import moment from 'moment';
-// import {useIsFocused} from '@react-navigation/native';
 const OrderDetailsScreen = ({navigation}) => {
   const [activeSession, setActiveSession] = useState([]);
   const [orderDetailsState, setOrderDetailsState] = useState([]);
@@ -51,73 +42,46 @@ const OrderDetailsScreen = ({navigation}) => {
   const [imageState, setImageState] = useState(false);
   const [imageNameState, setImageNameState] = useState('');
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  console.log('start', fadeAnim);
+  const [zIndex, setzIndex] = useState(-1);
 
+  const openImage = url => {
+    setImageNameState(url);
+    setImageState(true);
+  };
   const fadeIn = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
+    setzIndex(1);
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 5000,
-      useNativeDriver: true, // Add This line
+      duration: 2000,
+      useNativeDriver: true,
     }).start();
   };
-
   const fadeOut = () => {
-    // Will change fadeAnim value to 0 in 3 seconds
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: 3000,
-      useNativeDriver: true, // Add This line
+      duration: 2000,
+      useNativeDriver: true,
     }).start();
+    setTimeout(() => {
+      setzIndex(-1);
+    }, 2000);
   };
   const CustomImageView = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
-
     return (
-      <Pressable
-        style={{position: 'absolute', backgroundColor: 'red'}}
-        onPress={() => fadeOut()}>
-        <Animated.View
-          style={{
-            ...styles.CustomImageConatainer,
-            opacity: fadeAnim,
-            // position: 'absolute',
-          }}
-          // style={[
-          //   styles.fadingContainer,
-          //   {
-          //     // Bind opacity to animated value
-          //     opacity: fadeAnim,
-          //   },
-          // ]}
-          // style={{
-          //   // Bind opacity to animated value
-          //   opacity: fadeAnim,
-          // }}
-        >
-          {/* <Pressable
-          // style={styles.CustomImageConatainer}
-          // onLongPress={() => {
-          //   setImageState(false);
-          //   console.log(6265646, imageState);
-          //   // setTimeout(() => {
-          //   // }, 2000);
-          // }}
+      <Animated.View style={{opacity: fadeAnim}}>
+        <Pressable
           onPress={() => {
             setImageState(false);
-            // setTimeout(() => {
-            //   console.log(62, imageState);
-            // }, 3000);
             fadeOut();
-          }}> */}
+          }}
+          style={styles.CustomImageContainer}>
           <Image
-            source={{uri: imageNameState}}
             resizeMode="contain"
-            style={{height: hp('50'), width: wp('60')}}
+            style={{height: hp('50'), width: wp('60'), borderRadius: 20}}
+            source={{uri: imageNameState}}
           />
-          {/* </Pressable> */}
-        </Animated.View>
-      </Pressable>
+        </Pressable>
+      </Animated.View>
     );
   };
 
@@ -196,11 +160,8 @@ const OrderDetailsScreen = ({navigation}) => {
             <Text style={styles.parentCarddTextStyle}>Guider Image</Text>
             <TouchableOpacity
               onPress={() => {
-                setImageNameState(
-                  User_Image_Url + item?.get_journey_guider?.avatar,
-                ),
-                  setImageState(true),
-                  fadeIn();
+                openImage(User_Image_Url + item?.get_journey_guider?.avatar);
+                fadeIn();
               }}>
               <Image
                 resizeMode="contain"
@@ -358,8 +319,11 @@ const OrderDetailsScreen = ({navigation}) => {
         </ScrollView>
       )}
       {/* {imageState && CustomImageView()} */}
-      {console.log(fadeAnim, 360)}
-      {fadeAnim != 0 ? CustomImageView() : null}
+      {fadeAnim != 0 && (
+        <View style={{...styles.CustomImageContainerBottom, zIndex: zIndex}}>
+          {CustomImageView()}
+        </View>
+      )}
     </View>
   );
 };
