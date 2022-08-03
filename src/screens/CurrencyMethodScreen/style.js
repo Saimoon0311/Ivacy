@@ -68,4 +68,5 @@ export const styles = StyleSheet.create({
     bottom: 0,
     zIndex: 1,
   },
+  loadingText: {color: 'white', fontSize: hp('3'), fontWeight: 'bold'},
 });

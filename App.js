@@ -37,7 +37,6 @@ function App() {
   //     announcement: true,
   //     provisional: true,
   //   });
-  // Moralis.setAsyncStorage(AsyncStorage);
   // if (openSettingsForNotifications) {
   //   navigate('showNotificationScreen');
   // }
@@ -56,17 +55,18 @@ function App() {
   //     }
   //   });
   // }, []);
+  Moralis.setAsyncStorage(AsyncStorage);
   return (
-    // <MoralisProvider
-    //   appId="qztkryZsOSEruTtDyIaahhDovw9yMzX6DOh5ZlBw"
-    //   serverUrl="https://mkenw9w6anse.usemoralis.com:2053/server">
-    <Provider store={store}>
-      <PersistGate persistor={persistor} loading={null}>
-        <AppTwo />
-        <FlashMessage position="top" />
-      </PersistGate>
-    </Provider>
-    // </MoralisProvider>
+    <MoralisProvider
+      appId="qztkryZsOSEruTtDyIaahhDovw9yMzX6DOh5ZlBw"
+      serverUrl="https://mkenw9w6anse.usemoralis.com:2053/server">
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
+          <AppTwo />
+          <FlashMessage position="top" />
+        </PersistGate>
+      </Provider>
+    </MoralisProvider>
   );
 }
 

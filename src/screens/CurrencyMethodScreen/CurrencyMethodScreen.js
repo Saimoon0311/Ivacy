@@ -2,7 +2,6 @@ import {
   TouchableOpacity,
   Text,
   View,
-  ImageBackground,
   Image,
   ActivityIndicator,
   Modal,
@@ -10,16 +9,9 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './style';
-import {
-  StripeProvider,
-  CardField,
-  useStripe,
-  useConfirmPayment,
-} from '@stripe/stripe-react-native';
+import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import {
   AfterStripeUrl,
-  CryptoPayUrl,
-  StripePayIntent,
   StripePayIntentUrl,
   StripePublishKey,
 } from '../../config/Urls';
@@ -33,10 +25,15 @@ import {ApiPost} from '../../config/helperFunction';
 import {WebView} from 'react-native-webview';
 import {useMoralis} from 'react-moralis';
 import {useEffect} from 'react';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Moralis} from 'moralis';
+import * as Animatable from 'react-native-animatable';
+const AsyncStorage =
+  require('@react-native-async-storage/async-storage').useAsyncStorage;
 
 const CurrencyMethodScreen = ({route, navigation}) => {
-  // const {authenticate, isAuthenticated, user, isAuthenticating, authError} =
-  //   useMoralis();
+  const {authenticate, isAuthenticated, user, isAuthenticating, authError} =
+    useMoralis();
   const {userData} = useSelector(state => state.userData);
   const item = route.params;
   const {initPaymentSheet, presentPaymentSheet, retrievePaymentIntent} =
@@ -120,18 +117,19 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         setIsloading(false);
         errorMessage('Unable to fatch data.');
         alert(
-          `Soem error acoures Your StripeId is ${paymentIntent.id} Plaese contact to Admin.`,
+          `Some error acoures Your StripeId is ${paymentIntent.id} Plaese contact to Admin.`,
         );
       }
     });
   };
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     console.log('dfghj', authError, user);
-  //   } else {
-  //     console.log(131, user.getUsername());
-  //   }
-  // }, [isAuthenticating]);
+  useEffect(() => {
+    Moralis.setAsyncStorage(AsyncStorage);
+    if (!isAuthenticated) {
+      console.log('werwr', authError, user);
+    } else {
+      console.log(131, user.getUsername());
+    }
+  }, [isAuthenticating]);
   return (
     <StripeProvider publishableKey={StripePublishKey}>
       {isloading && (
@@ -141,44 +139,58 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             color="white"
             style={{alignSelf: 'center'}}
           />
-          <Text style={{color: 'white', fontSize: hp('3'), fontWeight: 'bold'}}>
-            Loading...
-          </Text>
+          <Text style={styles.loadingText}>Loading...</Text>
         </View>
       )}
       <View style={styles.container}>
         <View style={styles.paymenttextstyle}>
-          <Text style={styles.text2}>Choose Payment Method</Text>
+          <Animatable.Text
+            animation="fadeInRightBig"
+            direction={'normal'}
+            delay={100}
+            style={styles.text2}>
+            Choose Payment Method
+          </Animatable.Text>
         </View>
         <View style={styles.InnerContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              errorMessage('This Feature is still on development.');
-              // authenticate();
-              // errorMessage('Currently this feature is in working ');
-              // setWebView(true);
-              // navigation.navigate('ThankYouScreen');
-            }}
-            style={styles.boxContainer}>
-            <Text style={styles.text}>Crypto</Text>
-            <Image
-              style={styles.image}
-              source={require('../../images/bitcoin.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              setIsloading(true);
-              startPaymentProcess();
-            }}
-            style={styles.boxContainer}>
-            <Text style={styles.text}>Visa</Text>
-            <Image
-              resizeMode="contain"
-              style={styles.image}
-              source={require('../../images/creditcard.png')}
-            />
-          </TouchableOpacity>
+          <Animatable.View
+            animation="fadeInLeftBig"
+            direction={'normal'}
+            delay={200}>
+            <TouchableOpacity
+              onPress={() => {
+                // errorMessage('This Feature is still on development.');
+                authenticate();
+                // errorMessage('Currently this feature is in working ');
+                // setWebView(true);
+                // navigation.navigate('ThankYouScreen');
+              }}
+              style={styles.boxContainer}>
+              <Text style={styles.text}>Crypto</Text>
+              <Image
+                style={styles.image}
+                source={require('../../images/bitcoin.png')}
+              />
+            </TouchableOpacity>
+          </Animatable.View>
+          <Animatable.View
+            animation="fadeInUpBig"
+            direction={'normal'}
+            delay={300}>
+            <TouchableOpacity
+              onPress={() => {
+                setIsloading(true);
+                startPaymentProcess();
+              }}
+              style={styles.boxContainer}>
+              <Text style={styles.text}>Visa</Text>
+              <Image
+                resizeMode="contain"
+                style={styles.image}
+                source={require('../../images/creditcard.png')}
+              />
+            </TouchableOpacity>
+          </Animatable.View>
         </View>
         {/* {isAuthenticated && <Text>Welcome {user.get('username')}</Text>} */}
       </View>
