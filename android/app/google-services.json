@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:470465860060:android:cf78d3a9a15a0966437f19",
         "android_client_info": {
-          "package_name": "com.ivacy"
+          "package_name": "com.ivacay"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "470465860060-va42dr6od8ooi1hltuasj1jngnqjj00t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.ivacy",
+            "package_name": "com.ivacay",
             "certificate_hash": "aa461c956f2cf37b1019599e6fa14f5a5b8e3faf"
           }
         },
