@@ -32,21 +32,21 @@ const slides = [
     image: require('../../images/Onboard1.png'),
     title: 'Pay with Crypto.',
     subtitle:
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est',
+      'You can make Payments with some Service Providers with Crypto Currency where available. Download and Connect your Crypto Wallet to pay for your services. Currently Metamask is our wallet of choice. We also offer debit and credit card as alternative payment methods.',
   },
   {
     id: '2',
     image: require('../../images/Onboard2.png'),
     title: 'Find new places',
     subtitle:
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est',
+      'Connect with Local Tour Guides for your vacation and Entertainment needs. Private & Group tours available. Discover hidden gateways and create memorable experiences.',
   },
   {
     id: '3',
     image: require('../../images/Onboard3.png'),
     title: 'Communicate with friends',
     subtitle:
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est',
+      'Find & share your favorite restaurants, activities, attractions, places to stay, shopping and connect with your friends!',
   },
 ];
 
@@ -89,8 +89,9 @@ const OnboardingScreen = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-            // marginTop: 10,
+            // marginTop: hp('8'),
             paddingLeft: wp('28'),
+            // marginBottom: hp('-8'),
           }}>
           {/* Render indicator */}
           {currentSlideIndex != 2 &&
@@ -109,12 +110,11 @@ const OnboardingScreen = ({navigation}) => {
             ))}
         </View>
 
-        <View>
+        <View style={{marginBottom: hp('-4'), marginTop: hp('4')}}>
           {currentSlideIndex == slides.length - 1 ? (
             <View
               style={{
-                marginLeft: wp('15'),
-                marginTop: hp('-10'),
+                marginLeft: wp('19'),
               }}>
               <TouchableOpacity
                 style={styles.getStartedBtn}
@@ -188,7 +188,8 @@ const OnboardingScreen = ({navigation}) => {
           <View
             style={{
               position: 'absolute',
-              bottom: hp('-8'),
+              bottom: hp('-15'),
+              // backgroundColor: 'red',
             }}>
             {Footer()}
           </View>
