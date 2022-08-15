@@ -114,6 +114,20 @@ const LoginScreen = ({route, navigation}) => {
       <ImageBackground
         style={styles.backgroundImage}
         source={require('../../images/background.png')}>
+        <TouchableOpacity
+          style={{
+            top: hp('2'),
+            left: wp('2'),
+            zIndex: 1,
+          }}
+          onPress={() => {
+            navigation.goBack();
+            console.log('ysfdhsdv');
+          }}>
+          <Text style={{color: 'white', fontSize: hp('2'), fontWeight: 'bold'}}>
+            Go Back
+          </Text>
+        </TouchableOpacity>
         <ScrollView
           contentContainerStyle={{paddingBottom: isKeyboardVisible}}
           showsVerticalScrollIndicator={false}>

@@ -21,9 +21,8 @@ import {
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
 import {CountryNameUrl, IMAGE_BASED_URL} from '../../config/Urls';
 import {ApiGet} from '../../config/helperFunction';
-import {showMessage} from 'react-native-flash-message';
 import {errorMessage} from '../../components/NotificationMessage';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 const PackageDetailScreen = ({route, navigation}) => {
   const [countryPicker, setCountryPicker] = useState([]);
 
@@ -63,11 +62,25 @@ const PackageDetailScreen = ({route, navigation}) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('35')}}>
         <View style={styles.container}>
+          <TouchableOpacity
+            style={{
+              top: hp('2'),
+              left: wp('2'),
+              position: 'absolute',
+              zIndex: 1,
+            }}
+            onPress={() => {
+              navigation.goBack();
+              console.log('ysfdhsdv');
+            }}>
+            <Ionicons name="arrow-back" color={'white'} size={hp('2')} />
+          </TouchableOpacity>
           <SliderBox
             imageLoadingColor={color.textBackgroundColor}
             ImageComponent={FastImage}
             images={imagesLegth}
             style={styles.flatListMainContainer}
+            arrow-back
             dotColor={color.textPrimaryColor}
             inactiveDotColor="#90A4AE"
             resizeMode={'cover'}

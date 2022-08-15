@@ -18,6 +18,7 @@ import MapViewScreen from './MapViewScreen/MapViewScreen';
 import GuiderHomeScreen from './Guider/GuiderHomeScreen/GuiderHomeScreen';
 import GuiderPackageDetailScreen from './Guider/GuiderPackageDetailScreen/GuiderPackageDetailScreen';
 import GuiderMapViewScreen from './Guider/GuiderMapViewScreen/GuiderMapViewScreen';
+import DeleteAccountScreen from './DeleteAccountScreen/deleteAccountScreen';
 
 export const screens = {
   OnboardingScreen,
@@ -40,4 +41,5 @@ export const screens = {
   OrderDetailsScreen,
   GuiderPackageDetailScreen,
   GuiderMapViewScreen,
+  DeleteAccountScreen,
 };

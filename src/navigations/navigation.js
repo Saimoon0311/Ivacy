@@ -79,6 +79,10 @@ export default function StackNavigatior() {
           name="GuiderMapViewScreen"
           component={screens.GuiderMapViewScreen}
         />
+        <Stack.Screen
+          name="DeleteAccountScreen"
+          component={screens.DeleteAccountScreen}
+        />
       </Stack.Navigator>
     </>
   );

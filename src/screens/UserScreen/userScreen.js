@@ -108,6 +108,12 @@ const userScreen = ({navigation}) => {
           text={'Rate us'}
         />
         <TextImageComponent
+          onPress={() => navigation.navigate('DeleteAccountScreen')}
+          iconName={'trash-outline'}
+          text={'Delete Your Account'}
+          textcolor={'red'}
+        />
+        <TextImageComponent
           onPress={logoutFun}
           iconName={'log-in-outline'}
           textcolor={color.textThirdColor}

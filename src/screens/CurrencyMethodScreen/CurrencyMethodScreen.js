@@ -28,12 +28,12 @@ import {useEffect} from 'react';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Moralis} from 'moralis';
 import * as Animatable from 'react-native-animatable';
-const AsyncStorage =
-  require('@react-native-async-storage/async-storage').useAsyncStorage;
+// const AsyncStorage =
+//   require('@react-native-async-storage/async-storage').useAsyncStorage;
 
 const CurrencyMethodScreen = ({route, navigation}) => {
-  const {authenticate, isAuthenticated, user, isAuthenticating, authError} =
-    useMoralis();
+  // const {authenticate, isAuthenticated, user, isAuthenticating, authError} =
+  //   useMoralis();
   const {userData} = useSelector(state => state.userData);
   const item = route.params;
   const {initPaymentSheet, presentPaymentSheet, retrievePaymentIntent} =
@@ -122,14 +122,14 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       }
     });
   };
-  useEffect(() => {
-    Moralis.setAsyncStorage(AsyncStorage);
-    if (!isAuthenticated) {
-      console.log('werwr', authError, user);
-    } else {
-      console.log(131, user.getUsername());
-    }
-  }, [isAuthenticating]);
+  // useEffect(() => {
+  //   Moralis.setAsyncStorage(AsyncStorage);
+  //   if (!isAuthenticated) {
+  //     console.log('werwr', authError, user);
+  //   } else {
+  //     console.log(131, user.getUsername());
+  //   }
+  // }, [isAuthenticating]);
   return (
     <StripeProvider publishableKey={StripePublishKey}>
       {isloading && (
@@ -159,8 +159,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             delay={200}>
             <TouchableOpacity
               onPress={() => {
-                // errorMessage('This Feature is still on development.');
-                authenticate();
+                errorMessage('This Feature is still on development.');
+                // authenticate();
                 // errorMessage('Currently this feature is in working ');
                 // setWebView(true);
                 // navigation.navigate('ThankYouScreen');
