@@ -50,6 +50,7 @@ const HomeScreen = ({navigation}) => {
     });
   }, []);
   const {userData} = useSelector(state => state.userData);
+  console.log(99, userData);
   const [allPackage, setAllPackage] = useState({
     latestPackage: [],
     getCountryData: [],

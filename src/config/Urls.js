@@ -27,3 +27,4 @@ export const StripePublishKey =
 export const AboutTheApp = API_About_Us_URL + 'about-us';
 export const OrderDetailUrl = getApi('journey-order-details/');
 export const GuiderBookPackageUrl = getApi('guider-booked-packages');
+export const DeleteAccountUrl = getApi('delete-account/');

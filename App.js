@@ -4,12 +4,13 @@ import AppTwo from './AppTwo';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from './src/Redux/Reducer/index';
+import {NativeBaseProvider, Box} from 'native-base';
 import messaging from '@react-native-firebase/messaging';
 import firebase from '@react-native-firebase/app';
 import {useEffect} from 'react';
-import {MoralisProvider} from 'react-moralis';
+// import {MoralisProvider} from 'react-moralis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Moralis} from 'moralis';
+// import {Moralis} from 'moralis';
 import TestWallet from './testWallet';
 
 function App() {
@@ -56,21 +57,23 @@ function App() {
   //     }
   //   });
   // }, []);
-  Moralis.setAsyncStorage(AsyncStorage);
-  return <TestWallet />;
+  // Moralis.setAsyncStorage(AsyncStorage);
+  // return <TestWallet />;
+  // }
+  return (
+    // <MoralisProvider
+    //   appId="qztkryZsOSEruTtDyIaahhDovw9yMzX6DOh5ZlBw"
+    //   serverUrl="https://mkenw9w6anse.usemoralis.com:2053/server">
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <NativeBaseProvider>
+          <AppTwo />
+        </NativeBaseProvider>
+        <FlashMessage position="top" />
+      </PersistGate>
+    </Provider>
+    // {/* </MoralisProvider> */}
+  );
 }
-//   return (
-//     <MoralisProvider
-//       appId="qztkryZsOSEruTtDyIaahhDovw9yMzX6DOh5ZlBw"
-//       serverUrl="https://mkenw9w6anse.usemoralis.com:2053/server">
-//       <Provider store={store}>
-//         <PersistGate persistor={persistor} loading={null}>
-//           <AppTwo />
-//           <FlashMessage position="top" />
-//         </PersistGate>
-//       </Provider>
-//     </MoralisProvider>
-//   );
-// }
 
 export default App;

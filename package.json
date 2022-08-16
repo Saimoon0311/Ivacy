@@ -12,7 +12,7 @@
     "androidBuild": "cd android && ./gradlew assembleRelease",
     "androidAdb": "cd android && ./gradlew bundleRelease",
     "iosInstall": "cd ios && pod install",
-    "gradlewClean" : "cd android && ./gradlew clean"
+    "gradlewClean": "cd android && ./gradlew clean"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -34,13 +34,13 @@
     "intl": "^1.2.5",
     "lottie-react-native": "^5.1.3",
     "moment": "^2.29.3",
-    "moralis": "^1.10.0",
+    "native-base": "^3.4.12",
     "react": "17.0.2",
-    "react-moralis": "^1.4.0",
     "react-native": "0.68.2",
     "react-native-animatable": "^1.3.3",
     "react-native-awesome-alerts": "^2.0.0",
     "react-native-background-fetch": "^4.1.1",
+    "react-native-bottomsheet-reanimated": "^0.2.0",
     "react-native-collapsible": "^1.6.0",
     "react-native-fast-image": "^8.5.11",
     "react-native-flash-message": "^0.2.1",

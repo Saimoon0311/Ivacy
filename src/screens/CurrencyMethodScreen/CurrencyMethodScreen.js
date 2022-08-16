@@ -23,10 +23,11 @@ import {
 import {errorMessage} from '../../components/NotificationMessage';
 import {ApiPost} from '../../config/helperFunction';
 import {WebView} from 'react-native-webview';
-import {useMoralis} from 'react-moralis';
+// import {useMoralis} from 'react-moralis';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useEffect} from 'react';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Moralis} from 'moralis';
+// import {Moralis} from 'moralis';
 import * as Animatable from 'react-native-animatable';
 // const AsyncStorage =
 //   require('@react-native-async-storage/async-storage').useAsyncStorage;
@@ -143,6 +144,13 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         </View>
       )}
       <View style={styles.container}>
+        <Ionicons
+          style={{top: hp('6'), left: wp('5')}}
+          color={'black'}
+          size={hp('4')}
+          name="arrow-back"
+          onPress={() => navigation.goBack()}
+        />
         <View style={styles.paymenttextstyle}>
           <Animatable.Text
             animation="fadeInRightBig"
