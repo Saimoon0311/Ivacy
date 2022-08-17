@@ -142,7 +142,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 2
-        versionName "1.1"
+        versionName "1.2"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -274,7 +274,7 @@ dependencies {
     //  compile project(':react-native-vector-icons')
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
-
+implementation project(':react-native-restart')
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 implementation project(':react-native-vector-icons')

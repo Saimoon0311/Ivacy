@@ -48,7 +48,7 @@ const LoginScreen = ({route, navigation}) => {
       <AwesomeAlert
         show={alertState}
         showProgress={false}
-        title="Warning"
+        title="Warning!"
         message="Account deletion is in process, please verify your email to delete your ivacay account."
         contentContainerStyle={{
           width: wp('80%'),

@@ -17,14 +17,16 @@ import {color} from '../../components/color';
 import {SkypeIndicator} from 'react-native-indicators';
 // import {Checkbox} from 'react-native-paper';
 import {Checkbox} from 'native-base';
-import {ApiGet} from '../../config/helperFunction';
-import {DeleteAccountUrl} from '../../config/Urls';
+import {ApiGet, ApiPost} from '../../config/helperFunction';
+import {DeleteAccountUrl, LogoutUrl} from '../../config/Urls';
 import {useDispatch, useSelector} from 'react-redux';
-import types from '../../Redux/type';
 import {
   errorMessage,
   successMessage,
 } from '../../components/NotificationMessage';
+import {store} from '../../Redux/Reducer';
+import RNRestart from 'react-native-restart';
+import types from '../../Redux/type';
 
 const DeleteAccountScreen = ({navigation}) => {
   const {userData} = useSelector(state => state.userData);
@@ -38,17 +40,26 @@ const DeleteAccountScreen = ({navigation}) => {
     "For security reasons, we can't delete an account for you. You'll need to be able to log in to your account to request deletion. If you can't remember your password or email, take a look at some tips for logging in.",
     "Before deleting your account, you may want to log in and download a copy of your information (such as your photos and posts) from Ivacay. After your account has been deleted, you will not have access to Ivacay's Data Download tool.",
   ];
-  const DeleteAccount = () => {
+  const resetNavigation = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{name: 'TravGuiderScreen'}],
+      }),
+    );
+  };
+
+  const deleteAccountFun = () => {
     setLoading(true);
     let url = DeleteAccountUrl + userData.data.id;
     if (checkBox == true) {
       ApiGet(url).then(res => {
         if (res.status == 200) {
-          // setLoading(false);
           successMessage(res.json.message);
           dispatch({
             type: types.LogoutType,
           });
+          setLoading(false);
         } else if (res.status == 404) {
           errorMessage('Something went wrong.');
           setLoading(false);
@@ -62,43 +73,7 @@ const DeleteAccountScreen = ({navigation}) => {
       errorMessage('Please accept terms & condition.');
     }
   };
-  // function CheckBox({inputText, status, onPress}) {
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={onPress}
-  //       style={styles.checkBoxButtonContainer}>
-  //       <View
-  //         style={{
-  //           flexDirection: 'row',
-  //           alignItems: 'center',
-  //         }}>
-  //         <View
-  //           style={
-  //             Platform.OS == 'ios' && {
-  //               ...styles.checkStyle,
-  //               borderColor:
-  //                 checkBox == 'checked' ? color.textPrimaryColor : 'gray',
-  //               borderWidth: 1,
-  //               // borderWidth: checkBox == 'checked' ? 2 : 0.5,
-  //             }
-  //           }>
-  //           <Checkbox
-  //             status={status}
-  //             uncheckedColor={'black'}
-  //             color={color.textPrimaryColor}
-  //           />
-  //         </View>
-  //         <Text
-  //           style={{
-  //             fontWeight: 'bold',
-  //             color: checkBox == 'checked' ? color.textPrimaryColor : 'gray',
-  //           }}>
-  //           {inputText}
-  //         </Text>
-  //       </View>
-  //     </TouchableOpacity>
-  //   );
-  // }
+
   return (
     <View>
       <BackHeaderCom goBack={() => navigation.goBack()} text="Delete Account" />
@@ -138,7 +113,7 @@ const DeleteAccountScreen = ({navigation}) => {
             </Checkbox>
           </View>
           <TouchableOpacity
-            onPress={() => DeleteAccount()}
+            onPress={() => deleteAccountFun()}
             style={styles.btnContainer}>
             {loading ? (
               <SkypeIndicator

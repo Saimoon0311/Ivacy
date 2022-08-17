@@ -26,9 +26,10 @@ import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageC
 import {useCallback} from 'react';
 import {errorMessage} from '../../components/NotificationMessage';
 import LottieView from 'lottie-react-native';
+import types from '../../Redux/type';
 
 const HomeScreen = ({navigation}) => {
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
