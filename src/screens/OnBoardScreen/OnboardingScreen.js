@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ImageBackground,
+  Platform,
 } from 'react-native';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {color} from '../../components/color';
@@ -188,8 +189,7 @@ const OnboardingScreen = ({navigation}) => {
           <View
             style={{
               position: 'absolute',
-              bottom: hp('-15'),
-              // backgroundColor: 'red',
+              bottom: Platform.OS == 'android' ? hp('-10') : hp('-15'),
             }}>
             {Footer()}
           </View>

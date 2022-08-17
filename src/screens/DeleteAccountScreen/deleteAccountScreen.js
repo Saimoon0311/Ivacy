@@ -82,15 +82,9 @@ const DeleteAccountScreen = ({navigation}) => {
           paddingBottom: hp('10'),
         }}>
         <View style={styles.containerStyle}>
-          <TextInput
-            style={styles.destxtInputContainer}
-            value={userData?.data?.email}
-            onChangeText={email => setEmail(email)}
-            inputText="Email"
-            placeholder="mail@gmail.com"
-            placeholderTextColor={'gray'}
-            editable={false}
-          />
+          <Text style={styles.destxtInputContainer}>
+            {userData?.data?.email}
+          </Text>
           {warningList.map((res, i) => {
             return (
               <View style={styles.textContainer}>

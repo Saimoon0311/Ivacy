@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     marginTop: hp('2'),
     borderWidth: 1,
     paddingLeft: wp('3'),
+    textAlignVertical: 'center',
     fontSize: hp('2'),
     borderColor: color.textImagebackgroundColor,
   },
