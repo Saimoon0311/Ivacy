@@ -37,15 +37,16 @@ const PendingPackageScreen = ({route, navigation}) => {
         })}
       </Text> */}
       {/* <Text> */}
-      {PendingPackages.map(res => {
-        return (
-          <TouchableOpacity
-            style={{backgroundColor: 'yellow'}}
-            onPress={() => navigation.navigate('EtherumPaynemtScreen', item)}>
-            <Text>{res.id + ',' + res.screenOpenCount}</Text>
-          </TouchableOpacity>
-        );
-      })}
+      {PendingPackages.length > 0 &&
+        PendingPackages.map(res => {
+          return (
+            <TouchableOpacity
+              style={{backgroundColor: 'yellow'}}
+              onPress={() => navigation.navigate('EtherumPaynemtScreen', item)}>
+              <Text>{res.id + ',' + res.screenOpenCount}</Text>
+            </TouchableOpacity>
+          );
+        })}
       {/* </Text> */}
     </View>
   );
