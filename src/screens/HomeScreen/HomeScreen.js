@@ -51,7 +51,6 @@ const HomeScreen = ({navigation}) => {
     });
   }, []);
   const {userData} = useSelector(state => state.userData);
-  console.log(99, userData);
   const [allPackage, setAllPackage] = useState({
     latestPackage: [],
     getCountryData: [],
@@ -132,6 +131,9 @@ const HomeScreen = ({navigation}) => {
     getPackage();
     getCountryName();
     favoredSceneries();
+    dispatch({
+      type: types.DeleteAllPackages,
+    });
   }, []);
   // setTimeout(() => {
   //   updateLoadingState({pageLoading: false});

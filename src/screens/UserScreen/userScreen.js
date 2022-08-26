@@ -95,7 +95,13 @@ const userScreen = ({navigation}) => {
         <TextImageComponent
           onPress={() => navigation.navigate('OrderDetailsScreen')}
           iconName={'bookmark-outline'}
-          text={'My orders'}
+          text={'My booked orders'}
+        />
+        <TextImageComponent
+          onPress={() => navigation.navigate('PendingPackageScreen')}
+          iconName={'pending-actions'}
+          text={'My pending orders'}
+          icon={true}
         />
         <TextImageComponent
           onPress={() => Linking.openURL(AboutTheApp)}

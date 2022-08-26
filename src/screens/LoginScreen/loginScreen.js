@@ -108,7 +108,6 @@ const LoginScreen = ({route, navigation}) => {
         password: password,
       });
       ApiPost(LoginUrl, body, false).then(res => {
-        console.log(74, res);
         if (res.status == 200) {
           disptach({
             type: types.LoginType,
@@ -121,7 +120,6 @@ const LoginScreen = ({route, navigation}) => {
         ) {
           setLoading(false);
           setALertState(true);
-          // errorMessage(res.json.message);
         } else if (res.status == 401) {
           setLoading(false);
           errorMessage(res.json.message);

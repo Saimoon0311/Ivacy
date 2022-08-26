@@ -16,9 +16,8 @@ export const styles = StyleSheet.create({
     marginTop: hp('2'),
     borderWidth: 1,
     paddingLeft: wp('3'),
-    textAlignVertical: 'center',
-    fontSize: hp('2'),
     borderColor: color.textImagebackgroundColor,
+    justifyContent: 'center',
   },
   btnContainer: {
     backgroundColor: 'red',
@@ -26,15 +25,7 @@ export const styles = StyleSheet.create({
     height: hp('5'),
     alignSelf: 'center',
     borderRadius: 5,
-    // shadowColor: '#000',
     justifyContent: 'center',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    // elevation: 5,
     marginTop: hp('2'),
   },
   btn: {
@@ -91,4 +82,5 @@ export const styles = StyleSheet.create({
   checkBoxButtonContainer: {
     marginTop: hp('2'),
   },
+  emailStyle: {fontSize: hp('2'), color: 'black', fontWeight: 'bold'},
 });

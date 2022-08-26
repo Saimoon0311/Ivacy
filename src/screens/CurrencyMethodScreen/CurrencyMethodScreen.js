@@ -6,33 +6,41 @@ import {
   ActivityIndicator,
   Modal,
   Platform,
+  ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {styles} from './style';
 import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import {
   AfterStripeUrl,
+  ChangeEthValueUrl,
+  CheckEthValue,
   StripePayIntentUrl,
   StripePublishKey,
 } from '../../config/Urls';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {errorMessage} from '../../components/NotificationMessage';
-import {ApiPost} from '../../config/helperFunction';
-import {WebView} from 'react-native-webview';
+import {ApiGet, ApiPost} from '../../config/helperFunction';
+import BottomSheet from 'react-native-easy-bottomsheet';
+import RBSheet from 'react-native-raw-bottom-sheet';
 // import {useMoralis} from 'react-moralis';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {useEffect} from 'react';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {Moralis} from 'moralis';
 import * as Animatable from 'react-native-animatable';
+import {color} from '../../components/color';
+import types from '../../Redux/type';
 // const AsyncStorage =
 //   require('@react-native-async-storage/async-storage').useAsyncStorage;
 
 const CurrencyMethodScreen = ({route, navigation}) => {
+  const dispatch = useDispatch();
   // const {authenticate, isAuthenticated, user, isAuthenticating, authError} =
   //   useMoralis();
   const {userData} = useSelector(state => state.userData);
@@ -42,10 +50,19 @@ const CurrencyMethodScreen = ({route, navigation}) => {
   const [stripeData, setStripeData] = useState({
     clientSecret: '',
     stripeValue: '',
+    packageEthValue: '0',
+    packageData: item,
   });
-  const [webView, setWebView] = useState(false);
-  const [isloading, setIsloading] = useState(false);
-  const {stripeValue, clientSecret} = stripeData;
+  const [bottomSheet, setBottomSheet] = useState(false);
+  const [loading, setloading] = useState({
+    isloading: false,
+    bottomSheetLoading: true,
+  });
+  // const [packageEthValue, setPackageEthValue] = useState('0');
+  const {isloading, bottomSheetLoading} = loading;
+  const updateLoadingState = data => setloading(prev => ({...prev, ...data}));
+
+  const {stripeValue, clientSecret, packageEthValue, packageData} = stripeData;
   const updateState = data => setStripeData(prev => ({...prev, ...data}));
   const fetchClientSecret = async () => {
     let body = JSON.stringify({
@@ -59,7 +76,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
           updateState({stripeValue: res.json});
           initPaymentScreenStripe(res?.json.pi.client_secret);
         } else {
-          setIsloading(false);
+          updateLoadingState({isloading: false});
           errorMessage('Unable to fatch data.');
         }
       },
@@ -75,13 +92,13 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     });
     if (error) {
       errorMessage('Unable to fatch data.');
-      setIsloading(false);
+      updateLoadingState({isloading: false});
     } else {
       handlePayment(data);
     }
   };
   const startPaymentProcess = async () => {
-    setIsloading(true);
+    updateLoadingState({isloading: true});
     await fetchClientSecret();
   };
 
@@ -91,7 +108,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     });
     if (error) {
       errorMessage('Unable to fatch data.');
-      setIsloading(false);
+      updateLoadingState({isloading: false});
     } else {
       const {paymentIntent, error} = await retrievePaymentIntent(data);
       if (paymentIntent) {
@@ -112,16 +129,109 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     });
     ApiPost(AfterStripeUrl, body, false, userData.access_token).then(res => {
       if (res.status == 200) {
-        setIsloading(false);
+        updateLoadingState({isloading: false});
         navigation.navigate('ThankYouScreen', res.json.journey);
       } else {
-        setIsloading(false);
+        updateLoadingState({isloading: false});
         errorMessage('Unable to fatch data.');
         alert(
           `Some error acoures Your StripeId is ${paymentIntent.id} Plaese contact to Admin.`,
         );
       }
     });
+  };
+  const SheetLoadingView = () => {
+    return (
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ActivityIndicator size={'large'} color="rgba(42,42,42,0.6)" />
+      </View>
+    );
+  };
+  const getEtherumValue = () => {
+    let url = ChangeEthValueUrl + item.id;
+    ApiGet(url).then(res => {
+      if (res.status == 200) {
+        // let oneUSD = 1 / res.json.USD;
+        // let EthPrice = oneUSD * item.price;
+        updateState({packageEthValue: res.json.data});
+        // Object.freeze(packageEthValue);
+        // setPackageEthValue(EthPrice);
+        // ETh = EthPrice;
+        updateLoadingState({bottomSheetLoading: false});
+      } else {
+        errorMessage('PLease check it again');
+      }
+    });
+  };
+  const afterCryptoProcced = () => {
+    setBottomSheet(false);
+    updateLoadingState({isloading: false});
+    packageData['screenOpenCount'] = 4;
+    dispatch({
+      type: types.SavePendngPackages,
+      payload: packageData,
+    });
+    navigation.navigate('PendingPackageScreen', packageData);
+  };
+  useEffect(() => {
+    if (bottomSheet == true) {
+      getEtherumValue();
+    }
+  }, [bottomSheet]);
+  const BottomSheetView = () => {
+    return (
+      <>
+        <BottomSheet
+          bottomSheetTitle={'Crypto Payment'}
+          bottomSheetIconColor="#0A2463"
+          bottomSheetStyle={{
+            backgroundColor: 'white',
+            maxHeight: 'auto',
+            minHeight: '15%',
+          }}
+          bottomSheetTitleStyle={{color: '#0A2463'}}
+          setBottomSheetVisible={() => {
+            setBottomSheet(false);
+            updateLoadingState({isloading: false});
+            updateLoadingState({bottomSheetLoading: true});
+          }}
+          bottomSheetVisible={bottomSheet}>
+          <ScrollView>
+            {bottomSheetLoading ? (
+              <SheetLoadingView />
+            ) : (
+              <View>
+                <View style={styles.bottomSheetInnerView}>
+                  <Image
+                    source={require('../../images/ethereum.png')}
+                    style={styles.ethImg}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.sheetEthText}>Etherum</Text>
+                  <View style={{marginLeft: 'auto'}}>
+                    <Text style={styles.ethValue}>
+                      {packageEthValue.toFixed(6)}
+                    </Text>
+                    <Text style={styles.nonRefundableText}>non-refundable</Text>
+                  </View>
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    afterCryptoProcced();
+                  }}
+                  style={styles.proccedView}>
+                  <Text style={styles.proccedText}>Procced</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </ScrollView>
+        </BottomSheet>
+      </>
+    );
   };
   // useEffect(() => {
   //   Moralis.setAsyncStorage(AsyncStorage);
@@ -167,14 +277,17 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             delay={200}>
             <TouchableOpacity
               onPress={() => {
-                errorMessage('This Feature is still on development.');
-                // authenticate();
-                // errorMessage('Currently this feature is in working ');
-                // setWebView(true);
-                // navigation.navigate('ThankYouScreen');
+                // errorMessage('This Feature is still on development.');
+                // // authenticate();
+                // // errorMessage('Currently this feature is in working ');
+                // refRBSheet;
+                updateLoadingState({isloading: true});
+                setBottomSheet(true);
+                // navigation.navigate('EtherumPaynemtScreen', item);
               }}
               style={styles.boxContainer}>
               <Text style={styles.text}>Crypto</Text>
+              <Text style={styles.ethText}>(Etherum)</Text>
               <Image
                 style={styles.image}
                 source={require('../../images/bitcoin.png')}
@@ -187,7 +300,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             delay={300}>
             <TouchableOpacity
               onPress={() => {
-                setIsloading(true);
+                updateLoadingState({isloading: true});
                 startPaymentProcess();
               }}
               style={styles.boxContainer}>
@@ -202,8 +315,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         </View>
         {/* {isAuthenticated && <Text>Welcome {user.get('username')}</Text>} */}
       </View>
-
-      <Modal
+      {bottomSheet && <BottomSheetView />}
+      {/* <Modal
         animationType="slide"
         onRequestClose={() => {
           setWebView(false);
@@ -231,9 +344,91 @@ const CurrencyMethodScreen = ({route, navigation}) => {
           startInLoadingState={false}
           // style={{marginTop: 20}}
         />
-      </Modal>
+      </Modal> */}
     </StripeProvider>
   );
 };
 
 export default CurrencyMethodScreen;
+
+{
+  /* <View
+style={{
+  // backgroundColor: 'red',
+  backgroundColor: 'rgba(42,42,42,0.6)',
+  height: hp('100'),
+  width: wp('100'),
+  // zIndex: 1,
+  position: 'absolute',
+}}>
+<View
+  style={{
+    backgroundColor: 'white',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    width: wp('100'),
+    padding: 9,
+    bottom: 0,
+    position: 'absolute',
+  }}>
+  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+    <Text
+      style={{
+        color: '#0A2463',
+        fontSize: hp('1.7'),
+        fontWeight: 'bold',
+      }}>
+      Crypto Payment
+    </Text>
+    <Entypo
+      name="cross"
+      color={'#0A2463'}
+      style={{marginLeft: 'auto'}}
+      size={hp('3')}
+      onPress={() => {
+        setBottomSheet(false);
+        updateLoadingState({isloading: false});
+      }}
+    />
+  </View>
+  <View
+    style={{
+      backgroundColor: 'black',
+      height: hp('0.1'),
+      width: wp('95'),
+      marginTop: hp('1'),
+      marginBottom: hp('1'),
+      alignSelf: 'center',
+    }}
+  />
+  <ScrollView>
+    {bottomSheetLoading ? (
+      <SheetLoadingView />
+    ) : (
+      <View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: hp('2'),
+          }}>
+          <Image
+            source={require('../../images/ethereum.png')}
+            style={{
+              width: wp('10'),
+              height: hp('5.5'),
+            }}
+            resizeMode="contain"
+          />
+          <Text style={{fontSize: hp('2'), color: 'black'}}>
+            Etherum
+          </Text>
+        </View>
+        <Text style={{marginLeft: wp('3')}}>0.3456789</Text>
+        {/* <Text style={{marginLeft: wp('3')}}>{packageEthValue}</Text> */
+}
+//       </View>
+//     )}
+//   </ScrollView>
+// </View>
+// </View> */}

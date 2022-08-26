@@ -3,4 +3,8 @@ export default {
   LogoutType: 'LogoutType',
   LunchedCompleted: 'LunchedCompleted',
   DeleteAccount: 'DeleteAccount',
+  SavePendngPackages: 'SavePendngPackages',
+  UnSavePendingPackages: 'UnSavePendingPackages',
+  UpdateCountValue: 'UpdateCountValue',
+  DeleteAllPackages: 'DeleteAllPackages',
 };
