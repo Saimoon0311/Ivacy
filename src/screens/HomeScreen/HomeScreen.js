@@ -5,13 +5,10 @@ import {
   ScrollView,
   SafeAreaView,
   RefreshControl,
-  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
-import {FrontPackageCom} from '../../components/FrontPackageComponent/frontPackageCom';
 import {useDispatch, useSelector} from 'react-redux';
-import types from '../../Redux/type';
 import {globalStyles} from '../../config/globalStyles';
 import {
   widthPercentageToDP as wp,
@@ -23,17 +20,16 @@ import {
   FavoredSceneriesUrl,
   LatestPackageUrl,
 } from '../../config/Urls';
-import {color} from '../../components/color';
-import {showMessage} from 'react-native-flash-message';
 import {LatestPackageFlatlist} from '../../components/LatestPackageFlatlist/latestPackageFlatlist';
 import SearchBarComponents from '../../components/SearchBarComponents/SearchBarComponents';
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
 import {useCallback} from 'react';
 import {errorMessage} from '../../components/NotificationMessage';
-import ThankYouScreen from '../ThankYouScreen/ThankYouScreen';
+import LottieView from 'lottie-react-native';
+import types from '../../Redux/type';
 
 const HomeScreen = ({navigation}) => {
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
@@ -65,6 +61,7 @@ const HomeScreen = ({navigation}) => {
     latestPackageLoading: true,
     countryLoader: true,
     favoredLoader: true,
+    pageLoading: true,
   });
   const updateLoadingState = data => {
     setIsloading(prev => ({...prev, ...data}));
@@ -84,7 +81,8 @@ const HomeScreen = ({navigation}) => {
       type: 'getPackage',
     });
   };
-  const {latestPackageLoading, countryLoader, favoredLoader} = isloading;
+  const {latestPackageLoading, countryLoader, favoredLoader, pageLoading} =
+    isloading;
   const updatePackageState = data => {
     setAllPackage(prev => ({...prev, ...data}));
   };
@@ -133,11 +131,25 @@ const HomeScreen = ({navigation}) => {
     getPackage();
     getCountryName();
     favoredSceneries();
+    dispatch({
+      type: types.DeleteAllPackages,
+    });
   }, []);
-
-  // const ThankYOuScreen = () => {
-  //   navigation.navigate('ThankYOuScreen');
-  // };
+  // setTimeout(() => {
+  //   updateLoadingState({pageLoading: false});
+  // }, 3500);
+  // // const ThankYOuScreen = () => {
+  // //   navigation.navigate('ThankYOuScreen');
+  // // };
+  // if (pageLoading) {
+  //   return (
+  //     <LottieView
+  //       source={require('../../images/72169-plane-flies-around-the-earth.json')}
+  //       autoPlay
+  //       loop
+  //     />
+  //   );
+  // }
 
   return (
     <SafeAreaView style={styles.container}>

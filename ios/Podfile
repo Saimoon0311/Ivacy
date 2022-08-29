@@ -55,6 +55,7 @@ target 'ivacy' do
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
+  pod 'react-native-restart', :path => '../node_modules/react-native-restart'
   # pod 'moralis'
   # pod 'react-moralis'
   # pod 'Firebase/Messaging'

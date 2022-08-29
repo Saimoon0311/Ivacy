@@ -8,6 +8,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const TextImageComponent = props => {
   const colors = props?.textcolor ? props?.textcolor : color.textColor;
@@ -17,12 +18,21 @@ const TextImageComponent = props => {
     </View>
   ) : (
     <TouchableOpacity onPress={props?.onPress} style={styles.button}>
-      <Ionicons
-        style={styles.image}
-        name={props?.iconName}
-        color={colors}
-        size={20}
-      />
+      {!props?.icon ? (
+        <Ionicons
+          style={styles.image}
+          name={props?.iconName}
+          color={colors}
+          size={20}
+        />
+      ) : (
+        <MaterialIcons
+          style={styles.image}
+          name={props?.iconName}
+          color={colors}
+          size={20}
+        />
+      )}
       <Text style={{...styles.text, color: colors}}>{props?.text}</Text>
     </TouchableOpacity>
   );

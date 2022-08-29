@@ -49,8 +49,8 @@ export default function PackageScreen({route, navigation}) {
 
   const getPackages = () => {
     if (items?.data?.id != null) {
-      let url = SearchrUrl + '233';
-      // let url = SearchrUrl + items.data.id;
+      // let url = SearchrUrl + '233';
+      let url = SearchrUrl + items.data.id;
       let body = JSON.stringify({
         is_price: Number(type),
         start_price: startPrice,

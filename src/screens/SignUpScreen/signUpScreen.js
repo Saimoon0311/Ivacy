@@ -27,7 +27,7 @@ import * as Animatable from 'react-native-animatable';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {SkypeIndicator} from 'react-native-indicators';
 
-export default function SignUpScreen() {
+export default function SignUpScreen({navigation}) {
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('25'));
   const [signUpUser, setSignUpUser] = useState({
     userName: '',
@@ -217,6 +217,16 @@ export default function SignUpScreen() {
       <ImageBackground
         source={require('../../images/background.png')}
         style={styles.backgroundImage}>
+        <TouchableOpacity
+          style={{
+            top: hp('2'),
+            left: wp('2'),
+          }}
+          onPress={() => navigation.goBack()}>
+          <Text style={{color: 'white', fontSize: hp('2'), fontWeight: 'bold'}}>
+            Go Back
+          </Text>
+        </TouchableOpacity>
         <Animatable.View
           animation="fadeInUpBig"
           direction={'normal'}
@@ -230,6 +240,7 @@ export default function SignUpScreen() {
             }}
           />
         </Animatable.View>
+
         {signUpCofirm == false ? (
           <>
             <Animatable.Text

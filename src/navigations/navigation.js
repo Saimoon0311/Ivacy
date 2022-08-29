@@ -22,9 +22,14 @@ export default function StackNavigatior() {
         {IsApplunchFirst == true && (
           <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
         )}
-
         {userData?.data?.user_role == 0 ? (
-          <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+          <>
+            <Stack.Screen name="MybottomTabs" component={MybottomTabs} />
+            <Stack.Screen
+              name="DeleteAccountScreen"
+              component={screens.DeleteAccountScreen}
+            />
+          </>
         ) : userData?.data?.user_role == 1 ? (
           <Stack.Screen
             name="GuiderBottomNavigation"
@@ -78,6 +83,14 @@ export default function StackNavigatior() {
         <Stack.Screen
           name="GuiderMapViewScreen"
           component={screens.GuiderMapViewScreen}
+        />
+        <Stack.Screen
+          name="EtherumPaynemtScreen"
+          component={screens.EtherumPaynemtScreen}
+        />
+        <Stack.Screen
+          name="PendingPackageScreen"
+          component={screens.PendingPackageScreen}
         />
       </Stack.Navigator>
     </>

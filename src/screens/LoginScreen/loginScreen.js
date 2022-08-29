@@ -23,6 +23,7 @@ import {useDispatch} from 'react-redux';
 import types from '../../Redux/type';
 import {errorMessage} from '../../components/NotificationMessage';
 import * as Animatable from 'react-native-animatable';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 const LoginScreen = ({route, navigation}) => {
   const disptach = useDispatch();
@@ -41,6 +42,42 @@ const LoginScreen = ({route, navigation}) => {
   });
   const handleClick = () => setShow(!show);
   const [show, setShow] = useState(false);
+  const [alertState, setALertState] = useState(false);
+  const AwesomeAlertMessage = () => {
+    return (
+      <AwesomeAlert
+        show={alertState}
+        showProgress={false}
+        title="Warning!"
+        message="Account deletion is in process, please verify your email to delete your ivacay account."
+        contentContainerStyle={{
+          width: wp('80%'),
+          backgroundColor: 'white',
+        }}
+        closeOnTouchOutside={false}
+        closeOnHardwareBackPress={false}
+        showCancelButton={false}
+        showConfirmButton={true}
+        confirmText="Ok"
+        confirmButtonStyle={styles.buttonstyle}
+        cancelButtonStyle={styles.buttonstyle}
+        confirmButtonTextStyle={{
+          textAlign: 'center',
+          color: color?.textPrimaryColor,
+          fontSize: hp('2.2%'),
+        }}
+        titleStyle={{
+          color: color.textPrimaryColor,
+          textAlign: 'center',
+          fontWeight: 'bold',
+        }}
+        messageStyle={{color: 'gray', textAlign: 'center', color: 'black'}}
+        onConfirmPressed={() => {
+          setALertState(false);
+        }}
+      />
+    );
+  };
   const {email, password} = loginUser;
   const updateState = data => setLoginUser(() => ({...loginUser, ...data}));
   // Focused handler
@@ -77,6 +114,12 @@ const LoginScreen = ({route, navigation}) => {
             payload: res.json,
           });
           setLoading(false);
+        } else if (
+          res.status == 401 &&
+          res.json.message == 'Please check email'
+        ) {
+          setLoading(false);
+          setALertState(true);
         } else if (res.status == 401) {
           setLoading(false);
           errorMessage(res.json.message);
@@ -114,6 +157,19 @@ const LoginScreen = ({route, navigation}) => {
       <ImageBackground
         style={styles.backgroundImage}
         source={require('../../images/background.png')}>
+        <TouchableOpacity
+          style={{
+            top: hp('2'),
+            left: wp('2'),
+            zIndex: 1,
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Text style={{color: 'white', fontSize: hp('2'), fontWeight: 'bold'}}>
+            Go Back
+          </Text>
+        </TouchableOpacity>
         <ScrollView
           contentContainerStyle={{paddingBottom: isKeyboardVisible}}
           showsVerticalScrollIndicator={false}>
@@ -127,7 +183,6 @@ const LoginScreen = ({route, navigation}) => {
               style={{
                 marginRight: 'auto',
                 marginLeft: wp('-10'),
-                // display: isKeyboardVisible,
               }}
             />
           </Animatable.View>
@@ -215,6 +270,7 @@ const LoginScreen = ({route, navigation}) => {
           </View>
         </ScrollView>
       </ImageBackground>
+      {AwesomeAlertMessage()}
     </View>
   );
 };

@@ -275,7 +275,7 @@ const OrderDetailsScreen = ({navigation}) => {
         setOrderDetailsState(res.json.data);
         setIsloading(false);
       } else {
-        successMessage('Network Failed');
+        errorMessage('Network Failed');
         setIsloading(true);
       }
     });

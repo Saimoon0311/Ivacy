@@ -52,14 +52,14 @@ const PackageDetailScreen = ({route, navigation}) => {
     setzIndex(1);
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 3000,
+      duration: 2000,
       useNativeDriver: true,
     }).start();
   };
   const fadeOut = () => {
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: 3000,
+      duration: 2000,
       useNativeDriver: true,
     }).start();
     setTimeout(() => {

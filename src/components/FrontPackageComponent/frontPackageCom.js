@@ -16,6 +16,7 @@ export const FrontPackageCom = props => {
         // source={{
         //   uri: 'https://images.pexels.com/photos/12405196/pexels-photo-12405196.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         // }}
+        resizeMode="cover"
         source={{uri: IMAGE_BASED_URL + item?.get_images[0]?.title}}
         style={styles.packageImage}
       />

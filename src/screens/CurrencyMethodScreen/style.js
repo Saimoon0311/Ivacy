@@ -68,4 +68,45 @@ export const styles = StyleSheet.create({
     bottom: 0,
     zIndex: 1,
   },
+  loadingText: {color: 'white', fontSize: hp('3'), fontWeight: 'bold'},
+  ethText: {
+    fontSize: hp('2'),
+    color: 'white',
+    marginTop: hp('-1'),
+  },
+  bottomSheetInnerView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  ethImg: {
+    width: wp('10'),
+    height: hp('5.5'),
+  },
+  sheetEthText: {
+    fontSize: hp('2'),
+    color: '#0A2463',
+    fontWeight: 'bold',
+  },
+  ethValue: {marginLeft: 'auto', fontSize: hp('2')},
+  nonRefundableText: {
+    marginLeft: 'auto',
+    fontSize: hp('2'),
+    color: 'red',
+  },
+  proccedView: {
+    backgroundColor: color.textThirdColor,
+    width: wp('80'),
+    height: hp('6'),
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 10,
+    marginTop: hp('2'),
+    marginBottom: hp('2'),
+  },
+  proccedText: {
+    color: 'white',
+    fontSize: hp('2'),
+    fontWeight: 'bold',
+  },
 });

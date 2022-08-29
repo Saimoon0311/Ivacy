@@ -9,9 +9,12 @@ export default function (state = initial_state, action) {
     case types.LoginType:
       const data = action.payload;
       return {userData: data};
+      break;
     case types.LogoutType:
       return {userData: {}};
+      break;
     default:
       return {...state};
+      break;
   }
 }

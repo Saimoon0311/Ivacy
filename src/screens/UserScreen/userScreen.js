@@ -95,7 +95,13 @@ const userScreen = ({navigation}) => {
         <TextImageComponent
           onPress={() => navigation.navigate('OrderDetailsScreen')}
           iconName={'bookmark-outline'}
-          text={'My orders'}
+          text={'My booked orders'}
+        />
+        <TextImageComponent
+          onPress={() => navigation.navigate('PendingPackageScreen')}
+          iconName={'pending-actions'}
+          text={'My pending orders'}
+          icon={true}
         />
         <TextImageComponent
           onPress={() => Linking.openURL(AboutTheApp)}
@@ -106,6 +112,12 @@ const userScreen = ({navigation}) => {
           onPress={() => navigation.navigate('ReviewScreen')}
           iconName={'md-star-outline'}
           text={'Rate us'}
+        />
+        <TextImageComponent
+          onPress={() => navigation.navigate('DeleteAccountScreen')}
+          iconName={'trash-outline'}
+          text={'Delete Your Account'}
+          textcolor={'red'}
         />
         <TextImageComponent
           onPress={logoutFun}

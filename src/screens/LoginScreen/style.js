@@ -48,4 +48,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignSelf: 'flex-start',
   },
+  buttonstyle: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: color.textPrimaryColor,
+  },
 });
