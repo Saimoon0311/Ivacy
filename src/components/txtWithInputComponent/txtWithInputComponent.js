@@ -12,7 +12,8 @@ import Clipboard from '@react-native-clipboard/clipboard';
 const txtWithInputComponent = (props) => {
   // const [iconVisible,setIconVisible]=useState(false);
   const copyToClipboard = (text) => {
-    Clipboard.setString(text);
+    Clipboard.setString(JSON.stringify(text))
+    
   };
   return (
     
