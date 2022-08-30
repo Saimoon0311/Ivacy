@@ -118,6 +118,7 @@ address below :</Text>
       <Text style={{color:color.white,fontWeight:'bold',fontSize:hp('2')}}>Payment Confirm</Text>
     </TouchableOpacity>
     </View>}
+    
       </ScrollView>
 </>
   )
