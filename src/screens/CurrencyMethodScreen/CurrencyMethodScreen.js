@@ -170,12 +170,15 @@ const CurrencyMethodScreen = ({route, navigation}) => {
   const afterCryptoProcced = () => {
     setBottomSheet(false);
     updateLoadingState({isloading: false});
+    updateLoadingState({bottomSheetLoading:true})
     packageData['screenOpenCount'] = 4;
     dispatch({
       type: types.SavePendngPackages,
       payload: packageData,
     });
-    navigation.navigate('PendingPackageScreen', packageData);
+    let invoiceNumber = Date.now() + Math.random(5).toFixed(0);
+
+    navigation.navigate('EtherumPaynemtScreen', {item,invoiceNumber,packageEthValue});
   };
   useEffect(() => {
     if (bottomSheet == true) {

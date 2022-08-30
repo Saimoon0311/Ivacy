@@ -21,4 +21,6 @@ export const color = {
   mapColor: 'rgba(255, 255, 255  ,0.6)',
   orderBoxColor: '#8561D3',
   darkBlue: '#0A2463',
+  LightGreen:'#ebfbe7',
+  darkGreen:'#00712f'
 };

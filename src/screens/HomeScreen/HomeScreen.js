@@ -27,6 +27,9 @@ import {useCallback} from 'react';
 import {errorMessage} from '../../components/NotificationMessage';
 import LottieView from 'lottie-react-native';
 import types from '../../Redux/type';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import EtherumPaynemtScreen from '../EtherumPaymentScreen/EtherumPaymentScreen';
+
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -171,6 +174,7 @@ const HomeScreen = ({navigation}) => {
           }}>
           Enjoy your life with us!
         </Text>
+        {/* <TouchableOpacity onPress={()=>navigation.navigate('EtherumPaynemtScreen')}><Text>hello</Text></TouchableOpacity> */}
 
         <SearchBarComponents
           onPress={() => navigation.navigate('searchBarScreen')}
