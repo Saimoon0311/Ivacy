@@ -14,6 +14,7 @@ const txtWithInputComponent = (props) => {
   const copyToClipboard = (text) => {
     Clipboard.setString(text);
   };
+
   return (
     <View style={styles.TextWithInputComponent}>
       <View style={{flexDirection: 'row'}}>
