@@ -30,7 +30,7 @@
     "@react-navigation/stack": "^6.2.1",
     "@reduxjs/toolkit": "^1.8.2",
     "@stripe/stripe-react-native": "^0.14.0",
-    "ethers": "^5.6.9",
+    "ethers": "^5.7.0",
     "events": "^3.3.0",
     "intl": "^1.2.5",
     "lottie-react-native": "^5.1.3",

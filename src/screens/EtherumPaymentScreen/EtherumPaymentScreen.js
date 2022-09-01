@@ -19,8 +19,9 @@ import {
 import TextWithInputComponent from '../../components/txtWithInputComponent/txtWithInputComponent';
 import TxtInlineComponent from '../../components/txtInlineComponent/TxtInlineComponent';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
-
+import { ethers } from "ethers";
 import moment from 'moment';
+
 const EtherumPaymentScreen = ({navigation, route}) => {
   const items = route.params;
   const {packageEthValue, invoiceNumber, item} = items;
@@ -38,7 +39,13 @@ const EtherumPaymentScreen = ({navigation, route}) => {
     ethValue: false,
   });
   let {network, wallet, ethValue} = copyState;
+  const hexToDecimal =hex=>{return parseInt(hex)}
 
+  const confirmOrderFunction = async()=>{
+    await hexToDecimal("0x7435233835fc002643d8a9af1670daa2d2e641bf920c05653c58e1468bd21106",16);
+    const data=await ethers.utils.formatEther(hexToDecimal); 
+    console.log(data,47);
+  }
   function TextCopied(textinput) {
     setCopySate({
       [textinput]: true,
@@ -51,15 +58,15 @@ const EtherumPaymentScreen = ({navigation, route}) => {
   }
   // X
   const timerProps = {
-    isPlaying: true,
+    isPlaying: false,
     size: 80,
     strokeWidth: 6,
   };
   const UrgeWithPleasureComponent = () => (
     <CountdownCircleTimer
       {...timerProps}
-      isPlaying
-      duration={100}
+      // isPlaying={false}
+      duration={10}
       colors={['#004777', '#F7B801', '#A30000', '#A30000']}
       colorsTime={[7, 5, 2, 0]}
       onComplete={() => setTimer(false)}>
@@ -100,12 +107,6 @@ const EtherumPaymentScreen = ({navigation, route}) => {
         }}>
         <View style={styles.container}>
           {UrgeWithPleasureComponent()}
-          {/* </View> */}
-          {/* <View style={styles.loaderContainer} > 
-      <DotIndicator color={color.white} 
-      size={hp('0.8')}
-  /> 
-       */}
           {timer == true ? (
             <Text style={styles.bokText}>Your booking is Processing</Text>
           ) : (

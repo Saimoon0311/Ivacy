@@ -8,11 +8,13 @@ import {color} from '../color';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Clipboard from '@react-native-clipboard/clipboard';
 
-
-const txtWithInputComponent = (props) => {
-  // const [iconVisible,setIconVisible]=useState(false);
-  const copyToClipboard = (text) => {
+const TextWithInputComponent = props => {
+  const copyToClipboard = text => {
+    props?.onCopy();
     Clipboard.setString(text);
+    setTimeout(() => {
+      props?.afterTextCopied();
+    }, 2000);
   };
 
   return (
