@@ -157,7 +157,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       if (res.status == 200) {
         // let oneUSD = 1 / res.json.USD;
         // let EthPrice = oneUSD * item.price;
-        updateState({packageEthValue: res.json.data});
+        updateState({packageEthValue: res.json.data.toFixed(6)});
         // Object.freeze(packageEthValue);
         // setPackageEthValue(EthPrice);
         // ETh = EthPrice;
@@ -170,7 +170,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
   const afterCryptoProcced = () => {
     setBottomSheet(false);
     updateLoadingState({isloading: false});
-    updateLoadingState({bottomSheetLoading:true})
+    updateLoadingState({bottomSheetLoading: true});
     packageData['screenOpenCount'] = 4;
     dispatch({
       type: types.SavePendngPackages,
@@ -178,7 +178,11 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     });
     let invoiceNumber = Date.now() + Math.random(5).toFixed(0);
 
-    navigation.navigate('EtherumPaynemtScreen', {item,invoiceNumber,packageEthValue});
+    navigation.navigate('EtherumPaynemtScreen', {
+      item,
+      invoiceNumber,
+      packageEthValue,
+    });
   };
   useEffect(() => {
     if (bottomSheet == true) {
@@ -216,9 +220,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
                   />
                   <Text style={styles.sheetEthText}>Etherum</Text>
                   <View style={{marginLeft: 'auto'}}>
-                    <Text style={styles.ethValue}>
-                      {packageEthValue.toFixed(6)}
-                    </Text>
+                    <Text style={styles.ethValue}>{packageEthValue}</Text>
                     <Text style={styles.nonRefundableText}>non-refundable</Text>
                   </View>
                 </View>

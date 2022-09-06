@@ -19,18 +19,31 @@ import {
 import TextWithInputComponent from '../../components/txtWithInputComponent/txtWithInputComponent';
 import TxtInlineComponent from '../../components/txtInlineComponent/TxtInlineComponent';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
-import { ethers } from "ethers";
+import {ethers} from 'ethers';
 import moment from 'moment';
+import {ApiGet, ApiPost} from '../../config/helperFunction';
+import {errorMessage} from '../../components/NotificationMessage';
+import {useSelector} from 'react-redux';
+import {
+  AfterMetaMaskUrl,
+  AfterStripeUrl,
+  MetaMaskWallet,
+} from '../../config/Urls';
+import {SkypeIndicator} from 'react-native-indicators';
 
 const EtherumPaymentScreen = ({navigation, route}) => {
+  const {userData} = useSelector(state => state.userData);
+
   const items = route.params;
   const {packageEthValue, invoiceNumber, item} = items;
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('10'));
+  const [timerValue, setTimerValue] = useState(true);
 
   const [hash, setHash] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [timer, setTimer] = useState(true);
+  const [buttonLoader, setButtonLoader] = useState(false);
   const checkIn = moment(item.from_date).format('ddd, ll');
   const checkOut = moment(item.end_date).format('ddd, ll');
   const [copyState, setCopySate] = useState({
@@ -39,13 +52,60 @@ const EtherumPaymentScreen = ({navigation, route}) => {
     ethValue: false,
   });
   let {network, wallet, ethValue} = copyState;
-  const hexToDecimal =hex=>{return parseInt(hex)}
-
-  const confirmOrderFunction = async()=>{
-    await hexToDecimal("0x7435233835fc002643d8a9af1670daa2d2e641bf920c05653c58e1468bd21106",16);
-    const data=await ethers.utils.formatEther(hexToDecimal); 
-    console.log(data,47);
-  }
+  const hexToDecimal = hex => {
+    return parseInt(hex);
+  };
+  const checkInputValue = () => {
+    setButtonLoader(true);
+    if (hash != '' && hash != null) {
+      setTimerValue(false);
+      confirmOrderFunction();
+    } else {
+      setButtonLoader(false);
+      errorMessage('Please Enter Your Tranction Hash !');
+    }
+  };
+  const confirmOrderFunction = async () => {
+    let url = `https://api.etherscan.io/api?module=proxy&action=eth_getTransactionByHash&txhash=${hash}&apikey=PCKVEHXYYTJUE2458NP9IQQIJ4RBVAC6YY`;
+    ApiGet(url).then(async res => {
+      if (res.status == 200 && res.json.result != null) {
+        const {from, hash, value} = res.json.result;
+        const decValue = await hexToDecimal(value);
+        const data = await ethers.utils.formatEther(JSON.stringify(decValue));
+        if (data == packageEthValue) {
+          orderPlaceFun(from, hash, to);
+        } else {
+          setTimerValue(true);
+          setButtonLoader(false);
+          errorMessage('Please pay correct amount to place your package !');
+        }
+      } else {
+        setButtonLoader(false);
+        setTimerValue(true);
+        errorMessage('Please check your internet connection.');
+      }
+    });
+  };
+  const orderPlaceFun = (from, hash) => {
+    let body = JSON.stringify({
+      userId: userData.data.id,
+      packageId: item.id,
+      invoiceNumber: invoiceNumber,
+      meta_to: MetaMaskWallet,
+      meta_hash: hash,
+      meta_from: from,
+    });
+    ApiPost(AfterMetaMaskUrl, body, false, userData.access_token).then(res => {
+      if (res.status == 200) {
+        setButtonLoader(false);
+        navigation.navigate('ThankYouScreen', res.json.journey);
+      } else {
+        setButtonLoader(false);
+        setTimerValue(true);
+        errorMessage(res.json.message);
+      }
+    });
+  };
   function TextCopied(textinput) {
     setCopySate({
       [textinput]: true,
@@ -58,7 +118,7 @@ const EtherumPaymentScreen = ({navigation, route}) => {
   }
   // X
   const timerProps = {
-    isPlaying: false,
+    isPlaying: timerValue,
     size: 80,
     strokeWidth: 6,
   };
@@ -66,7 +126,7 @@ const EtherumPaymentScreen = ({navigation, route}) => {
     <CountdownCircleTimer
       {...timerProps}
       // isPlaying={false}
-      duration={10}
+      duration={200}
       colors={['#004777', '#F7B801', '#A30000', '#A30000']}
       colorsTime={[7, 5, 2, 0]}
       onComplete={() => setTimer(false)}>
@@ -130,7 +190,7 @@ const EtherumPaymentScreen = ({navigation, route}) => {
             />
             <TextWithInputComponent
               name={'Wallet Address'}
-              input={'OxE60F81d77F4104D52FB2284C029f68aA76767d'}
+              input={MetaMaskWallet}
               iconVisible={true}
               copyStat={wallet}
               onCopy={() => TextCopied('wallet')}
@@ -138,7 +198,7 @@ const EtherumPaymentScreen = ({navigation, route}) => {
             />
             <TextWithInputComponent
               name={'ETH amount'}
-              input={JSON.stringify(packageEthValue)}
+              input={packageEthValue}
               iconVisible={true}
               copyStat={ethValue}
               onCopy={() => TextCopied('ethValue')}
@@ -179,6 +239,7 @@ const EtherumPaymentScreen = ({navigation, route}) => {
                 onFocus={e => {
                   setIsFocused(true);
                 }}
+                placeholderTextColor="gray"
                 value={hash}
                 placeholder="Hash No"
                 onChangeText={text => setHash(text)}
@@ -187,15 +248,18 @@ const EtherumPaymentScreen = ({navigation, route}) => {
 
             <TouchableOpacity
               style={styles.confirmButton}
-              onPress={() => confirmOrderFunction()}>
-              <Text
-                style={{
-                  color: color.white,
-                  fontWeight: 'bold',
-                  fontSize: hp('2'),
-                }}>
-                Payment Confirm
-              </Text>
+              onPress={() => checkInputValue()}>
+              {buttonLoader ? (
+                <SkypeIndicator
+                  color={color.white}
+                  size={hp('3')}
+                  style={{
+                    alignSelf: 'center',
+                  }}
+                />
+              ) : (
+                <Text style={styles.payText}>Payment Confirm</Text>
+              )}
             </TouchableOpacity>
           </View>
         )}

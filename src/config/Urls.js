@@ -23,7 +23,9 @@ export const StripePayIntent = getApi('payment-intend');
 export const FavoredSceneriesUrl = getApi('favored-sceneries');
 export const CryptoPayUrl = getApi('pay-with/');
 export const StripePublishKey =
-  'pk_live_51KrsPlAW13cLb6g2yU8lDbLpzJHXstCdhGmtEeRQbo8njWZjfQ75wgVHonWldxTtDHQVHrw4L9sVcc3FWvFoGZpO00n2xJX1fJ';
+  'pk_test_51LI9HwEE1bl5YY9CXbeFOKtVHFcnF3Vr6cNpK50WFsAHQFU9pcenE3iSddJ2pzdx7IIPwzXG6plCCxXwet33HpIG00nyziJs1r';
+// export const StripePublishKey =
+//   'pk_live_51KrsPlAW13cLb6g2yU8lDbLpzJHXstCdhGmtEeRQbo8njWZjfQ75wgVHonWldxTtDHQVHrw4L9sVcc3FWvFoGZpO00n2xJX1fJ';
 export const AboutTheApp = API_About_Us_URL + 'about-us';
 export const OrderDetailUrl = getApi('journey-order-details/');
 export const GuiderBookPackageUrl = getApi('guider-booked-packages');
@@ -31,3 +33,5 @@ export const DeleteAccountUrl = getApi('delete-account/');
 export const CheckEthValue =
   'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=ETH,USD';
 export const ChangeEthValueUrl = getApi('eth-conversion/');
+export const AfterMetaMaskUrl = getApi('meta-mask/after-submit');
+export const MetaMaskWallet = '0x3BC00A01a868a6104ec181269381094777C2A59a';
