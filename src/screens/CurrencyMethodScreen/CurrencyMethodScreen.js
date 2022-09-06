@@ -116,9 +116,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       }
     }
   };
-  const _onNavigationStateChange = webViewState => {
-    console.log(101, webViewState);
-  };
+
   const confirmYourOrder = paymentIntent => {
     let invoiceNumber = Date.now() + Math.random(5).toFixed(0);
     let body = JSON.stringify({

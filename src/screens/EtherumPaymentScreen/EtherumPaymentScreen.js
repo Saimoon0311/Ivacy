@@ -5,7 +5,7 @@ import {
   TextInput,
   Text,
   View,
-  TouchableOpacity,
+  TouchableOpacity, 
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {styles} from './styles';

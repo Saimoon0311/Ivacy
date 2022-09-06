@@ -17,6 +17,7 @@ const TextWithInputComponent = props => {
     }, 2000);
   };
 
+  
   return (
     <View style={styles.TextWithInputComponent}>
       <View style={{flexDirection: 'row'}}>
