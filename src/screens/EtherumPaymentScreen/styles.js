@@ -125,4 +125,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  payText: {
+    color: color.white,
+    fontWeight: 'bold',
+    fontSize: hp('2'),
+  },
 });
