@@ -67,6 +67,6 @@ export const TextInputCom = props => {
           size={hp('2')}
         />
       </View>
-    </>
+      </>
   );
 };

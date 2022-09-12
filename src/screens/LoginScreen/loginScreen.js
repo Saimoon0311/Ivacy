@@ -153,7 +153,7 @@ const LoginScreen = ({route, navigation}) => {
     };
   }, []);
   return (
-    <View style={styles.container}>
+
       <ImageBackground
         style={styles.backgroundImage}
         source={require('../../images/background.png')}>
@@ -203,7 +203,9 @@ const LoginScreen = ({route, navigation}) => {
                 onChangeText={email => updateState({email})}
                 inputText="Email"
                 placeholder="mail@gmail.com"
-                onFocus={() => handleInputFocus('email')}
+                onFocus={() => {
+                  handleInputFocus('email')
+                }}
                 onBlur={() => handleInputBlur('email')}
                 isFocused={isFocused.email}
               />
@@ -270,8 +272,6 @@ const LoginScreen = ({route, navigation}) => {
           </View>
         </ScrollView>
       </ImageBackground>
-      {AwesomeAlertMessage()}
-    </View>
   );
 };
 

@@ -30,7 +30,6 @@ import types from '../../Redux/type';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import EtherumPaynemtScreen from '../EtherumPaymentScreen/EtherumPaymentScreen';
 
-
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const wait = timeout => {
@@ -174,7 +173,6 @@ const HomeScreen = ({navigation}) => {
           }}>
           Enjoy your life with us!
         </Text>
-        {/* <TouchableOpacity onPress={()=>navigation.navigate('EtherumPaynemtScreen')}><Text>hello</Text></TouchableOpacity> */}
 
         <SearchBarComponents
           onPress={() => navigation.navigate('searchBarScreen')}

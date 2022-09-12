@@ -21,7 +21,6 @@ import GuiderMapViewScreen from './Guider/GuiderMapViewScreen/GuiderMapViewScree
 import DeleteAccountScreen from './DeleteAccountScreen/DeleteAccountScreen';
 import EtherumPaynemtScreen from './EtherumPaymentScreen/EtherumPaymentScreen';
 import PendingPackageScreen from './PendingPackagesScreen/PendingPackagesScreen';
-
 export const screens = {
   OnboardingScreen,
   HomeScreen,
