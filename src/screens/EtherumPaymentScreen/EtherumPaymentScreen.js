@@ -5,7 +5,7 @@ import {
   TextInput,
   Text,
   View,
-  TouchableOpacity,
+  TouchableOpacity, 
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {styles} from './styles';
@@ -153,6 +153,137 @@ const EtherumPaymentScreen = ({navigation, route}) => {
       keyboardDidShowListener.remove();
     };
   }, []);
+
+
+  //PAYPAL PAYMENT
+  const startPayPalProcedureOne = () => {
+    console.log(108);
+    // let currency = '100';
+    // currency.replace(' USD', '');
+
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+    myHeaders.append(
+      'Authorization',
+      'Basic QVNuek5NUXY5a3ktS0cyd0Z2QkV3N2pmYVNhRXBRMVRiWGxWbHpaTzltWEFiaWtmS0tmZ0ZkcmtCOVRXcV90WldrN19YVmd1U2o3blBaQXY6RUM1VkhhTE1CMEpMS1MybXRjR3E2dG44RDd5Nmc1LS05WXlIUDZ0eVVvRDNRZnlKbUZmdHNhQ1laX1pGY3YwZ2pENHVjQU9oWS11My1od0s=',
+    );
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append('grant_type', 'client_credentials');
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded.toString(),
+      redirect: 'follow',
+    };
+
+    fetch('https://api.sandbox.paypal.com/v1/oauth2/token', requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(160, result);
+        setAccessToken(result.access_token);
+
+        startPayPalProcedureTwo();
+      })
+      .catch(error => {
+        console.log(163, error);
+        setIsLoading(false);
+      });
+  };
+
+  const startPayPalProcedureTwo = () => {
+    var myHeaders = new Headers();
+    myHeaders.append('Authorization', 'Bearer ' + accessToken);
+    myHeaders.append('Content-Type', 'application/json');
+
+    let amount = itemTotalPrice;
+    var raw = JSON.stringify({
+      intent: 'sale',
+      payer: {
+        payment_method: 'paypal',
+      },
+      transactions: [
+        {
+          amount: {
+            total: amount,
+            currency: 'USD',
+            details: {
+              subtotal: amount,
+              tax: '0',
+              shipping: '0',
+              handling_fee: '0',
+              shipping_discount: '0',
+              insurance: '0',
+            },
+          },
+        },
+      ],
+      redirect_urls: {
+        return_url: 'https://example.com',
+        cancel_url: 'https://example.com',
+      },
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch('https://api.sandbox.paypal.com/v1/payments/payment', requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(252, result);
+        const {id, links} = result;
+        const approvalUrl = links.find(data => data.rel == 'approval_url');
+
+        setIsLoading(false);
+        setPaymentId(id);
+        setApprovalUrl(approvalUrl.href);
+        if (result.state == 'created') {
+          setIsVisible(true);
+        }
+      })
+      .catch(error => {
+        console.log(253, error);
+        setIsLoading(false);
+      });
+  };
+
+  const _onNavigationStateChange = webViewState => {
+    console.log(208, webViewState);
+    if (webViewState.url.includes('https://example.com/')) {
+      var url = webViewState.url;
+      var paymentId = /paymentId=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
+      var PayerID = /PayerID=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
+
+      console.log(228, url);
+      console.log(229, paymentId);
+      console.log(230, PayerID);
+      axios
+        .post(
+          `https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute`,
+          {payer_id: PayerID},
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + accessToken,
+            },
+          },
+        )
+        .then(response => {
+          console.log(224, response);
+          if (response.status == 200) {
+            hitOrderPlaceApi();
+          }
+        })
+        .catch(err => {
+          console.log(227, err);
+        });
+    }
+  };
   return (
     <>
       <BackHeaderCom

@@ -92,6 +92,7 @@ export default function StackNavigatior() {
           name="PendingPackageScreen"
           component={screens.PendingPackageScreen}
         />
+      
       </Stack.Navigator>
     </>
   );

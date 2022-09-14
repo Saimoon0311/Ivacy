@@ -35,6 +35,7 @@ import {NoDataView} from '../../../components/NoDataView/noDataView';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
+  const [error,setError]=useState('You have no package yet');
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
@@ -83,7 +84,13 @@ const HomeScreen = ({navigation}) => {
       if (res.status == 200) {
         updatePackageState({latestPackage: res.json.data});
         updateLoadingState({latestPackageLoading: false});
-      } else {
+
+      }
+     else if(res.status==410){
+      setError(res.json.message)
+      updateLoadingState({latestPackageLoading: false});
+     }
+      else {
         errorMessage('Network Request Failed.');
         setIsloading(false);
       }
@@ -93,6 +100,9 @@ const HomeScreen = ({navigation}) => {
   useEffect(() => {
     GuiderBookPackages();
   }, []);
+
+  
+
   return (
     <View>
       {/* // <SafeAreaView style={styles.container}> */}
@@ -147,7 +157,7 @@ const HomeScreen = ({navigation}) => {
             </View>
           </SkeletonPlaceholder>
         ) : latestPackage == 0 ? (
-          <NoDataView text="You have no booked packages yet!" />
+          <NoDataView text={error} />
         ) : (
           <View>
             <Text

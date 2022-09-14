@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Linking,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {styles} from './style';
 import {
@@ -33,10 +34,10 @@ const LoginScreen = ({route, navigation}) => {
   const LoginType = route.params;
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('0'));
   const [loginUser, setLoginUser] = useState({
-    email: '',
-    password: '',
-    // email: 'saimoon@gmail.com',
-    // password: 'password',
+    // email: '',
+    // password: '',
+    email: 'bilal1@gmail.com',
+    password: 'password',
   });
   const [isloading, setLoading] = useState(false);
   const [isFocused, setIsFocused] = useState({
@@ -111,6 +112,7 @@ const LoginScreen = ({route, navigation}) => {
         password: password,
       });
       ApiPost(LoginUrl, body, false).then(res => {
+        console.warn(res,115)
         if (res.status == 200) {
           disptach({
             type: types.LoginType,
@@ -140,7 +142,7 @@ const LoginScreen = ({route, navigation}) => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
-        setKeyboardVisible(hp('55')); // or some other action
+        setKeyboardVisible(hp('35')); // or some other action
       },
     );
     const keyboardDidHideListener = Keyboard.addListener(
@@ -161,7 +163,7 @@ const LoginScreen = ({route, navigation}) => {
       <ImageBackground
         style={styles.backgroundImage}
         source={require('../../images/background.png')}>
-        <KeyboardAvoidingView behavior={'position'} style={styles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS=='ios'?'position':'height'} style={styles.container}>
           <TouchableOpacity
             style={{
               top: hp('2'),
@@ -279,7 +281,6 @@ const LoginScreen = ({route, navigation}) => {
           </ScrollView>
         </KeyboardAvoidingView>
       </ImageBackground>
-      {AwesomeAlertMessage()}
     </>
   );
 };

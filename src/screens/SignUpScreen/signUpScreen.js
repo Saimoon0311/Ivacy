@@ -174,45 +174,7 @@ export default function SignUpScreen({navigation}) {
       },
     );
   };
-  // const awesomeAlert = ()=>{
-  //   return (
-  //     <AwesomeAlert
-  //       show={showAlert}
-  //       showProgress={false}
-  //       title="Delete a Post!"
-  //       customView={()=>{
-  //         return(
 
-  //         )
-  //       }}
-  //       message="Are you sure you want to remove this post?"
-  //       contentContainerStyle={{
-  //         width: wp('80%'),
-  //         backgroundColor: color.postDivider,
-  //       }}
-  //       overlayStyle={{backgroundColor: color.alertBgColor}}
-  //       closeOnTouchOutside={true}
-  //       closeOnHardwareBackPress={true}
-  //       showCancelButton={true}
-  //       showConfirmButton={true}
-  //       confirmText="Yes"
-  //       cancelText="No"
-  //       confirmButtonStyle={styles.buttonstyle}
-  //       cancelButtonStyle={styles.buttonstyle}
-  //       cancelButtonTextStyle={{fontSize: hp('2.2%'), textAlign: 'center'}}
-  //       confirmButtonTextStyle={{fontSize: hp('2.2%'), textAlign: 'center'}}
-  //       titleStyle={{color: color.defaultTextColor}}
-  //       messageStyle={{color: 'gray', textAlign: 'center'}}
-  //       onConfirmPressed={() => {
-  //         deletePost();
-  //         setShowAlert(false);
-  //       }}
-  //       onCancelPressed={() => {
-  //         setShowAlert(false);
-  //       }}
-  //     />
-  //   );
-  // }
   return (
     <View>
       <ImageBackground
