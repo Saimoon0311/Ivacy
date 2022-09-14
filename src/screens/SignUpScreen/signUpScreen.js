@@ -29,7 +29,7 @@ import {SkypeIndicator} from 'react-native-indicators';
 import {KeyboardAvoidingView} from 'native-base';
 
 export default function SignUpScreen({navigation}) {
-  const [isKeyboardVisible, setKeyboardVisible] = useState(hp('25'));
+  const [isKeyboardVisible, setKeyboardVisible] = useState(hp('45'));
   const [signUpUser, setSignUpUser] = useState({
     userName: '',
     email: '',
@@ -133,7 +133,7 @@ export default function SignUpScreen({navigation}) {
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
       () => {
-        setKeyboardVisible(hp('25')); // or some other action
+        setKeyboardVisible(hp('45')); // or some other action
       },
     );
 
