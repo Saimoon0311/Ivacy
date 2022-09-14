@@ -44,6 +44,7 @@ export const TextInputCom = props => {
             fontSize: hp('2'),
             width: wp('76'),
           }}
+          ref={props?.ref}
           placeholder={props?.placeholder}
           placeholderTextColor={color.themeColorDark}
           keyboardType={props?.keyboardType}
