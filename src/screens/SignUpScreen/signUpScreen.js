@@ -39,6 +39,8 @@ export default function SignUpScreen({navigation}) {
     phone: '',
     userRole: 0,
   });
+  // sb-ktzwd14471324@personal.example.com
+  // p)FUl>U3
   const [isFocused, setIsFocused] = useState({
     userName: false,
     email: false,

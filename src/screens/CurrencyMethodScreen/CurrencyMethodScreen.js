@@ -54,25 +54,32 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     stripeValue: '',
     packageEthValue: '0',
     packageData: item,
-    accessToken:'',
-    approvalUrl:null,
-    paymentId:null,
-    isVisible:false
+    accessToken: '',
+    approvalUrl: null,
+    paymentId: null,
+    isVisible: false,
   });
 
-  
   const [bottomSheet, setBottomSheet] = useState(false);
   const [loading, setloading] = useState({
     isloading: false,
     bottomSheetLoading: true,
   });
 
-  
   // const [packageEthValue, setPackageEthValue] = useState('0');
   const {isloading, bottomSheetLoading} = loading;
   const updateLoadingState = data => setloading(prev => ({...prev, ...data}));
 
-  const {stripeValue, clientSecret, packageEthValue, packageData,accessToken,approvalUrl,paymentId,isVisible} = stripeData;
+  const {
+    stripeValue,
+    clientSecret,
+    packageEthValue,
+    packageData,
+    accessToken,
+    approvalUrl,
+    paymentId,
+    isVisible,
+  } = stripeData;
   const updateState = data => setStripeData(prev => ({...prev, ...data}));
   const fetchClientSecret = async () => {
     let body = JSON.stringify({
@@ -198,137 +205,137 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     }
   }, [bottomSheet]);
 
- //PAYPAL PAYMENT
- const startPayPalProcedureOne = () => {
-  console.log(108);
-  // let currency = '100';
-  // currency.replace(' USD', '');
+  //PAYPAL PAYMENT
+  const startPayPalProcedureOne = () => {
+    console.log(108);
+    // let currency = '100';
+    // currency.replace(' USD', '');
 
-  var myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
-  myHeaders.append(
-    'Authorization',
-    'Bearer A21AALeYpXttBrQEiG94lDy8fooYiZOX12TAKXWEIgXN6cyMGiuNqBhpD8brp5EHCqtX5Yn7p3mGaDRzY2nCCzA34sENNLgdg',
-    // 'Bearer A21AAIJpqBtgJrn0D10-sCw5VqO_FZE2ZCYtkKihjpju5MAtKDxgx2B_DmgHXUgTPq65_MQb8ZBoscmX2uGKWmIHX4dhG0Rzw',
-  );
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+    myHeaders.append(
+      'Authorization',
+      'Bearer A21AALeYpXttBrQEiG94lDy8fooYiZOX12TAKXWEIgXN6cyMGiuNqBhpD8brp5EHCqtX5Yn7p3mGaDRzY2nCCzA34sENNLgdg',
+      // 'Bearer A21AAIJpqBtgJrn0D10-sCw5VqO_FZE2ZCYtkKihjpju5MAtKDxgx2B_DmgHXUgTPq65_MQb8ZBoscmX2uGKWmIHX4dhG0Rzw',
+    );
 
-  var urlencoded = new URLSearchParams();
-  urlencoded.append('grant_type', 'client_credentials');
+    var urlencoded = new URLSearchParams();
+    urlencoded.append('grant_type', 'client_credentials');
 
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: urlencoded.toString(),
-    redirect: 'follow',
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded.toString(),
+      redirect: 'follow',
+    };
+
+    fetch('https://api.sandbox.paypal.com/v1/oauth2/token', requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(160, result);
+        updateState({accessToken: result.access_token});
+
+        startPayPalProcedureTwo(result.access_token);
+      })
+      .catch(error => {
+        console.log(163, error);
+        updateLoadingState({isloading: false});
+      });
   };
 
-  fetch('https://api.sandbox.paypal.com/v1/oauth2/token', requestOptions)
-    .then(response => response.json())
-    .then(result => {
-      console.log(160, result);
-      updateState({accessToken: result.access_token});
-
-      startPayPalProcedureTwo(result.access_token);
-    })
-    .catch(error => {
-      console.log(163, error);
-      updateLoadingState({isloading: false});
-    });
-};
-
-const startPayPalProcedureTwo = (access_token) => {
-  var myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + access_token);
-  myHeaders.append('Content-Type', 'application/json');
-  console.log(access_token,241)
-  // let amount = itemTotalPrice;
-  let amount = 12;
-  var raw = JSON.stringify({
-    intent: 'sale',
-    payer: {
-      payment_method: 'paypal',
-    },
-    transactions: [
-      {
-        amount: {
-          total: amount,
-          currency: 'USD',
-          details: {
-            subtotal: amount,
-            tax: '0',
-            shipping: '0',
-            handling_fee: '0',
-            shipping_discount: '0',
-            insurance: '0',
-          },
-        },
+  const startPayPalProcedureTwo = access_token => {
+    var myHeaders = new Headers();
+    myHeaders.append('Authorization', 'Bearer ' + access_token);
+    myHeaders.append('Content-Type', 'application/json');
+    console.log(access_token, 241);
+    // let amount = itemTotalPrice;
+    let amount = 12;
+    var raw = JSON.stringify({
+      intent: 'sale',
+      payer: {
+        payment_method: 'paypal',
       },
-    ],
-    redirect_urls: {
-      return_url: 'https://example.com',
-      cancel_url: 'https://example.com',
-    },
-  });
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow',
-  };
-
-  fetch('https://api.sandbox.paypal.com/v1/payments/payment', requestOptions)
-    .then(response => response.json())
-    .then(result => {
-      console.log(252, result);
-      const {id, links} = result;
-      const approvalUrl = links.find(data => data.rel == 'approval_url');
-
-      updateLoadingState({isloading: false});
-      updateState({paymentId:id});
-      updateState({approvalUrl:approvalUrl.href});
-      if (result.state == 'created') {
-        updateState({isVisible:true});
-      }
-    })
-    .catch(error => {
-      console.log(253, error);
-      updateLoadingState({isloading: false});
-    });
-};
-
-const _onNavigationStateChange = webViewState => {
-  console.log(208, webViewState);
-  if (webViewState.url.includes('https://example.com/')) {
-    var url = webViewState.url;
-    var paymentId = /paymentId=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
-    var PayerID = /PayerID=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
-
-    console.log(228, url);
-    console.log(229, paymentId);
-    console.log(230, PayerID);
-    axios
-      .post(
-        `https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute`,
-        {payerID: PayerID},
+      transactions: [
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + accessToken,
+          amount: {
+            total: amount,
+            currency: 'USD',
+            details: {
+              subtotal: amount,
+              tax: '0',
+              shipping: '0',
+              handling_fee: '0',
+              shipping_discount: '0',
+              insurance: '0',
+            },
           },
         },
-      )
-      .then(response => {
-        console.log(224, response);
-        if (response.status == 200) {
-          hitOrderPlaceApi();
+      ],
+      redirect_urls: {
+        return_url: 'https://example.com',
+        cancel_url: 'https://example.com',
+      },
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch('https://api.sandbox.paypal.com/v1/payments/payment', requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(252, result);
+        const {id, links} = result;
+        const approvalUrl = links.find(data => data.rel == 'approval_url');
+
+        updateLoadingState({isloading: false});
+        updateState({paymentId: id});
+        updateState({approvalUrl: approvalUrl.href});
+        if (result.state == 'created') {
+          updateState({isVisible: true});
         }
       })
-      .catch(err => {
-        console.log(227, err);
+      .catch(error => {
+        console.log(253, error);
+        updateLoadingState({isloading: false});
       });
-  }
-};
+  };
+
+  const _onNavigationStateChange = webViewState => {
+    console.log(208, webViewState);
+    if (webViewState.url.includes('https://example.com/')) {
+      var url = webViewState.url;
+      var paymentId = /paymentId=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
+      var PayerID = /PayerID=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
+
+      console.log(228, url);
+      console.log(229, paymentId);
+      console.log(230, PayerID);
+      axios
+        .post(
+          `https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute`,
+          {payerID: PayerID},
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + accessToken,
+            },
+          },
+        )
+        .then(response => {
+          console.log(224, response);
+          if (response.status == 200) {
+            // hitOrderPlaceApi();
+          }
+        })
+        .catch(err => {
+          console.log(227, err);
+        });
+    }
+  };
 
   const BottomSheetView = () => {
     return (
@@ -376,7 +383,6 @@ const _onNavigationStateChange = webViewState => {
             )}
           </ScrollView>
         </BottomSheet>
-        
       </>
     );
   };
@@ -389,7 +395,7 @@ const _onNavigationStateChange = webViewState => {
   //   }
   // }, [isAuthenticating]);
   return (
- <StripeProvider publishableKey={StripePublishKey}>
+    <StripeProvider publishableKey={StripePublishKey}>
       {isloading && (
         <View style={styles.loadingView}>
           <ActivityIndicator
@@ -409,22 +415,19 @@ const _onNavigationStateChange = webViewState => {
           onPress={() => navigation.goBack()}
         />
         <View style={styles.paymenttextstyle}>
-
           <Animatable.Text
             animation="fadeInRightBig"
             direction={'normal'}
             delay={100}
             style={styles.text2}>
             Choose Payment Method
-             
           </Animatable.Text>
         </View>
-        <TouchableOpacity style={{padding:hp('6')}} onPress={()=>startPayPalProcedureOne()}>
-<Text>
-
-            Choose Payment Method
-</Text>
-              </TouchableOpacity>
+        <TouchableOpacity
+          style={{padding: hp('6')}}
+          onPress={() => startPayPalProcedureOne()}>
+          <Text>Choose Payment Method</Text>
+        </TouchableOpacity>
         <View style={styles.InnerContainer}>
           <Animatable.View
             animation="fadeInLeftBig"
@@ -500,12 +503,12 @@ const _onNavigationStateChange = webViewState => {
           // style={{marginTop: 20}}
         />
       </Modal> */}
-       {approvalUrl && (
+      {approvalUrl && (
         <Modal
           animationType="slide"
           onRequestClose={() => {
             // setIsVisible(false);
-            updateState({isVisible:false})  
+            updateState({isVisible: false});
           }}
           visible={isVisible}>
           <WebView
@@ -524,9 +527,7 @@ const _onNavigationStateChange = webViewState => {
         </Modal>
       )}
     </StripeProvider>
-   
   );
 };
 
 export default CurrencyMethodScreen;
-
