@@ -35,3 +35,4 @@ export const CheckEthValue =
 export const ChangeEthValueUrl = getApi('eth-conversion/');
 export const AfterMetaMaskUrl = getApi('meta-mask/after-submit');
 export const MetaMaskWallet = '0x3BC00A01a868a6104ec181269381094777C2A59a';
+export const resendEmailUrl = 'https://ivacay.co/api/resend-email/';

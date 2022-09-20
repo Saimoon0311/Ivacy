@@ -8,7 +8,7 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, { useState} from 'react';
 import {styles} from './style';
 import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import {
@@ -27,6 +27,7 @@ import {errorMessage} from '../../components/NotificationMessage';
 import {ApiGet, ApiPost} from '../../config/helperFunction';
 import BottomSheet from 'react-native-easy-bottomsheet';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { StackActions } from '@react-navigation/native';
 // import {useMoralis} from 'react-moralis';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -42,6 +43,7 @@ import axios from 'axios';
 //   require('@react-native-async-storage/async-storage').useAsyncStorage;
 
 const CurrencyMethodScreen = ({route, navigation}) => {
+  const popAction = StackActions.pop(1);
   const dispatch = useDispatch();
   // const {authenticate, isAuthenticated, user, isAuthenticating, authError} =
   //   useMoralis();
@@ -215,7 +217,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
     myHeaders.append(
       'Authorization',
-      'Bearer A21AALeYpXttBrQEiG94lDy8fooYiZOX12TAKXWEIgXN6cyMGiuNqBhpD8brp5EHCqtX5Yn7p3mGaDRzY2nCCzA34sENNLgdg',
+      'Bearer A21AAIKkssjq4WN9UON0rRCYp0h5TrbZLLioNWgSP1zKL3rLlMAtXExFSiWY36Sbj5IuQDZPC3K-RpHQWKRfK6e3HY_o00O-g',
       // 'Bearer A21AAIJpqBtgJrn0D10-sCw5VqO_FZE2ZCYtkKihjpju5MAtKDxgx2B_DmgHXUgTPq65_MQb8ZBoscmX2uGKWmIHX4dhG0Rzw',
     );
 
@@ -272,6 +274,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         },
       ],
       redirect_urls: {
+        // return_url: 'https://example.com/?paymentId=PAYID-MMUGZBY9ER6177794844372V&token=EC-5P1692175F5961821&PayerID=PT5K3H6CLSVR8',
         return_url: 'https://example.com',
         cancel_url: 'https://example.com',
       },
@@ -304,30 +307,34 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       });
   };
 
-  const _onNavigationStateChange = webViewState => {
+  const _onNavigationStateChange = async(webViewState) => {
     console.log(208, webViewState);
     if (webViewState.url.includes('https://example.com/')) {
-      var url = webViewState.url;
+      var url =webViewState.url;
       var paymentId = /paymentId=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
       var PayerID = /PayerID=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
-
+      // const {PayerID,paymentId}=webViewState.url;
       console.log(228, url);
       console.log(229, paymentId);
       console.log(230, PayerID);
       axios
         .post(
           `https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute`,
-          {payerID: PayerID},
+          {payer_id: PayerID},
           {
             headers: {
               'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + accessToken,
+              'Authorization': 'Bearer ' + accessToken,
             },
           },
         )
         .then(response => {
           console.log(224, response);
+
+          
           if (response.status == 200) {
+            // navigation.goBack();
+            updateState({isVisible:false})
             // hitOrderPlaceApi();
           }
         })
