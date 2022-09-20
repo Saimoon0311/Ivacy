@@ -14,7 +14,7 @@ import {
 } from 'react-native-responsive-screen';
 import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
 import {ApiGet, ApiPost, ApiPostFormData} from '../../config/helperFunction';
-import {CountryNameUrl, SignUpUrl} from '../../config/Urls';
+import {CountryNameUrl, resendEmailUrl, SignUpUrl} from '../../config/Urls';
 import {styles} from './styles';
 import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 import {color} from '../../components/color';
@@ -22,11 +22,12 @@ import {Picker} from '@react-native-picker/picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyles} from '../../config/globalStyles';
-import {errorMessage} from '../../components/NotificationMessage';
+import {errorMessage, successMessage} from '../../components/NotificationMessage';
 import * as Animatable from 'react-native-animatable';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {SkypeIndicator} from 'react-native-indicators';
 import {KeyboardAvoidingView} from 'native-base';
+import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 
 export default function SignUpScreen({navigation}) {
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('45'));
@@ -38,6 +39,7 @@ export default function SignUpScreen({navigation}) {
     userImage: [],
     phone: '',
     userRole: 0,
+    
   });
   // sb-ktzwd14471324@personal.example.com
   // p)FUl>U3
@@ -48,10 +50,14 @@ export default function SignUpScreen({navigation}) {
     phone: false,
     countryId: false,
   });
+  const [timerValue, setTimerValue] = useState(true);
+
   const [signUpCofirm, setSignUpConfirm] = useState(false);
   const [countryPicker, setCountryPicker] = useState([]);
   const [isloading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
+  const [timer, setTimer] = useState(false);
+  const [userId,setUserId]=useState('');
   const handleClick = () => setShow(!show);
   const {userName, email, password, countryId, userImage, phone, userRole} =
     signUpUser;
@@ -97,9 +103,12 @@ export default function SignUpScreen({navigation}) {
         type: userImage[0].type,
       });
       ApiPostFormData(SignUpUrl, formdata).then(res => {
+        console.log(res.json,106);
+        const {id} =res.json.data;
         if (res.status == 200) {
           setLoading(false);
           setSignUpConfirm(true);
+          setUserId(id);
         } else if (res.status == 401) {
           setLoading(false);
           errorMessage(res.json.message);
@@ -124,6 +133,26 @@ export default function SignUpScreen({navigation}) {
       }
     });
   };
+
+   const resendEmailFunction =()=>{
+    console.log('138')
+    setLoading(true);
+    
+    
+      ApiGet(resendEmailUrl+userId).then((res)=>{
+        if(res.status == 200) {
+          setTimer(false)
+          successMessage('Email has been send');
+          setLoading(false);
+          
+        }
+        else {
+          setLoading(false);
+          errorMessage("Please Check Your Internet connection to 'Resend Email' ")
+        }
+      })
+   }
+
   useEffect(() => {
     getAllCountryName();
     const keyboardDidShowListener = Keyboard.addListener(
@@ -177,6 +206,25 @@ export default function SignUpScreen({navigation}) {
     );
   };
 
+  //TIMER FUNCTION
+  const timerProps = {
+    isPlaying: timerValue,
+    size: 80,
+    strokeWidth: 0,
+  };
+  const UrgeWithPleasureComponent = () => (
+    <CountdownCircleTimer
+      {...timerProps}
+      // isPlaying={false}
+      duration={60}
+      colors={['transparent', 'transparent', 'transparent', 'transparent']}
+      colorsTime={[7, 5, 2, 0]}
+      onComplete={() => setTimer(true)}>
+      {({remainingTime}) => <Text style={{fontWeight:'500',fontSize:hp('3'),color:'white',width:wp('50'),textAlign:'center'}}>{remainingTime+" sec"}</Text>}
+    </CountdownCircleTimer>
+  );
+
+
   return (
     <View>
       <ImageBackground
@@ -185,8 +233,8 @@ export default function SignUpScreen({navigation}) {
         <KeyboardAvoidingView behavior={'position'} style={styles.container}>
           <TouchableOpacity
             style={{
-              top: hp('2'),
-              left: wp('2'),
+              top: hp('5'),
+              left: wp('3'),
             }}
             onPress={() => navigation.goBack()}>
             <Text
@@ -428,6 +476,8 @@ export default function SignUpScreen({navigation}) {
                 }}>
                 We have send you and email to verify your email address
               </Text>
+         {timer ==false && UrgeWithPleasureComponent()}
+  {timer && <ArrowButtonCom  right={wp('0.5')} loading={isloading} width={wp('37')}  text={'Resend Email'} onPress={()=>resendEmailFunction()}/>}
             </Animatable.View>
           )}
         </KeyboardAvoidingView>

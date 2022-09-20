@@ -193,7 +193,7 @@ const ThankYouScreen = ({route, navigation}) => {
         data={countryPicker}
         heading={'Similar Places'}
       /> */}
-      secowog808@geekjun.com
+      {/* secowog808@geekjun.com */}
     </ScrollView>
   );
 };

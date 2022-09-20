@@ -126,7 +126,7 @@ const EtherumPaymentScreen = ({navigation, route}) => {
     <CountdownCircleTimer
       {...timerProps}
       // isPlaying={false}
-      duration={200}
+      duration={60}
       colors={['#004777', '#F7B801', '#A30000', '#A30000']}
       colorsTime={[7, 5, 2, 0]}
       onComplete={() => setTimer(false)}>
