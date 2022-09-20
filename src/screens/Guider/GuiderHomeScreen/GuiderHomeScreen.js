@@ -35,7 +35,7 @@ import {NoDataView} from '../../../components/NoDataView/noDataView';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const [error,setError]=useState('You have no package yet');
+  const [error, setError] = useState('You have no package yet');
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
@@ -84,13 +84,10 @@ const HomeScreen = ({navigation}) => {
       if (res.status == 200) {
         updatePackageState({latestPackage: res.json.data});
         updateLoadingState({latestPackageLoading: false});
-
-      }
-     else if(res.status==410){
-      setError(res.json.message)
-      updateLoadingState({latestPackageLoading: false});
-     }
-      else {
+      } else if (res.status == 410) {
+        setError(res.json.message);
+        updateLoadingState({latestPackageLoading: false});
+      } else {
         errorMessage('Network Request Failed.');
         setIsloading(false);
       }
@@ -100,8 +97,6 @@ const HomeScreen = ({navigation}) => {
   useEffect(() => {
     GuiderBookPackages();
   }, []);
-
-  
 
   return (
     <View>
@@ -120,7 +115,7 @@ const HomeScreen = ({navigation}) => {
         <Image
           style={styles.headerStyle}
           resizeMode={'contain'}
-          source={require('../../../images/logo2.png')}
+          source={require('../../../images/IvaCay-02-01.png')}
         />
         <View
           style={{

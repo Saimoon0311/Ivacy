@@ -112,7 +112,7 @@ const ThankYouScreen = ({route, navigation}) => {
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require('../../images/Logo.png')}
+          source={require('../../images/IvaCay-01.jpg')}
         />
       </View>
       <View style={styles.thankuConatainer}>
@@ -124,7 +124,6 @@ const ThankYouScreen = ({route, navigation}) => {
           size={80}
         />
       </View>
-
       {/* <View style={styles.orderDetContainer}>
         <Text style={styles.orderDetxt}>Order Details</Text>
         <Ionicons
@@ -194,6 +193,7 @@ const ThankYouScreen = ({route, navigation}) => {
         data={countryPicker}
         heading={'Similar Places'}
       /> */}
+      secowog808@geekjun.com
     </ScrollView>
   );
 };

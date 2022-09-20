@@ -215,7 +215,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
     myHeaders.append(
       'Authorization',
-      'Bearer A21AALeYpXttBrQEiG94lDy8fooYiZOX12TAKXWEIgXN6cyMGiuNqBhpD8brp5EHCqtX5Yn7p3mGaDRzY2nCCzA34sENNLgdg',
+      'Bearer  A21AALOVDJvmIvZIZU9-ZfxaAkGeL_Ct_3vMVOUNinvURJGxvmN6fW3kgSBxPNAE8dU08NVomcgv0R3In29X4966OfFCUGJTQ',
       // 'Bearer A21AAIJpqBtgJrn0D10-sCw5VqO_FZE2ZCYtkKihjpju5MAtKDxgx2B_DmgHXUgTPq65_MQb8ZBoscmX2uGKWmIHX4dhG0Rzw',
     );
 
@@ -462,11 +462,11 @@ const CurrencyMethodScreen = ({route, navigation}) => {
                 startPaymentProcess();
               }}
               style={styles.boxContainer}>
-              <Text style={styles.text}>Visa</Text>
+              <Text style={styles.text}>PayPal</Text>
               <Image
                 resizeMode="contain"
                 style={styles.image}
-                source={require('../../images/creditcard.png')}
+                source={require('../../images/paypal.png')}
               />
             </TouchableOpacity>
           </Animatable.View>

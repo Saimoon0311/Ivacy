@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     position: 'absolute',
     top: hp('20'),
-    backgroundColor:'red'
+    // backgroundColor:'red'
   },
   text2: {
     fontSize: hp('3.0'),
