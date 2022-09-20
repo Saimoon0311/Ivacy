@@ -71,7 +71,6 @@ const PackageDetailScreen = ({route, navigation}) => {
             }}
             onPress={() => {
               navigation.goBack();
-              console.log('ysfdhsdv');
             }}>
             <Ionicons name="arrow-back" color={'white'} size={hp('2')} />
           </TouchableOpacity>

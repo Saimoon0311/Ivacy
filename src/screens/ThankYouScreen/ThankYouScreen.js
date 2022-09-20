@@ -33,10 +33,8 @@ import {
 
 const ThankYouScreen = ({route, navigation}) => {
   const item = route.params;
-  const [countryPicker, setCountryPicker] = useState([]);
-  const [isloading, setIsloading] = useState(true);
-  // const getAllCountryName = () => {
-  //   ApiGet(CountryNameUrl).then(res => {
+
+
   //     if (res.status == 200) {
   //       setIsloading(false);
   //       setCountryPicker(res.json.data);

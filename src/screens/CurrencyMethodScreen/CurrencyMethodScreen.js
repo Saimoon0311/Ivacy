@@ -208,10 +208,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
   }, [bottomSheet]);
 
   //PAYPAL PAYMENT
-  const startPayPalProcedureOne = () => {
-    console.log(108);
-    // let currency = '100';
-    // currency.replace(' USD', '');
+  const startPayPalProcedureOne = () => { 
 
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -430,11 +427,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             Choose Payment Method
           </Animatable.Text>
         </View>
-        <TouchableOpacity
-          style={{padding: hp('6')}}
-          onPress={() => startPayPalProcedureOne()}>
-          <Text>Choose Payment Method</Text>
-        </TouchableOpacity>
+       
         <View style={styles.InnerContainer}>
           <Animatable.View
             animation="fadeInLeftBig"

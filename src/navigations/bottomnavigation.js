@@ -34,29 +34,7 @@ function MybottomTabs() {
           overflow: 'hidden',
         },
       })}>
-      {/* <Tab.Screen
-        name="settingScreen"
-        options={{
-          tabBarIcon: ({focused, color, size}) => (
-            <Animatable.View
-              animation="fadeInLeftBig"
-              direction={'normal'}
-              delay={100}>
-              <Ionicons
-                name={color == '#ffff' ? 'settings' : 'settings-outline'}
-                color={'white'}
-                size={hp('3')}
-              />
-            </Animatable.View>
-          ),
-          title: `Setting`,
-          tabBarLabelStyle: {
-            fontSize: 15,
-            marginBottom: hp('1'),
-          },
-        }}
-        component={screens.settingScreen}
-      /> */}
+
       <Tab.Screen
         name="HomeScreen"
         options={{
