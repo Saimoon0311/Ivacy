@@ -22,7 +22,10 @@ import {Picker} from '@react-native-picker/picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyles} from '../../config/globalStyles';
-import {errorMessage, successMessage} from '../../components/NotificationMessage';
+import {
+  errorMessage,
+  successMessage,
+} from '../../components/NotificationMessage';
 import * as Animatable from 'react-native-animatable';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {SkypeIndicator} from 'react-native-indicators';
@@ -39,7 +42,6 @@ export default function SignUpScreen({navigation}) {
     userImage: [],
     phone: '',
     userRole: 0,
-    
   });
   // sb-ktzwd14471324@personal.example.com
   // p)FUl>U3
@@ -57,7 +59,7 @@ export default function SignUpScreen({navigation}) {
   const [isloading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [timer, setTimer] = useState(false);
-  const [userId,setUserId]=useState('');
+  const [userId, setUserId] = useState('');
   const handleClick = () => setShow(!show);
   const {userName, email, password, countryId, userImage, phone, userRole} =
     signUpUser;
@@ -103,9 +105,8 @@ export default function SignUpScreen({navigation}) {
         type: userImage[0].type,
       });
       ApiPostFormData(SignUpUrl, formdata).then(res => {
-        console.log(res.json,106);
-        const {id} =res.json.data;
         if (res.status == 200) {
+          const {id} = res.json.data;
           setLoading(false);
           setSignUpConfirm(true);
           setUserId(id);
@@ -134,24 +135,21 @@ export default function SignUpScreen({navigation}) {
     });
   };
 
-   const resendEmailFunction =()=>{
-    console.log('138')
+  const resendEmailFunction = () => {
     setLoading(true);
-    
-    
-      ApiGet(resendEmailUrl+userId).then((res)=>{
-        if(res.status == 200) {
-          setTimer(false)
-          successMessage('Email has been send');
-          setLoading(false);
-          
-        }
-        else {
-          setLoading(false);
-          errorMessage("Please Check Your Internet connection to 'Resend Email' ")
-        }
-      })
-   }
+    ApiGet(resendEmailUrl + userId).then(res => {
+      if (res.status == 200) {
+        setTimer(false);
+        successMessage('Email has been send');
+        setLoading(false);
+      } else {
+        setLoading(false);
+        errorMessage(
+          "Please Check Your Internet connection to 'Resend Email' ",
+        );
+      }
+    });
+  };
 
   useEffect(() => {
     getAllCountryName();
@@ -220,10 +218,20 @@ export default function SignUpScreen({navigation}) {
       colors={['transparent', 'transparent', 'transparent', 'transparent']}
       colorsTime={[7, 5, 2, 0]}
       onComplete={() => setTimer(true)}>
-      {({remainingTime}) => <Text style={{fontWeight:'500',fontSize:hp('3'),color:'white',width:wp('50'),textAlign:'center'}}>{remainingTime+" sec"}</Text>}
+      {({remainingTime}) => (
+        <Text
+          style={{
+            fontWeight: '500',
+            fontSize: hp('3'),
+            color: 'white',
+            width: wp('50'),
+            textAlign: 'center',
+          }}>
+          {remainingTime + ' sec'}
+        </Text>
+      )}
     </CountdownCircleTimer>
   );
-
 
   return (
     <View>
@@ -476,8 +484,16 @@ export default function SignUpScreen({navigation}) {
                 }}>
                 We have send you and email to verify your email address
               </Text>
-         {timer ==false && UrgeWithPleasureComponent()}
-  {timer && <ArrowButtonCom  right={wp('0.5')} loading={isloading} width={wp('37')}  text={'Resend Email'} onPress={()=>resendEmailFunction()}/>}
+              {timer == false && UrgeWithPleasureComponent()}
+              {timer && (
+                <ArrowButtonCom
+                  right={wp('0.5')}
+                  loading={isloading}
+                  width={wp('37')}
+                  text={'Resend Email'}
+                  onPress={() => resendEmailFunction()}
+                />
+              )}
             </Animatable.View>
           )}
         </KeyboardAvoidingView>

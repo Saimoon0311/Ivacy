@@ -33,10 +33,7 @@ import {
 
 const ThankYouScreen = ({route, navigation}) => {
   const item = route.params;
-  const [countryPicker, setCountryPicker] = useState([]);
-  const [isloading, setIsloading] = useState(true);
-  // const getAllCountryName = () => {
-  //   ApiGet(CountryNameUrl).then(res => {
+
   //     if (res.status == 200) {
   //       setIsloading(false);
   //       setCountryPicker(res.json.data);
@@ -112,7 +109,7 @@ const ThankYouScreen = ({route, navigation}) => {
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require('../../images/IvaCay-01.jpg')}
+          source={require('../../images/Logo.png')}
         />
       </View>
       <View style={styles.thankuConatainer}>

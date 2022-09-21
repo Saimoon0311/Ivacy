@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     marginBottom: hp('1.0'),
   },
   image: {
-    width: wp('31'),
+    width: wp('75'),
     height: hp('20'),
   },
   thankuConatainer: {

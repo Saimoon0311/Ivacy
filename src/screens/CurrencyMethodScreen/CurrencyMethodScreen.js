@@ -218,7 +218,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     myHeaders.append('Content-Type', 'application/json');
     myHeaders.append(
       'Authorization',
-      'Basic QVNYVWZ1TnkzaXNkbkFsUDI0cVhnVHVJS3hEWHhmd1ZKSFFiZnFaMkdDT0I1RlN0dXJiSEtVcFYwUWwxajZ3bGgyQmxyMTdzeDVtSU9lMkI6RUZNRGtmY2tfb2ZyYWpfVTdYTEtCaW1qTmZHR1ZLY2FFNFFBRkQ5blVfbWs4RzhVWHMxVWt0bGk4TUZCTExaV1JaQno3dlIwdUlfcmVUbDY=',
+      'Basic QVRwUWduV1g0cnJGVVlIRm1vUEJrSE1reVFMajVVbnF2VkRaaHNTODNLbTJGenEwNXRvcEhVY08xTTVyYW1EVk9HT0YySDNxSEk5TS1uMkg6RU1zZDVwdFdXT21vb2J4Mnp3QmJPLXpnd3FEUTYxS0lXcXZ4d3ZjWU90TENFRi1RYXBoYTB0UmFKM1hlRVpaMDFfeUxiZzRBTGZHX2w4TWU=',
     );
 
     var raw = 'grant_type=client_credentials';
@@ -229,8 +229,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       body: raw,
       redirect: 'follow',
     };
-    let url = 'https://api-m.sandbox.paypal.com/v1/oauth2/token'; // Test
-    // let url = "https://api-m.paypal.com/v1/oauth2/token" // live
+    // let url = 'https://api-m.sandbox.paypal.com/v1/oauth2/token'; // Test
+    let url = 'https://api-m.paypal.com/v1/oauth2/token'; // live
     fetch(url, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -265,8 +265,9 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       body: urlencoded.toString(),
       redirect: 'follow',
     };
-
-    fetch('https://api.sandbox.paypal.com/v1/oauth2/token', requestOptions)
+    let url = 'https://api.paypal.com/v1/oauth2/token'; // Live
+    // let url = "https://api.sandbox.paypal.com/v1/oauth2/token" // Test
+    fetch(url, requestOptions)
       .then(response => response.json())
       .then(result => {
         updateState({accessToken: result.access_token});
@@ -318,8 +319,9 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       body: raw,
       redirect: 'follow',
     };
-
-    fetch('https://api.sandbox.paypal.com/v1/payments/payment', requestOptions)
+    let url = 'https://api.paypal.com/v1/payments/payment'; // Live
+    // let url = "https://api.sandbox.paypal.com/v1/payments/payment" // Test
+    fetch(url, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(252, result);
@@ -341,16 +343,18 @@ const CurrencyMethodScreen = ({route, navigation}) => {
   const _onNavigationStateChange = async webViewState => {
     console.log(208, webViewState);
     if (webViewState.url.includes('https://example.com/')) {
-      var url = webViewState.url;
-      var paymentId = /paymentId=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
-      var PayerID = /PayerID=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
+      var webViewUrl = webViewState.url;
+      var paymentId = /paymentId=([^&]+)/.exec(webViewUrl)[1]; // Value is in [1] ('384' in our case)
+      var PayerID = /PayerID=([^&]+)/.exec(webViewUrl)[1]; // Value is in [1] ('384' in our case)
       // const {PayerID,paymentId}=webViewState.url;
       console.log(228, url);
       console.log(229, paymentId); // payment ID
       console.log(230, PayerID);
+      let url = `https://api.paypal.com/v1/payments/payment/${paymentId}/execute`; // Live
+      // let url = `https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute` // Test
       axios
         .post(
-          `https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute`,
+          url,
           {payer_id: PayerID},
           {
             headers: {
@@ -373,6 +377,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
           errorMessage('Enable to fatch data.');
           console.log(227, err);
         });
+    } else {
+      console.log(301);
     }
   };
 
@@ -462,11 +468,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             Choose Payment Method
           </Animatable.Text>
         </View>
-        {/* <TouchableOpacity
-          style={{padding: hp('6')}}
-          onPress={() => startPayPalProcedureOne()}>
-          <Text>Choose Payment Method</Text>
-        </TouchableOpacity> */}
+
         <View style={styles.InnerContainer}>
           <Animatable.View
             animation="fadeInLeftBig"

@@ -34,12 +34,12 @@ const LoginScreen = ({route, navigation}) => {
   const LoginType = route.params;
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('0'));
   const [loginUser, setLoginUser] = useState({
-    // email: '',
-    // password: '',
-    email: 'secowog808@geekjun.com',
+    email: '',
+    password: '',
+    // email: 'secowog808@geekjun.com',
     // email: 'Kihosiw869@dnitem.com',
     // email: 'bilal1@gmail.com',
-    password: 'password',
+    // password: 'password',
   });
   const [isloading, setLoading] = useState(false);
   const [isFocused, setIsFocused] = useState({
