@@ -12,7 +12,8 @@
     "androidBuild": "cd android && ./gradlew assembleRelease",
     "androidAdb": "cd android && ./gradlew bundleRelease",
     "iosInstall": "cd ios && pod install",
-    "gradlewClean": "cd android && ./gradlew clean"
+    "gradlewClean": "cd android && ./gradlew clean",
+    "runSpecSimulator":"npx react-native run-ios --simulator='iPad Pro (12.9-inch) (5th generation)'"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",

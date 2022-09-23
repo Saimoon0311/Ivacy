@@ -179,12 +179,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     let url = ChangeEthValueUrl + item.id;
     ApiGet(url).then(res => {
       if (res.status == 200) {
-        // let oneUSD = 1 / res.json.USD;
-        // let EthPrice = oneUSD * item.price;
         updateState({packageEthValue: res.json.data.toFixed(6)});
-        // Object.freeze(packageEthValue);
-        // setPackageEthValue(EthPrice);
-        // ETh = EthPrice;
         updateLoadingState({bottomSheetLoading: false});
       } else {
         errorMessage('PLease check it again');
