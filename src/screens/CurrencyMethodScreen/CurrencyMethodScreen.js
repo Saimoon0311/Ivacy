@@ -229,8 +229,9 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     fetch(url, requestOptions)
       .then(response => response.json())
       .then(result => {
+        console.log(2332, result);
         updateState({PayPalBearerToken: result.access_token});
-        startPayPalProcedureOne();
+        startPayPalProcedureOne(result.access_token);
       })
       .catch(error => {
         errorMessage('Error to fatch data');
@@ -239,7 +240,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       });
   };
   //PAYPAL PAYMENT
-  const startPayPalProcedureOne = () => {
+  const startPayPalProcedureOne = token => {
     // let currency = '100';
     // currency.replace(' USD', '');
     // {560nH!H
@@ -247,7 +248,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
     myHeaders.append(
       'Authorization',
-      `Bearer ${PayPalBearerToken}`,
+      `Bearer ${token}`,
       // 'Bearer A21AAIJpqBtgJrn0D10-sCw5VqO_FZE2ZCYtkKihjpju5MAtKDxgx2B_DmgHXUgTPq65_MQb8ZBoscmX2uGKWmIHX4dhG0Rzw',
     );
 
