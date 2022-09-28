@@ -24,7 +24,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="SplashScreen" width="214" height="463"/>
+        <image name="SplashScreen" width="585" height="1266"/>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

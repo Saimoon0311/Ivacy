@@ -11,8 +11,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {NoDataView} from '../../components/NoDataView/noDataView';
-import {ApiPost} from '../../config/helperFunction';
-import {SearchrUrl} from '../../config/Urls';
+import {ApiGet, ApiPost} from '../../config/helperFunction';
+import {SearchFilter, SearchFilterUrl, SearchrUrl} from '../../config/Urls';
 import {useEffect} from 'react';
 import {showMessage} from 'react-native-flash-message';
 import {color} from '../../components/color';
@@ -25,6 +25,8 @@ export default function PackageScreen({route, navigation}) {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
   const [refreshing, setRefreshing] = useState(false);
+  // const [allActivitesId, setAllActivitesId] = useState([]);
+  var allActivitesId = [];
   const onRefresh = useCallback(() => {
     setIsloading(true);
     setRefreshing(true);
@@ -47,27 +49,64 @@ export default function PackageScreen({route, navigation}) {
   let startPrice = items.data?.startPrice ? items.data?.startPrice : '0';
   let endPrice = items.data?.EndPrice ? items.data?.EndPrice : '0';
 
+  const getfilterFavourdIds = activities => {
+    console.log(54, activities);
+    if (activities.length > 0) {
+      activities.map(res => {
+        console.log(54, res.id);
+        allActivitesId = [...allActivitesId, res.id];
+        // setAllActivitesId(...allActivitesId, res.id);
+      });
+    }
+  };
+
+  const getPackagesByFilter = async url => {
+    const {startPrice, country_id, favored_id, startDate, endDate, activities} =
+      items.data;
+    await getfilterFavourdIds(activities);
+    console.log(53, items.data);
+    let body = JSON.stringify({
+      country_id: country_id,
+      from_date: startDate,
+      end_date: endDate,
+      price: startPrice,
+      favored: favored_id,
+      activities: allActivitesId,
+    });
+    console.log(72, body, url);
+
+    ApiPost(url, body, false).then(res => {
+      console.log(62, res.json);
+      if (res.status == 200 || res.status == 404) {
+        setAllPackage(res.json.data);
+        setIsloading(false);
+      } else {
+        setIsloading(false);
+        errorMessage('Network Request Failed');
+      }
+    });
+  };
+
+  const getPackagesById = () => {
+    let url = items?.url + items?.data?.id;
+    ApiGet(url).then(res => {
+      if (res.status == 200) {
+        setAllPackage(res.json.data);
+        setIsloading(false);
+      } else {
+        setIsloading(false);
+        errorMessage('Network Request Failed');
+      }
+    });
+  };
+
   const getPackages = () => {
-    if (items?.data?.id != null) {
-      // let url = SearchrUrl + '233';
-      let url = SearchrUrl + items.data.id;
-      let body = JSON.stringify({
-        is_price: Number(type),
-        start_price: startPrice,
-        end_price: endPrice,
-      });
-      ApiPost(url, body, false, userData.access_token).then(res => {
-        if (res.status == 200 || res.status == 404) {
-          setAllPackage(res.json.data);
-          setIsloading(false);
-        } else {
-          setIsloading(false);
-          errorMessage('Network Request Failed');
-        }
-      });
+    if (items?.url == SearchFilterUrl) {
+      getPackagesByFilter(SearchFilterUrl);
     } else {
-      setIsloading(false);
-      errorMessage('PLease Select Country');
+      getPackagesById();
+      // setIsloading(false);
+      // errorMessage('PLease Select Country');
     }
   };
   useEffect(() => {

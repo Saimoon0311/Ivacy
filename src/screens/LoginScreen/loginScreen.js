@@ -36,6 +36,8 @@ const LoginScreen = ({route, navigation}) => {
   const [loginUser, setLoginUser] = useState({
     email: '',
     password: '',
+    // email: 'secowog808@geekjun.com',
+    // email: 'Kihosiw869@dnitem.com',
     // email: 'bilal1@gmail.com',
     // password: 'password',
   });
@@ -112,7 +114,7 @@ const LoginScreen = ({route, navigation}) => {
         password: password,
       });
       ApiPost(LoginUrl, body, false).then(res => {
-        console.warn(res,115)
+        console.warn(res, 115);
         if (res.status == 200) {
           disptach({
             type: types.LoginType,
@@ -163,7 +165,9 @@ const LoginScreen = ({route, navigation}) => {
       <ImageBackground
         style={styles.backgroundImage}
         source={require('../../images/background.png')}>
-        <KeyboardAvoidingView behavior={Platform.OS=='ios'?'position':'height'} style={styles.container}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == 'ios' ? 'position' : 'height'}
+          style={styles.container}>
           <TouchableOpacity
             style={{
               top: hp('2'),

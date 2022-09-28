@@ -34,7 +34,6 @@ import {
 const ThankYouScreen = ({route, navigation}) => {
   const item = route.params;
 
-
   //     if (res.status == 200) {
   //       setIsloading(false);
   //       setCountryPicker(res.json.data);
@@ -122,7 +121,6 @@ const ThankYouScreen = ({route, navigation}) => {
           size={80}
         />
       </View>
-
       {/* <View style={styles.orderDetContainer}>
         <Text style={styles.orderDetxt}>Order Details</Text>
         <Ionicons
@@ -192,6 +190,7 @@ const ThankYouScreen = ({route, navigation}) => {
         data={countryPicker}
         heading={'Similar Places'}
       /> */}
+      {/* secowog808@geekjun.com */}
     </ScrollView>
   );
 };

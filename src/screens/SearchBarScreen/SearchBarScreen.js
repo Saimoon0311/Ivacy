@@ -6,6 +6,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import {globalStyles} from '../../config/globalStyles';
 import {
@@ -15,7 +16,14 @@ import {
 import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {ApiGet, ApiPost} from '../../config/helperFunction';
-import {CountryNameUrl, SearchrUrl} from '../../config/Urls';
+import {
+  CountryNameUrl,
+  FavoredSceneriesUrl,
+  GetAllActivitesUrl,
+  PackageBySceneriesUrl,
+  SearchFilterUrl,
+  SearchrUrl,
+} from '../../config/Urls';
 import {useEffect} from 'react';
 import {showMessage} from 'react-native-flash-message';
 import {styles} from './styles';
@@ -25,28 +33,50 @@ import {useState} from 'react';
 import {useSelector} from 'react-redux';
 import {SkypeIndicator} from 'react-native-indicators';
 import {errorMessage} from '../../components/NotificationMessage';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment/moment';
+import {Divider} from 'react-native-paper';
 
 export default function SearchBarScreen({navigation}) {
+  // let d = moment(1664276491879).format('YYYY-MM-DD');
+  // let d = moment(new Date()).format('YYYY-MM-DD hh:mm:ss').fromNow();
+  // let d = moment(1664276491879).format('L');
+  // console.log(35, d);
+  const date = new Date();
+  const time = date.setDate(date.getDate() + 1);
+  const LatestDate = moment(time).format('YYYY-MM-DD');
   const {userData} = useSelector(state => state.userData);
   const [countryPicker, setCountryPicker] = useState([]);
+  const [activity, setActivity] = useState([]);
+  const [favored, setFavored] = useState([]);
   const [countryName, seCountryName] = useState('');
+  const [isDate, setIsDate] = useState(false);
+  const [startDate, setStartDate] = useState(new Date(time));
+  const [endDate, setEndDate] = useState(null);
+  // const [endDate, setEndDate] = useState(date);
+  const [dummy, setDummy] = useState(0);
   const [searchData, setSearchData] = useState({
     country_id: null,
-    startPrice: '0',
+    favored_id: null,
+    startPrice: '',
     EndPrice: '2600000000000',
     isPrice: '0',
+    activities: [],
+    // startDate: new Date(time),
+    // endDate: date,
   });
   const [isloading, setIsloading] = useState(false);
-  const {country_id, startPrice, EndPrice, isPrice} = searchData;
+  const {country_id, startPrice, EndPrice, isPrice, activities, favored_id} =
+    searchData;
   const goBack = () => {
     navigation.goBack();
   };
   const updateState = data => setSearchData(() => ({...searchData, ...data}));
 
-  const getAllCountryName = () => {
-    ApiGet(CountryNameUrl).then(res => {
+  const getAllDinamicData = (url, saveState) => {
+    ApiGet(url).then(res => {
       if (res.status == 200) {
-        setCountryPicker(res.json.data);
+        saveState(res.json.data);
       } else {
         errorMessage(
           'Please Check Your Internet connection to get Countries Name.',
@@ -55,45 +85,87 @@ export default function SearchBarScreen({navigation}) {
     });
   };
   let allstate = {
-    is_price: EndPrice == '2600000000000' ? '0' : '1',
     startPrice: startPrice,
-    EndPrice: EndPrice,
-    id: country_id,
+    country_id: country_id,
     name: countryName,
+    favored_id: favored_id,
+    startDate: moment(startDate).format('YYYY-MM-DD'),
+    endDate: moment(endDate).format('YYYY-MM-DD'),
+    activities: activities,
   };
-  const applyFilterFun = () => {
-    setIsloading(true);
-    if (country_id != null) {
-      let url = SearchrUrl + country_id;
-      let body = JSON.stringify({
-        is_price: EndPrice == '2600000000000' ? '0' : '1',
-        start_price: startPrice,
-        end_price: EndPrice,
-      });
-      ApiPost(url, body, false, userData.access_token).then(res => {
-        if (res.status == 200 || res.status == 404) {
-          navigation.navigate('PackageScreen', {
-            data: res.json.data,
-            countryName: countryName,
-          });
-          setIsloading(false);
-        } else {
-          setIsloading(false);
-          errorMessage('Network Request Failed.');
-        }
+
+  // const showDatePicker = () => {
+  //   setDatePickerVisibility(true);
+  // };
+
+  // const hideDatePicker = () => {
+  //   setDatePickerVisibility(false);
+  // };
+
+  // const handleConfirm = date => {
+  //   console.warn('A date has been picked: ', date);
+  //   hideDatePicker();
+  // };
+
+  // const applyFilterFun = () => {
+  //   setIsloading(true);
+  //   if (country_id != null) {
+  //     let url = SearchrUrl + country_id;
+  //     let body = JSON.stringify({
+  //       is_price: EndPrice == '2600000000000' ? '0' : '1',
+  //       start_price: startPrice,
+  //       end_price: EndPrice,
+  //     });
+  //     ApiPost(url, body, false, userData.access_token).then(res => {
+  //       if (res.status == 200 || res.status == 404) {
+  //         navigation.navigate('PackageScreen', {
+  //           data: res.json.data,
+  //           countryName: countryName,
+  //         });
+  //         setIsloading(false);
+  //       } else {
+  //         setIsloading(false);
+  //         errorMessage('Network Request Failed.');
+  //       }
+  //     });
+  //   } else {
+  //     setIsloading(false);
+  //     errorMessage('Please Select Country.');
+  //   }
+  // };
+  const selectActivities = (v, i) => {
+    if (activities.includes(v)) {
+      updateState({
+        activities: activities.filter(activities => activities.id !== v.id),
       });
     } else {
-      setIsloading(false);
-      errorMessage('Please Select Country.');
+      updateState({activities: [...activities, v]});
     }
   };
+  const upadateStartDate = e => {
+    let d = moment(e?.nativeEvent?.timestamp).format('YYYY-MM-DD');
+    // updateState({startDate: new Date(e.nativeEvent.timestamp)});
+    setStartDate(new Date(e.nativeEvent.timestamp));
+    setEndDate(startDate);
+    // updateState({endDate: startDate});
+    // updateState({endDate: new Date(e?.nativeEvent?.timestamp)});
+  };
+  const upadateEndDate = e => {
+    let d = moment(e?.nativeEvent?.timestamp).format('YYYY-MM-DD');
+    // updateState({endDate: d});
+    // updateState({endDate: new Date(d)});
+    setEndDate(new Date(e.nativeEvent.timestamp));
+    console.log(130, endDate);
+  };
   useEffect(() => {
-    getAllCountryName();
+    getAllDinamicData(CountryNameUrl, setCountryPicker);
+    getAllDinamicData(GetAllActivitesUrl, setActivity);
+    getAllDinamicData(FavoredSceneriesUrl, setFavored);
   }, []);
   return (
     <View>
       <BackHeaderCom goBack={goBack} text="Filter Screen" />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom: hp('20')}}>
         {countryPicker.length > 0 ? (
           <>
             <Text
@@ -105,15 +177,6 @@ export default function SearchBarScreen({navigation}) {
               }}>
               Search Your Place!
             </Text>
-            {/* <Text
-              style={{
-                marginTop: hp('2'),
-                fontSize: hp('2'),
-                color: color.black,
-                marginLeft: wp('2'),
-              }}>
-              Country
-            </Text> */}
             <View
               style={{
                 ...styles.pickerStyle,
@@ -158,15 +221,190 @@ export default function SearchBarScreen({navigation}) {
             }}
           />
         )}
+        {favored.length > 0 ? (
+          <>
+            <Text
+              style={{
+                ...globalStyles.globalTextStyles,
+                fontSize: hp('2.5'),
+                marginLeft: wp('5'),
+                marginTop: hp('4'),
+              }}>
+              Search Your Favorate Sceneries!
+            </Text>
+            <View
+              style={{
+                ...styles.pickerStyle,
+                borderColor:
+                  favored_id != '' || favored_id == null
+                    ? color.black
+                    : color.themeColorDark,
+              }}>
+              <Picker
+                mode="dialog"
+                selectedValue={favored_id}
+                dropdownIconColor={'black'}
+                itemStyle={{color: 'black'}}
+                dropdownIconRippleColor="red"
+                style={{color: 'black'}}
+                onValueChange={(favored_id, index) => {
+                  // seCountryName(countryPicker[index - 1].name);
+                  updateState({favored_id});
+                }}
+                collapsable={true}>
+                <Picker.Item
+                  style={{color: color.themeColorDark}}
+                  key={null}
+                  value={null}
+                  label={'Select the Country Name'}
+                />
+                {favored.map(res => {
+                  return (
+                    <Picker.Item key={res.id} value={res.id} label={res.name} />
+                  );
+                })}
+              </Picker>
+            </View>
+          </>
+        ) : (
+          <SkypeIndicator
+            color={color.textThirdColor}
+            size={hp('6')}
+            style={{
+              alignSelf: 'center',
+              marginTop: hp('2'),
+            }}
+          />
+        )}
         <Text
           style={{
             ...globalStyles.globalTextStyles,
             fontSize: hp('2.5'),
             marginLeft: wp('5'),
           }}>
-          Enter Your Price range!
+          Enter your Price!
+        </Text>
+        <TextInput
+          value={startPrice}
+          style={styles.inputField}
+          keyboardType="numeric"
+          onChangeText={startPrice => updateState({startPrice})}
+          placeholder="price"
+          placeholderTextColor={'gray'}
+        />
+        <Text
+          style={{
+            ...globalStyles.globalTextStyles,
+            fontSize: hp('2.5'),
+            marginLeft: wp('5'),
+          }}>
+          Select your Date Range!
         </Text>
         <View style={styles.inputView}>
+          <DateTimePicker
+            testID="startDatePicker"
+            value={startDate}
+            mode={'date'}
+            minimumDate={date}
+            is24Hour={false}
+            display="default"
+            themeVariant="light"
+            style={styles.datePicker}
+            onChange={e => {
+              upadateStartDate(e);
+            }}
+            onTouchCancel={() => {
+              console.log(276), setIsDate(false);
+            }}
+          />
+          <Text
+            style={{
+              ...globalStyles.globalTextStyles,
+              fontSize: hp('2'),
+            }}>
+            - To -
+          </Text>
+          {endDate != null ? (
+            <>
+              <DateTimePicker
+                testID="endDatePicker"
+                value={endDate}
+                mode={'date'}
+                minimumDate={startDate}
+                is24Hour={false}
+                display="default"
+                style={styles.datePicker}
+                themeVariant="light"
+                onChange={e => {
+                  upadateEndDate(e);
+                  // console.log(143, startDate), setIsDate(false);
+                }}
+                onTouchCancel={() => {
+                  console.log(276), setIsDate(false);
+                }}
+              />
+            </>
+          ) : (
+            <View
+              style={{
+                backgroundColor: '#E0E0E0',
+                height: hp('4.5'),
+                width: wp('33'),
+                borderRadius: 8,
+              }}
+            />
+          )}
+        </View>
+        <View style={styles.activitiesMainView}>
+          <Text
+            style={{
+              ...globalStyles.globalTextStyles,
+              fontSize: hp('2.5'),
+              marginLeft: wp('5'),
+              marginTop: hp('4'),
+              width: wp('100'),
+            }}>
+            Search Your Activities!
+          </Text>
+          {activity.length > 0 ? (
+            activity.map((res, i) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => selectActivities(res, i)}
+                  style={{
+                    ...styles.activitiesContainer,
+                    backgroundColor: activities.includes(res)
+                      ? color.lightPurple
+                      : 'white',
+                    borderColor: activities.includes(res)
+                      ? color.orderBoxColor
+                      : 'black',
+                    borderWidth: activities.includes(res) ? 2 : 1,
+                  }}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      color: activities.includes(res)
+                        ? color.orderBoxColor
+                        : 'black',
+                    }}>
+                    {res?.name}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })
+          ) : (
+            <SkypeIndicator
+              color={color.textThirdColor}
+              size={hp('6')}
+              style={{
+                alignSelf: 'center',
+                marginTop: hp('2'),
+              }}
+            />
+          )}
+        </View>
+        {/* <View style={styles.inputView}>
           <TextInput
             value={startPrice}
             style={styles.inputField}
@@ -190,7 +428,7 @@ export default function SearchBarScreen({navigation}) {
             placeholderTextColor={'gray'}
             placeholder="price"
           />
-        </View>
+        </View> */}
         {isloading ? (
           <SkypeIndicator
             color={color.bottomBarColor}
@@ -200,12 +438,14 @@ export default function SearchBarScreen({navigation}) {
         ) : (
           <TouchableOpacity
             // onPress={() => applyFilterFun()}
-            onPress={() =>
-              navigation.navigate('PackageScreen', {
-                data: allstate,
-                type: 'search',
-              })
-            }
+            onPress={() => {
+              country_id != null
+                ? navigation.navigate('PackageScreen', {
+                    data: allstate,
+                    url: SearchFilterUrl,
+                  })
+                : errorMessage('Please Select Country');
+            }}
             style={styles.buttonView}>
             <Text style={styles.buttonText}>Apply Filter</Text>
           </TouchableOpacity>

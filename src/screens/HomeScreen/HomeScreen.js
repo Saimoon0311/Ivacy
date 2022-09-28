@@ -19,16 +19,15 @@ import {
   CountryNameUrl,
   FavoredSceneriesUrl,
   LatestPackageUrl,
+  PackageByCountryUrl,
+  PackageBySceneriesUrl,
 } from '../../config/Urls';
 import {LatestPackageFlatlist} from '../../components/LatestPackageFlatlist/latestPackageFlatlist';
 import SearchBarComponents from '../../components/SearchBarComponents/SearchBarComponents';
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
 import {useCallback} from 'react';
 import {errorMessage} from '../../components/NotificationMessage';
-import LottieView from 'lottie-react-native';
 import types from '../../Redux/type';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import EtherumPaynemtScreen from '../EtherumPaymentScreen/EtherumPaymentScreen';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -68,19 +67,10 @@ const HomeScreen = ({navigation}) => {
   const updateLoadingState = data => {
     setIsloading(prev => ({...prev, ...data}));
   };
-  const navigateToPackage = item => {
-    // navigation.navigate('MapViewScreen', {
-    //   data: item,
-    //   type: 'getPackage',
-    // }
-    // );
-    // navigation.navigate('PackageScreen', {
-    //   data: item,
-    //   type: 'getPackage',
-    // });
+  const navigateToPackage = (item, url) => {
     navigation.navigate('PackageScreen', {
       data: item,
-      type: 'getPackage',
+      url: url,
     });
   };
   const {latestPackageLoading, countryLoader, favoredLoader, pageLoading} =
@@ -133,9 +123,6 @@ const HomeScreen = ({navigation}) => {
     getPackage();
     getCountryName();
     favoredSceneries();
-    dispatch({
-      type: types.DeleteAllPackages,
-    });
   }, []);
   // setTimeout(() => {
   //   updateLoadingState({pageLoading: false});
@@ -196,6 +183,7 @@ const HomeScreen = ({navigation}) => {
           isloading={countryLoader}
           heading={'Top Places'}
           navigate={navigateToPackage}
+          getPackageUrl={PackageByCountryUrl}
         />
         <CityImageComponent
           ml={wp('4')}
@@ -203,6 +191,7 @@ const HomeScreen = ({navigation}) => {
           isloading={favoredLoader}
           heading={'Favorate Sceneries'}
           navigate={navigateToPackage}
+          getPackageUrl={PackageBySceneriesUrl}
         />
       </ScrollView>
     </SafeAreaView>

@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     width: wp('90'),
     flexDirection: 'row',
     alignSelf: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   inputField: {
@@ -34,6 +34,8 @@ export const styles = StyleSheet.create({
     height: Platform.OS == 'ios' ? hp('5') : hp('6'),
     paddingLeft: wp('2'),
     textAlignVertical: 'center',
+    marginBottom: hp('2'),
+    alignSelf: 'center',
   },
   buttonView: {
     backgroundColor: color.bottomBarColor,
@@ -46,4 +48,26 @@ export const styles = StyleSheet.create({
     marginTop: wp('4'),
   },
   buttonText: {color: color.white, fontSize: hp('2'), fontWeight: 'bold'},
+  datePicker: {
+    width: wp('40'),
+    marginLeft: wp('-9'),
+  },
+  activitiesContainer: {
+    width: wp('30'),
+    height: hp('6'),
+    borderColor: 'black',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginTop: hp('2'),
+    maxHeight: hp('7'),
+  },
+  activitiesMainView: {
+    flexDirection: 'row',
+    width: wp('100'),
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    marginTop: hp('2'),
+  },
 });

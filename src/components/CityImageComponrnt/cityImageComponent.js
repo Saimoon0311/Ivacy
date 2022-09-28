@@ -83,7 +83,7 @@ export const CityImageComponent = props => {
               return (
                 <TouchableOpacity
                   onPress={() => {
-                    props?.navigate(item);
+                    props?.navigate(item, props?.getPackageUrl);
                   }}
                   style={{...styles.mainContainer}}>
                   <ImageBackground

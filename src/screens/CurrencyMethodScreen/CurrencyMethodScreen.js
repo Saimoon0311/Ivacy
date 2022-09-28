@@ -8,10 +8,11 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import {styles} from './style';
 import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import {
+  AfterPayPalPayment,
   AfterStripeUrl,
   ChangeEthValueUrl,
   CheckEthValue,
@@ -27,7 +28,7 @@ import {errorMessage} from '../../components/NotificationMessage';
 import {ApiGet, ApiPost} from '../../config/helperFunction';
 import BottomSheet from 'react-native-easy-bottomsheet';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { StackActions } from '@react-navigation/native';
+import {StackActions} from '@react-navigation/native';
 // import {useMoralis} from 'react-moralis';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -60,6 +61,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     approvalUrl: null,
     paymentId: null,
     isVisible: false,
+    PayPalBearerToken: '',
   });
 
   const [bottomSheet, setBottomSheet] = useState(false);
@@ -81,6 +83,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     approvalUrl,
     paymentId,
     isVisible,
+    PayPalBearerToken,
   } = stripeData;
   const updateState = data => setStripeData(prev => ({...prev, ...data}));
   const fetchClientSecret = async () => {
@@ -136,26 +139,30 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     }
   };
 
-  const confirmYourOrder = paymentIntent => {
+  const confirmYourOrder = (paymentId, PayerID) => {
     let invoiceNumber = Date.now() + Math.random(5).toFixed(0);
     let body = JSON.stringify({
-      stripeId: paymentIntent.id,
+      payerId: PayerID,
+      paymentId: paymentId,
       userId: userData.data.id,
       packageId: item.id,
       invoiceNumber: invoiceNumber,
     });
-    ApiPost(AfterStripeUrl, body, false, userData.access_token).then(res => {
-      if (res.status == 200) {
-        updateLoadingState({isloading: false});
-        navigation.navigate('ThankYouScreen', res.json.journey);
-      } else {
-        updateLoadingState({isloading: false});
-        errorMessage('Unable to fatch data.');
-        alert(
-          `Some error acoures Your StripeId is ${paymentIntent.id} Plaese contact to Admin.`,
-        );
-      }
-    });
+    ApiPost(AfterPayPalPayment, body, false, userData.access_token).then(
+      res => {
+        console.log(153, res);
+        if (res.status == 200) {
+          updateLoadingState({isloading: false});
+          navigation.navigate('ThankYouScreen', res.json.journey);
+        } else {
+          updateLoadingState({isloading: false});
+          errorMessage('Unable to fatch data.');
+          alert(
+            `Some error acoures Your PayPal PaymentId is ${paymentId.id} Plaese contact to Admin.`,
+          );
+        }
+      },
+    );
   };
   const SheetLoadingView = () => {
     return (
@@ -172,12 +179,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     let url = ChangeEthValueUrl + item.id;
     ApiGet(url).then(res => {
       if (res.status == 200) {
-        // let oneUSD = 1 / res.json.USD;
-        // let EthPrice = oneUSD * item.price;
         updateState({packageEthValue: res.json.data.toFixed(6)});
-        // Object.freeze(packageEthValue);
-        // setPackageEthValue(EthPrice);
-        // ETh = EthPrice;
         updateLoadingState({bottomSheetLoading: false});
       } else {
         errorMessage('PLease check it again');
@@ -206,15 +208,47 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       getEtherumValue();
     }
   }, [bottomSheet]);
+  const getPayPalToken = () => {
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append(
+      'Authorization',
+      'Basic QVRwUWduV1g0cnJGVVlIRm1vUEJrSE1reVFMajVVbnF2VkRaaHNTODNLbTJGenEwNXRvcEhVY08xTTVyYW1EVk9HT0YySDNxSEk5TS1uMkg6RU1zZDVwdFdXT21vb2J4Mnp3QmJPLXpnd3FEUTYxS0lXcXZ4d3ZjWU90TENFRi1RYXBoYTB0UmFKM1hlRVpaMDFfeUxiZzRBTGZHX2w4TWU=',
+    );
 
+    var raw = 'grant_type=client_credentials';
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+    // let url = 'https://api-m.sandbox.paypal.com/v1/oauth2/token'; // Test
+    let url = 'https://api-m.paypal.com/v1/oauth2/token'; // live
+    fetch(url, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(2332, result);
+        updateState({PayPalBearerToken: result.access_token});
+        startPayPalProcedureOne(result.access_token);
+      })
+      .catch(error => {
+        errorMessage('Error to fatch data');
+        console.log('error', error);
+        updateLoadingState({isloading: false});
+      });
+  };
   //PAYPAL PAYMENT
-  const startPayPalProcedureOne = () => { 
-
+  const startPayPalProcedureOne = token => {
+    // let currency = '100';
+    // currency.replace(' USD', '');
+    // {560nH!H
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
     myHeaders.append(
       'Authorization',
-      'Bearer A21AAIKkssjq4WN9UON0rRCYp0h5TrbZLLioNWgSP1zKL3rLlMAtXExFSiWY36Sbj5IuQDZPC3K-RpHQWKRfK6e3HY_o00O-g',
+      `Bearer ${token}`,
       // 'Bearer A21AAIJpqBtgJrn0D10-sCw5VqO_FZE2ZCYtkKihjpju5MAtKDxgx2B_DmgHXUgTPq65_MQb8ZBoscmX2uGKWmIHX4dhG0Rzw',
     );
 
@@ -227,18 +261,18 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       body: urlencoded.toString(),
       redirect: 'follow',
     };
-
-    fetch('https://api.sandbox.paypal.com/v1/oauth2/token', requestOptions)
+    let url = 'https://api.paypal.com/v1/oauth2/token'; // Live
+    // let url = "https://api.sandbox.paypal.com/v1/oauth2/token" // Test
+    fetch(url, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(160, result);
         updateState({accessToken: result.access_token});
-
         startPayPalProcedureTwo(result.access_token);
       })
       .catch(error => {
         console.log(163, error);
         updateLoadingState({isloading: false});
+        errorMessage('Enable to fatch data.');
       });
   };
 
@@ -246,9 +280,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     var myHeaders = new Headers();
     myHeaders.append('Authorization', 'Bearer ' + access_token);
     myHeaders.append('Content-Type', 'application/json');
-    console.log(access_token, 241);
-    // let amount = itemTotalPrice;
-    let amount = 12;
+    let amount = item.price;
     var raw = JSON.stringify({
       intent: 'sale',
       payer: {
@@ -283,15 +315,14 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       body: raw,
       redirect: 'follow',
     };
-
-    fetch('https://api.sandbox.paypal.com/v1/payments/payment', requestOptions)
+    let url = 'https://api.paypal.com/v1/payments/payment'; // Live
+    // let url = "https://api.sandbox.paypal.com/v1/payments/payment" // Test
+    fetch(url, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(252, result);
         const {id, links} = result;
         const approvalUrl = links.find(data => data.rel == 'approval_url');
-
-        updateLoadingState({isloading: false});
         updateState({paymentId: id});
         updateState({approvalUrl: approvalUrl.href});
         if (result.state == 'created') {
@@ -301,43 +332,49 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       .catch(error => {
         console.log(253, error);
         updateLoadingState({isloading: false});
+        errorMessage('Enable to fatch data.');
       });
   };
 
-  const _onNavigationStateChange = async(webViewState) => {
+  const _onNavigationStateChange = async webViewState => {
     console.log(208, webViewState);
     if (webViewState.url.includes('https://example.com/')) {
-      var url =webViewState.url;
-      var paymentId = /paymentId=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
-      var PayerID = /PayerID=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our case)
+      var webViewUrl = webViewState.url;
+      var paymentId = /paymentId=([^&]+)/.exec(webViewUrl)[1]; // Value is in [1] ('384' in our case)
+      var PayerID = /PayerID=([^&]+)/.exec(webViewUrl)[1]; // Value is in [1] ('384' in our case)
       // const {PayerID,paymentId}=webViewState.url;
       console.log(228, url);
-      console.log(229, paymentId);
+      console.log(229, paymentId); // payment ID
       console.log(230, PayerID);
+      let url = `https://api.paypal.com/v1/payments/payment/${paymentId}/execute`; // Live
+      // let url = `https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute` // Test
       axios
         .post(
-          `https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute`,
+          url,
           {payer_id: PayerID},
           {
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + accessToken,
+              Authorization: 'Bearer ' + accessToken,
             },
           },
         )
         .then(response => {
           console.log(224, response);
-
-          
+          // sb-tzs0o20925317@personal.example.com
+          // {560nH!H
           if (response.status == 200) {
-            // navigation.goBack();
-            updateState({isVisible:false})
-            // hitOrderPlaceApi();
+            updateState({isVisible: false});
+            confirmYourOrder(paymentId, PayerID);
           }
         })
         .catch(err => {
+          updateLoadingState({isloading: false});
+          errorMessage('Enable to fatch data.');
           console.log(227, err);
         });
+    } else {
+      console.log(301);
     }
   };
 
@@ -427,7 +464,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             Choose Payment Method
           </Animatable.Text>
         </View>
-       
+
         <View style={styles.InnerContainer}>
           <Animatable.View
             animation="fadeInLeftBig"
@@ -459,14 +496,14 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             <TouchableOpacity
               onPress={() => {
                 updateLoadingState({isloading: true});
-                startPaymentProcess();
+                getPayPalToken();
               }}
               style={styles.boxContainer}>
-              <Text style={styles.text}>Visa</Text>
+              <Text style={styles.text}>PayPal</Text>
               <Image
                 resizeMode="contain"
                 style={styles.image}
-                source={require('../../images/creditcard.png')}
+                source={require('../../images/paypal.png')}
               />
             </TouchableOpacity>
           </Animatable.View>
