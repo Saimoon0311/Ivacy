@@ -5,11 +5,9 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
-  Pressable,
-  Image,
+
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {styles} from './styles';
 import {SliderBox, FastImage} from 'react-native-image-slider-box';
 import {globalStyles} from '../../config/globalStyles';
