@@ -15,7 +15,7 @@ export const ArrowButtonCom = props => {
   let right = props?.right ? props.right : wp('-13');
   return props?.loading ? (
     <SkypeIndicator
-      color={color.white}
+      color={props?.loaderColor??color.white}
       size={hp('4')}
       style={{
         right: right,
@@ -31,15 +31,17 @@ export const ArrowButtonCom = props => {
         width: width,
         height: height,
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: props?.backgroundColor ?? 'white',
         borderRadius: 5,
         marginRight: mgRight,
+        borderWidth:props?.borderWidth ?? 0,
+        borderColor:props?.borderColor ?? 'transparent'
       }}>
       <Text
         style={{
-          color: color.textPrimaryColor,
+          color: props?.color ?? color.textPrimaryColor,
           fontSize: hp('2'),
-          fontWeight: 'bold',
+          fontWeight: props?.fontWeight??'bold',
         }}>
         {props?.text}
       </Text>

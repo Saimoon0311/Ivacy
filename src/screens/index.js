@@ -20,6 +20,7 @@ import GuiderMapViewScreen from './Guider/GuiderMapViewScreen/GuiderMapViewScree
 import DeleteAccountScreen from './DeleteAccountScreen/DeleteAccountScreen';
 import EtherumPaynemtScreen from './EtherumPaymentScreen/EtherumPaymentScreen';
 import PendingPackageScreen from './PendingPackagesScreen/PendingPackagesScreen';
+import ProfileScreen from './ProfileScreen/ProfileScreen';
 export const screens = {
   OnboardingScreen,
   HomeScreen,
@@ -43,4 +44,5 @@ export const screens = {
   DeleteAccountScreen,
   EtherumPaynemtScreen,
   PendingPackageScreen,
+  ProfileScreen,
 };
