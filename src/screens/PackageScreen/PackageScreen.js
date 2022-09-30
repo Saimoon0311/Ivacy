@@ -50,12 +50,9 @@ export default function PackageScreen({route, navigation}) {
   let endPrice = items.data?.EndPrice ? items.data?.EndPrice : '0';
 
   const getfilterFavourdIds = activities => {
-    console.log(54, activities);
     if (activities.length > 0) {
       activities.map(res => {
-        console.log(54, res.id);
-        allActivitesId = [...allActivitesId, res.id];
-        // setAllActivitesId(...allActivitesId, res.id);
+        allActivitesId = [...allActivitesId, JSON.stringify(res.id)];
       });
     }
   };
@@ -64,19 +61,16 @@ export default function PackageScreen({route, navigation}) {
     const {startPrice, country_id, favored_id, startDate, endDate, activities} =
       items.data;
     await getfilterFavourdIds(activities);
-    console.log(53, items.data);
     let body = JSON.stringify({
       country_id: country_id,
       from_date: startDate,
       end_date: endDate,
       price: startPrice,
       favored: favored_id,
-      activities: allActivitesId,
+      // activities: [20],
+      // activities: allActivitesId,
     });
-    console.log(72, body, url);
-
     ApiPost(url, body, false).then(res => {
-      console.log(62, res.json);
       if (res.status == 200 || res.status == 404) {
         setAllPackage(res.json.data);
         setIsloading(false);

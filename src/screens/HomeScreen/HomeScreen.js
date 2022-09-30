@@ -189,7 +189,7 @@ const HomeScreen = ({navigation}) => {
           ml={wp('4')}
           data={favoredScenerie}
           isloading={favoredLoader}
-          heading={'Favorate Sceneries'}
+          heading={'Favored Scenery'}
           navigate={navigateToPackage}
           getPackageUrl={PackageBySceneriesUrl}
         />

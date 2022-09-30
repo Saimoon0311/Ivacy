@@ -57,7 +57,7 @@ export default function SearchBarScreen({navigation}) {
   const [dummy, setDummy] = useState(0);
   const [searchData, setSearchData] = useState({
     country_id: null,
-    favored_id: null,
+    favored_id: '',
     startPrice: '',
     EndPrice: '2600000000000',
     isPrice: '0',
@@ -230,7 +230,7 @@ export default function SearchBarScreen({navigation}) {
                 marginLeft: wp('5'),
                 marginTop: hp('4'),
               }}>
-              Search Your Favorate Sceneries!
+              Search Your Favored Scenery!
             </Text>
             <View
               style={{
@@ -387,6 +387,7 @@ export default function SearchBarScreen({navigation}) {
                       color: activities.includes(res)
                         ? color.orderBoxColor
                         : 'black',
+                      fontWeight: activities.includes(res) ? 'bold' : 'normal',
                     }}>
                     {res?.name}
                   </Text>

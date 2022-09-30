@@ -241,14 +241,19 @@ export default function SignUpScreen({navigation}) {
         <KeyboardAvoidingView behavior={'position'} style={styles.container}>
           <TouchableOpacity
             style={{
-              top: hp('5'),
-              left: wp('3'),
+              top: hp('4'),
+              left: wp('2'),
+              // width: wp('10'),
             }}
-            onPress={() => navigation.goBack()}>
-            <Text
-              style={{color: 'white', fontSize: hp('2'), fontWeight: 'bold'}}>
-              Go Back
-            </Text>
+            onPress={() => {
+              navigation.goBack();
+            }}>
+            <Ionicons
+              name="arrow-back"
+              color={'white'}
+              size={hp('5')}
+              // style={{top: hp('4'), left: wp('2')}}
+            />
           </TouchableOpacity>
           <Animatable.View
             animation="fadeInUpBig"

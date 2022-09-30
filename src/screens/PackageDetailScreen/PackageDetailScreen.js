@@ -57,14 +57,15 @@ const PackageDetailScreen = ({route, navigation}) => {
   }, []);
 
   return (
-    <SafeAreaView style={{marginTop: hp('-1.6')}}>
+    <SafeAreaView>
+      {/* <SafeAreaView style={{marginTop: hp('-1.6')}}> */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('35')}}>
         <View style={styles.container}>
           <TouchableOpacity
             style={{
-              top: hp('2'),
+              top: hp('3'),
               left: wp('2'),
               position: 'absolute',
               zIndex: 1,
@@ -90,7 +91,7 @@ const PackageDetailScreen = ({route, navigation}) => {
               height: 10,
               borderRadius: 5,
               marginHorizontal: 0,
-              marginTop: hp('6'),
+              // marginTop: hp('6'),
             }}
           />
           <View style={{marginLeft: wp('2')}}>
