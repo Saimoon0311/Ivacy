@@ -31,6 +31,7 @@ const userScreen = ({navigation}) => {
   const [isloading, setIsloading] = useState(false);
   const [userImageLoader, setUserImageLoader] = useState(true);
   const [userImage, setUserImage] = useState('');
+  
   const logoutFun = () => {
     let body = {};
     setIsloading(true);
@@ -93,16 +94,17 @@ const userScreen = ({navigation}) => {
           {userData.data.username}
         </Text>
         <TextImageComponent
+          onPress={() => navigation.navigate('ProfileScreen')}
+          iconName={'face'}
+          text={'Profile Screen'}
+          icon={true}
+        />
+        <TextImageComponent
           onPress={() => navigation.navigate('OrderDetailsScreen')}
           iconName={'bookmark-outline'}
           text={'My booked orders'}
         />
-        {/* <TextImageComponent
-          onPress={() => navigation.navigate('PendingPackageScreen')}
-          iconName={'pending-actions'}
-          text={'My pending orders'}
-          icon={true}
-        /> */}
+  
         {/* kihosiw869@dnitem.com */}
         <TextImageComponent
           onPress={() => Linking.openURL(AboutTheApp)}

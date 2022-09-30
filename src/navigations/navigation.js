@@ -62,6 +62,10 @@ export default function StackNavigatior() {
           component={screens.PackageDetailScreen}
         />
         <Stack.Screen
+          name="ProfileScreen"
+          component={screens.ProfileScreen}
+        />  
+        <Stack.Screen
           name="ThankYouScreen"
           component={screens.ThankYouScreen}
         />

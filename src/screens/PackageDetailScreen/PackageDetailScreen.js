@@ -17,12 +17,16 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
-import {CountryNameUrl, IMAGE_BASED_URL} from '../../config/Urls';
+import {CountryNameUrl, IMAGE_BASED_URL,GetActivitesUrl} from '../../config/Urls';
 import {ApiGet} from '../../config/helperFunction';
 import {errorMessage} from '../../components/NotificationMessage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { json } from 'express';
+import { FlatList } from 'react-native-gesture-handler';
 const PackageDetailScreen = ({route, navigation}) => {
   const [countryPicker, setCountryPicker] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [scenery, setScenery] = useState([]);
 
   const [isloading, setIsloading] = useState(true);
 
@@ -36,11 +40,12 @@ const PackageDetailScreen = ({route, navigation}) => {
       type: 'getPackage',
     });
   };
-  const getAllCountryName = () => {
-    ApiGet(CountryNameUrl).then(res => {
+  const getAllCountryName = (url,saveState) => {
+    ApiGet(url).then(res => {
+      console.log(res.json.data,46)
       if (res.status == 200) {
         setIsloading(false);
-        setCountryPicker(res.json.data);
+        saveState(res.json.data);
       } else {
         setIsloading(false);
         errorMessage(
@@ -50,9 +55,19 @@ const PackageDetailScreen = ({route, navigation}) => {
     });
   };
 
+  
+
   useEffect(() => {
-    getAllCountryName();
+    // console.log(JSON.parse(items.activity_2))
+    getAllCountryName(CountryNameUrl,setCountryPicker);
+    if(items.activity_2 !=null){
+      let url=GetActivitesUrl+items.activity_2
+      getAllCountryName(url,setActivities);
+
+    } 
+    // getAllCountryName(CountryNameUrl,setCountryPicker);
   }, []);
+
 
   return (
     <SafeAreaView style={{marginTop: hp('-1.6')}}>
@@ -117,11 +132,25 @@ const PackageDetailScreen = ({route, navigation}) => {
               }}>
               {items?.get_country?.name}
             </Text>
+{      activities.length > 0 && <><Text style={{...styles.packtxt,paddingBottom:hp('1')}}>ACTIVITY</Text>
+           <View style={{flexDirection:'row'}}>
+             { activities.map((item)=>{
+                return(
+               
+
+                <Text style={{backgroundColor:"white",margin:1,padding:10,justifyContent:'center',alignItems:'center',borderRadius:50,borderColor:"red"}}>{item.name}</Text>
+              )})}
+                </View>
+                
+                </>}
+
             <View style={styles.priceMainContainer}>
               <View>
                 <Text style={styles.pricetxt}>Price</Text>
                 <Text style={styles.packtxt}>${items?.price}/package</Text>
               </View>
+            
+             
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('CurrencyMethodScreen', items)
