@@ -34,7 +34,6 @@ function MybottomTabs() {
           overflow: 'hidden',
         },
       })}>
-
       <Tab.Screen
         name="HomeScreen"
         options={{
@@ -54,6 +53,7 @@ function MybottomTabs() {
           tabBarLabelStyle: {
             fontSize: 15,
             marginBottom: hp('1'),
+            color: 'white',
           },
         }}
         component={screens.HomeScreen}
@@ -77,6 +77,7 @@ function MybottomTabs() {
           tabBarLabelStyle: {
             fontSize: 15,
             marginBottom: hp('1'),
+            color: 'white',
           },
         }}
         component={screens.userScreen}

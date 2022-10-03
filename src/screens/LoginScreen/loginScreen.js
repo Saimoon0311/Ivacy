@@ -26,7 +26,7 @@ import types from '../../Redux/type';
 import {errorMessage} from '../../components/NotificationMessage';
 import * as Animatable from 'react-native-animatable';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import KeyboardAvoidingComponent from '../../components/keyBoardFile';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const LoginScreen = ({route, navigation}) => {
   const disptach = useDispatch();
@@ -170,16 +170,19 @@ const LoginScreen = ({route, navigation}) => {
           style={styles.container}>
           <TouchableOpacity
             style={{
-              top: hp('2'),
+              top: hp('4'),
               left: wp('2'),
+              // width: wp('10'),
             }}
             onPress={() => {
               navigation.goBack();
             }}>
-            <Text
-              style={{color: 'white', fontSize: hp('2'), fontWeight: 'bold'}}>
-              Go Back
-            </Text>
+            <Ionicons
+              name="arrow-back"
+              color={'white'}
+              size={hp('5')}
+              // style={{top: hp('4'), left: wp('2')}}
+            />
           </TouchableOpacity>
           <ScrollView
             contentContainerStyle={{paddingBottom: isKeyboardVisible}}

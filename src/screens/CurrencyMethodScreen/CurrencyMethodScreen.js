@@ -418,7 +418,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
                     afterCryptoProcced();
                   }}
                   style={styles.proccedView}>
-                  <Text style={styles.proccedText}>Procced</Text>
+                  <Text style={styles.proccedText}>Proceed</Text>
                 </TouchableOpacity>
               </View>
             )}

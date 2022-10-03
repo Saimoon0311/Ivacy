@@ -14,6 +14,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {color} from '../color';
+import Lottie from 'lottie-react-native';
 
 export const CityImageComponent = props => {
   let ml = props?.ml ? props.ml : wp('4');
@@ -41,16 +42,28 @@ export const CityImageComponent = props => {
           }}>
           {props?.heading}
         </Text>
-        <TouchableOpacity style={styles.hotTextTouc}>
-          <Text
+        <View style={styles.hotTextTouc}>
+          <View>
+            <Text
+              style={{
+                color: color.white,
+                fontWeight: 'bold',
+                fontSize: hp('1.7'),
+                marginLeft: wp('2'),
+              }}>
+              Hot
+            </Text>
+          </View>
+          <Lottie
+            source={require('../../images/52717-fire.json')}
+            autoPlay
+            loop
             style={{
-              color: color.white,
-              fontWeight: 'bold',
-              fontSize: hp('1.7'),
-            }}>
-            Hot
-          </Text>
-        </TouchableOpacity>
+              marginBottom: hp('1'),
+              width: wp('7'),
+            }}
+          />
+        </View>
       </View>
       {props?.isloading ? (
         <SkeletonPlaceholder>
@@ -119,13 +132,16 @@ const styles = StyleSheet.create({
   },
   hotTextTouc: {
     backgroundColor: color.boxColor,
-    width: wp('10'),
+    // width: wp('15'),
     height: hp('3'),
     marginLeft: wp('2'),
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
     borderRadius: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    // padding: 10,
   },
 
   textImageBackground: {
