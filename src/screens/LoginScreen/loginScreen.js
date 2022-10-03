@@ -172,11 +172,12 @@ const LoginScreen = ({route, navigation}) => {
             style={{
               top: hp('4'),
               left: wp('2'),
-              // width: wp('10'),
+              backgroundColor:'red',
+              width: wp('10'),
             }}
-            onPress={() => {
-              navigation.goBack();
-            }}>
+            onPress={() => 
+              navigation.goBack()
+            }>
             <Ionicons
               name="arrow-back"
               color={'white'}

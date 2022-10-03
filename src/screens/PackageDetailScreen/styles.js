@@ -86,4 +86,5 @@ export const styles = StyleSheet.create({
     marginBottom: hp('1'),
     fontWeight: 'bold',
   },
+  actitxt:{backgroundColor:"white",margin:1,padding:10,justifyContent:'center',alignItems:'center',borderRadius:50,borderColor:"red",color:'black'}
 });

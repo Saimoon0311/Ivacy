@@ -127,7 +127,7 @@ const PackageDetailScreen = ({route, navigation}) => {
             <Text
               style={{
                 ...globalStyles.globalTextStyles,
-                fontSize: hp('2'),
+                fontSize: hp('3'),
                 textAlign: 'justify',
                 width: wp('95'),
               }}>
@@ -139,7 +139,7 @@ const PackageDetailScreen = ({route, navigation}) => {
                 return(
                
 
-                <Text style={{backgroundColor:"white",margin:1,padding:10,justifyContent:'center',alignItems:'center',borderRadius:50,borderColor:"red"}}>{item.name}</Text>
+                <Text style={styles.actitxt}>{item.name}</Text>
               )})}
                 </View>
                 
