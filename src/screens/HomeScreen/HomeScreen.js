@@ -124,21 +124,6 @@ const HomeScreen = ({navigation}) => {
     getCountryName();
     favoredSceneries();
   }, []);
-  // setTimeout(() => {
-  //   updateLoadingState({pageLoading: false});
-  // }, 3500);
-  // // const ThankYOuScreen = () => {
-  // //   navigation.navigate('ThankYOuScreen');
-  // // };
-  // if (pageLoading) {
-  //   return (
-  //     <LottieView
-  //       source={require('../../images/72169-plane-flies-around-the-earth.json')}
-  //       autoPlay
-  //       loop
-  //     />
-  //   );
-  // }
 
   return (
     <SafeAreaView style={styles.container}>

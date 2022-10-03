@@ -70,4 +70,17 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: hp('2'),
   },
+  dateContainer: {
+    backgroundColor: '#E0E0E0',
+    height: hp('4.5'),
+    width: wp('33'),
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dateText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: hp('2'),
+  },
 });

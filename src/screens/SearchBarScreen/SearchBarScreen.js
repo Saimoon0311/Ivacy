@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
+  Platform,
 } from 'react-native';
 import {globalStyles} from '../../config/globalStyles';
 import {
@@ -51,9 +52,9 @@ export default function SearchBarScreen({navigation}) {
   const [favored, setFavored] = useState([]);
   const [countryName, seCountryName] = useState('');
   const [isDate, setIsDate] = useState(false);
+  const [isDate2, setIsDate2] = useState(false);
   const [startDate, setStartDate] = useState(new Date(time));
   const [endDate, setEndDate] = useState(null);
-  // const [endDate, setEndDate] = useState(date);
   const [dummy, setDummy] = useState(0);
   const [searchData, setSearchData] = useState({
     country_id: null,
@@ -62,8 +63,6 @@ export default function SearchBarScreen({navigation}) {
     EndPrice: '2600000000000',
     isPrice: '0',
     activities: [],
-    // startDate: new Date(time),
-    // endDate: date,
   });
   const [isloading, setIsloading] = useState(false);
   const {country_id, startPrice, EndPrice, isPrice, activities, favored_id} =
@@ -144,18 +143,19 @@ export default function SearchBarScreen({navigation}) {
   };
   const upadateStartDate = e => {
     let d = moment(e?.nativeEvent?.timestamp).format('YYYY-MM-DD');
+    setIsDate(false);
     // updateState({startDate: new Date(e.nativeEvent.timestamp)});
     setStartDate(new Date(e.nativeEvent.timestamp));
-    setEndDate(startDate);
+    setEndDate(new Date(e.nativeEvent.timestamp));
     // updateState({endDate: startDate});
     // updateState({endDate: new Date(e?.nativeEvent?.timestamp)});
   };
   const upadateEndDate = e => {
-    let d = moment(e?.nativeEvent?.timestamp).format('YYYY-MM-DD');
+    setIsDate2(false);
+    // let d = moment(e?.nativeEvent?.timestamp).format('YYYY-MM-DD');
     // updateState({endDate: d});
     // updateState({endDate: new Date(d)});
     setEndDate(new Date(e.nativeEvent.timestamp));
-    console.log(130, endDate);
   };
   useEffect(() => {
     getAllDinamicData(CountryNameUrl, setCountryPicker);
@@ -190,7 +190,6 @@ export default function SearchBarScreen({navigation}) {
                 selectedValue={country_id}
                 dropdownIconColor={'black'}
                 itemStyle={{color: 'black'}}
-                dropdownIconRippleColor="red"
                 style={{color: 'black'}}
                 onValueChange={(country_id, index) => {
                   seCountryName(countryPicker[index - 1].name);
@@ -245,7 +244,6 @@ export default function SearchBarScreen({navigation}) {
                 selectedValue={favored_id}
                 dropdownIconColor={'black'}
                 itemStyle={{color: 'black'}}
-                dropdownIconRippleColor="red"
                 style={{color: 'black'}}
                 onValueChange={(favored_id, index) => {
                   // seCountryName(countryPicker[index - 1].name);
@@ -300,23 +298,52 @@ export default function SearchBarScreen({navigation}) {
           }}>
           Select your Date Range!
         </Text>
-        <View style={styles.inputView}>
-          <DateTimePicker
-            testID="startDatePicker"
-            value={startDate}
-            mode={'date'}
-            minimumDate={date}
-            is24Hour={false}
-            display="default"
-            themeVariant="light"
-            style={styles.datePicker}
-            onChange={e => {
-              upadateStartDate(e);
-            }}
-            onTouchCancel={() => {
-              console.log(276), setIsDate(false);
-            }}
-          />
+
+        {/* <View style={styles.inputView}>
+          {isDate != null && isDate2 == true ? (
+            <DateTimePicker
+              testID="startDatePicker"
+              value={startDate}
+              mode={'date'}
+              minimumDate={date}
+              is24Hour={false}
+              display="default"
+              themeVariant="light"
+              style={styles.datePicker}
+              onChange={e => {
+                upadateStartDate(e);
+              }}
+              onTouchCancel={() => {
+                console.log(276), setIsDate(false);
+              }}
+            />
+          ) : isDate == false ? (
+            <TouchableOpacity
+              onPress={() => setIsDate2(true)}
+              style={{
+                backgroundColor: '#E0E0E0',
+                height: hp('4.5'),
+                width: wp('33'),
+                borderRadius: 8,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{color: 'black', fontSize: hp('2'), fontWeight: 'bold'}}>
+                {moment(startDate).format('YYYY-MM-DD')}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => setIsDate(true)}
+              style={{
+                backgroundColor: '#E0E0E0',
+                height: hp('4.5'),
+                width: wp('33'),
+                borderRadius: 8,
+              }}
+            />
+          )}
           <Text
             style={{
               ...globalStyles.globalTextStyles,
@@ -324,7 +351,7 @@ export default function SearchBarScreen({navigation}) {
             }}>
             - To -
           </Text>
-          {endDate != null ? (
+          {endDate != null && isDate2 == true ? (
             <>
               <DateTimePicker
                 testID="endDatePicker"
@@ -340,10 +367,136 @@ export default function SearchBarScreen({navigation}) {
                   // console.log(143, startDate), setIsDate(false);
                 }}
                 onTouchCancel={() => {
-                  console.log(276), setIsDate(false);
+                  console.log(276), setIsDate2(false);
                 }}
               />
             </>
+          ) : isDate == false && Platform.OS == 'android' && endDate != null ? (
+            <TouchableOpacity
+              onPress={() => setIsDate2(true)}
+              style={{
+                backgroundColor: '#E0E0E0',
+                height: hp('4.5'),
+                width: wp('33'),
+                borderRadius: 8,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{color: 'black', fontSize: hp('2'), fontWeight: 'bold'}}>
+                {moment(endDate).format('YYYY-MM-DD')}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View
+              style={{
+                backgroundColor: '#E0E0E0',
+                height: hp('4.5'),
+                width: wp('33'),
+                borderRadius: 8,
+              }}
+            />
+          )}
+        </View> */}
+        <View style={styles.inputView}>
+          {isDate == true && Platform.OS == 'android' ? (
+            <DateTimePicker
+              testID="startDatePicker"
+              value={startDate}
+              mode={'date'}
+              minimumDate={date}
+              is24Hour={false}
+              display="default"
+              themeVariant="light"
+              style={styles.datePicker}
+              onChange={e => {
+                upadateStartDate(e);
+              }}
+              onTouchCancel={() => {
+                console.log(276), setIsDate(false);
+              }}
+            />
+          ) : Platform.OS == 'android' ? (
+            <TouchableOpacity
+              onPress={() => setIsDate(true)}
+              style={styles.dateContainer}>
+              <Text style={styles.dateText}>
+                {moment(startDate).format('YYYY-MM-DD')}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <DateTimePicker
+              testID="startDatePicker"
+              value={startDate}
+              mode={'date'}
+              minimumDate={date}
+              is24Hour={false}
+              display="default"
+              themeVariant="light"
+              style={styles.datePicker}
+              onChange={e => {
+                upadateStartDate(e);
+              }}
+              onTouchCancel={() => {
+                console.log(276), setIsDate(false);
+              }}
+            />
+          )}
+          <Text
+            style={{
+              ...globalStyles.globalTextStyles,
+              fontSize: hp('2'),
+            }}>
+            - To -
+          </Text>
+          {endDate != null && isDate2 == true && Platform.OS == 'android' ? (
+            <>
+              <DateTimePicker
+                testID="endDatePicker"
+                value={endDate}
+                mode={'date'}
+                minimumDate={startDate}
+                is24Hour={false}
+                display="default"
+                style={styles.datePicker}
+                themeVariant="light"
+                onChange={e => {
+                  upadateEndDate(e);
+                  // console.log(143, startDate), setIsDate(false);
+                }}
+                onTouchCancel={() => {
+                  console.log(276), setIsDate2(false);
+                }}
+              />
+            </>
+          ) : endDate != null && Platform.OS == 'ios' ? (
+            <DateTimePicker
+              testID="endDatePicker"
+              value={endDate}
+              mode={'date'}
+              minimumDate={startDate}
+              is24Hour={false}
+              display="default"
+              style={styles.datePicker}
+              themeVariant="light"
+              onChange={e => {
+                upadateEndDate(e);
+                // console.log(143, startDate), setIsDate(false);
+              }}
+              onTouchCancel={() => {
+                console.log(276), setIsDate(false);
+              }}
+            />
+          ) : endDate != null &&
+            isDate2 == false &&
+            Platform.OS == 'android' ? (
+            <TouchableOpacity
+              onPress={() => setIsDate2(true)}
+              style={styles.dateContainer}>
+              <Text style={styles.dateText}>
+                {moment(endDate).format('YYYY-MM-DD')}
+              </Text>
+            </TouchableOpacity>
           ) : (
             <View
               style={{
