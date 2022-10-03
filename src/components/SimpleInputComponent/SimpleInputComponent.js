@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     color:color.black,
     fontSize:hp('1.8'),
     fontWeight:'400',
-    fontFamily:'Arial'    
     },
     TxtInput:{
         borderWidth:1,

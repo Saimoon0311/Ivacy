@@ -1,8 +1,7 @@
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { styles } from '../ProfileScreen/style'
-import { TextInputCom } from '../../components/TextInputCompenent/textInputCom'
-import { TextInput } from 'react-native'
+
 import SimpleInputComponent from '../../components/SimpleInputComponent/SimpleInputComponent'
 import { ArrowButtonCom } from '../../components/ArrowButtonComponenet/arrowButtonCom'
 import {
