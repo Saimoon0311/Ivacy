@@ -5,7 +5,7 @@ import {
   TextInput,
   Text,
   View,
-  TouchableOpacity, 
+  TouchableOpacity,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {styles} from './styles';
@@ -130,7 +130,9 @@ const EtherumPaymentScreen = ({navigation, route}) => {
       colors={['#004777', '#F7B801', '#A30000', '#A30000']}
       colorsTime={[7, 5, 2, 0]}
       onComplete={() => setTimer(false)}>
-      {({remainingTime}) => <Text>{remainingTime}</Text>}
+      {({remainingTime}) => (
+        <Text style={{color: 'black', fontSize: hp('2')}}>{remainingTime}</Text>
+      )}
     </CountdownCircleTimer>
   );
 
@@ -153,7 +155,6 @@ const EtherumPaymentScreen = ({navigation, route}) => {
       keyboardDidShowListener.remove();
     };
   }, []);
-
 
   //PAYPAL PAYMENT
   const startPayPalProcedureOne = () => {

@@ -28,6 +28,7 @@ export const PackageByCountryUrl = getApi('package-by-country/');
 export const PackageBySceneriesUrl = getApi('package-by-favored-sceneries/');
 export const GetActivitesUrl = getApi('activities/');
 export const GetAllActivitesUrl = getApi('all-activities/');
+export const GetSpecFavoued = getApi('specific-favored-scenery/');
 export const StripePublishKey =
   'pk_test_51LI9HwEE1bl5YY9CXbeFOKtVHFcnF3Vr6cNpK50WFsAHQFU9pcenE3iSddJ2pzdx7IIPwzXG6plCCxXwet33HpIG00nyziJs1r';
 // export const StripePublishKey =

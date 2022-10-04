@@ -33,6 +33,7 @@ export const styles = StyleSheet.create({
     fontSize: hp('2.5'),
     color: color.textThirdColor,
     fontWeight: 'bold',
+    marginTop: hp('1'),
   },
   priceMainContainer: {
     marginTop: hp('2'),
@@ -43,8 +44,8 @@ export const styles = StyleSheet.create({
   boxNowContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: hp('5'),
-    width: wp('30'),
+    height: hp('6'),
+    width: wp('96'),
     backgroundColor: color.textThirdColor,
     shadowColor: '#000',
     shadowOffset: {
@@ -53,7 +54,7 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
+    marginTop: hp('1'),
     elevation: 5,
     borderRadius: 5,
   },
@@ -86,5 +87,16 @@ export const styles = StyleSheet.create({
     marginBottom: hp('1'),
     fontWeight: 'bold',
   },
-  actitxt:{backgroundColor:"white",margin:1,padding:10,justifyContent:'center',alignItems:'center',borderRadius:50,borderColor:"red",color:'black'}
+  boxText: {
+    backgroundColor: 'white',
+    margin: 3,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderColor: 'black',
+    marginLeft: wp('2'),
+    borderWidth:1,
+    color: 'black',
+  },
 });

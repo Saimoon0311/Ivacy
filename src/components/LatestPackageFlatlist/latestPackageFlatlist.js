@@ -19,6 +19,7 @@ export const LatestPackageFlatlist = props => {
   ) : (
     <View style={{height: hp('40')}}>
       <Carousel
+      disableVirtualization={true}
         data={props?.data}
         layout={'tinder'}
         useScrollView={true}

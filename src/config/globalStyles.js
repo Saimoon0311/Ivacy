@@ -17,5 +17,8 @@ export const globalStyles = StyleSheet.create({
     fontWeight: 'bold',
     color: color.white,
     fontSize: hp('3'),
-  },
+  },  
+  globalTextStyles3: {
+    color:color.black
+    },  
 });

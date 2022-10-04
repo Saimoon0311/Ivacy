@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {Moralis} from 'moralis';
 import TestWallet from './testWallet';
 
+
 function App() {
   // const getToken = () => {
   //   messaging()

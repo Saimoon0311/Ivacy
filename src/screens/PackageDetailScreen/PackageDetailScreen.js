@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
-
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {styles} from './styles';
@@ -17,12 +16,19 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
-import {CountryNameUrl, IMAGE_BASED_URL,GetActivitesUrl} from '../../config/Urls';
+import {
+  CountryNameUrl,
+  IMAGE_BASED_URL,
+  GetActivitesUrl,
+  GetSpecFavoued,
+  PackageByCountryUrl,
+} from '../../config/Urls';
 import {ApiGet} from '../../config/helperFunction';
 import {errorMessage} from '../../components/NotificationMessage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { json } from 'express';
-import { FlatList } from 'react-native-gesture-handler';
+import {json} from 'express';
+import {FlatList} from 'react-native-gesture-handler';
+import {Divider} from 'react-native-paper';
 const PackageDetailScreen = ({route, navigation}) => {
   const [countryPicker, setCountryPicker] = useState([]);
   const [activities, setActivities] = useState([]);
@@ -34,15 +40,14 @@ const PackageDetailScreen = ({route, navigation}) => {
   const imagesLegth = items?.get_images.map(res => {
     return IMAGE_BASED_URL + res.title;
   });
-  const navigateToPackage = item => {
+  const navigateToPackage = (item, url) => {
     navigation.navigate('PackageScreen', {
       data: item,
-      type: 'getPackage',
+      url: url,
     });
   };
-  const getAllCountryName = (url,saveState) => {
+  const getAllCountryName = (url, saveState) => {
     ApiGet(url).then(res => {
-      console.log(res.json.data,46)
       if (res.status == 200) {
         setIsloading(false);
         saveState(res.json.data);
@@ -54,27 +59,25 @@ const PackageDetailScreen = ({route, navigation}) => {
       }
     });
   };
-
-  
-
+  const getDataNull = (url, state, dataType) => {
+    if (dataType != null) {
+      getAllCountryName(url, state);
+    }
+  };
   useEffect(() => {
-    // console.log(JSON.parse(items.activity_2))
-    getAllCountryName(CountryNameUrl,setCountryPicker);
-    if(items.activity_2 !=null){
-      let url=GetActivitesUrl+items.activity_2
-      getAllCountryName(url,setActivities);
-
-    } 
-    // getAllCountryName(CountryNameUrl,setCountryPicker);
+    getAllCountryName(CountryNameUrl, setCountryPicker);
+    let url = GetActivitesUrl + items.activity_2;
+    let url2 = GetSpecFavoued + items.activity;
+    getDataNull(url, setActivities, items.activity_2);
+    getDataNull(url2, setScenery, items.activity);
   }, []);
-
 
   return (
     <SafeAreaView>
       {/* <SafeAreaView style={{marginTop: hp('-1.6')}}> */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: hp('35')}}>
+        contentContainerStyle={{paddingBottom: hp('60')}}>
         <View style={styles.container}>
           <TouchableOpacity
             style={{
@@ -124,48 +127,57 @@ const PackageDetailScreen = ({route, navigation}) => {
             <Text style={styles.dateStyle}>{items?.from_date}</Text>
             <Text style={styles.toStyle}>To</Text>
             <Text style={styles.dateStyle}>{items?.end_date}</Text>
+            <Text style={{...styles.packtxt}}>Country</Text>
             <Text
-              style={{
-                ...globalStyles.globalTextStyles,
-                fontSize: hp('3'),
-                textAlign: 'justify',
-                width: wp('95'),
-              }}>
+              style={{...styles.boxText, width: wp('40'), textAlign: 'center'}}>
               {items?.get_country?.name}
             </Text>
-{      activities.length > 0 && <><Text style={{...styles.packtxt,paddingBottom:hp('1')}}>ACTIVITY</Text>
-           <View style={{flexDirection:'row'}}>
-             { activities.map((item)=>{
-                return(
-               
-
-                <Text style={styles.actitxt}>{item.name}</Text>
-              )})}
+            {scenery.length > 0 && (
+              <>
+                <Text style={{...styles.packtxt, paddingBottom: hp('1')}}>
+                  Favored Scenery
+                </Text>
+                <View style={{flexDirection: 'row'}}>
+                  {scenery.map(item => {
+                    return <Text style={styles.boxText}>{item.name}</Text>;
+                  })}
                 </View>
-                
-                </>}
+              </>
+            )}
+            {activities.length > 0 && (
+              <>
+                <Text style={{...styles.packtxt, paddingBottom: hp('1')}}>
+                  Activity
+                </Text>
+                <View style={{flexDirection: 'row'}}>
+                  {activities.map(item => {
+                    return <Text style={styles.boxText}>{item.name}</Text>;
+                  })}
+                </View>
+              </>
+            )}
 
             <View style={styles.priceMainContainer}>
               <View>
                 <Text style={styles.pricetxt}>Price</Text>
-                <Text style={styles.packtxt}>${items?.price}/package</Text>
+                <Text style={styles.packtxt}>${items?.price} package</Text>
               </View>
-            
-             
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('CurrencyMethodScreen', items)
-                }
-                style={styles.boxNowContainer}>
-                <Text style={styles.bookNowTxt}>Book Now</Text>
-              </TouchableOpacity>
+
+           
             </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('CurrencyMethodScreen', items)}
+              style={styles.boxNowContainer}>
+              <Text style={styles.bookNowTxt}>Book Now</Text>
+            </TouchableOpacity>
+            <Divider style={{marginTop: hp('2'), height: hp('1')}} />
             <CityImageComponent
               navigate={navigateToPackage}
               ml={wp('0.1')}
               data={countryPicker}
               isloading={isloading}
               heading={'Top Countries'}
+              getPackageUrl={PackageByCountryUrl}
             />
           </View>
         </View>

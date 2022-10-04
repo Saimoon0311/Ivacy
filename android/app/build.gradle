@@ -141,8 +141,8 @@ android {
         applicationId "com.ivacay"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -271,13 +271,18 @@ keyPassword MYAPP_RELEASE_KEY_PASSWORD
 }
 
 dependencies {
-    //  compile project(':react-native-vector-icons')
-
+     implementation 'com.facebook.fresco:fresco:1.+'
+    // For animated GIF support
+    implementation 'com.facebook.fresco:animated-gif:1.+'
+    // For WebP support, including animated WebP
+    implementation 'com.facebook.fresco:animated-webp:1.+'
+    implementation 'com.facebook.fresco:webpsupport:1.+' 
+    implementation 'com.facebook.fresco:animated-gif:2.6.0'
     implementation fileTree(dir: "libs", include: ["*.jar"])
-implementation project(':react-native-restart')
+    implementation project(':react-native-restart')
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-implementation project(':react-native-vector-icons')
+    implementation project(':react-native-vector-icons')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 implementation 'com.android.volley:volley:1.2.1'
  implementation 'com.google.firebase:firebase-analytics'

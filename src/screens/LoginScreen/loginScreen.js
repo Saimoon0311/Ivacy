@@ -27,6 +27,7 @@ import {errorMessage} from '../../components/NotificationMessage';
 import * as Animatable from 'react-native-animatable';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ArrowButtonComponenetDup } from '../../components/ArrowButtonComponenetDup/ArrowButtonComponenetDup';
 
 const LoginScreen = ({route, navigation}) => {
   const disptach = useDispatch();
@@ -37,7 +38,7 @@ const LoginScreen = ({route, navigation}) => {
     email: '',
     password: '',
     // email: 'secowog808@geekjun.com',
-    // email: 'Kihosiw869@dnitem.com',
+    // email: 'kihosiw869@dnitem.com',
     // email: 'bilal1@gmail.com',
     // password: 'password',
   });
@@ -107,7 +108,8 @@ const LoginScreen = ({route, navigation}) => {
       email != null &&
       password != '' &&
       password != null &&
-      reg.test(email) === true
+      reg.test(email)
+ === true
     ) {
       let body = JSON.stringify({
         email: email,
@@ -172,17 +174,18 @@ const LoginScreen = ({route, navigation}) => {
             style={{
               top: hp('4'),
               left: wp('2'),
-              backgroundColor:'red',
-              width: wp('10'),
+              height:hp('7.5'),
+              width:wp('10')
             }}
-            onPress={() => 
-              navigation.goBack()
-            }>
+            onPress={() => {
+              navigation.goBack();
+            }}>
             <Ionicons
               name="arrow-back"
               color={'white'}
               size={hp('5')}
-              // style={{top: hp('4'), left: wp('2')}}
+              
+              // style={{backgroundColor:'red',top: hp('4'), left: wp('2')}}
             />
           </TouchableOpacity>
           <ScrollView
@@ -282,10 +285,18 @@ const LoginScreen = ({route, navigation}) => {
                   loading={isloading}
                   onPress={() => loginFunction()}
                   text="Submit"
-                  height={hp('4.5')}
+                  height={hp('4.5')
+                  }
+                  right={wp('-19')}
                 />
               </Animatable.View>
             </View>
+            <ArrowButtonComponenetDup loading={isloading}
+                  onPress={() => loginFunction()}
+                  text="Submit"
+                  height={hp('4.5')
+                  }
+                  right={wp('-19')}/>
           </ScrollView>
         </KeyboardAvoidingView>
       </ImageBackground>

@@ -94,9 +94,9 @@ const userScreen = ({navigation}) => {
           {userData.data.username}
         </Text>
         <TextImageComponent
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => navigation.navigate('ProfileScreen')}
           iconName={'face'}
-          text={'Profile Screen'}
+          text={'Profile'}
           icon={true}
         />
         <TextImageComponent
