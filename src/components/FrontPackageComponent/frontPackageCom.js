@@ -6,7 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import {View, Platform, StyleSheet, Image, Text, Pressable} from 'react-native';
 import {IMAGE_BASED_URL} from '../../config/Urls';
-import {color} from '../color';
+import Lottie from 'lottie-react-native';
 
 export const FrontPackageCom = props => {
   let item = props.data;
@@ -48,16 +48,25 @@ export const FrontPackageCom = props => {
               flexDirection: 'row',
               marginLeft: 'auto',
               marginRight: wp('2'),
+              width: wp('15'),
+              height: hp('9'),
+              marginTop: hp('-2'),
             }}>
-            <Fontisto
+            <Lottie
+              source={require('../../images/worldgif.json')}
+              autoPlay
+              loop
+              resizeMode="contain"
+            />
+            {/* <Fontisto
               style={{paddingRight: wp('2')}}
               name="world"
               color={color.textPrimaryColor}
               size={hp('4')}
-            />
+            /> */}
           </View>
         </View>
-        <View style={{flexDirection: 'row', marginTop: hp('-1.5')}}>
+        <View style={{flexDirection: 'row', marginTop: hp('-4.5')}}>
           <Text
             style={{
               ...styles.packageTitle,
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
     fontSize: hp('2'),
     color: 'black',
     fontWeight: 'bold',
-    marginTop: hp('0.5'),
+    marginTop: hp('0.2'),
     marginLeft: wp('2'),
   },
 });

@@ -244,6 +244,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     // let currency = '100';
     // currency.replace(' USD', '');
     // {560nH!H
+    console.log(247, token);
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
     myHeaders.append(
@@ -266,6 +267,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     fetch(url, requestOptions)
       .then(response => response.json())
       .then(result => {
+        console.log(270, result);
         updateState({accessToken: result.access_token});
         startPayPalProcedureTwo(result.access_token);
       })

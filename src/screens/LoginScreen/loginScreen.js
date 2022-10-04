@@ -185,7 +185,7 @@ const LoginScreen = ({route, navigation}) => {
             />
           </TouchableOpacity>
           <ScrollView
-            contentContainerStyle={{paddingBottom: isKeyboardVisible}}
+            contentContainerStyle={{paddingBottom: hp('10')}}
             showsVerticalScrollIndicator={false}>
             <Animatable.View
               animation="fadeInUpBig"

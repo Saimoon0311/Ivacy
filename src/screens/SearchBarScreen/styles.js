@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputField: {
-    width: wp('40'),
+    width: wp('80'),
     borderColor: 'black',
     borderRadius: 10,
     borderWidth: 1,
