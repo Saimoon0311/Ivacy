@@ -14,7 +14,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {ApiGet, ApiPost} from '../../config/helperFunction';
 import {

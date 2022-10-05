@@ -6,13 +6,13 @@ import {
 } from 'react-native-responsive-screen';
 import {View, Platform, StyleSheet, Image, Text, Pressable} from 'react-native';
 import {IMAGE_BASED_URL} from '../../config/Urls';
-import {color} from '../color';
 import Lottie from 'lottie-react-native';
+import { globalStyles } from '../../config/globalStyles';
 
 export const FrontPackageCom = props => {
   let item = props.data;
   return (
-    <Pressable onPress={() => props?.navigate(item)} style={{...styles.mainView, }}>
+    <Pressable onPress={() => props?.navigate(item)} style={styles.mainView}>
       <Image
         // source={{
         //   uri: 'https://images.pexels.com/photos/12405196/pexels-photo-12405196.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -21,73 +21,56 @@ export const FrontPackageCom = props => {
         source={{uri: IMAGE_BASED_URL + item?.get_images[0]?.title}}
         style={styles.packageImage}
       />
-      <View style={{width:wp('77'),
-            // backgroundColor:'red',
-
-    }}>
+      <View>
         <View
           style={{
             flexDirection: 'row',
-            // marginBottom: hp('-0.4'),
-            marginTop: hp('-0.6'),
-            width:wp('74'),
-            }}>
+            marginBottom: hp('-0.4'),
+            marginTop: hp('0.5'),
+          }}>
           <Text style={{...styles.packageTitle}}>Title</Text>
           <Text
             numberOfLines={1}
             style={{
               ...styles.packageTitle,
-            width: wp('72'),
+              width: wp('75'),
               fontWeight: 'normal',
             }}>
             {item?.title}
           </Text>
         </View>
-        <View style={{flexDirection: 'row',
-            width:wp('74'),
-
-    }}>
+        <View style={{flexDirection: 'row'}}>
           <Text style={{...styles.packageTitle}}>Price</Text>
           <Text style={{...styles.packageTitle, fontWeight: 'normal'}}>
             $ {item?.price}
           </Text>
-
           <View
             style={{
               flexDirection: 'row',
               marginLeft: 'auto',
               marginRight: wp('2'),
+              width: wp('15'),
+              height: hp('9'),
+              marginTop: hp('-2'),
             }}>
-              {/* <Lottie
-            source={require('../../images/worldgif.json')}
-            autoPlay
-            loop
-            style={{
-              // width: wp('4'),
-backgroundColor:'red',
-              height:hp('6')
-            }}
-          /> */}
+            <Lottie
+              source={require('../../images/worldgif.json')}
+              autoPlay
+              loop
+              resizeMode="contain"
+            />
             {/* <Fontisto
               style={{paddingRight: wp('2')}}
               name="world"
               color={color.textPrimaryColor}
               size={hp('4')}
             /> */}
-            {/* <Image 
-        resizeMode='contain'
-        source={require('../../images/world.gif')}  
-      style={{width: wp('10'), height: hp('4') }}
-    /> */}
           </View>
         </View>
-        <View style={{flexDirection: 'row',
-             }}>
+        <View style={{flexDirection: 'row', marginTop: hp('-4.5')}}>
           <Text
             style={{
               ...styles.packageTitle,
-   
-
             }}>
             Date
           </Text>
@@ -127,7 +110,7 @@ export const placeholderView = () => {
         borderWidth: 1,
         borderColor: 'black',
       }}>
-      <View style={{...styles.packageImage, }} />
+      <View style={{...styles.packageImage, backgroundColor: 'red'}} />
       <View
         style={{
           ...styles.packageTitle,
@@ -160,14 +143,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: hp('35'),
     borderWidth: Platform.OS == 'ios' ? 0.2 : 0,
-
+    // borderColor: 'black',
+    // overflow: 'hidden',
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 3,
+    // },
+    // shadowOpacity: 0.2,
+    // shadowRadius: 30,
+    // elevation: hp('0.8'),
   },
   packageImage: {width: wp('90'), height: hp('25'), borderRadius: 15},
   packageTitle: {
     fontSize: hp('2'),
     color: 'black',
     fontWeight: 'bold',
-    marginTop: hp('0.5'),
+    marginTop: hp('0.2'),
     marginLeft: wp('2'),
   },
 });

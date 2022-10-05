@@ -189,7 +189,7 @@ const LoginScreen = ({route, navigation}) => {
             />
           </TouchableOpacity>
           <ScrollView
-            contentContainerStyle={{paddingBottom: isKeyboardVisible}}
+            contentContainerStyle={{paddingBottom: hp('10')}}
             showsVerticalScrollIndicator={false}>
             <Animatable.View
               animation="fadeInUpBig"
@@ -281,22 +281,24 @@ const LoginScreen = ({route, navigation}) => {
                 ) : (
                   <View />
                 )}
-                <ArrowButtonCom
+                {/* <ArrowButtonCom
                   loading={isloading}
                   onPress={() => loginFunction()}
                   text="Submit"
                   height={hp('4.5')
                   }
                   right={wp('-19')}
-                />
-              </Animatable.View>
-            </View>
-            <ArrowButtonComponenetDup loading={isloading}
+                /> */}
+                             
+              <ArrowButtonComponenetDup loading={isloading}
                   onPress={() => loginFunction()}
                   text="Submit"
-                  height={hp('4.5')
-                  }
+                  loaderColor={color.boxColor}
+                  height={hp('4.5')}
                   right={wp('-19')}/>
+              </Animatable.View>
+
+            </View>
           </ScrollView>
         </KeyboardAvoidingView>
       </ImageBackground>

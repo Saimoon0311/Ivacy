@@ -109,4 +109,9 @@ export const styles = StyleSheet.create({
     fontSize: hp('2'),
     fontWeight: 'bold',
   },
+  webViewColor:{
+    flex:1,
+    // marginTop:Platform.OS == 'ios' && hp('5'),
+    
+  }
 });

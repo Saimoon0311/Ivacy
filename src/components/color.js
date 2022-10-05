@@ -16,7 +16,7 @@ export const color = {
   textImagebackgroundColor: '#D8D8D8',
   txtInputbackColor: '#F5F5F5',
   badgeColor: '#FF2D2D',
-  lightView: '#DACBFA',
+  bottomBarColorlightView: '#DACBFA',
   ThankYouColor: '#8161C8',
   // ThankYouColor: '#3ba3b5',
   mapColor: 'rgba(255, 255, 255  ,0.6)',

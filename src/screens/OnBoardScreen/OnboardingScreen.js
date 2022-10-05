@@ -22,6 +22,7 @@ import {Colors} from 'react-native-paper';
 import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 import {useDispatch} from 'react-redux';
 import types from '../../Redux/type';
+import { ArrowButtonComponenetDup } from '../../components/ArrowButtonComponenetDup/ArrowButtonComponenetDup';
 
 const {width, height} = Dimensions.get('window');
 
@@ -160,7 +161,9 @@ const OnboardingScreen = ({navigation}) => {
                 </Text>
               </TouchableOpacity>
               <View style={{width: wp('5.5')}} />
-              <ArrowButtonCom
+              <ArrowButtonComponenetDup
+                  loaderColor={color.boxColor}
+
                 onPress={() => goToNextSlide()}
                 mgRight={wp('10')}
                 text="Next"

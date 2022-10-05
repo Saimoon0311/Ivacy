@@ -13,9 +13,12 @@ import StackNavigatior from './src/navigations/navigation';
 function AppTwo({navigation}) {
   const MyTheme = {
     ...DefaultTheme,
+    
     colors: {
       ...DefaultTheme.colors,
-      background: '#fffff',
+      // background: '#fffff',
+      background: 'white',
+      
     },
   };
   const [isVisible, setIsVisible] = useState(true);

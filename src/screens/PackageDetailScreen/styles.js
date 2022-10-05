@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    marginTop: hp('1'),
+    marginTop: hp('1.5'),
     elevation: 5,
     borderRadius: 5,
   },

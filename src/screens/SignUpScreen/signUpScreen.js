@@ -31,6 +31,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {SkypeIndicator} from 'react-native-indicators';
 import {KeyboardAvoidingView} from 'native-base';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
+import { ArrowButtonComponenetDup } from '../../components/ArrowButtonComponenetDup/ArrowButtonComponenetDup';
 
 export default function SignUpScreen({navigation}) {
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('45'));
@@ -454,7 +455,9 @@ export default function SignUpScreen({navigation}) {
                     delay={700}
                     style={styles.bottomView}>
                     <View />
-                    <ArrowButtonCom
+                    <ArrowButtonComponenetDup
+                  loaderColor={color.boxColor}
+
                       loading={isloading}
                       onPress={() => signUpFunction()}
                       text="Register"
@@ -491,7 +494,9 @@ export default function SignUpScreen({navigation}) {
               </Text>
               {timer == false && UrgeWithPleasureComponent()}
               {timer && (
-                <ArrowButtonCom
+                <ArrowButtonComponenetDup
+                loaderColor={color.boxColor}
+
                   right={wp('0.5')}
                   loading={isloading}
                   width={wp('37')}

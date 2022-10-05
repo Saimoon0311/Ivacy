@@ -156,19 +156,28 @@ const PackageDetailScreen = ({route, navigation}) => {
                 </View>
               </>
             )}
-
-            <View style={styles.priceMainContainer}>
+            {/* <Text
+              style={{
+                ...styles.packtxt,
+                paddingBottom: hp('1'),
+              }}>
+              Price
+            </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{...styles.boxText, fontSize: hp('2')}}>
+                ${items?.price} package
+              </Text>
+            </View> */}
+            {/* <View style={styles.priceMainContainer}>
               <View>
                 <Text style={styles.pricetxt}>Price</Text>
                 <Text style={styles.packtxt}>${items?.price} package</Text>
               </View>
-
-           
-            </View>
+            </View> */}
             <TouchableOpacity
               onPress={() => navigation.navigate('CurrencyMethodScreen', items)}
               style={styles.boxNowContainer}>
-              <Text style={styles.bookNowTxt}>Book Now</Text>
+              <Text style={styles.bookNowTxt}>Book Now (${items?.price})</Text>
             </TouchableOpacity>
             <Divider style={{marginTop: hp('2'), height: hp('1')}} />
             <CityImageComponent

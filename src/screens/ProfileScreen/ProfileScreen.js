@@ -18,6 +18,7 @@ import {
   successMessage,
 } from '../../components/NotificationMessage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ArrowButtonComponenetDup } from '../../components/ArrowButtonComponenetDup/ArrowButtonComponenetDup';
 
 const ProfileScreen = ({navigation}) => {
   const [isloading, setLoading] = useState(false);
@@ -156,7 +157,9 @@ const ProfileScreen = ({navigation}) => {
         placeholder={'Zip Code'}
         onChangeText={zip_code => updateState({zip_code})}
       />
-      <ArrowButtonCom
+      <ArrowButtonComponenetDup
+                  loaderColor={color.boxColor}
+
         fontWeight={'600'}
         borderColor={color.black}
         borderWidth={1}

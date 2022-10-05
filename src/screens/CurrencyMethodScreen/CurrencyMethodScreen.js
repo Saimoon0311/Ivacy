@@ -40,6 +40,7 @@ import {color} from '../../components/color';
 import types from '../../Redux/type';
 import WebView from 'react-native-webview';
 import axios from 'axios';
+import { BackHeaderCom } from '../../components/BackHeaderComponent/backHeaderCom';
 // const AsyncStorage =
 //   require('@react-native-async-storage/async-storage').useAsyncStorage;
 
@@ -244,6 +245,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     // let currency = '100';
     // currency.replace(' USD', '');
     // {560nH!H
+    console.log(247, token);
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
     myHeaders.append(
@@ -266,6 +268,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
     fetch(url, requestOptions)
       .then(response => response.json())
       .then(result => {
+        console.log(270, result);
         updateState({accessToken: result.access_token});
         startPayPalProcedureTwo(result.access_token);
       })
@@ -548,6 +551,11 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             updateState({isVisible: false});
           }}
           visible={isVisible}>
+        <View style={styles.webViewColor}>
+        <BackHeaderCom text={'PayPal Payment'} goBack={()=>{
+          updateState({isVisible: false})
+          updateLoadingState({isloading: false})
+      }}/>
           <WebView
             style={{
               height: hp('50'),
@@ -560,8 +568,9 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             domStorageEnabled={true}
             startInLoadingState={false}
             // style={{marginTop: 20}}
-          />
-        </Modal>
+            />
+        </View>
+      </Modal>
       )}
     </StripeProvider>
   );
