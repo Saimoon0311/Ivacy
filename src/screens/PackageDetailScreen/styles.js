@@ -89,13 +89,14 @@ export const styles = StyleSheet.create({
   },
   boxText: {
     backgroundColor: 'white',
-    margin: 1,
-    padding: 10,
+    margin: 3,
+    padding: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 50,
-    borderColor: 'red',
+    borderRadius: 10,
+    borderColor: 'black',
     marginLeft: wp('2'),
+    borderWidth:1,
     color: 'black',
   },
 });

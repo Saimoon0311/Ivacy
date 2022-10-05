@@ -5,6 +5,8 @@ import {
   ScrollView,
   SafeAreaView,
   RefreshControl,
+  View,
+  Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
@@ -27,7 +29,6 @@ import SearchBarComponents from '../../components/SearchBarComponents/SearchBarC
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
 import {useCallback} from 'react';
 import {errorMessage} from '../../components/NotificationMessage';
-import types from '../../Redux/type';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -137,25 +138,31 @@ const HomeScreen = ({navigation}) => {
         }
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('5')}}>
+        <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
         <Text
           style={{
             ...globalStyles.globalTextStyles,
-            fontSize: hp('3'),
+            fontSize: hp('2.5'),
             marginLeft: wp('5'),
           }}>
-          Enjoy your life with us!
+          Your journey start right here!
         </Text>
-
+        <Image 
+        resizeMode='contain'
+        source={require('../../images/walking.gif')}  
+        style={{width: wp('23'), height: hp('8') }}
+    />
+        </View>
         <SearchBarComponents
           onPress={() => navigation.navigate('searchBarScreen')}
         />
         <Text
           style={{
             ...globalStyles.globalTextStyles,
-            fontSize: hp('2.8'),
+            fontSize: hp('2.2'),
             marginLeft: wp('5'),
           }}>
-          Top Destinations
+          Discover Places, Tours & Excursions 
         </Text>
         <LatestPackageFlatlist
           data={latestPackage}
@@ -166,7 +173,7 @@ const HomeScreen = ({navigation}) => {
           ml={wp('4')}
           data={getCountryData}
           isloading={countryLoader}
-          heading={'Top Places'}
+          heading={'Hot Deals By Country'}
           navigate={navigateToPackage}
           getPackageUrl={PackageByCountryUrl}
         />
@@ -174,7 +181,7 @@ const HomeScreen = ({navigation}) => {
           ml={wp('4')}
           data={favoredScenerie}
           isloading={favoredLoader}
-          heading={'Favored Scenery'}
+          heading={'Destinations By Favored Scenery'}
           navigate={navigateToPackage}
           getPackageUrl={PackageBySceneriesUrl}
         />

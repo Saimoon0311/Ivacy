@@ -10,6 +10,7 @@ import {screens} from '../screens/index';
 import * as Animatable from 'react-native-animatable';
 import {color} from '../components/color';
 
+
 const Tab = createBottomTabNavigator();
 function MybottomTabs() {
   return (
@@ -25,6 +26,7 @@ function MybottomTabs() {
         swipeEnabled: true,
         animationEnabled: true,
         tabBarStyle: {
+
           height: hp('8'),
           paddingBottom: hp('0'),
           bottom: Platform.OS == 'ios' ? hp('4') : hp('2'),
@@ -54,6 +56,7 @@ function MybottomTabs() {
             fontSize: 15,
             marginBottom: hp('1'),
             color: 'white',
+
           },
         }}
         component={screens.HomeScreen}

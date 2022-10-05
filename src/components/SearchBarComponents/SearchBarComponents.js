@@ -44,7 +44,7 @@ const SearchBarComponents = props => {
         transform: [{scale}, {rotate: `${JSON.stringify(rotate)}deg`}],
       }}>
       <Ionicons name="search" size={25} color={color.textColor} />
-      <Text style={styles.text}>Search Your Favourite Place</Text>
+      <Text style={styles.text}>Travel & Explore</Text>
       {/* <TextInput
         value={value}
         placeholderTextColor={color.themeColorDark}

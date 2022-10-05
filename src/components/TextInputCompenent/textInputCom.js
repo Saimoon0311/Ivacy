@@ -16,6 +16,7 @@ export const TextInputCom = props => {
       <Text
         style={{
           ...styles.inputtext,
+          fontFamily: 'Poppins-Regular',
           color:
             props?.isFocused == true
               ? color.textSecondaryColor
@@ -68,6 +69,6 @@ export const TextInputCom = props => {
           size={hp('2')}
         />
       </View>
-      </>
+    </>
   );
 };

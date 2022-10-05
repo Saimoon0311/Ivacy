@@ -7,10 +7,17 @@ import {
   LogBox,
 } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import StackNavigatior from './src/navigations/navigation';
 
 function AppTwo({navigation}) {
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: '#fffff',
+    },
+  };
   const [isVisible, setIsVisible] = useState(true);
   const Hide_Splash_Screen = () => {
     setIsVisible(false);

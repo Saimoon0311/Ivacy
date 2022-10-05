@@ -96,7 +96,7 @@ const userScreen = ({navigation}) => {
         <TextImageComponent
           onPress={() => navigation.navigate('ProfileScreen')}
           iconName={'face'}
-          text={'Profile Screen'}
+          text={'Profile'}
           icon={true}
         />
         <TextImageComponent

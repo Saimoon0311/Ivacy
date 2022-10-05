@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     paddingBottom: hp('10'),
     height: hp('100'),
     justifyContent: 'center',
+    backgroundColor:'white'
   },
   button: {
     flexDirection: 'row',

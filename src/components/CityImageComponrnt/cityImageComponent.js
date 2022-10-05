@@ -34,16 +34,15 @@ export const CityImageComponent = props => {
   };
   return (
     <View>
-      <View style={{flexDirection: 'row', paddingLeft: ml}}>
+      <View style={{flexDirection: 'row',width:wp('83'), paddingLeft: ml}}>
         <Text
           style={{
             ...globalStyles.globalTextStyles,
-            fontSize: hp('2.8'),
+            fontSize: hp('2.2'),
           }}>
           {props?.heading}
         </Text>
         <View style={styles.hotTextTouc}>
-          <View>
             <Text
               style={{
                 color: color.white,
@@ -53,7 +52,6 @@ export const CityImageComponent = props => {
               }}>
               Hot
             </Text>
-          </View>
           <Lottie
             source={require('../../images/52717-fire.json')}
             autoPlay

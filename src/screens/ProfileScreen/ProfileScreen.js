@@ -1,4 +1,4 @@
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Platform, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {styles} from '../ProfileScreen/style';
 import {TextInputCom} from '../../components/TextInputCompenent/textInputCom';
@@ -17,7 +17,9 @@ import {
   errorMessage,
   successMessage,
 } from '../../components/NotificationMessage';
-const ProfileScreen = () => {
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const ProfileScreen = ({navigation}) => {
   const [isloading, setLoading] = useState(false);
   const [updateData, setUpdateData] = useState({
     full_name: '',
@@ -91,6 +93,14 @@ const ProfileScreen = () => {
           <Text style={styles.loadingText}>Loading...</Text>
         </View>
       )}
+      <Ionicons
+              name="arrow-back"
+              color={color.borderThirdColor}
+              size={hp('5')}
+            onPress={()=>navigation.goBack()}
+            style={{alignSelf:'flex-start',padding:8}}
+              // style={{backgroundColor:'red',top: hp('4'), left: wp('2')}}
+            />
       <Text style={styles.updateProTxt}>UPDATE PROFILE</Text>
       <SimpleInputComponent
         text={'FULL NAME'}

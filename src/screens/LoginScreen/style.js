@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     fontSize: hp('2'),
   },
   innerView: {
-    height: hp('55'),
+    height: hp('50'),
     justifyContent: 'flex-end',
     alignSelf: 'flex-start',
   },
