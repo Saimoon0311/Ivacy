@@ -28,17 +28,22 @@ export const CityImageComponent = props => {
           marginRight: wp('1.5'),
           marginTop: hp('1.5'),
           borderRadius: 10,
+
         }}
       />
     );
   };
   return (
     <View>
-      <View style={{flexDirection: 'row',width:wp('83'), paddingLeft: ml}}>
+      <View style={{flexDirection: 'row',width:wp('83'), paddingLeft: ml,
+    
+    }}>
         <Text
           style={{
             ...globalStyles.globalTextStyles,
-            fontSize: hp('2.2'),
+            fontSize: hp('2.3'),
+          ...globalStyles.globalTextStyles3,
+
           }}>
           {props?.heading}
         </Text>
@@ -49,6 +54,8 @@ export const CityImageComponent = props => {
                 fontWeight: 'bold',
                 fontSize: hp('1.7'),
                 marginLeft: wp('2'),
+    ...globalStyles.globalTextStyles3,
+
               }}>
               Hot
             </Text>
@@ -88,6 +95,7 @@ export const CityImageComponent = props => {
               paddingBottom: hp('3'),
               paddingRight: wp('2'),
               paddingLeft: ml,
+
             }}
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => {
@@ -104,7 +112,10 @@ export const CityImageComponent = props => {
                     source={{
                       uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Lp_vpjcJFZDWE_C0lyv5SjGWuZR3J_AtP7_ydmA2mqnRRlXdmwzVsdaCjp8LbIM-6Qk&usqp=CAU',
                     }}>
-                    <Text numberOfLines={2} style={styles.textImageBackground}>
+                    <Text numberOfLines={2} style={{...styles.textImageBackground,
+    ...globalStyles.globalTextStyles3,
+                  
+                    }}>
                       {item?.name}
                     </Text>
                   </ImageBackground>
@@ -148,7 +159,7 @@ const styles = StyleSheet.create({
     // height: hp('3'),
     textAlign: 'center',
     color: 'white',
-    fontSize: hp('1.8'),
+    fontSize: hp('1.6'),
     position: 'absolute',
     bottom: 10,
     alignContent: 'center',

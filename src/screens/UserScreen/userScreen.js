@@ -87,6 +87,7 @@ const userScreen = ({navigation}) => {
         <Text
           style={{
             ...globalStyles.globalTextStyles,
+            ...globalStyles.globalTextStyles3,
             textAlign: 'center',
             color: color.blacktext,
             fontSize: hp('2.5'),
@@ -98,11 +99,15 @@ const userScreen = ({navigation}) => {
           iconName={'face'}
           text={'Profile'}
           icon={true}
+          textcolor={color.textThirdColor}
+
         />
         <TextImageComponent
           onPress={() => navigation.navigate('OrderDetailsScreen')}
           iconName={'bookmark-outline'}
           text={'My booked orders'}
+          textcolor={color.textThirdColor}
+
         />
   
         {/* kihosiw869@dnitem.com */}
@@ -110,11 +115,15 @@ const userScreen = ({navigation}) => {
           onPress={() => Linking.openURL(AboutTheApp)}
           iconName={'alert-circle-outline'}
           text={'About the app'}
+          textcolor={color.textThirdColor}
+
         />
         <TextImageComponent
           onPress={() => navigation.navigate('ReviewScreen')}
           iconName={'md-star-outline'}
           text={'Rate us'}
+          textcolor={color.textThirdColor}
+
         />
         <TextImageComponent
           onPress={() => navigation.navigate('DeleteAccountScreen')}

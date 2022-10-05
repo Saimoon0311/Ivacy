@@ -7,6 +7,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {SkypeIndicator} from 'react-native-indicators';
+import { globalStyles } from '../../config/globalStyles';
 
 export const ArrowButtonComponenetDup = props => {
   let width = props?.width ? props.width : wp('25');
@@ -28,7 +29,9 @@ export const ArrowButtonComponenetDup = props => {
         borderRadius: 5,
         marginRight: mgRight,
         borderWidth:props?.borderWidth ?? 0,
-        borderColor:props?.borderColor ?? 'transparent'
+        borderColor:props?.borderColor ?? 'transparent',
+    ...globalStyles.globalTextStyles3
+        
       }}>
      
      {props?.loading ==true &&   <SkypeIndicator

@@ -4,6 +4,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {color} from '../../components/color';
+import { globalStyles } from '../../config/globalStyles';
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,7 +20,8 @@ export const styles = StyleSheet.create({
     color:color.textThirdColor,
     fontSize:hp('2.5'),
     marginTop:hp('5'),
-    marginBottom:hp('2')
+    marginBottom:hp('2'),
+    ...globalStyles.globalTextStyles3
   },
   loadingView: {
     position: 'absolute',

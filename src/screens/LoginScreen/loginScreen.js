@@ -27,7 +27,7 @@ import {errorMessage} from '../../components/NotificationMessage';
 import * as Animatable from 'react-native-animatable';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { ArrowButtonComponenetDup } from '../../components/ArrowButtonComponenetDup/ArrowButtonComponenetDup';
+import {ArrowButtonComponenetDup} from '../../components/ArrowButtonComponenetDup/ArrowButtonComponenetDup';
 
 const LoginScreen = ({route, navigation}) => {
   const disptach = useDispatch();
@@ -108,8 +108,7 @@ const LoginScreen = ({route, navigation}) => {
       email != null &&
       password != '' &&
       password != null &&
-      reg.test(email)
- === true
+      reg.test(email) === true
     ) {
       let body = JSON.stringify({
         email: email,
@@ -174,8 +173,8 @@ const LoginScreen = ({route, navigation}) => {
             style={{
               top: hp('4'),
               left: wp('2'),
-              height:hp('7.5'),
-              width:wp('10')
+              height: hp('7.5'),
+              width: wp('10'),
             }}
             onPress={() => {
               navigation.goBack();
@@ -184,7 +183,7 @@ const LoginScreen = ({route, navigation}) => {
               name="arrow-back"
               color={'white'}
               size={hp('5')}
-              
+
               // style={{backgroundColor:'red',top: hp('4'), left: wp('2')}}
             />
           </TouchableOpacity>
@@ -270,7 +269,7 @@ const LoginScreen = ({route, navigation}) => {
                 direction={'normal'}
                 delay={600}
                 style={styles.bottomView}>
-                {LoginType == 'Traveller' ? (
+                {LoginType == 'Traveller' ? ( 
                   <View style={{flexDirection: 'row'}}>
                     <Text style={styles.newUserText}>New User ? </Text>
                     <TouchableOpacity
@@ -285,14 +284,13 @@ const LoginScreen = ({route, navigation}) => {
                   loading={isloading}
                   onPress={() => loginFunction()}
                   text="Submit"
-                  height={hp('4.5')
-                  }
+                  height={hp('4.5')}
                   right={wp('-19')}
                 /> */}
                              
               <ArrowButtonComponenetDup loading={isloading}
-                  onPress={() => loginFunction()}
-                  text="Submit"
+                    onPress={() => loginFunction()}
+                    text="Submit"
                   loaderColor={color.boxColor}
                   height={hp('4.5')}
                   right={wp('-19')}/>

@@ -9,6 +9,7 @@ import {color} from '../components/color';
 export const globalStyles = StyleSheet.create({
   globalTextStyles: {
     fontWeight: 'bold',
+
     color: color.black,
     marginVertical: hp('1.2'),
     // textDecorationLine: 'underline',
@@ -19,6 +20,7 @@ export const globalStyles = StyleSheet.create({
     fontSize: hp('3'),
   },  
   globalTextStyles3: {
-    color:color.black
+    // color:color.black,
+    fontFamily:'Poppins'
     },  
 });

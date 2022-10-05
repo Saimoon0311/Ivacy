@@ -142,15 +142,16 @@ const HomeScreen = ({navigation}) => {
         <Text
           style={{
             ...globalStyles.globalTextStyles,
-            fontSize: hp('2.5'),
-            marginLeft: wp('5'),
+            fontSize: hp('2.4'),
+            marginLeft: wp('3'),
+            ...globalStyles.globalTextStyles3,
           }}>
           Your journey start right here!
         </Text>
         <Image 
         resizeMode='contain'
         source={require('../../images/walking.gif')}  
-        style={{width: wp('23'), height: hp('8') }}
+        style={{width: wp('22'), height: hp('8') }}
     />
         </View>
         <SearchBarComponents
@@ -161,6 +162,8 @@ const HomeScreen = ({navigation}) => {
             ...globalStyles.globalTextStyles,
             fontSize: hp('2.2'),
             marginLeft: wp('5'),
+            ...globalStyles.globalTextStyles3,
+
           }}>
           Discover Places, Tours & Excursions 
         </Text>

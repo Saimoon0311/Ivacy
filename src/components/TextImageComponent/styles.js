@@ -4,6 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { globalStyles } from '../../config/globalStyles';
 import {color} from '../color';
 
 export const styles = StyleSheet.create({
@@ -23,5 +24,6 @@ export const styles = StyleSheet.create({
     fontSize: hp('2.3'),
     fontWeight: '600',
     color: color.textColor,
+    ...globalStyles.globalTextStyles3
   },
 });

@@ -9,6 +9,7 @@ import {View, Platform, Dimensions, StyleSheet} from 'react-native';
 import {screens} from '../screens/index';
 import * as Animatable from 'react-native-animatable';
 import {color} from '../components/color';
+import { globalStyles } from '../config/globalStyles';
 
 
 const Tab = createBottomTabNavigator();
@@ -56,6 +57,7 @@ function MybottomTabs() {
             fontSize: 15,
             marginBottom: hp('1'),
             color: 'white',
+            ...globalStyles.globalTextStyles3,
 
           },
         }}
@@ -81,6 +83,8 @@ function MybottomTabs() {
             fontSize: 15,
             marginBottom: hp('1'),
             color: 'white',
+            ...globalStyles.globalTextStyles3,
+
           },
         }}
         component={screens.userScreen}

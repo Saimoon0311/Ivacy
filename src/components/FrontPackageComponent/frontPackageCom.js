@@ -161,5 +161,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: hp('0.2'),
     marginLeft: wp('2'),
+    ...globalStyles.globalTextStyles3,
+    
   },
 });

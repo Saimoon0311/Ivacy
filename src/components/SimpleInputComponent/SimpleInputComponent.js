@@ -5,6 +5,7 @@ import {
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
 import { color } from '../color';
+import { globalStyles } from '../../config/globalStyles';
 
 const SimpleInputComponent = (props) => {
   return (
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
     color:color.black,
     fontSize:hp('1.8'),
     fontWeight:'400',
+    ...globalStyles.globalTextStyles3
     },
     TxtInput:{
         borderWidth:1,
@@ -39,6 +41,7 @@ const styles = StyleSheet.create({
         marginBottom:hp('2'),
         padding:hp('1'),
     backgroundColor:'white',
+    ...globalStyles.globalTextStyles3
             
     }
 })

@@ -112,7 +112,9 @@ const PackageDetailScreen = ({route, navigation}) => {
           />
           <View style={{marginLeft: wp('2')}}>
             <Text
-              style={{...globalStyles.globalTextStyles, fontSize: hp('3.5')}}>
+              style={{...globalStyles.globalTextStyles,
+              ...globalStyles.globalTextStyles3,
+              fontSize: hp('3.5')}}>
               {items?.title}
             </Text>
             <Text
@@ -121,6 +123,10 @@ const PackageDetailScreen = ({route, navigation}) => {
                 fontSize: hp('2'),
                 textAlign: 'justify',
                 width: wp('95'),
+                fontWeight: '400',
+                ...globalStyles.globalTextStyles3,
+
+
               }}>
               {items?.description}
             </Text>
@@ -129,7 +135,10 @@ const PackageDetailScreen = ({route, navigation}) => {
             <Text style={styles.dateStyle}>{items?.end_date}</Text>
             <Text style={{...styles.packtxt}}>Country</Text>
             <Text
-              style={{...styles.boxText, width: wp('40'), textAlign: 'center'}}>
+              style={{...styles.boxText, width: wp('40'), textAlign: 'center',
+          ...globalStyles.globalTextStyles3,
+              
+              }}>
               {items?.get_country?.name}
             </Text>
             {scenery.length > 0 && (
