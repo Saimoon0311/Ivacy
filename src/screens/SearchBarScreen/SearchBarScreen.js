@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
   Button,
   Platform,
+  Image,
 } from 'react-native';
 import {globalStyles} from '../../config/globalStyles';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 import {ApiGet, ApiPost} from '../../config/helperFunction';
 import {
@@ -36,7 +36,7 @@ import {SkypeIndicator} from 'react-native-indicators';
 import {errorMessage} from '../../components/NotificationMessage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment/moment';
-import {Divider} from 'react-native-paper';
+import {ActivityIndicator, Divider} from 'react-native-paper';
 
 export default function SearchBarScreen({navigation}) {
   // let d = moment(1664276491879).format('YYYY-MM-DD');
@@ -58,7 +58,7 @@ export default function SearchBarScreen({navigation}) {
   const [dummy, setDummy] = useState(0);
   const [searchData, setSearchData] = useState({
     country_id: null,
-    favored_id: '',
+    favored_id: null,
     startPrice: '',
     EndPrice: '2600000000000',
     isPrice: '0',
@@ -165,7 +165,7 @@ export default function SearchBarScreen({navigation}) {
   return (
     <View>
       <BackHeaderCom goBack={goBack} text="Filter Screen" />
-      <ScrollView contentContainerStyle={{paddingBottom: hp('20')}}>
+  {countryPicker.length > 0 &&  activity.length > 0 && favored.length > 0 ?<ScrollView contentContainerStyle={{paddingBottom: hp('13')}}>
         {countryPicker.length > 0 ? (
           <>
             <Text
@@ -211,14 +211,16 @@ export default function SearchBarScreen({navigation}) {
             </View>
           </>
         ) : (
-          <SkypeIndicator
-            color={color.textThirdColor}
-            size={hp('6')}
-            style={{
-              alignSelf: 'center',
-              marginTop: hp('2'),
-            }}
-          />
+          null
+          // <SkypeIndicator
+          //   color={color.textThirdColor}
+          //   size={hp('6')}
+          //   style={{
+          //     alignSelf: 'center',
+          //     marginTop: hp('2'),
+          //   }}
+          // />
+
         )}
         {favored.length > 0 ? (
           <>
@@ -265,14 +267,15 @@ export default function SearchBarScreen({navigation}) {
             </View>
           </>
         ) : (
-          <SkypeIndicator
-            color={color.textThirdColor}
-            size={hp('6')}
-            style={{
-              alignSelf: 'center',
-              marginTop: hp('2'),
-            }}
-          />
+          // <SkypeIndicator
+          //   color={color.textThirdColor}
+          //   size={hp('6')}
+          //   style={{
+          //     alignSelf: 'center',
+          //     marginTop: hp('2'),
+          //   }}
+          // />
+          null
         )}
         <Text
           style={{
@@ -548,14 +551,15 @@ export default function SearchBarScreen({navigation}) {
               );
             })
           ) : (
-            <SkypeIndicator
-              color={color.textThirdColor}
-              size={hp('6')}
-              style={{
-                alignSelf: 'center',
-                marginTop: hp('2'),
-              }}
-            />
+            null
+            // <SkypeIndicator
+            //   color={color.textThirdColor}
+            //   size={hp('6')}
+            //   style={{
+            //     alignSelf: 'center',
+            //     marginTop: hp('2'),
+            //   }}
+            // />
           )}
         </View>
         {/* <View style={styles.inputView}>
@@ -604,7 +608,21 @@ export default function SearchBarScreen({navigation}) {
             <Text style={styles.buttonText}>Apply Filter</Text>
           </TouchableOpacity>
         )}
-      </ScrollView>
+      </ScrollView>:
+       <View style={styles.loadingView}>
+       <Image 
+        resizeMode='contain'
+        source={require('../../images/walking.gif')}  
+        style={{width: wp('50'), height: hp('20') }}
+    />
+       {/* <ActivityIndicator
+         size={'large'}
+         color="white"
+         style={{alignSelf: 'center'}}
+       /> */}
+       {/* <Text style={styles.loadingText}>Loading...</Text> */}
+    </View>
+      }
     </View>
   );
 }

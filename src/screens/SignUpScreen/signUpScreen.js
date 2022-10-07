@@ -31,6 +31,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {SkypeIndicator} from 'react-native-indicators';
 import {KeyboardAvoidingView} from 'native-base';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
+import { ArrowButtonComponenetDup } from '../../components/ArrowButtonComponenetDup/ArrowButtonComponenetDup';
 
 export default function SignUpScreen({navigation}) {
   const [isKeyboardVisible, setKeyboardVisible] = useState(hp('45'));
@@ -118,7 +119,14 @@ export default function SignUpScreen({navigation}) {
           setLoading(false);
         }
       });
-    } else {
+    } 
+    else if(userImage.length==0)
+    {
+      setLoading(false);
+      errorMessage('Kindly select an image');
+
+    }
+    else {
       errorMessage('Plesae type correct information.');
       setLoading(false);
     }
@@ -346,7 +354,7 @@ export default function SignUpScreen({navigation}) {
                     <TextInputCom
                       value={email}
                       onChangeText={email => updateState({email})}
-                      inputText="email"
+                      inputText="Email"
                       placeholder="mail@gmail.com"
                       onFocus={() => handleInputFocus('email')}
                       onBlur={() => handleInputBlur('email')}
@@ -452,9 +460,11 @@ export default function SignUpScreen({navigation}) {
                     animation="fadeInUpBig"
                     direction={'normal'}
                     delay={700}
-                    style={styles.bottomView}>
+                    style={{...styles.bottomView,marginBottom:hp('2')}}>
                     <View />
-                    <ArrowButtonCom
+                    <ArrowButtonComponenetDup
+                  loaderColor={color.boxColor}
+
                       loading={isloading}
                       onPress={() => signUpFunction()}
                       text="Register"
@@ -491,7 +501,9 @@ export default function SignUpScreen({navigation}) {
               </Text>
               {timer == false && UrgeWithPleasureComponent()}
               {timer && (
-                <ArrowButtonCom
+                <ArrowButtonComponenetDup
+                loaderColor={color.boxColor}
+
                   right={wp('0.5')}
                   loading={isloading}
                   width={wp('37')}

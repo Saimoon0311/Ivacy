@@ -46,4 +46,17 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignSelf: 'flex-start',
   },
+  hotTextTouc: {
+    backgroundColor: color.boxColor,
+    // width: wp('15'),
+    height: hp('3'),
+    marginLeft: wp('2'),
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderRadius: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    // padding: 10,
+  },
 });

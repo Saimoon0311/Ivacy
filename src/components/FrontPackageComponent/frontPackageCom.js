@@ -7,6 +7,7 @@ import {
 import {View, Platform, StyleSheet, Image, Text, Pressable} from 'react-native';
 import {IMAGE_BASED_URL} from '../../config/Urls';
 import Lottie from 'lottie-react-native';
+import { globalStyles } from '../../config/globalStyles';
 
 export const FrontPackageCom = props => {
   let item = props.data;
@@ -160,5 +161,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: hp('0.2'),
     marginLeft: wp('2'),
+    ...globalStyles.globalTextStyles3,
+    
   },
 });

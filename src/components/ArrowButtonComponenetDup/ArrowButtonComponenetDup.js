@@ -7,6 +7,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {SkypeIndicator} from 'react-native-indicators';
+import { globalStyles } from '../../config/globalStyles';
 
 export const ArrowButtonComponenetDup = props => {
   let width = props?.width ? props.width : wp('25');
@@ -14,6 +15,8 @@ export const ArrowButtonComponenetDup = props => {
   let mgRight = props.mgRight ? props.mgRight : wp('0');
   let right = props?.right ? props.right : wp('-13');
   return (
+
+  
     <TouchableOpacity
       onPress={() => props?.onPress()}
       style={{
@@ -26,17 +29,23 @@ export const ArrowButtonComponenetDup = props => {
         borderRadius: 5,
         marginRight: mgRight,
         borderWidth:props?.borderWidth ?? 0,
-        borderColor:props?.borderColor ?? 'transparent'
+        borderColor:props?.borderColor ?? 'transparent',
+    ...globalStyles.globalTextStyles3,
+  
+        
       }}>
-    <SkypeIndicator
+     
+     {props?.loading ==true &&   <SkypeIndicator
       color={props?.loaderColor??color.white}
-      size={hp('4')}
+      size={hp('3')}
       style={{
-        // right: right,
-        // marg0pinTop: hp('2'),
+        alignSelf:'center',
       }}
-    />
-      <Text
+      />}
+
+{props?.loading !=true &&
+<View style={{flexDirection:'row'}}>
+<Text
         style={{
           color: props?.color ?? color.textPrimaryColor,
           fontSize: hp('2'),
@@ -44,11 +53,13 @@ export const ArrowButtonComponenetDup = props => {
         }}>
         {props?.text}
       </Text>
-      <Ionicons
+     
+    <Ionicons
         name="ios-arrow-forward-outline"
         size={hp('2')}
-        color={color.textPrimaryColor}
-      />
+        color={props?.iconColor??color.textPrimaryColor}
+        style={{alignSelf:'center'}}
+      /></View>}
     </TouchableOpacity>
   );
 };

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  Platform,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {styles} from './styles';
@@ -22,12 +23,15 @@ import {
   GetActivitesUrl,
   GetSpecFavoued,
   PackageByCountryUrl,
+  FavoredSceneriesUrl,
+  PackageBySceneriesUrl,
 } from '../../config/Urls';
 import {ApiGet} from '../../config/helperFunction';
 import {errorMessage} from '../../components/NotificationMessage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {json} from 'express';
 import {FlatList} from 'react-native-gesture-handler';
+import Lottie from 'lottie-react-native';
 import {Divider} from 'react-native-paper';
 const PackageDetailScreen = ({route, navigation}) => {
   const [countryPicker, setCountryPicker] = useState([]);
@@ -41,11 +45,13 @@ const PackageDetailScreen = ({route, navigation}) => {
     return IMAGE_BASED_URL + res.title;
   });
   const navigateToPackage = (item, url) => {
+    console.log(item,url,45)
     navigation.navigate('PackageScreen', {
       data: item,
       url: url,
     });
   };
+
   const getAllCountryName = (url, saveState) => {
     ApiGet(url).then(res => {
       if (res.status == 200) {
@@ -65,7 +71,7 @@ const PackageDetailScreen = ({route, navigation}) => {
     }
   };
   useEffect(() => {
-    getAllCountryName(CountryNameUrl, setCountryPicker);
+    getAllCountryName(FavoredSceneriesUrl, setCountryPicker);
     let url = GetActivitesUrl + items.activity_2;
     let url2 = GetSpecFavoued + items.activity;
     getDataNull(url, setActivities, items.activity_2);
@@ -77,7 +83,7 @@ const PackageDetailScreen = ({route, navigation}) => {
       {/* <SafeAreaView style={{marginTop: hp('-1.6')}}> */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: hp('60')}}>
+        contentContainerStyle={{paddingBottom:Platform.OS=='ios' ? hp('55 '):hp('50')}}>
         <View style={styles.container}>
           <TouchableOpacity
             style={{
@@ -89,7 +95,7 @@ const PackageDetailScreen = ({route, navigation}) => {
             onPress={() => {
               navigation.goBack();
             }}>
-            <Ionicons name="arrow-back" color={'white'} size={hp('2')} />
+            <Ionicons name="arrow-back" color={'black'} size={hp('3')} />
           </TouchableOpacity>
           <SliderBox
             imageLoadingColor={color.textBackgroundColor}
@@ -112,7 +118,9 @@ const PackageDetailScreen = ({route, navigation}) => {
           />
           <View style={{marginLeft: wp('2')}}>
             <Text
-              style={{...globalStyles.globalTextStyles, fontSize: hp('3.5')}}>
+              style={{...globalStyles.globalTextStyles,
+              ...globalStyles.globalTextStyles3,
+              fontSize: hp('3.5')}}>
               {items?.title}
             </Text>
             <Text
@@ -121,6 +129,10 @@ const PackageDetailScreen = ({route, navigation}) => {
                 fontSize: hp('2'),
                 textAlign: 'justify',
                 width: wp('95'),
+                fontWeight: '400',
+                ...globalStyles.globalTextStyles3,
+
+
               }}>
               {items?.description}
             </Text>
@@ -129,7 +141,10 @@ const PackageDetailScreen = ({route, navigation}) => {
             <Text style={styles.dateStyle}>{items?.end_date}</Text>
             <Text style={{...styles.packtxt}}>Country</Text>
             <Text
-              style={{...styles.boxText, width: wp('40'), textAlign: 'center'}}>
+              style={{...styles.boxText, width: wp('40'), textAlign: 'center',
+          ...globalStyles.globalTextStyles3,
+              
+              }}>
               {items?.get_country?.name}
             </Text>
             {scenery.length > 0 && (
@@ -181,12 +196,25 @@ const PackageDetailScreen = ({route, navigation}) => {
             </TouchableOpacity>
             <Divider style={{marginTop: hp('2'), height: hp('1')}} />
             <CityImageComponent
+             component={  
+              <View style={styles.hotTextTouc}>
+                 <Lottie
+                   source={require('../../images/52717-fire.json')}
+                   autoPlay
+                   loop
+                   style={{
+                     marginBottom: hp('1'),
+                     width: wp('7'),
+                   }}
+                 />
+               
+             </View>}
               navigate={navigateToPackage}
               ml={wp('0.1')}
               data={countryPicker}
               isloading={isloading}
-              heading={'Top Countries'}
-              getPackageUrl={PackageByCountryUrl}
+              heading={'Favored Scenery'}
+              getPackageUrl={PackageBySceneriesUrl}
             />
           </View>
         </View>

@@ -22,6 +22,7 @@ import {Colors} from 'react-native-paper';
 import {ArrowButtonCom} from '../../components/ArrowButtonComponenet/arrowButtonCom';
 import {useDispatch} from 'react-redux';
 import types from '../../Redux/type';
+import { ArrowButtonComponenetDup } from '../../components/ArrowButtonComponenetDup/ArrowButtonComponenetDup';
 
 const {width, height} = Dimensions.get('window');
 
@@ -84,6 +85,7 @@ const OnboardingScreen = ({navigation}) => {
           height: hp('7'),
           justifyContent: 'space-between',
           paddingLeft: wp('45'),
+    
         }}>
         {/* Indicator container */}
         <View
@@ -160,7 +162,8 @@ const OnboardingScreen = ({navigation}) => {
                 </Text>
               </TouchableOpacity>
               <View style={{width: wp('5.5')}} />
-              <ArrowButtonCom
+              <ArrowButtonComponenetDup
+                  loaderColor={color.boxColor}
                 onPress={() => goToNextSlide()}
                 mgRight={wp('10')}
                 text="Next"
@@ -175,13 +178,15 @@ const OnboardingScreen = ({navigation}) => {
 
   const Slide = ({item}) => {
     return (
-      <ImageBackground style={styles.imageBackgroundStyle} source={item?.image}>
+
+      <ImageBackground style={{...styles.imageBackgroundStyle}} source={item?.image}>
         <View style={styles.container}>
           <View>
             <Text style={styles.title}>{item?.title}</Text>
             <View
               style={{
                 width: wp('140'),
+                height:hp('25'),
               }}>
               <Text style={styles.subtitle}>{item?.subtitle}</Text>
             </View>
@@ -190,6 +195,8 @@ const OnboardingScreen = ({navigation}) => {
             style={{
               position: 'absolute',
               bottom: Platform.OS == 'android' ? hp('-10') : hp('-15'),
+              justifyContent:'center',
+              alignItems:'center',
             }}>
             {Footer()}
           </View>
@@ -220,7 +227,7 @@ const OnboardingScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   imageBackgroundStyle: {
     width: wp('100'),
-    height: hp('100'),
+  flex:1,
   },
   container: {
     paddingTop: hp('50'),
@@ -236,16 +243,16 @@ const styles = StyleSheet.create({
   },
   title: {
     color: COLORS.white,
-    fontSize: wp('10'),
-    width: wp('80'),
+    fontSize: wp('7'),
+    width: wp('90'),
     paddingLeft: wp('5'),
     // textAlign: 'center',
   },
-  image: {
-    height: '100%',
-    width: '100%',
-    resizeMode: 'contain',
-  },
+  // image: {
+  //   height: '100%',
+  //   width: '100%',
+  //   resizeMode: 'contain',
+  // },
   indicator: {
     height: 10,
     width: 10,

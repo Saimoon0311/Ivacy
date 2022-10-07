@@ -269,7 +269,7 @@ const LoginScreen = ({route, navigation}) => {
                 direction={'normal'}
                 delay={600}
                 style={styles.bottomView}>
-                {LoginType == 'Traveller' ? (
+                {LoginType == 'Traveller' ? ( 
                   <View style={{flexDirection: 'row'}}>
                     <Text style={styles.newUserText}>New User ? </Text>
                     <TouchableOpacity
@@ -280,14 +280,22 @@ const LoginScreen = ({route, navigation}) => {
                 ) : (
                   <View />
                 )}
-                <ArrowButtonCom
+                {/* <ArrowButtonCom
                   loading={isloading}
                   onPress={() => loginFunction()}
                   text="Submit"
                   height={hp('4.5')}
                   right={wp('-19')}
-                />
+                /> */}
+                             
+              <ArrowButtonComponenetDup loading={isloading}
+                    onPress={() => loginFunction()}
+                    text="Submit"
+                  loaderColor={color.boxColor}
+                  height={hp('4.5')}
+                  right={wp('-19')}/>
               </Animatable.View>
+
             </View>
           </ScrollView>
         </KeyboardAvoidingView>

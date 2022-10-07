@@ -5,6 +5,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {color} from '../../components/color';
+import { globalStyles } from '../../config/globalStyles';
 
 export const styles = StyleSheet.create({
   container: {
@@ -34,6 +35,8 @@ export const styles = StyleSheet.create({
     color: color.textThirdColor,
     fontWeight: 'bold',
     marginTop: hp('1'),
+    ...globalStyles.globalTextStyles3,
+
   },
   priceMainContainer: {
     marginTop: hp('2'),
@@ -62,6 +65,8 @@ export const styles = StyleSheet.create({
     fontSize: hp('2'),
     color: color.white,
     fontWeight: 'bold',
+    ...globalStyles.globalTextStyles3,
+
   },
   dateStyle: {
     width: wp('90'),
@@ -98,5 +103,18 @@ export const styles = StyleSheet.create({
     marginLeft: wp('2'),
     borderWidth:1,
     color: 'black',
+  },
+  hotTextTouc: {
+    backgroundColor: color.boxColor,
+    // width: wp('15'),
+    height: hp('3'),
+    marginLeft: wp('2'),
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderRadius: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    // padding: 10,
   },
 });

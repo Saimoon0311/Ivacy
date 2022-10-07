@@ -33,15 +33,25 @@ const styles = StyleSheet.create({
   },
   innerView: {
     alignSelf: 'center',
-    backgroundColor: color.lightView,
+    backgroundColor: color.lightPurple,
     justifyContent: 'center',
     marginBottom: hp('50'),
     borderRadius: 20,
     alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+	width: 0,
+	height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    elevation: 8,
   },
   mainView: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: hp('13'),
+    // backgroundColor:color.bottomBarColorlightView,
+
   },
 });

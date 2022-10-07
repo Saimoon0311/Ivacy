@@ -40,6 +40,7 @@ import {color} from '../../components/color';
 import types from '../../Redux/type';
 import WebView from 'react-native-webview';
 import axios from 'axios';
+import { BackHeaderCom } from '../../components/BackHeaderComponent/backHeaderCom';
 // const AsyncStorage =
 //   require('@react-native-async-storage/async-storage').useAsyncStorage;
 
@@ -550,6 +551,11 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             updateState({isVisible: false});
           }}
           visible={isVisible}>
+        <View style={styles.webViewColor}>
+        <BackHeaderCom text={'PayPal Payment'} goBack={()=>{
+          updateState({isVisible: false})
+          updateLoadingState({isloading: false})
+      }}/>
           <WebView
             style={{
               height: hp('50'),
@@ -562,8 +568,9 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             domStorageEnabled={true}
             startInLoadingState={false}
             // style={{marginTop: 20}}
-          />
-        </Modal>
+            />
+        </View>
+      </Modal>
       )}
     </StripeProvider>
   );
