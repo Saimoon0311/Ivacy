@@ -20,6 +20,9 @@ import {ApiGet} from '../../config/helperFunction';
 import {
   CountryNameUrl,
   FavoredSceneriesUrl,
+  GetActivitesUrl,
+  GetAllActivitesUrl,
+  GetSinglActivitesUrl,
   LatestPackageUrl,
   PackageByCountryUrl,
   PackageBySceneriesUrl,
@@ -29,6 +32,8 @@ import SearchBarComponents from '../../components/SearchBarComponents/SearchBarC
 import {CityImageComponent} from '../../components/CityImageComponrnt/cityImageComponent';
 import {useCallback} from 'react';
 import {errorMessage} from '../../components/NotificationMessage';
+import Lottie from 'lottie-react-native';
+
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -44,12 +49,15 @@ const HomeScreen = ({navigation}) => {
     updateLoadingState({latestPackageLoading: true});
     updateLoadingState({countryLoader: true});
     updateLoadingState({favoredLoader: true});
+    updateLoadingState({activitesLoader: true});
     setRefreshing(true);
     wait(2000).then(() => {
       getPackage();
       getCountryName();
       favoredSceneries();
+      allActivites();
       setRefreshing(false);
+
     });
   }, []);
   const {userData} = useSelector(state => state.userData);
@@ -58,12 +66,14 @@ const HomeScreen = ({navigation}) => {
     getCountryData: [],
     packageByCountry: [],
     favoredScenerie: [],
+    activites: [],
   });
   const [isloading, setIsloading] = useState({
     latestPackageLoading: true,
     countryLoader: true,
     favoredLoader: true,
     pageLoading: true,
+    activitesLoader: true,
   });
   const updateLoadingState = data => {
     setIsloading(prev => ({...prev, ...data}));
@@ -74,12 +84,12 @@ const HomeScreen = ({navigation}) => {
       url: url,
     });
   };
-  const {latestPackageLoading, countryLoader, favoredLoader, pageLoading} =
+  const {latestPackageLoading, countryLoader, favoredLoader, pageLoading,activitesLoader} =
     isloading;
   const updatePackageState = data => {
     setAllPackage(prev => ({...prev, ...data}));
   };
-  const {latestPackage, getCountryData, favoredScenerie} = allPackage;
+  const {latestPackage, getCountryData, favoredScenerie,activites} = allPackage;
   const getPackage = () => {
     ApiGet(LatestPackageUrl, userData.access_token).then(res => {
       if (res.status == 200) {
@@ -119,11 +129,30 @@ const HomeScreen = ({navigation}) => {
       }
     });
   };
+  const allActivites = () => {
+    ApiGet(GetAllActivitesUrl).then(res => {
+      if (res.status == 200) {
+        updatePackageState({activites: res.json.data});
+        updateLoadingState({activitesLoader: false});
+      } else if (res.status == 404) {
+        updatePackageState({activites: []});
+        updateLoadingState({activitesLoader: false});
+      } else {
+        errorMessage('Network Request Faild.');
+      }
+    });
+  };
+  const component =(url)=>{
+    return <Image resizeMode='contain'
+    source={url}  
+    style={{marginLeft:wp('3'),width: wp('8'), height: hp('5') }}/ >
+  }
 
   useEffect(() => {
     getPackage();
     getCountryName();
     favoredSceneries();
+    allActivites();
   }, []);
 
   return (
@@ -138,12 +167,14 @@ const HomeScreen = ({navigation}) => {
         }
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('5')}}>
-        <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+        <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center',width:wp('90'),alignSelf:"center"}}>
         <Text
           style={{
             ...globalStyles.globalTextStyles,
             fontSize: hp('2.4'),
-            marginLeft: wp('3'),
+            marginLeft: wp('5'),
+            width:wp('80'),
+            
             ...globalStyles.globalTextStyles3,
           }}>
           Your journey start right here!
@@ -151,7 +182,7 @@ const HomeScreen = ({navigation}) => {
         <Image 
         resizeMode='contain'
         source={require('../../images/walking.gif')}  
-        style={{width: wp('22'), height: hp('8') }}
+        style={{width: wp('20'), height: hp('6'),right:wp('5') }}
     />
         </View>
         <SearchBarComponents
@@ -173,6 +204,19 @@ const HomeScreen = ({navigation}) => {
           navigate={navigate}
         />
         <CityImageComponent
+          component={  
+           <View style={styles.hotTextTouc}>
+              <Lottie
+                source={require('../../images/52717-fire.json')}
+                autoPlay
+                loop
+                style={{
+                  marginBottom: hp('1'),
+                  width: wp('7'),
+                }}
+              />
+            
+          </View>}
           ml={wp('4')}
           data={getCountryData}
           isloading={countryLoader}
@@ -181,12 +225,22 @@ const HomeScreen = ({navigation}) => {
           getPackageUrl={PackageByCountryUrl}
         />
         <CityImageComponent
+          component={component(require('../../images/sun.gif'))}
           ml={wp('4')}
           data={favoredScenerie}
           isloading={favoredLoader}
           heading={'Destinations By Favored Scenery'}
           navigate={navigateToPackage}
           getPackageUrl={PackageBySceneriesUrl}
+        />
+        <CityImageComponent
+        component={component(require('../../images/locgif.gif'))}
+          ml={wp('4')}
+          data={activites}
+          isloading={activitesLoader}
+          heading={'Destinations By Activities'}
+          navigate={navigateToPackage}
+          getPackageUrl={GetSinglActivitesUrl}
         />
       </ScrollView>
     </SafeAreaView>

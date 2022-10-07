@@ -19,6 +19,8 @@ import {
 } from '../../components/NotificationMessage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ArrowButtonComponenetDup } from '../../components/ArrowButtonComponenetDup/ArrowButtonComponenetDup';
+import { BackHeaderCom } from '../../components/BackHeaderComponent/backHeaderCom';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const ProfileScreen = ({navigation}) => {
   const [isloading, setLoading] = useState(false);
@@ -82,8 +84,9 @@ const ProfileScreen = ({navigation}) => {
     }
   };
 
-  return (
-    <View style={styles.container}>
+  return (<>
+      <BackHeaderCom text={"Update Profile"} goBack={()=>navigation.goBack()}/>
+    <ScrollView style={styles.container} contentContainerStyle={{alignItems:'center'}}>
       {isloading && (
         <View style={styles.loadingView}>
           <ActivityIndicator
@@ -94,14 +97,15 @@ const ProfileScreen = ({navigation}) => {
           <Text style={styles.loadingText}>Loading...</Text>
         </View>
       )}
-      <Ionicons
+      {/* <Ionicons
               name="arrow-back"
               color={color.borderThirdColor}
               size={hp('5')}
             onPress={()=>navigation.goBack()}
             style={{alignSelf:'flex-start',padding:8}}
               // style={{backgroundColor:'red',top: hp('4'), left: wp('2')}}
-            />
+            /> */}
+
       <Text style={styles.updateProTxt}>UPDATE PROFILE</Text>
       <SimpleInputComponent
         text={'FULL NAME'}
@@ -120,6 +124,7 @@ const ProfileScreen = ({navigation}) => {
         value={account_title}
         placeholder={'Account Title'}
         onChangeText={account_title => updateState({account_title})}
+        
       />
       <SimpleInputComponent
         text={'ACCOUNT NUMBER'}
@@ -129,6 +134,7 @@ const ProfileScreen = ({navigation}) => {
         value={account_number}
         placeholder={'Account Number'}
         onChangeText={account_number => updateState({account_number})}
+        keyboardType={'decimal-pad'}    
       />
       <SimpleInputComponent
         text={'PHONE NUMBER'}
@@ -138,6 +144,8 @@ const ProfileScreen = ({navigation}) => {
         value={phone}
         placeholder={'Phone Number'}
         onChangeText={phone => updateState({phone})}
+        keyboardType={'decimal-pad'}    
+
       />
       <SimpleInputComponent
         text={'ADDRESS'}
@@ -156,19 +164,24 @@ const ProfileScreen = ({navigation}) => {
         value={zip_code}
         placeholder={'Zip Code'}
         onChangeText={zip_code => updateState({zip_code})}
+        keyboardType={'decimal-pad'}    
+
       />
       <ArrowButtonComponenetDup
+      backgroundColor={color.textThirdColor}
                   loaderColor={color.boxColor}
 
         fontWeight={'600'}
         borderColor={color.black}
         borderWidth={1}
-        color={color.boxColor}
+        iconColor={color.white}
+        color={color.white}
         width={wp('90')}
         text={'Update Profile'}
         onPress={() => updateProfileFunction()}
       />
-    </View>
+    </ScrollView>
+  </>
   );
 };
 

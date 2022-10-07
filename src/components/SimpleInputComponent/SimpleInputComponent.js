@@ -17,7 +17,8 @@ const SimpleInputComponent = (props) => {
               : props?.value != ''
               ? color.black
               : color.black,
-          borderWidth: props?.isFocused == true ? 2 : 1,}} onFocus={props?.onFocus} onBlur={props?.onBlur} value={props?.value} placeholderTextColor={color.textColor} placeholder={props?.placeholder} onChangeText={props?.onChangeText}/>
+              color:'black',
+          borderWidth: props?.isFocused == true ? 2 : 1,}} keyboardType={props?.keyboardType} onFocus={props?.onFocus} onBlur={props?.onBlur} value={props?.value} placeholderTextColor={color.textColor} placeholder={props?.placeholder} onChangeText={props?.onChangeText}/>
     </View>
   )
 }

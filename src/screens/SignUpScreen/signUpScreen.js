@@ -119,7 +119,14 @@ export default function SignUpScreen({navigation}) {
           setLoading(false);
         }
       });
-    } else {
+    } 
+    else if(userImage.length==0)
+    {
+      setLoading(false);
+      errorMessage('Kindly select an image');
+
+    }
+    else {
       errorMessage('Plesae type correct information.');
       setLoading(false);
     }
@@ -347,7 +354,7 @@ export default function SignUpScreen({navigation}) {
                     <TextInputCom
                       value={email}
                       onChangeText={email => updateState({email})}
-                      inputText="email"
+                      inputText="Email"
                       placeholder="mail@gmail.com"
                       onFocus={() => handleInputFocus('email')}
                       onBlur={() => handleInputBlur('email')}
@@ -453,7 +460,7 @@ export default function SignUpScreen({navigation}) {
                     animation="fadeInUpBig"
                     direction={'normal'}
                     delay={700}
-                    style={styles.bottomView}>
+                    style={{...styles.bottomView,marginBottom:hp('2')}}>
                     <View />
                     <ArrowButtonComponenetDup
                   loaderColor={color.boxColor}

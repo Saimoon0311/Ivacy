@@ -27,6 +27,7 @@ export const SearchFilterUrl = getApi('search-filter');
 export const PackageByCountryUrl = getApi('package-by-country/');
 export const PackageBySceneriesUrl = getApi('package-by-favored-sceneries/');
 export const GetActivitesUrl = getApi('activities/');
+export const GetSinglActivitesUrl = getApi('single-activities/');
 export const GetAllActivitesUrl = getApi('all-activities/');
 export const GetSpecFavoued = getApi('specific-favored-scenery/');
 export const StripePublishKey =

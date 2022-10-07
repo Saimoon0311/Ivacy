@@ -59,7 +59,8 @@ function AppTwo({navigation}) {
         Splash_Screen
       ) : (
         // <HomeScreen />
-        <NavigationContainer theme={MyTheme}>
+        <NavigationContainer >
+        {/* <NavigationContainer theme={MyTheme}> */}
           <StackNavigatior />
         </NavigationContainer>
       )}

@@ -19,6 +19,18 @@ export const styles = StyleSheet.create({
     borderColor: 'black',
     justifyContent: 'center',
   },
+  loadingView: {
+    // position: 'absolute',
+    height: hp('100'),
+    width: wp('100'),
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'rgba(42,42,42,0.6)',
+    // top: 0,
+    // bottom: 0,
+    // zIndex: 1,
+  },
+  loadingText: {color: 'white', fontSize: hp('3'), fontWeight: 'bold'},
   inputView: {
     width: wp('90'),
     flexDirection: 'row',
@@ -53,7 +65,7 @@ export const styles = StyleSheet.create({
     marginLeft: wp('-9'),
   },
   activitiesContainer: {
-    width: wp('30'),
+    width: wp('32'),
     height: hp('6'),
     borderColor: 'black',
     borderWidth: 1,

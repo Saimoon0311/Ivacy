@@ -8,11 +8,9 @@ import { globalStyles } from '../../config/globalStyles';
 
 export const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS == 'ios' ? hp('5') : hp('2'),
     flex:1,
-    alignItems:'center',
-    // justifyContent:'space-evenly'
-    backgroundColor:'white'
+    // alignItems:'center',
+    // backgroundColor:'white'
     
   },
   updateProTxt:{

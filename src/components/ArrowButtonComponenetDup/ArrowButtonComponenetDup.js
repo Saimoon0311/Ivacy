@@ -30,7 +30,8 @@ export const ArrowButtonComponenetDup = props => {
         marginRight: mgRight,
         borderWidth:props?.borderWidth ?? 0,
         borderColor:props?.borderColor ?? 'transparent',
-    ...globalStyles.globalTextStyles3
+    ...globalStyles.globalTextStyles3,
+  
         
       }}>
      
@@ -56,7 +57,8 @@ export const ArrowButtonComponenetDup = props => {
     <Ionicons
         name="ios-arrow-forward-outline"
         size={hp('2')}
-        color={color.textPrimaryColor}
+        color={props?.iconColor??color.textPrimaryColor}
+        style={{alignSelf:'center'}}
       /></View>}
     </TouchableOpacity>
   );
