@@ -34,7 +34,6 @@ import {useCallback} from 'react';
 import {errorMessage} from '../../components/NotificationMessage';
 import Lottie from 'lottie-react-native';
 
-
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const wait = timeout => {
@@ -57,7 +56,6 @@ const HomeScreen = ({navigation}) => {
       favoredSceneries();
       allActivites();
       setRefreshing(false);
-
     });
   }, []);
   const {userData} = useSelector(state => state.userData);
@@ -84,12 +82,18 @@ const HomeScreen = ({navigation}) => {
       url: url,
     });
   };
-  const {latestPackageLoading, countryLoader, favoredLoader, pageLoading,activitesLoader} =
-    isloading;
+  const {
+    latestPackageLoading,
+    countryLoader,
+    favoredLoader,
+    pageLoading,
+    activitesLoader,
+  } = isloading;
   const updatePackageState = data => {
     setAllPackage(prev => ({...prev, ...data}));
   };
-  const {latestPackage, getCountryData, favoredScenerie,activites} = allPackage;
+  const {latestPackage, getCountryData, favoredScenerie, activites} =
+    allPackage;
   const getPackage = () => {
     ApiGet(LatestPackageUrl, userData.access_token).then(res => {
       if (res.status == 200) {
@@ -142,11 +146,15 @@ const HomeScreen = ({navigation}) => {
       }
     });
   };
-  const component =(url)=>{
-    return <Image resizeMode='contain'
-    source={url}  
-    style={{marginLeft:wp('3'),width: wp('8'), height: hp('5') }}/ >
-  }
+  const component = url => {
+    return (
+      <Image
+        resizeMode="contain"
+        source={url}
+        style={{marginLeft: wp('3'), width: wp('8'), height: hp('5')}}
+      />
+    );
+  };
 
   useEffect(() => {
     getPackage();
@@ -167,23 +175,34 @@ const HomeScreen = ({navigation}) => {
         }
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('5')}}>
-        <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center',width:wp('90'),alignSelf:"center"}}>
-        <Text
+        <View
           style={{
-            ...globalStyles.globalTextStyles,
-            fontSize: hp('2.4'),
-            marginLeft: wp('5'),
-            width:wp('80'),
-            
-            ...globalStyles.globalTextStyles3,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            width: wp('90'),
+            alignSelf: 'center',
           }}>
-          Your journey start right here!
-        </Text>
-        <Image 
-        resizeMode='contain'
-        source={require('../../images/walking.gif')}  
-        style={{width: wp('20'), height: hp('6'),right:wp('5') }}
-    />
+          <Text
+            style={{
+              ...globalStyles.globalTextStyles,
+              fontSize: hp('2.4'),
+              marginLeft: wp('5'),
+              width: wp('80'),
+
+              ...globalStyles.globalTextStyles3,
+            }}>
+            Your journey start right here!
+          </Text>
+          <Image
+            resizeMode="contain"
+            source={require('../../images/walking.gif')}
+            style={{
+              width: wp('20'),
+              height: hp('6'),
+              right: Platform.OS == 'ios' ? wp('-1') : wp('5'),
+            }}
+          />
         </View>
         <SearchBarComponents
           onPress={() => navigation.navigate('searchBarScreen')}
@@ -194,9 +213,8 @@ const HomeScreen = ({navigation}) => {
             fontSize: hp('2.2'),
             marginLeft: wp('5'),
             ...globalStyles.globalTextStyles3,
-
           }}>
-          Discover Places, Tours & Excursions 
+          Discover Places, Tours & Excursions
         </Text>
         <LatestPackageFlatlist
           data={latestPackage}
@@ -204,8 +222,8 @@ const HomeScreen = ({navigation}) => {
           navigate={navigate}
         />
         <CityImageComponent
-          component={  
-           <View style={styles.hotTextTouc}>
+          component={
+            <View style={styles.hotTextTouc}>
               <Lottie
                 source={require('../../images/52717-fire.json')}
                 autoPlay
@@ -215,8 +233,8 @@ const HomeScreen = ({navigation}) => {
                   width: wp('7'),
                 }}
               />
-            
-          </View>}
+            </View>
+          }
           ml={wp('4')}
           data={getCountryData}
           isloading={countryLoader}
@@ -234,7 +252,7 @@ const HomeScreen = ({navigation}) => {
           getPackageUrl={PackageBySceneriesUrl}
         />
         <CityImageComponent
-        component={component(require('../../images/locgif.gif'))}
+          component={component(require('../../images/locgif.gif'))}
           ml={wp('4')}
           data={activites}
           isloading={activitesLoader}

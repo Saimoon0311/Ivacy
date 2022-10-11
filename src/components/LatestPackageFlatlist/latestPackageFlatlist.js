@@ -10,16 +10,23 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Carousel from 'react-native-snap-carousel';
+import {NoDataView} from '../NoDataView/noDataView';
 
 export const LatestPackageFlatlist = props => {
   const isCarousel = useRef(null);
 
   return props?.isloading ? (
     <SkeletonPlaceholder>{placeholderView()}</SkeletonPlaceholder>
+  ) : props?.data.length == 0 ? (
+    <NoDataView
+      text="No Package Found"
+      marginBottom={hp('2')}
+      paddingTop={hp('2')}
+    />
   ) : (
     <View style={{height: hp('40')}}>
       <Carousel
-      disableVirtualization={true}
+        disableVirtualization={true}
         data={props?.data}
         layout={'tinder'}
         useScrollView={true}
