@@ -21,12 +21,9 @@ import {
   CountryNameUrl,
   FavoredSceneriesUrl,
   GetAllActivitesUrl,
-  PackageBySceneriesUrl,
   SearchFilterUrl,
-  SearchrUrl,
 } from '../../config/Urls';
 import {useEffect} from 'react';
-import {showMessage} from 'react-native-flash-message';
 import {styles} from './styles';
 import {color} from '../../components/color';
 import {Picker} from '@react-native-picker/picker';
@@ -39,10 +36,7 @@ import moment from 'moment/moment';
 import {ActivityIndicator, Divider} from 'react-native-paper';
 
 export default function SearchBarScreen({navigation}) {
-  // let d = moment(1664276491879).format('YYYY-MM-DD');
-  // let d = moment(new Date()).format('YYYY-MM-DD hh:mm:ss').fromNow();
-  // let d = moment(1664276491879).format('L');
-  // console.log(35, d);
+
   const date = new Date();
   const time = date.setDate(date.getDate() + 1);
   const LatestDate = moment(time).format('YYYY-MM-DD');
@@ -93,45 +87,7 @@ export default function SearchBarScreen({navigation}) {
     activities: activities,
   };
 
-  // const showDatePicker = () => {
-  //   setDatePickerVisibility(true);
-  // };
 
-  // const hideDatePicker = () => {
-  //   setDatePickerVisibility(false);
-  // };
-
-  // const handleConfirm = date => {
-  //   console.warn('A date has been picked: ', date);
-  //   hideDatePicker();
-  // };
-
-  // const applyFilterFun = () => {
-  //   setIsloading(true);
-  //   if (country_id != null) {
-  //     let url = SearchrUrl + country_id;
-  //     let body = JSON.stringify({
-  //       is_price: EndPrice == '2600000000000' ? '0' : '1',
-  //       start_price: startPrice,
-  //       end_price: EndPrice,
-  //     });
-  //     ApiPost(url, body, false, userData.access_token).then(res => {
-  //       if (res.status == 200 || res.status == 404) {
-  //         navigation.navigate('PackageScreen', {
-  //           data: res.json.data,
-  //           countryName: countryName,
-  //         });
-  //         setIsloading(false);
-  //       } else {
-  //         setIsloading(false);
-  //         errorMessage('Network Request Failed.');
-  //       }
-  //     });
-  //   } else {
-  //     setIsloading(false);
-  //     errorMessage('Please Select Country.');
-  //   }
-  // };
   const selectActivities = (v, i) => {
     if (activities.includes(v)) {
       updateState({
@@ -144,17 +100,14 @@ export default function SearchBarScreen({navigation}) {
   const upadateStartDate = e => {
     let d = moment(e?.nativeEvent?.timestamp).format('YYYY-MM-DD');
     setIsDate(false);
-    // updateState({startDate: new Date(e.nativeEvent.timestamp)});
+
     setStartDate(new Date(e.nativeEvent.timestamp));
     setEndDate(new Date(e.nativeEvent.timestamp));
-    // updateState({endDate: startDate});
-    // updateState({endDate: new Date(e?.nativeEvent?.timestamp)});
+
   };
   const upadateEndDate = e => {
     setIsDate2(false);
-    // let d = moment(e?.nativeEvent?.timestamp).format('YYYY-MM-DD');
-    // updateState({endDate: d});
-    // updateState({endDate: new Date(d)});
+
     setEndDate(new Date(e.nativeEvent.timestamp));
   };
   useEffect(() => {
@@ -212,14 +165,6 @@ export default function SearchBarScreen({navigation}) {
           </>
         ) : (
           null
-          // <SkypeIndicator
-          //   color={color.textThirdColor}
-          //   size={hp('6')}
-          //   style={{
-          //     alignSelf: 'center',
-          //     marginTop: hp('2'),
-          //   }}
-          // />
 
         )}
         {favored.length > 0 ? (
@@ -302,105 +247,7 @@ export default function SearchBarScreen({navigation}) {
           Select your Date Range!
         </Text>
 
-        {/* <View style={styles.inputView}>
-          {isDate != null && isDate2 == true ? (
-            <DateTimePicker
-              testID="startDatePicker"
-              value={startDate}
-              mode={'date'}
-              minimumDate={date}
-              is24Hour={false}
-              display="default"
-              themeVariant="light"
-              style={styles.datePicker}
-              onChange={e => {
-                upadateStartDate(e);
-              }}
-              onTouchCancel={() => {
-                console.log(276), setIsDate(false);
-              }}
-            />
-          ) : isDate == false ? (
-            <TouchableOpacity
-              onPress={() => setIsDate2(true)}
-              style={{
-                backgroundColor: '#E0E0E0',
-                height: hp('4.5'),
-                width: wp('33'),
-                borderRadius: 8,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{color: 'black', fontSize: hp('2'), fontWeight: 'bold'}}>
-                {moment(startDate).format('YYYY-MM-DD')}
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={() => setIsDate(true)}
-              style={{
-                backgroundColor: '#E0E0E0',
-                height: hp('4.5'),
-                width: wp('33'),
-                borderRadius: 8,
-              }}
-            />
-          )}
-          <Text
-            style={{
-              ...globalStyles.globalTextStyles,
-              fontSize: hp('2'),
-            }}>
-            - To -
-          </Text>
-          {endDate != null && isDate2 == true ? (
-            <>
-              <DateTimePicker
-                testID="endDatePicker"
-                value={endDate}
-                mode={'date'}
-                minimumDate={startDate}
-                is24Hour={false}
-                display="default"
-                style={styles.datePicker}
-                themeVariant="light"
-                onChange={e => {
-                  upadateEndDate(e);
-                  // console.log(143, startDate), setIsDate(false);
-                }}
-                onTouchCancel={() => {
-                  console.log(276), setIsDate2(false);
-                }}
-              />
-            </>
-          ) : isDate == false && Platform.OS == 'android' && endDate != null ? (
-            <TouchableOpacity
-              onPress={() => setIsDate2(true)}
-              style={{
-                backgroundColor: '#E0E0E0',
-                height: hp('4.5'),
-                width: wp('33'),
-                borderRadius: 8,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{color: 'black', fontSize: hp('2'), fontWeight: 'bold'}}>
-                {moment(endDate).format('YYYY-MM-DD')}
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <View
-              style={{
-                backgroundColor: '#E0E0E0',
-                height: hp('4.5'),
-                width: wp('33'),
-                borderRadius: 8,
-              }}
-            />
-          )}
-        </View> */}
+       
         <View style={styles.inputView}>
           {isDate == true && Platform.OS == 'android' ? (
             <DateTimePicker
@@ -552,41 +399,10 @@ export default function SearchBarScreen({navigation}) {
             })
           ) : (
             null
-            // <SkypeIndicator
-            //   color={color.textThirdColor}
-            //   size={hp('6')}
-            //   style={{
-            //     alignSelf: 'center',
-            //     marginTop: hp('2'),
-            //   }}
-            // />
+            
           )}
         </View>
-        {/* <View style={styles.inputView}>
-          <TextInput
-            value={startPrice}
-            style={styles.inputField}
-            keyboardType="numeric"
-            onChangeText={startPrice => updateState({startPrice})}
-            placeholder="price"
-            placeholderTextColor={'gray'}
-          />
-          <Text
-            style={{
-              ...globalStyles.globalTextStyles,
-              fontSize: hp('2'),
-            }}>
-            - To -
-          </Text>
-          <TextInput
-            value={EndPrice}
-            style={styles.inputField}
-            keyboardType="numeric"
-            onChangeText={EndPrice => updateState({EndPrice})}
-            placeholderTextColor={'gray'}
-            placeholder="price"
-          />
-        </View> */}
+        
         {isloading ? (
           <SkypeIndicator
             color={color.bottomBarColor}
@@ -595,7 +411,6 @@ export default function SearchBarScreen({navigation}) {
           />
         ) : (
           <TouchableOpacity
-            // onPress={() => applyFilterFun()}
             onPress={() => {
               country_id != null
                 ? navigation.navigate('PackageScreen', {
@@ -615,12 +430,7 @@ export default function SearchBarScreen({navigation}) {
         source={require('../../images/walking.gif')}  
         style={{width: wp('50'), height: hp('20') }}
     />
-       {/* <ActivityIndicator
-         size={'large'}
-         color="white"
-         style={{alignSelf: 'center'}}
-       /> */}
-       {/* <Text style={styles.loadingText}>Loading...</Text> */}
+       
     </View>
       }
     </View>

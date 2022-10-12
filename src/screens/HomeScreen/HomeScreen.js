@@ -167,7 +167,9 @@ const HomeScreen = ({navigation}) => {
         }
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: hp('5')}}>
-        <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center',width:wp('90'),alignSelf:"center"}}>
+        <View style={{
+          flex:1,
+          flexDirection:'row',justifyContent:'space-around',alignItems:'center',width:wp('90'),alignSelf:"center"}}>
         <Text
           style={{
             ...globalStyles.globalTextStyles,

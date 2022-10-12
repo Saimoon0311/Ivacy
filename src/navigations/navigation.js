@@ -18,7 +18,8 @@ export default function StackNavigatior() {
         screenOptions={{
           animation: 'slide_from_left',
           headerShown: false,
-        }}>
+        }}
+        >
         {IsApplunchFirst == true && (
           <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
         )}
