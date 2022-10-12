@@ -40,7 +40,7 @@ import {color} from '../../components/color';
 import types from '../../Redux/type';
 import WebView from 'react-native-webview';
 import axios from 'axios';
-import { BackHeaderCom } from '../../components/BackHeaderComponent/backHeaderCom';
+import {BackHeaderCom} from '../../components/BackHeaderComponent/backHeaderCom';
 // const AsyncStorage =
 //   require('@react-native-async-storage/async-storage').useAsyncStorage;
 
@@ -485,7 +485,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
               }}
               style={styles.boxContainer}>
               <Text style={styles.text}>Crypto</Text>
-              <Text style={styles.ethText}>(Etherum)</Text>
+              <Text style={styles.ethText}>(Ethereum)</Text>
               <Image
                 style={styles.image}
                 source={require('../../images/bitcoin.png')}
@@ -551,26 +551,29 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             updateState({isVisible: false});
           }}
           visible={isVisible}>
-        <View style={styles.webViewColor}>
-        <BackHeaderCom text={'PayPal Payment'} goBack={()=>{
-          updateState({isVisible: false})
-          updateLoadingState({isloading: false})
-      }}/>
-          <WebView
-            style={{
-              height: hp('50'),
-              width: wp('100'),
-              marginTop: Platform.OS == 'ios' ? hp('5') : hp('2'),
-            }}
-            source={{uri: approvalUrl}}
-            onNavigationStateChange={_onNavigationStateChange}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            startInLoadingState={false}
-            // style={{marginTop: 20}}
+          <View style={styles.webViewColor}>
+            <BackHeaderCom
+              text={'PayPal Payment'}
+              goBack={() => {
+                updateState({isVisible: false});
+                updateLoadingState({isloading: false});
+              }}
             />
-        </View>
-      </Modal>
+            <WebView
+              style={{
+                height: hp('50'),
+                width: wp('100'),
+                marginTop: Platform.OS == 'ios' ? hp('5') : hp('2'),
+              }}
+              source={{uri: approvalUrl}}
+              onNavigationStateChange={_onNavigationStateChange}
+              javaScriptEnabled={true}
+              domStorageEnabled={true}
+              startInLoadingState={false}
+              // style={{marginTop: 20}}
+            />
+          </View>
+        </Modal>
       )}
     </StripeProvider>
   );
