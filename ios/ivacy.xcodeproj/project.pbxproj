@@ -141,11 +141,6 @@
 		128BCDDDDE8F41AE99EB3844 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				471873F094E248ABB6D7F30B /* AntDesign.ttf */,
-				927C9F082A5D437DAE93EF5F /* Entypo.ttf */,
-				AB13B19B289A407596C3FACE /* EvilIcons.ttf */,
-				9E7A02F0252942D6A3A57E9A /* Feather.ttf */,
-				59734245302E400480EA9F0A /* FontAwesome.ttf */,
 				E6228A763BB848E7A54A6460 /* FontAwesome5_Brands.ttf */,
 				54915A810FB44F7E99FFE00A /* FontAwesome5_Regular.ttf */,
 				08227CFB8127447A89674446 /* FontAwesome5_Solid.ttf */,
@@ -161,6 +156,11 @@
 				04FDA72428EDC3C8000653F3 /* Poppins-BlackItalic.ttf */,
 				04FDA72928EDC3C9000653F3 /* Poppins-Bold.ttf */,
 				04FDA72628EDC3C9000653F3 /* Poppins-BoldItalic.ttf */,
+				471873F094E248ABB6D7F30B /* AntDesign.ttf */,
+				927C9F082A5D437DAE93EF5F /* Entypo.ttf */,
+				AB13B19B289A407596C3FACE /* EvilIcons.ttf */,
+				9E7A02F0252942D6A3A57E9A /* Feather.ttf */,
+				59734245302E400480EA9F0A /* FontAwesome.ttf */,
 				04FDA72C28EDC3C9000653F3 /* Poppins-ExtraBold.ttf */,
 				04FDA73328EDC3CA000653F3 /* Poppins-ExtraBoldItalic.ttf */,
 				04FDA72A28EDC3C9000653F3 /* Poppins-ExtraLight.ttf */,
@@ -219,8 +219,8 @@
 				00E356EF1AD99517003FC87E /* ivacyTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				128BCDDDDE8F41AE99EB3844 /* Resources */,
+				BBD78D7AC51CEA395F1C20DB /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
