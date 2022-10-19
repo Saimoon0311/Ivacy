@@ -31,7 +31,7 @@ const userScreen = ({navigation}) => {
   const [isloading, setIsloading] = useState(false);
   const [userImageLoader, setUserImageLoader] = useState(true);
   const [userImage, setUserImage] = useState('');
-  
+
   const logoutFun = () => {
     let body = {};
     setIsloading(true);
@@ -100,30 +100,26 @@ const userScreen = ({navigation}) => {
           text={'Profile'}
           icon={true}
           textcolor={color.textThirdColor}
-
         />
         <TextImageComponent
           onPress={() => navigation.navigate('OrderDetailsScreen')}
           iconName={'bookmark-outline'}
           text={'My booked orders'}
           textcolor={color.textThirdColor}
-
         />
-  
+
         {/* kihosiw869@dnitem.com */}
         <TextImageComponent
           onPress={() => Linking.openURL(AboutTheApp)}
           iconName={'alert-circle-outline'}
           text={'About the app'}
           textcolor={color.textThirdColor}
-
         />
         <TextImageComponent
           onPress={() => navigation.navigate('ReviewScreen')}
           iconName={'md-star-outline'}
           text={'Rate us'}
           textcolor={color.textThirdColor}
-
         />
         <TextImageComponent
           onPress={() => navigation.navigate('DeleteAccountScreen')}

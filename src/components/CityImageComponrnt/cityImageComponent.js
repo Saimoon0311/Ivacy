@@ -28,48 +28,46 @@ export const CityImageComponent = props => {
           marginRight: wp('1.5'),
           marginTop: hp('1.5'),
           borderRadius: 10,
-
         }}
       />
     );
   };
   return (
     <View>
-      <View style={{flexDirection: 'row',width:wp('84'), paddingLeft: ml,
-    
-    }}>
+      <View style={{flexDirection: 'row', width: wp('84'), paddingLeft: ml}}>
         <Text
           style={{
             ...globalStyles.globalTextStyles,
             fontSize: hp('2.0'),
-          ...globalStyles.globalTextStyles3,
+            ...globalStyles.globalTextStyles3,
           }}>
           {props?.heading}
         </Text>
-        {props?.hot ?<View style={styles.hotTextTouc}>
+        {props?.hot ? (
+          <View style={styles.hotTextTouc}>
             <Text
               style={{
                 color: color.white,
                 fontWeight: 'bold',
                 fontSize: hp('1.7'),
                 marginLeft: wp('2'),
-    ...globalStyles.globalTextStyles3,
-
+                ...globalStyles.globalTextStyles3,
               }}>
               Hot
             </Text>
-          <Lottie
-            source={require('../../images/52717-fire.json')}
-            autoPlay
-            loop
-            style={{
-              marginBottom: hp('1'),
-              width: wp('7'),
-            }}
-          />
-        </View>:
-        props?.component
-        }
+            <Lottie
+              source={require('../../images/52717-fire.json')}
+              autoPlay
+              loop
+              style={{
+                marginBottom: hp('1'),
+                width: wp('7'),
+              }}
+            />
+          </View>
+        ) : (
+          props?.component
+        )}
       </View>
       {props?.isloading ? (
         <SkeletonPlaceholder>
@@ -96,13 +94,14 @@ export const CityImageComponent = props => {
               paddingBottom: hp('3'),
               paddingRight: wp('2'),
               paddingLeft: ml,
-
             }}
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => {
-
-              var {image}=item
-              var imageChecked=image!=null?image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Lp_vpjcJFZDWE_C0lyv5SjGWuZR3J_AtP7_ydmA2mqnRRlXdmwzVsdaCjp8LbIM-6Qk&usqp=CAU'
+              var {image} = item;
+              var imageChecked =
+                image != null
+                  ? image
+                  : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Lp_vpjcJFZDWE_C0lyv5SjGWuZR3J_AtP7_ydmA2mqnRRlXdmwzVsdaCjp8LbIM-6Qk&usqp=CAU';
               return (
                 <TouchableOpacity
                   onPress={() => {
@@ -114,18 +113,21 @@ export const CityImageComponent = props => {
                     resizeMode="stretch"
                     style={styles.imageStyle}
                     source={{
-                      uri:imageChecked
-                      
+                      uri: imageChecked,
                     }}>
-                      <View style={{...styles.textImageBackground}}>
-
-                    <Text numberOfLines={2} style={{
-    ...globalStyles.globalTextStyles3,color:'white',fontSize:hp('1.5'),textAlign:'center',fontFamily:'Poppins'
-    
-  }}>
-                      {item?.name}
-                    </Text>
-                      </View>
+                    <View style={{...styles.textImageBackground}}>
+                      <Text
+                        numberOfLines={2}
+                        style={{
+                          ...globalStyles.globalTextStyles3,
+                          color: 'white',
+                          fontSize: hp('1.5'),
+                          textAlign: 'center',
+                          fontFamily: 'Poppins',
+                        }}>
+                        {item?.name}
+                      </Text>
+                    </View>
                   </ImageBackground>
                 </TouchableOpacity>
               );
@@ -142,13 +144,12 @@ const styles = StyleSheet.create({
     marginRight: wp('3'),
     marginTop: hp('1.5'),
     borderRadius: 10,
- 
   },
   imageStyle: {
     width: wp('29'),
     height: hp('12'),
-    justifyContent:'center',
-    alignItems:'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   hotTextTouc: {
     backgroundColor: color.boxColor,
@@ -167,10 +168,10 @@ const styles = StyleSheet.create({
   textImageBackground: {
     backgroundColor: color.textBackgroundColor,
     width: wp('24'),
-    alignItems:'center',
+    alignItems: 'center',
     height: hp('6'),
     textAlign: 'center',
-    
+
     color: 'white',
     fontSize: hp('1.6'),
     alignContent: 'center',
