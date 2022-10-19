@@ -288,7 +288,7 @@ const EtherumPaymentScreen = ({navigation, route}) => {
   return (
     <>
       <BackHeaderCom
-        text="Etherum Payment"
+        text="Ethereum Payment"
         goBack={() => navigation.goBack()}
       />
       <ScrollView

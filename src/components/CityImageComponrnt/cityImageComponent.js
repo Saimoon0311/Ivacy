@@ -100,6 +100,7 @@ export const CityImageComponent = props => {
             }}
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => {
+              props.heading == "Hot Deals By Country"&& console.log(103,item.image)
 
               var {image}=item
               var imageChecked=image!=null?image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Lp_vpjcJFZDWE_C0lyv5SjGWuZR3J_AtP7_ydmA2mqnRRlXdmwzVsdaCjp8LbIM-6Qk&usqp=CAU'
