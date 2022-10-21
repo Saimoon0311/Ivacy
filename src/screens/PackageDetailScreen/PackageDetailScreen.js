@@ -86,12 +86,7 @@ const PackageDetailScreen = ({route, navigation}) => {
   return (
     <SafeAreaView>
       {/* <SafeAreaView style={{marginTop: hp('-1.6')}}> */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: Platform.OS == 'ios' ? hp('55 ') : hp('50'),
-        }}
-      >
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <TouchableOpacity
             style={{
@@ -200,12 +195,28 @@ const PackageDetailScreen = ({route, navigation}) => {
               }}
             />
 
-            {/* <TouchableOpacity  onPress={()=>Linking.openURL('https://www.google.com/maps/search/?api=1&query=47.5951518%2C-122.3316393&query_place_id=ChIJKxjxuaNqkFQR3CK6O1HNNqY')}>
-              <ImageBackground  source={require('../../images/mapimage.png')}  style={styles.mapContainer} resizeMode={'cover'} >
-            <Text style={{...globalStyles.globalTextStyles2,textAlign:'center'}}>Google Map</Text>
-
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  `https://www.google.com/maps/search/?api=1&query=${items?.latitude}%2C${items?.longitude}&query_place_id=ChIJKxjxuaNqkFQR3CK6O1HNNqY`,
+                )
+              }
+            >
+              <ImageBackground
+                source={require('../../images/mapimage.png')}
+                style={styles.mapContainer}
+                resizeMode={'cover'}
+              >
+                <Text
+                  style={{
+                    ...globalStyles.globalTextStyles2,
+                    textAlign: 'center',
+                  }}
+                >
+                  Google Map
+                </Text>
               </ImageBackground>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
             <Divider
               style={{width: wp('96'), marginTop: hp('2'), height: hp('1')}}
             />
