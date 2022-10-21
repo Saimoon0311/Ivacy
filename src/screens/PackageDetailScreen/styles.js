@@ -117,4 +117,19 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     // padding: 10,
   },
+  mapContainer:{
+    justifyContent:'center',
+    height:hp('20'),
+    width:wp('96'),
+    shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 3,
+},
+shadowOpacity: 0.29,
+shadowRadius: 4.65,
+
+elevation: 7,
+  },
+  
 });

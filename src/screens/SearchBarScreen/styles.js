@@ -25,10 +25,7 @@ export const styles = StyleSheet.create({
     width: wp('100'),
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'rgba(42,42,42,0.6)',
-    // top: 0,
-    // bottom: 0,
-    // zIndex: 1,
+
   },
   loadingText: {color: 'white', fontSize: hp('3'), fontWeight: 'bold'},
   inputView: {
@@ -81,6 +78,7 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     marginTop: hp('2'),
+    paddingHorizontal:wp('2')
   },
   dateContainer: {
     backgroundColor: '#E0E0E0',

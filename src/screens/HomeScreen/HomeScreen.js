@@ -186,13 +186,13 @@ const HomeScreen = ({navigation}) => {
           <Text
             style={{
               ...globalStyles.globalTextStyles,
-              fontSize: hp('2.4'),
+              fontSize: hp('2.3'),
               marginLeft: wp('5'),
               width: wp('80'),
 
               ...globalStyles.globalTextStyles3,
             }}>
-            Your journey start right here!
+            Your journey starts right here!
           </Text>
           <Image
             resizeMode="contain"
@@ -256,7 +256,7 @@ const HomeScreen = ({navigation}) => {
           ml={wp('4')}
           data={activites}
           isloading={activitesLoader}
-          heading={'Destinations By Activities'}
+          heading={'Activities & Tour Services'}
           navigate={navigateToPackage}
           getPackageUrl={GetSinglActivitesUrl}
         />

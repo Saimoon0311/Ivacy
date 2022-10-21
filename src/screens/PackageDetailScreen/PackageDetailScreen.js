@@ -6,6 +6,9 @@ import {
   SafeAreaView,
   ScrollView,
   Platform,
+  Image,
+  ImageBackground,
+  Linking,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {styles} from './styles';
@@ -41,11 +44,13 @@ const PackageDetailScreen = ({route, navigation}) => {
   const [isloading, setIsloading] = useState(true);
 
   const items = route.params;
+  console.log(466666, items);
+
   const imagesLegth = items?.get_images.map(res => {
     return IMAGE_BASED_URL + res.title;
   });
   const navigateToPackage = (item, url) => {
-    console.log(item,url,45)
+    console.log(item, url, 45);
     navigation.navigate('PackageScreen', {
       data: item,
       url: url,
@@ -83,7 +88,9 @@ const PackageDetailScreen = ({route, navigation}) => {
       {/* <SafeAreaView style={{marginTop: hp('-1.6')}}> */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom:Platform.OS=='ios' ? hp('55 '):hp('50')}}>
+        contentContainerStyle={{
+          paddingBottom: Platform.OS == 'ios' ? hp('55 ') : hp('50'),
+        }}>
         <View style={styles.container}>
           <TouchableOpacity
             style={{
@@ -118,9 +125,11 @@ const PackageDetailScreen = ({route, navigation}) => {
           />
           <View style={{marginLeft: wp('2')}}>
             <Text
-              style={{...globalStyles.globalTextStyles,
-              ...globalStyles.globalTextStyles3,
-              fontSize: hp('3.5')}}>
+              style={{
+                ...globalStyles.globalTextStyles,
+                ...globalStyles.globalTextStyles3,
+                fontSize: hp('3.5'),
+              }}>
               {items?.title}
             </Text>
             <Text
@@ -131,8 +140,6 @@ const PackageDetailScreen = ({route, navigation}) => {
                 width: wp('95'),
                 fontWeight: '400',
                 ...globalStyles.globalTextStyles3,
-
-
               }}>
               {items?.description}
             </Text>
@@ -141,9 +148,11 @@ const PackageDetailScreen = ({route, navigation}) => {
             <Text style={styles.dateStyle}>{items?.end_date}</Text>
             <Text style={{...styles.packtxt}}>Country</Text>
             <Text
-              style={{...styles.boxText, width: wp('40'), textAlign: 'center',
-          ...globalStyles.globalTextStyles3,
-              
+              style={{
+                ...styles.boxText,
+                width: wp('40'),
+                textAlign: 'center',
+                ...globalStyles.globalTextStyles3,
               }}>
               {items?.get_country?.name}
             </Text>
@@ -171,44 +180,44 @@ const PackageDetailScreen = ({route, navigation}) => {
                 </View>
               </>
             )}
-            {/* <Text
-              style={{
-                ...styles.packtxt,
-                paddingBottom: hp('1'),
-              }}>
-              Price
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{...styles.boxText, fontSize: hp('2')}}>
-                ${items?.price} package
-              </Text>
-            </View> */}
-            {/* <View style={styles.priceMainContainer}>
-              <View>
-                <Text style={styles.pricetxt}>Price</Text>
-                <Text style={styles.packtxt}>${items?.price} package</Text>
-              </View>
-            </View> */}
+
             <TouchableOpacity
               onPress={() => navigation.navigate('CurrencyMethodScreen', items)}
               style={styles.boxNowContainer}>
               <Text style={styles.bookNowTxt}>Book Now (${items?.price})</Text>
             </TouchableOpacity>
-            <Divider style={{marginTop: hp('2'), height: hp('1')}} />
+            <Divider
+              style={{
+                width: wp('96'),
+                marginVertical: hp('1.5'),
+                height: hp('1'),
+              }}
+            />
+
+            {/* <TouchableOpacity  onPress={()=>Linking.openURL('https://www.google.com/maps/search/?api=1&query=47.5951518%2C-122.3316393&query_place_id=ChIJKxjxuaNqkFQR3CK6O1HNNqY')}>
+              <ImageBackground  source={require('../../images/mapimage.png')}  style={styles.mapContainer} resizeMode={'cover'} >
+            <Text style={{...globalStyles.globalTextStyles2,textAlign:'center'}}>Google Map</Text>
+
+              </ImageBackground>
+            </TouchableOpacity> */}
+            {/* <Divider
+              style={{width: wp('96'), marginTop: hp('2'), height: hp('1')}}
+            /> */}
+
             <CityImageComponent
-             component={  
-              <View style={styles.hotTextTouc}>
-                 <Lottie
-                   source={require('../../images/52717-fire.json')}
-                   autoPlay
-                   loop
-                   style={{
-                     marginBottom: hp('1'),
-                     width: wp('7'),
-                   }}
-                 />
-               
-             </View>}
+              component={
+                <View style={styles.hotTextTouc}>
+                  <Lottie
+                    source={require('../../images/52717-fire.json')}
+                    autoPlay
+                    loop
+                    style={{
+                      marginBottom: hp('1'),
+                      width: wp('7'),
+                    }}
+                  />
+                </View>
+              }
               navigate={navigateToPackage}
               ml={wp('0.1')}
               data={countryPicker}
