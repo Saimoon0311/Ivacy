@@ -5,12 +5,13 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {color} from '../../components/color';
-import { globalStyles } from '../../config/globalStyles';
+import {globalStyles} from '../../config/globalStyles';
 
 export const styles = StyleSheet.create({
   container: {
+    flex: 1,
     width: wp('100'),
-    height: hp('100'),
+    // height: hp('100'),
   },
   slidercontainer: {
     width: wp('100'),
@@ -36,7 +37,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: hp('1'),
     ...globalStyles.globalTextStyles3,
-
   },
   priceMainContainer: {
     marginTop: hp('2'),
@@ -66,7 +66,6 @@ export const styles = StyleSheet.create({
     color: color.white,
     fontWeight: 'bold',
     ...globalStyles.globalTextStyles3,
-
   },
   dateStyle: {
     width: wp('90'),
@@ -101,7 +100,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'black',
     marginLeft: wp('2'),
-    borderWidth:1,
+    borderWidth: 1,
     color: 'black',
   },
   hotTextTouc: {
@@ -117,19 +116,27 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     // padding: 10,
   },
-  mapContainer:{
-    justifyContent:'center',
-    height:hp('20'),
-    width:wp('96'),
-    shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 3,
-},
-shadowOpacity: 0.29,
-shadowRadius: 4.65,
+  mapContainer: {
+    justifyContent: 'center',
+    height: hp('20'),
+    width: wp('96'),
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
 
-elevation: 7,
+    elevation: 7,
   },
-  
+  mapViewText: {
+    textAlign: 'center',
+    fontSize: hp('2'),
+    fontWeight: '600',
+    width: wp('80'),
+    alignSelf: 'center',
+    marginTop: hp('-2'),
+    lineHeight: hp('3'),
+  },
 });

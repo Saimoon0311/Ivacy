@@ -7,7 +7,7 @@ import {
 import {View, Platform, StyleSheet, Image, Text, Pressable} from 'react-native';
 import {IMAGE_BASED_URL} from '../../config/Urls';
 import Lottie from 'lottie-react-native';
-import { globalStyles } from '../../config/globalStyles';
+import {globalStyles} from '../../config/globalStyles';
 
 export const FrontPackageCom = props => {
   let item = props.data;
@@ -27,15 +27,17 @@ export const FrontPackageCom = props => {
             flexDirection: 'row',
             marginBottom: hp('-0.4'),
             marginTop: hp('0.5'),
-          }}>
+          }}
+        >
           <Text style={{...styles.packageTitle}}>Title</Text>
           <Text
             numberOfLines={1}
             style={{
               ...styles.packageTitle,
-              width: wp('75'),
+              width: wp('61'),
               fontWeight: 'normal',
-            }}>
+            }}
+          >
             {item?.title}
           </Text>
         </View>
@@ -52,7 +54,8 @@ export const FrontPackageCom = props => {
               width: wp('15'),
               height: hp('9'),
               marginTop: hp('-2'),
-            }}>
+            }}
+          >
             <Lottie
               source={require('../../images/worldgif.json')}
               autoPlay
@@ -71,27 +74,31 @@ export const FrontPackageCom = props => {
           <Text
             style={{
               ...styles.packageTitle,
-            }}>
+            }}
+          >
             Date
           </Text>
           <Text
             style={{
               ...styles.packageTitle,
               fontWeight: 'normal',
-            }}>
+            }}
+          >
             {item?.from_date}
           </Text>
           <Text
             style={{
               ...styles.packageTitle,
-            }}>
+            }}
+          >
             To
           </Text>
           <Text
             style={{
               ...styles.packageTitle,
               fontWeight: 'normal',
-            }}>
+            }}
+          >
             {item?.end_date}
           </Text>
         </View>
@@ -109,7 +116,8 @@ export const placeholderView = () => {
         alignSelf: 'center',
         borderWidth: 1,
         borderColor: 'black',
-      }}>
+      }}
+    >
       <View style={{...styles.packageImage, backgroundColor: 'red'}} />
       <View
         style={{
@@ -156,12 +164,11 @@ const styles = StyleSheet.create({
   },
   packageImage: {width: wp('90'), height: hp('25'), borderRadius: 15},
   packageTitle: {
-    fontSize: hp('2'),
+    fontSize: hp('1.8'),
     color: 'black',
     fontWeight: 'bold',
     marginTop: hp('0.2'),
     marginLeft: wp('2'),
     ...globalStyles.globalTextStyles3,
-    
   },
 });

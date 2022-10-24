@@ -86,11 +86,7 @@ const PackageDetailScreen = ({route, navigation}) => {
   return (
     <SafeAreaView>
       {/* <SafeAreaView style={{marginTop: hp('-1.6')}}> */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: Platform.OS == 'ios' ? hp('55 ') : hp('50'),
-        }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <TouchableOpacity
             style={{
@@ -102,7 +98,7 @@ const PackageDetailScreen = ({route, navigation}) => {
             onPress={() => {
               navigation.goBack();
             }}>
-            <Ionicons name="arrow-back" color={'black'} size={hp('3')} />
+            <Ionicons name="arrow-back" color={'white'} size={hp('3')} />
           </TouchableOpacity>
           <SliderBox
             imageLoadingColor={color.textBackgroundColor}
@@ -193,16 +189,32 @@ const PackageDetailScreen = ({route, navigation}) => {
                 height: hp('1'),
               }}
             />
-
-            {/* <TouchableOpacity  onPress={()=>Linking.openURL('https://www.google.com/maps/search/?api=1&query=47.5951518%2C-122.3316393&query_place_id=ChIJKxjxuaNqkFQR3CK6O1HNNqY')}>
-              <ImageBackground  source={require('../../images/mapimage.png')}  style={styles.mapContainer} resizeMode={'cover'} >
-            <Text style={{...globalStyles.globalTextStyles2,textAlign:'center'}}>Google Map</Text>
-
+            <Text style={{...styles.packtxt, paddingBottom: hp('1')}}>
+              Meet Up Point
+            </Text>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  `https://www.google.com/maps/search/?api=1&query=${items?.latitude}%2C${items?.longitude}&query_place_id=${items?.place_id}`,
+                )
+              }>
+              <ImageBackground
+                source={require('../../images/mapimage.png')}
+                style={styles.mapContainer}
+                resizeMode={'cover'}
+                borderRadius={10}>
+                <Text
+                  style={{
+                    ...globalStyles.globalTextStyles2,
+                    ...styles.mapViewText,
+                  }}>
+                  {items?.meet_up_point}
+                </Text>
               </ImageBackground>
-            </TouchableOpacity> */}
-            {/* <Divider
+            </TouchableOpacity>
+            <Divider
               style={{width: wp('96'), marginTop: hp('2'), height: hp('1')}}
-            /> */}
+            />
 
             <CityImageComponent
               component={

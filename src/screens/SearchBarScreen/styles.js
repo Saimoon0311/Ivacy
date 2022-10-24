@@ -25,7 +25,6 @@ export const styles = StyleSheet.create({
     width: wp('100'),
     justifyContent: 'center',
     alignItems: 'center',
-
   },
   loadingText: {color: 'white', fontSize: hp('3'), fontWeight: 'bold'},
   inputView: {
@@ -62,7 +61,7 @@ export const styles = StyleSheet.create({
     marginLeft: wp('-9'),
   },
   activitiesContainer: {
-    width: wp('32'),
+    width: wp('31'),
     height: hp('6'),
     borderColor: 'black',
     borderWidth: 1,
@@ -78,7 +77,7 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     marginTop: hp('2'),
-    paddingHorizontal:wp('2')
+    paddingHorizontal: wp('2'),
   },
   dateContainer: {
     backgroundColor: '#E0E0E0',
