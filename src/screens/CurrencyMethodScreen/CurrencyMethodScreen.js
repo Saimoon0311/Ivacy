@@ -51,8 +51,11 @@ const CurrencyMethodScreen = ({route, navigation}) => {
   //   useMoralis();
   const {userData} = useSelector(state => state.userData);
   const item = route.params;
-  const {initPaymentSheet, presentPaymentSheet, retrievePaymentIntent} =
-    useStripe();
+  const {
+    initPaymentSheet,
+    presentPaymentSheet,
+    retrievePaymentIntent,
+  } = useStripe();
   const [stripeData, setStripeData] = useState({
     clientSecret: '',
     stripeValue: '',
@@ -171,7 +174,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         style={{
           justifyContent: 'center',
           alignItems: 'center',
-        }}>
+        }}
+      >
         <ActivityIndicator size={'large'} color="rgba(42,42,42,0.6)" />
       </View>
     );
@@ -225,7 +229,6 @@ const CurrencyMethodScreen = ({route, navigation}) => {
       body: raw,
       redirect: 'follow',
     };
-    // let url = 'https://api-m.sandbox.paypal.com/v1/oauth2/token'; // Test
     let url = 'https://api-m.paypal.com/v1/oauth2/token'; // live
     fetch(url, requestOptions)
       .then(response => response.json())
@@ -242,9 +245,6 @@ const CurrencyMethodScreen = ({route, navigation}) => {
   };
   //PAYPAL PAYMENT
   const startPayPalProcedureOne = token => {
-    // let currency = '100';
-    // currency.replace(' USD', '');
-    // {560nH!H
     console.log(247, token);
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -398,7 +398,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             updateLoadingState({isloading: false});
             updateLoadingState({bottomSheetLoading: true});
           }}
-          bottomSheetVisible={bottomSheet}>
+          bottomSheetVisible={bottomSheet}
+        >
           <ScrollView>
             {bottomSheetLoading ? (
               <SheetLoadingView />
@@ -420,7 +421,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
                   onPress={() => {
                     afterCryptoProcced();
                   }}
-                  style={styles.proccedView}>
+                  style={styles.proccedView}
+                >
                   <Text style={styles.proccedText}>Proceed</Text>
                 </TouchableOpacity>
               </View>
@@ -463,7 +465,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             animation="fadeInRightBig"
             direction={'normal'}
             delay={100}
-            style={styles.text2}>
+            style={styles.text2}
+          >
             Choose Payment Method
           </Animatable.Text>
         </View>
@@ -472,7 +475,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
           <Animatable.View
             animation="fadeInLeftBig"
             direction={'normal'}
-            delay={200}>
+            delay={200}
+          >
             <TouchableOpacity
               onPress={() => {
                 // errorMessage('This Feature is still on development.');
@@ -483,7 +487,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
                 setBottomSheet(true);
                 // navigation.navigate('EtherumPaynemtScreen', item);
               }}
-              style={styles.boxContainer}>
+              style={styles.boxContainer}
+            >
               <Text style={styles.text}>Crypto</Text>
               <Text style={styles.ethText}>(Ethereum)</Text>
               <Image
@@ -495,13 +500,15 @@ const CurrencyMethodScreen = ({route, navigation}) => {
           <Animatable.View
             animation="fadeInUpBig"
             direction={'normal'}
-            delay={300}>
+            delay={300}
+          >
             <TouchableOpacity
               onPress={() => {
                 updateLoadingState({isloading: true});
                 getPayPalToken();
               }}
-              style={styles.boxContainer}>
+              style={styles.boxContainer}
+            >
               <Text style={styles.text}>PayPal</Text>
               <Image
                 resizeMode="contain"
@@ -514,35 +521,7 @@ const CurrencyMethodScreen = ({route, navigation}) => {
         {/* {isAuthenticated && <Text>Welcome {user.get('username')}</Text>} */}
       </View>
       {bottomSheet && <BottomSheetView />}
-      {/* <Modal
-        animationType="slide"
-        onRequestClose={() => {
-          setWebView(false);
-        }}
-        visible={webView}>
-        <WebView
-          style={{
-            height: hp('100'),
-            width: wp('100'),
-            marginTop: Platform.OS == 'ios' ? hp('5') : hp('0'),
-          }}
-          source={{
-            uri: 'https://ivacay.co/api/meta-mask/1/3',
-          }}
-          // source={{
-          //   uri:
-          //     'https://ivacay.co/api/meta-mask/' +
-          //     item.id +
-          //     '/' +
-          //     userData.data.id,
-          // }}
-          onNavigationStateChange={_onNavigationStateChange}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          startInLoadingState={false}
-          // style={{marginTop: 20}}
-        />
-      </Modal> */}
+
       {approvalUrl && (
         <Modal
           animationType="slide"
@@ -550,7 +529,8 @@ const CurrencyMethodScreen = ({route, navigation}) => {
             // setIsVisible(false);
             updateState({isVisible: false});
           }}
-          visible={isVisible}>
+          visible={isVisible}
+        >
           <View style={styles.webViewColor}>
             <BackHeaderCom
               text={'PayPal Payment'}

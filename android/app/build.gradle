@@ -267,17 +267,19 @@ keyPassword MYAPP_RELEASE_KEY_PASSWORD
             }
 
         }
-    }
+    }   
 }
 
 dependencies {
-     implementation 'com.facebook.fresco:fresco:1.+'
+    //  implementation 'com.facebook.fresco:fresco:1.+'
     // For animated GIF support
     implementation 'com.facebook.fresco:animated-gif:1.+'
     // For WebP support, including animated WebP
     implementation 'com.facebook.fresco:animated-webp:1.+'
     implementation 'com.facebook.fresco:webpsupport:1.+' 
     implementation 'com.facebook.fresco:animated-gif:2.6.0'
+    implementation 'com.facebook.fresco:fresco:2.6.0'
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':react-native-restart')
     //noinspection GradleDynamicVersion

@@ -92,10 +92,16 @@ const HomeScreen = ({navigation}) => {
   const updatePackageState = data => {
     setAllPackage(prev => ({...prev, ...data}));
   };
-  const {latestPackage, getCountryData, favoredScenerie, activites} =
-    allPackage;
+  const {
+    latestPackage,
+    getCountryData,
+    favoredScenerie,
+    activites,
+  } = allPackage;
   const getPackage = () => {
     ApiGet(LatestPackageUrl, userData.access_token).then(res => {
+      console.log(2000, res);
+
       if (res.status == 200) {
         updatePackageState({latestPackage: res.json.data});
         updateLoadingState({latestPackageLoading: false});
@@ -174,7 +180,8 @@ const HomeScreen = ({navigation}) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: hp('5')}}>
+        contentContainerStyle={{paddingBottom: hp('5')}}
+      >
         <View
           style={{
             flexDirection: 'row',
@@ -182,7 +189,8 @@ const HomeScreen = ({navigation}) => {
             alignItems: 'center',
             width: wp('90'),
             alignSelf: 'center',
-          }}>
+          }}
+        >
           <Text
             style={{
               ...globalStyles.globalTextStyles,
@@ -191,7 +199,8 @@ const HomeScreen = ({navigation}) => {
               width: wp('80'),
 
               ...globalStyles.globalTextStyles3,
-            }}>
+            }}
+          >
             Your journey starts right here!
           </Text>
           <Image
@@ -213,7 +222,8 @@ const HomeScreen = ({navigation}) => {
             fontSize: hp('2.2'),
             marginLeft: wp('5'),
             ...globalStyles.globalTextStyles3,
-          }}>
+          }}
+        >
           Discover Places, Tours & Excursions
         </Text>
         <LatestPackageFlatlist
