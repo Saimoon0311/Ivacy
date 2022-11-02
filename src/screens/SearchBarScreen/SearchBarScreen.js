@@ -36,7 +36,6 @@ import moment from 'moment/moment';
 import {ActivityIndicator, Divider} from 'react-native-paper';
 
 export default function SearchBarScreen({navigation}) {
-
   const date = new Date();
   const time = date.setDate(date.getDate() + 1);
   const LatestDate = moment(time).format('YYYY-MM-DD');
@@ -87,7 +86,6 @@ export default function SearchBarScreen({navigation}) {
     activities: activities,
   };
 
-
   const selectActivities = (v, i) => {
     if (activities.includes(v)) {
       updateState({
@@ -103,7 +101,6 @@ export default function SearchBarScreen({navigation}) {
 
     setStartDate(new Date(e.nativeEvent.timestamp));
     setEndDate(new Date(e.nativeEvent.timestamp));
-
   };
   const upadateEndDate = e => {
     setIsDate2(false);
@@ -118,101 +115,106 @@ export default function SearchBarScreen({navigation}) {
   return (
     <View>
       <BackHeaderCom goBack={goBack} text="Filter Screen" />
-  {countryPicker.length > 0 &&  activity.length > 0 && favored.length > 0 ?<ScrollView contentContainerStyle={{paddingBottom: hp('13')}}>
-        {countryPicker.length > 0 ? (
-          <>
-            <Text
-              style={{
-                ...globalStyles.globalTextStyles,
-                fontSize: hp('2.5'),
-                marginLeft: wp('5'),
-                marginTop: hp('4'),
-              }}>
-              Search Your Place!
-            </Text>
-            <View
-              style={{
-                ...styles.pickerStyle,
-                borderColor:
-                  country_id != '' || country_id == null
-                    ? color.black
-                    : color.themeColorDark,
-              }}>
-              <Picker
-                mode="dialog"
-                selectedValue={country_id}
-                dropdownIconColor={'black'}
-                itemStyle={{color: 'black'}}
-                style={{color: 'black'}}
-                onValueChange={(country_id, index) => {
-                  seCountryName(countryPicker[index - 1].name);
-                  updateState({country_id});
-                }}
-                collapsable={true}>
-                <Picker.Item
-                  style={{color: color.themeColorDark}}
-                  key={null}
-                  value={null}
-                  label={'Select the Country Name'}
-                />
-                {countryPicker.map(res => {
-                  return (
-                    <Picker.Item key={res.id} value={res.id} label={res.name} />
-                  );
-                })}
-              </Picker>
-            </View>
-          </>
-        ) : (
-          null
-
-        )}
-        {favored.length > 0 ? (
-          <>
-            <Text
-              style={{
-                ...globalStyles.globalTextStyles,
-                fontSize: hp('2.5'),
-                marginLeft: wp('5'),
-                marginTop: hp('4'),
-              }}>
-              Search Your Favored Scenery!
-            </Text>
-            <View
-              style={{
-                ...styles.pickerStyle,
-                borderColor:
-                  favored_id != '' || favored_id == null
-                    ? color.black
-                    : color.themeColorDark,
-              }}>
-              <Picker
-                mode="dialog"
-                selectedValue={favored_id}
-                dropdownIconColor={'black'}
-                itemStyle={{color: 'black'}}
-                style={{color: 'black'}}
-                onValueChange={(favored_id, index) => {
-                  // seCountryName(countryPicker[index - 1].name);
-                  updateState({favored_id});
-                }}
-                collapsable={true}>
-                <Picker.Item
-                  style={{color: color.themeColorDark}}
-                  key={null}
-                  value={null}
-                  label={'Select the Country Name'}
-                />
-                {favored.map(res => {
-                  return (
-                    <Picker.Item key={res.id} value={res.id} label={res.name} />
-                  );
-                })}
-              </Picker>
-            </View>
-          </>
-        ) : (
-          // <SkypeIndicator
+      {countryPicker.length > 0 && activity.length > 0 && favored.length > 0 ? (
+        <ScrollView contentContainerStyle={{paddingBottom: hp('13')}}>
+          {countryPicker.length > 0 ? (
+            <>
+              <Text
+                style={{
+                  ...globalStyles.globalTextStyles,
+                  fontSize: hp('2.5'),
+                  marginLeft: wp('5'),
+                  marginTop: hp('4'),
+                }}>
+                Search Your Place!
+              </Text>
+              <View
+                style={{
+                  ...styles.pickerStyle,
+                  borderColor:
+                    country_id != '' || country_id == null
+                      ? color.black
+                      : color.themeColorDark,
+                }}>
+                <Picker
+                  mode="dialog"
+                  selectedValue={country_id}
+                  dropdownIconColor={'black'}
+                  itemStyle={{color: 'black'}}
+                  style={{color: 'black'}}
+                  onValueChange={(country_id, index) => {
+                    seCountryName(countryPicker[index - 1].name);
+                    updateState({country_id});
+                  }}
+                  collapsable={true}>
+                  <Picker.Item
+                    style={{color: color.themeColorDark}}
+                    key={null}
+                    value={null}
+                    label={'Select the Country Name'}
+                  />
+                  {countryPicker.map(res => {
+                    return (
+                      <Picker.Item
+                        key={res.id}
+                        value={res.id}
+                        label={res.name}
+                      />
+                    );
+                  })}
+                </Picker>
+              </View>
+            </>
+          ) : null}
+          {favored.length > 0 ? (
+            <>
+              <Text
+                style={{
+                  ...globalStyles.globalTextStyles,
+                  fontSize: hp('2.5'),
+                  marginLeft: wp('5'),
+                  marginTop: hp('4'),
+                }}>
+                Search Your Favored Scenery!
+              </Text>
+              <View
+                style={{
+                  ...styles.pickerStyle,
+                  borderColor:
+                    favored_id != '' || favored_id == null
+                      ? color.black
+                      : color.themeColorDark,
+                }}>
+                <Picker
+                  mode="dialog"
+                  selectedValue={favored_id}
+                  dropdownIconColor={'black'}
+                  itemStyle={{color: 'black'}}
+                  style={{color: 'black'}}
+                  onValueChange={(favored_id, index) => {
+                    // seCountryName(countryPicker[index - 1].name);
+                    updateState({favored_id});
+                  }}
+                  collapsable={true}>
+                  <Picker.Item
+                    style={{color: color.themeColorDark}}
+                    key={null}
+                    value={null}
+                    label={'Select the Favored Scenery'}
+                  />
+                  {favored.map(res => {
+                    return (
+                      <Picker.Item
+                        key={res.id}
+                        value={res.id}
+                        label={res.name}
+                      />
+                    );
+                  })}
+                </Picker>
+              </View>
+            </>
+          ) : // <SkypeIndicator
           //   color={color.textThirdColor}
           //   size={hp('6')}
           //   style={{
@@ -220,87 +222,104 @@ export default function SearchBarScreen({navigation}) {
           //     marginTop: hp('2'),
           //   }}
           // />
-          null
-        )}
-        <Text
-          style={{
-            ...globalStyles.globalTextStyles,
-            fontSize: hp('2.5'),
-            marginLeft: wp('5'),
-          }}>
-          Enter your Price!
-        </Text>
-        <TextInput
-          value={startPrice}
-          style={styles.inputField}
-          keyboardType="numeric"
-          onChangeText={startPrice => updateState({startPrice})}
-          placeholder="price"
-          placeholderTextColor={'gray'}
-        />
-        <Text
-          style={{
-            ...globalStyles.globalTextStyles,
-            fontSize: hp('2.5'),
-            marginLeft: wp('5'),
-          }}>
-          Select your Date Range!
-        </Text>
-
-       
-        <View style={styles.inputView}>
-          {isDate == true && Platform.OS == 'android' ? (
-            <DateTimePicker
-              testID="startDatePicker"
-              value={startDate}
-              mode={'date'}
-              minimumDate={date}
-              is24Hour={false}
-              display="default"
-              themeVariant="light"
-              style={styles.datePicker}
-              onChange={e => {
-                upadateStartDate(e);
-              }}
-              onTouchCancel={() => {
-                console.log(276), setIsDate(false);
-              }}
-            />
-          ) : Platform.OS == 'android' ? (
-            <TouchableOpacity
-              onPress={() => setIsDate(true)}
-              style={styles.dateContainer}>
-              <Text style={styles.dateText}>
-                {moment(startDate).format('YYYY-MM-DD')}
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <DateTimePicker
-              testID="startDatePicker"
-              value={startDate}
-              mode={'date'}
-              minimumDate={date}
-              is24Hour={false}
-              display="default"
-              themeVariant="light"
-              style={styles.datePicker}
-              onChange={e => {
-                upadateStartDate(e);
-              }}
-              onTouchCancel={() => {
-                console.log(276), setIsDate(false);
-              }}
-            />
-          )}
+          null}
           <Text
             style={{
               ...globalStyles.globalTextStyles,
-              fontSize: hp('2'),
+              fontSize: hp('2.5'),
+              marginLeft: wp('5'),
             }}>
-            - To -
+            Enter your Price!
           </Text>
-          {endDate != null && isDate2 == true && Platform.OS == 'android' ? (
-            <>
+          <TextInput
+            value={startPrice}
+            style={styles.inputField}
+            keyboardType="numeric"
+            onChangeText={startPrice => updateState({startPrice})}
+            placeholder="price"
+            placeholderTextColor={'gray'}
+          />
+          <Text
+            style={{
+              ...globalStyles.globalTextStyles,
+              fontSize: hp('2.5'),
+              marginLeft: wp('5'),
+            }}>
+            Select your Date Range!
+          </Text>
+
+          <View style={styles.inputView}>
+            {isDate == true && Platform.OS == 'android' ? (
+              <DateTimePicker
+                testID="startDatePicker"
+                value={startDate}
+                mode={'date'}
+                minimumDate={date}
+                is24Hour={false}
+                display="default"
+                themeVariant="light"
+                style={styles.datePicker}
+                onChange={e => {
+                  upadateStartDate(e);
+                }}
+                onTouchCancel={() => {
+                  console.log(276), setIsDate(false);
+                }}
+              />
+            ) : Platform.OS == 'android' ? (
+              <TouchableOpacity
+                onPress={() => setIsDate(true)}
+                style={styles.dateContainer}>
+                <Text style={styles.dateText}>
+                  {moment(startDate).format('YYYY-MM-DD')}
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <DateTimePicker
+                testID="startDatePicker"
+                value={startDate}
+                mode={'date'}
+                minimumDate={date}
+                is24Hour={false}
+                display="default"
+                themeVariant="light"
+                style={styles.datePicker}
+                onChange={e => {
+                  upadateStartDate(e);
+                }}
+                onTouchCancel={() => {
+                  console.log(276), setIsDate(false);
+                }}
+              />
+            )}
+            <Text
+              style={{
+                ...globalStyles.globalTextStyles,
+                fontSize: hp('2'),
+              }}>
+              - To -
+            </Text>
+            {endDate != null && isDate2 == true && Platform.OS == 'android' ? (
+              <>
+                <DateTimePicker
+                  testID="endDatePicker"
+                  value={endDate}
+                  mode={'date'}
+                  minimumDate={startDate}
+                  is24Hour={false}
+                  display="default"
+                  style={styles.datePicker}
+                  themeVariant="light"
+                  onChange={e => {
+                    upadateEndDate(e);
+                    // console.log(143, startDate), setIsDate(false);
+                  }}
+                  onTouchCancel={() => {
+                    console.log(276), setIsDate2(false);
+                  }}
+                />
+              </>
+            ) : endDate != null && Platform.OS == 'ios' ? (
               <DateTimePicker
                 testID="endDatePicker"
                 value={endDate}
@@ -315,124 +334,104 @@ export default function SearchBarScreen({navigation}) {
                   // console.log(143, startDate), setIsDate(false);
                 }}
                 onTouchCancel={() => {
-                  console.log(276), setIsDate2(false);
+                  console.log(276), setIsDate(false);
                 }}
               />
-            </>
-          ) : endDate != null && Platform.OS == 'ios' ? (
-            <DateTimePicker
-              testID="endDatePicker"
-              value={endDate}
-              mode={'date'}
-              minimumDate={startDate}
-              is24Hour={false}
-              display="default"
-              style={styles.datePicker}
-              themeVariant="light"
-              onChange={e => {
-                upadateEndDate(e);
-                // console.log(143, startDate), setIsDate(false);
-              }}
-              onTouchCancel={() => {
-                console.log(276), setIsDate(false);
-              }}
-            />
-          ) : endDate != null &&
-            isDate2 == false &&
-            Platform.OS == 'android' ? (
-            <TouchableOpacity
-              onPress={() => setIsDate2(true)}
-              style={styles.dateContainer}>
-              <Text style={styles.dateText}>
-                {moment(endDate).format('YYYY-MM-DD')}
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <View
+            ) : endDate != null &&
+              isDate2 == false &&
+              Platform.OS == 'android' ? (
+              <TouchableOpacity
+                onPress={() => setIsDate2(true)}
+                style={styles.dateContainer}>
+                <Text style={styles.dateText}>
+                  {moment(endDate).format('YYYY-MM-DD')}
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <View
+                style={{
+                  backgroundColor: '#E0E0E0',
+                  height: hp('4.5'),
+                  width: wp('33'),
+                  borderRadius: 8,
+                }}
+              />
+            )}
+          </View>
+          <View style={styles.activitiesMainView}>
+            <Text
               style={{
-                backgroundColor: '#E0E0E0',
-                height: hp('4.5'),
-                width: wp('33'),
-                borderRadius: 8,
-              }}
+                ...globalStyles.globalTextStyles,
+                fontSize: hp('2.5'),
+                marginLeft: wp('5'),
+                marginTop: hp('4'),
+                width: wp('100'),
+              }}>
+              Search Your Activities!
+            </Text>
+            {activity.length > 0
+              ? activity.map((res, i) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => selectActivities(res, i)}
+                      style={{
+                        ...styles.activitiesContainer,
+                        backgroundColor: activities.includes(res)
+                          ? color.lightPurple
+                          : 'white',
+                        borderColor: activities.includes(res)
+                          ? color.orderBoxColor
+                          : 'black',
+                        borderWidth: activities.includes(res) ? 2 : 1,
+                      }}>
+                      <Text
+                        style={{
+                          textAlign: 'center',
+                          color: activities.includes(res)
+                            ? color.orderBoxColor
+                            : 'black',
+                          fontWeight: activities.includes(res)
+                            ? 'bold'
+                            : 'normal',
+                        }}>
+                        {res?.name}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })
+              : null}
+          </View>
+
+          {isloading ? (
+            <SkypeIndicator
+              color={color.bottomBarColor}
+              size={hp('6')}
+              style={{marginTop: hp('3')}}
             />
-          )}
-        </View>
-        <View style={styles.activitiesMainView}>
-          <Text
-            style={{
-              ...globalStyles.globalTextStyles,
-              fontSize: hp('2.5'),
-              marginLeft: wp('5'),
-              marginTop: hp('4'),
-              width: wp('100'),
-            }}>
-            Search Your Activities!
-          </Text>
-          {activity.length > 0 ? (
-            activity.map((res, i) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => selectActivities(res, i)}
-                  style={{
-                    ...styles.activitiesContainer,
-                    backgroundColor: activities.includes(res)
-                      ? color.lightPurple
-                      : 'white',
-                    borderColor: activities.includes(res)
-                      ? color.orderBoxColor
-                      : 'black',
-                    borderWidth: activities.includes(res) ? 2 : 1,
-                  }}>
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                      color: activities.includes(res)
-                        ? color.orderBoxColor
-                        : 'black',
-                      fontWeight: activities.includes(res) ? 'bold' : 'normal',
-                    }}>
-                    {res?.name}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })
           ) : (
-            null
-            
+            <TouchableOpacity
+              onPress={() => {
+                country_id != null
+                  ? navigation.navigate('PackageScreen', {
+                      data: allstate,
+                      url: SearchFilterUrl,
+                    })
+                  : errorMessage('Please Select Country');
+              }}
+              style={styles.buttonView}>
+              <Text style={styles.buttonText}>Apply Filter</Text>
+            </TouchableOpacity>
           )}
-        </View>
-        
-        {isloading ? (
-          <SkypeIndicator
-            color={color.bottomBarColor}
-            size={hp('6')}
-            style={{marginTop: hp('3')}}
+        </ScrollView>
+      ) : (
+        <View style={styles.loadingView}>
+          <Image
+            resizeMode="contain"
+            source={require('../../images/walking.gif')}
+            style={{width: wp('50'), height: hp('20')}}
           />
-        ) : (
-          <TouchableOpacity
-            onPress={() => {
-              country_id != null
-                ? navigation.navigate('PackageScreen', {
-                    data: allstate,
-                    url: SearchFilterUrl,
-                  })
-                : errorMessage('Please Select Country');
-            }}
-            style={styles.buttonView}>
-            <Text style={styles.buttonText}>Apply Filter</Text>
-          </TouchableOpacity>
-        )}
-      </ScrollView>:
-       <View style={styles.loadingView}>
-       <Image 
-        resizeMode='contain'
-        source={require('../../images/walking.gif')}  
-        style={{width: wp('50'), height: hp('20') }}
-    />
-       
-    </View>
-      }
+        </View>
+      )}
     </View>
   );
 }
