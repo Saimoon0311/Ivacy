@@ -7,17 +7,18 @@ import {color} from '../../components/color';
 
 export const styles = StyleSheet.create({
   pickerStyle: {
-    width: Platform.OS == 'ios' ? wp('95') : wp('90'),
-    height: hp(Platform?.OS == 'ios' ? '20' : '6'),
+    width: wp('90'),
+    height: hp('6'),
     color: 'black',
     backgroundColor: 'transparent',
     alignSelf: 'center',
     overflow: 'hidden',
-    marginTop: Platform.OS == 'ios' ? hp('1') : hp('2'),
+    marginTop: hp('2'),
     borderRadius: 5,
-    borderWidth: Platform.OS == 'ios' ? 0 : 1,
+    borderWidth: 1,
     borderColor: 'black',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   loadingView: {
     // position: 'absolute',
@@ -44,6 +45,7 @@ export const styles = StyleSheet.create({
     textAlignVertical: 'center',
     marginBottom: hp('2'),
     alignSelf: 'center',
+    color: 'black',
   },
   buttonView: {
     backgroundColor: color.bottomBarColor,
@@ -61,7 +63,7 @@ export const styles = StyleSheet.create({
     marginLeft: wp('-9'),
   },
   activitiesContainer: {
-    width: wp('31'),
+    width: wp('30'),
     height: hp('6'),
     borderColor: 'black',
     borderWidth: 1,

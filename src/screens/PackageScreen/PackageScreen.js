@@ -19,6 +19,7 @@ import {color} from '../../components/color';
 import {useSelector} from 'react-redux';
 import {errorMessage} from '../../components/NotificationMessage';
 import {useCallback} from 'react';
+import moment from 'moment/moment';
 
 export default function PackageScreen({route, navigation}) {
   const wait = timeout => {
@@ -63,18 +64,21 @@ export default function PackageScreen({route, navigation}) {
     await getfilterFavourdIds(activities);
     let body = JSON.stringify({
       country_id: country_id,
-      from_date: startDate,
-      end_date: endDate,
+      from_date: moment(startDate).format('YYYY-MM-DD'),
+      end_date: moment(endDate).format('YYYY-MM-DD'),
       price: startPrice,
       favored: favored_id,
-      // activities: [20],
+      // activities: ['19', '56'],
+      activities: [],
       // activities: allActivitesId,
     });
+    console.log(73, body);
     ApiPost(url, body, false).then(res => {
       if (res.status == 200 || res.status == 404) {
         setAllPackage(res.json.data);
         setIsloading(false);
       } else {
+        console.log(78, res.json);
         setIsloading(false);
         errorMessage('Network Request Failed');
       }

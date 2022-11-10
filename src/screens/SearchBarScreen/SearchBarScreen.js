@@ -34,6 +34,7 @@ import {errorMessage} from '../../components/NotificationMessage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment/moment';
 import {ActivityIndicator, Divider} from 'react-native-paper';
+import {PickerModalComp} from '../../components/PickerModalComp/PickerModalComp';
 
 export default function SearchBarScreen({navigation}) {
   const date = new Date();
@@ -44,11 +45,14 @@ export default function SearchBarScreen({navigation}) {
   const [activity, setActivity] = useState([]);
   const [favored, setFavored] = useState([]);
   const [countryName, seCountryName] = useState('');
+  const [favordName, setFavordName] = useState('');
   const [isDate, setIsDate] = useState(false);
   const [isDate2, setIsDate2] = useState(false);
   const [startDate, setStartDate] = useState(new Date(time));
   const [endDate, setEndDate] = useState(null);
   const [dummy, setDummy] = useState(0);
+  const [countryPickerShow, setCountryPickerShow] = useState(false);
+  const [favordPickerShow, setFavordPickerShow] = useState(false);
   const [searchData, setSearchData] = useState({
     country_id: null,
     favored_id: null,
@@ -95,6 +99,16 @@ export default function SearchBarScreen({navigation}) {
       updateState({activities: [...activities, v]});
     }
   };
+  const selectValue = (res, index, state) => {
+    seCountryName(res.name);
+    updateState({country_id: res.id});
+    setCountryPickerShow(false);
+  };
+  const selectValueFvord = (res, index, state) => {
+    setFavordName(res.name);
+    updateState({favored_id: res.id});
+    setFavordPickerShow(false);
+  };
   const upadateStartDate = e => {
     let d = moment(e?.nativeEvent?.timestamp).format('YYYY-MM-DD');
     setIsDate(false);
@@ -114,59 +128,70 @@ export default function SearchBarScreen({navigation}) {
   }, []);
   return (
     <View>
+      <PickerModalComp
+        selectValues={(res, index) => selectValue(res, index, country_id)}
+        forHideModal={() => setCountryPickerShow(false)}
+        isVisible={countryPickerShow}
+        data={countryPicker}
+      />
+      <PickerModalComp
+        selectValues={(res, index) => selectValueFvord(res, index, favored_id)}
+        forHideModal={() => setFavordPickerShow(false)}
+        isVisible={favordPickerShow}
+        data={favored}
+      />
       <BackHeaderCom goBack={goBack} text="Filter Screen" />
       {countryPicker.length > 0 && activity.length > 0 && favored.length > 0 ? (
         <ScrollView contentContainerStyle={{paddingBottom: hp('13')}}>
-          {countryPicker.length > 0 ? (
-            <>
-              <Text
-                style={{
-                  ...globalStyles.globalTextStyles,
-                  fontSize: hp('2.5'),
-                  marginLeft: wp('5'),
-                  marginTop: hp('4'),
-                }}>
-                Search Your Place!
+          <>
+            <Text
+              style={{
+                ...globalStyles.globalTextStyles,
+                fontSize: hp('2.5'),
+                marginLeft: wp('5'),
+                marginTop: hp('4'),
+              }}>
+              Search Your Place!
+            </Text>
+            <TouchableOpacity
+              onPress={() => setCountryPickerShow(true)}
+              style={{
+                ...styles.pickerStyle,
+                borderColor:
+                  country_id != '' || country_id == null
+                    ? color.black
+                    : color.themeColorDark,
+              }}>
+              <Text style={{color: 'black', fontSize: hp('2')}}>
+                {countryName != '' ? countryName : 'Select the Country Name'}
               </Text>
-              <View
-                style={{
-                  ...styles.pickerStyle,
-                  borderColor:
-                    country_id != '' || country_id == null
-                      ? color.black
-                      : color.themeColorDark,
-                }}>
-                <Picker
-                  mode="dialog"
-                  selectedValue={country_id}
-                  dropdownIconColor={'black'}
-                  itemStyle={{color: 'black'}}
-                  style={{color: 'black'}}
-                  onValueChange={(country_id, index) => {
-                    seCountryName(countryPicker[index - 1].name);
-                    updateState({country_id});
-                  }}
-                  collapsable={true}>
-                  <Picker.Item
-                    style={{color: color.themeColorDark}}
-                    key={null}
-                    value={null}
-                    label={'Select the Country Name'}
-                  />
-                  {countryPicker.map(res => {
-                    return (
-                      <Picker.Item
-                        key={res.id}
-                        value={res.id}
-                        label={res.name}
-                      />
-                    );
-                  })}
-                </Picker>
-              </View>
-            </>
-          ) : null}
-          {favored.length > 0 ? (
+            </TouchableOpacity>
+          </>
+          <>
+            <Text
+              style={{
+                ...globalStyles.globalTextStyles,
+                fontSize: hp('2.5'),
+                marginLeft: wp('5'),
+                marginTop: hp('4'),
+              }}>
+              Search Your Favored Scenery!
+            </Text>
+            <TouchableOpacity
+              onPress={() => setFavordPickerShow(true)}
+              style={{
+                ...styles.pickerStyle,
+                borderColor:
+                  favored_id != '' || favored_id == null
+                    ? color.black
+                    : color.themeColorDark,
+              }}>
+              <Text style={{color: 'black', fontSize: hp('2')}}>
+                {favordName != '' ? favordName : 'Select the Favored Scenery'}
+              </Text>
+            </TouchableOpacity>
+          </>
+          {/* {favored.length > 0 ? (
             <>
               <Text
                 style={{
@@ -222,12 +247,14 @@ export default function SearchBarScreen({navigation}) {
           //     marginTop: hp('2'),
           //   }}
           // />
-          null}
+          null} */}
           <Text
             style={{
               ...globalStyles.globalTextStyles,
               fontSize: hp('2.5'),
               marginLeft: wp('5'),
+              marginTop: hp('4'),
+              marginBottom: hp('4'),
             }}>
             Enter your Price!
           </Text>
@@ -393,6 +420,7 @@ export default function SearchBarScreen({navigation}) {
                           fontWeight: activities.includes(res)
                             ? 'bold'
                             : 'normal',
+                          fontSize: hp('1.5'),
                         }}>
                         {res?.name}
                       </Text>
